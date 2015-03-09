@@ -1,8 +1,9 @@
-<% if @user.errors.any? %>
+<% if PageErrors.get.any? %>
 <div id="error_explanation">
   <ul>
-    <% @user.errors.full_messages.each do |msg| %>
+    <% PageErrors.get.each do |msg| %>
     <li><%= msg %></li>
     <% end %>
 </div>
+<% PageErrors.clear %>
 <% end %>

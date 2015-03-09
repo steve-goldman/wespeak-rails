@@ -2,6 +2,10 @@ class User < ActiveRecord::Base
 
   include Constants
 
+  # foreign key relationships
+
+  has_many :email_addresses
+
   # attr_accessors
 
   attr_accessor :email

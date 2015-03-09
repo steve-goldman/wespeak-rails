@@ -1,7 +1,8 @@
 module Constants
   class Lengths
-    USER_NAME_MAX = 50
-    PASSWORD_MIN  = 6
+    USER_NAME_MAX  = 50
+    PASSWORD_MIN   = 6
+    EMAIL_ADDR_MAX = 255
   end
 
   class Regex
