@@ -1,9 +1,10 @@
 <% if PageErrors.get.any? %>
-<div id="error_explanation">
-  <ul>
-    <% PageErrors.get.each do |msg| %>
-    <li><%= msg %></li>
-    <% end %>
-</div>
+  <div class="alert alert-danger">
+    <ul class="list-group">
+      <% PageErrors.get.each do |msg| %>
+      <li class="list-group-item"><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 <% PageErrors.clear %>
 <% end %>

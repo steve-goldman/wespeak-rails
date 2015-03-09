@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
 
+  def new
+    @user = User.new
+  end
+  
   def create
     @user = User.new(user_params)
     if @user.save
@@ -14,11 +18,11 @@ class UsersController < ApplicationController
       else
         @user.destroy
         PageErrors.add_errors email_address.errors.full_messages
-        render 'static_pages/home'
+        redirect_to root_url
       end
     else
       PageErrors.add_errors @user.errors.full_messages
-      render 'static_pages/home'
+      redirect_to root_url
     end
   end
 
