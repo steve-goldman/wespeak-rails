@@ -5,8 +5,13 @@
     </div>
     <div>
       <ul class="nav navbar-nav navbar-right">
+	<% if logged_in? %>
+	<li><a href='#'>Logged in: <%= current_user.name %></a></li>
+	<li><%= link_to "Logout", logout_path, method: "delete" %></li>
+	<% else %>
         <li><a href=<%= signup_path %>><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href=<%= login_path %>><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	<% end %>
       </ul>
     </div>
   </div>
