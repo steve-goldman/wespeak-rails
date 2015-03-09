@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
       # authenticate the user
       if email_address.user.authenticate(params[:session][:password])
         log_in email_address.user
+        params[:session][:remember_me] == '1' ?
+          remember(email_address.user) : forget(email_address.user)
         redirect_to request.referrer || root_url
       else
         flash.now[:danger] = 'bad password'
@@ -18,7 +20,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out
+    log_out if logged_in?
     redirect_to root_url
   end
 end

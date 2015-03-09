@@ -8,5 +8,13 @@
 <%= f.label :password %>
 <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
 
+<div class="checkbox">
+  <%= f.label :remember_me do %>
+  <%= f.check_box :remember_me %>
+  Remember me on this device
+  <% end %>
+
+</div>
+
 <%= f.submit "Log In", class: "btn btn-primary" %>
 <% end %>
