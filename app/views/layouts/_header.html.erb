@@ -1,11 +1,13 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<header class="navbar navbar-default">
   <div class="container">
-    <%= link_to "WeSpeak", '#', id: "logo" %>
-    <nav>
+    <div class="navbar-header">
+      <%= link_to "WeSpeak", '#', class: "navbar-brand" %>
+    </div>
+    <div>
       <ul class="nav navbar-nav navbar-right">
-	<li>Hello</li>
-	<li>Another</li>
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
-    </nav>
+    </div>
   </div>
 </header>
