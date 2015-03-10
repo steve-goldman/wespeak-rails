@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   
   resources :users
-  resources :email_address_activations, only: [:edit]
+  resources :email_address_activations, only: [:edit, :update]
 end

@@ -1,0 +1,16 @@
+<% provide(:title, "Email Address Activation") %>
+
+<h2>Email Address Activation</h2>
+
+<%= form_for(:activation, url: email_address_activation_path, method: "patch") do |f| %>
+
+<%= f.hidden_field :activation_token, value: @activation_token %>
+
+<%= f.hidden_field :email, value: @email %>
+
+<%= f.label :password %>
+<%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+
+<%= f.submit "Activate", class: "btn btn-primary" %>
+
+<% end %>
