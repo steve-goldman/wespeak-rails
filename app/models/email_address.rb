@@ -28,6 +28,10 @@ class EmailAddress < ActiveRecord::Base
   validates :user_id, presence: true
 
 
+  def authenticated?(activation_token)
+    BCrypt::Password.new(activation_digest).is_password?(activation_token)
+  end
+  
   private
 
   def downcase_email

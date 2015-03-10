@@ -1,0 +1,6 @@
+Hi <%= @user.name %>,
+
+Please click the following link to activate this email address.  If
+you did not request this activation, please ignore this message.
+
+<%= edit_email_address_activation_url(@email_address.activation_token, email: @email_address.email) %>

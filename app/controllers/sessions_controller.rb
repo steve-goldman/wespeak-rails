@@ -8,10 +8,15 @@ class SessionsController < ApplicationController
     else
       # authenticate the user
       if email_address.user.authenticate(params[:session][:password])
-        log_in email_address.user
-        params[:session][:remember_me] == '1' ?
-          remember(email_address.user) : forget(email_address.user)
-        redirect_to request.referrer || root_url
+        if email_address.activated?
+          log_in email_address.user
+          params[:session][:remember_me] == '1' ?
+            remember(email_address.user) : forget(email_address.user)
+          redirect_to request.referrer || root_url
+        else
+          flash[:warning] = "Email address not activated.  Check your email for the activation link."
+          redirect_to root_url
+        end
       else
         flash.now[:danger] = 'bad password'
         render 'new'

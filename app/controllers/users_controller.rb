@@ -13,6 +13,7 @@ class UsersController < ApplicationController
         # update the user record with the email address id
         @user.update_attribute(:primary_email_address_id, email_address.id)
         # this is success
+        UserMailer.email_address_activation(@user, email_address).deliver_now
         flash[:info] = "Please check your email to activate your account"
         redirect_to root_url
       else
