@@ -6,6 +6,10 @@ class EmailAddress < ActiveRecord::Base
 
   belongs_to :user
 
+
+  # before save stuff
+
+  before_save { self.email.downcase! }
   
   # validations
 

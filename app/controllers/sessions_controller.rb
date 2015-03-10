@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def create
     # find the email address
-    email_address = EmailAddress.find_by(email: params[:session][:email])
+    email_address = EmailAddress.find_by(email: params[:session][:email].downcase)
     if email_address.nil?
       flash.now[:danger] = 'bad email'
       render 'new'
