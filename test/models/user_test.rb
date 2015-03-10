@@ -5,7 +5,7 @@ class UserTest < ActiveSupport::TestCase
   include Constants
   
   def setup
-    @user = User.new(name: "Example User", primary_email: nil, password: "test123", password_confirmation: "test123")
+    @user = User.new(name: "Example User", primary_email_address_id: nil, password: "test123", password_confirmation: "test123")
   end
 
   test "should be valid" do

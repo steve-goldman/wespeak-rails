@@ -9,12 +9,34 @@ class EmailAddress < ActiveRecord::Base
 
   # before save stuff
 
-  before_save { self.email.downcase! }
+  before_save :downcase_email
+
+
+  # before create stuff
+
+  before_create :create_activation_digest
+
+
+  # attr accessors
+
+  attr_accessor :activation_token
   
   # validations
 
   validates :email, presence: true, length: { maximum: Lengths::EMAIL_ADDR_MAX }, format: { with: Regex::EMAIL }, uniqueness: true
 
   validates :user_id, presence: true
+
+
+  private
+
+  def downcase_email
+    self.email.downcase!
+  end
+
+  def create_activation_digest
+    self.activation_token = ApplicationHelper.new_token
+    self.activation_digest = ApplicationHelper.digest(activation_token)
+  end
   
 end

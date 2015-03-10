@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  primary_email: 1
+  primary_email_address_id: 1
 
 two:
   name: MyString
-  primary_email: 1
+  primary_email_address_id: 1
