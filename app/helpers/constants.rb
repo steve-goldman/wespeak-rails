@@ -12,7 +12,7 @@ module Constants
   class ExpirationTimes
     PASSWORD_RESET_EXPIRATION_HOURS = 2
     
-    def Times.password_reset_expiration
+    def ExpirationTimes.password_reset_expiration
       PASSWORD_RESET_EXPIRATION_HOURS.hours.ago
     end
   end
