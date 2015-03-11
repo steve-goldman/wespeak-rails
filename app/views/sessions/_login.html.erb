@@ -5,17 +5,18 @@
   <%= f.text_field :email, placeholder: "Email Address", class: "form-control" %>
 
   <%= f.label :password %>
-  <%= link_to "(forgot password)", new_password_reset_path, tabindex: -1 %>
   <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
 
 
   <div class="checkbox">
     <%= f.label :remember_me do %>
-    <%= f.check_box :remember_me %>
-    Remember me on this device
+      <%= f.check_box :remember_me %>
+      Remember me on this device
+  <span class="separator">|</span>
+  <%= link_to "Forgot password?", new_password_reset_path, tabindex: -1 %>
     <% end %>
-
   </div>
+  
 
   <%= f.submit "Log In", class: "btn btn-primary" %>
   <% end %>
