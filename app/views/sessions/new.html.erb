@@ -1,7 +1,11 @@
 <% provide(:title, "Log In") %>
 
 <% if !logged_in? %>
-  <%= render 'login' %>
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4 col-xs-12">
+      <%= render 'login' %>
+    </div>
+  </div>
 <% else %>
   <p>Please <%= link_to "Log out", logout_path, method: "delete" %> if you want to log in as a different user.</p>
 <% end %>
