@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  get    'settings' => 'settings/email_identities#index'
+  get    'settings' => 'settings/generals#show'
   
   resources :users
   resources :email_address_activations, only: [:edit, :update]
@@ -15,5 +15,6 @@ Rails.application.routes.draw do
 
   namespace :settings do
     resources :email_identities, only: [:index, :create, :destroy, :edit]
+    resource  :general,          only: [:show]
   end
 end
