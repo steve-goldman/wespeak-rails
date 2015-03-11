@@ -1,11 +1,19 @@
 <% provide(:title, "Forgot Password") %>
 <h2>Forgot Password</h2>
 
-<%= form_for(:password_reset, url: password_resets_path, method: "post") do |f| %>
+<% if !logged_in? %>
 
-<%= f.label :email %>
-<%= f.email_field :email, placeholder: "Email Address", class: "form-control" %>
+  <%= form_for(:password_reset, url: password_resets_path, method: "post") do |f| %>
 
-<%= f.submit "Submit", class: "btn btn-primary" %>
+  <%= f.label :email %>
+  <%= f.email_field :email, placeholder: "Email Address", class: "form-control" %>
+
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+
+  <% end %>
+
+<% else %>
+
+  <p>Please <%= link_to "Log out", logout_path, method: "delete" %> if you want to reset your password.</p>
 
 <% end %>
