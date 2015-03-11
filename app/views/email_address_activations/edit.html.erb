@@ -4,9 +4,9 @@
 
 <%= form_for(:activation, url: email_address_activation_path, method: "patch") do |f| %>
 
-<%= f.hidden_field :activation_token, value: @activation_token %>
+<%= hidden_field_tag :activation_token, @activation_token %>
 
-<%= f.hidden_field :email, value: @email %>
+<%= hidden_field_tag :email, @email %>
 
 <%= f.label :password %>
 <%= f.password_field :password, placeholder: "Password", class: "form-control" %>

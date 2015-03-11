@@ -6,7 +6,7 @@ class EmailAddressActivationsController < ApplicationController
   end
 
   def update
-    email = params[:activation][:email]
+    email = params[:email]
 
     email_address = EmailAddress.find_by(email: email)
     
@@ -16,7 +16,7 @@ class EmailAddressActivationsController < ApplicationController
       redirect_to root_url and return
     end
 
-    activation_token = params[:activation][:activation_token]
+    activation_token = params[:activation_token]
     
     # validate the password before giving anything else away
     if !email_address.user.authenticate(params[:activation][:password])
