@@ -1,5 +1,8 @@
 module Settings
   class EmailIdentitiesController < ApplicationController
+
+    include ActionView::Helpers::DateHelper
+    
     before_action :get_user,        only: [:index, :create, :destroy, :edit]
     before_action :user_logged_in,  only: [:index, :create, :destroy, :edit]
     before_action :same_user,       only: [:create]
