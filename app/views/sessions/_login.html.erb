@@ -5,7 +5,7 @@
   <%= f.text_field :email, placeholder: "Email Address", class: "form-control" %>
 
   <%= f.label :password %>
-  <%= link_to "(forgot password)", new_password_reset_path %>
+  <%= link_to "(forgot password)", new_password_reset_path, tabindex: -1 %>
   <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
 
 
