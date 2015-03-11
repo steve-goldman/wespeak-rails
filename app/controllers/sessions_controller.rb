@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
           log_in email_address.user
           params[:session][:remember_me] == '1' ?
             remember(email_address.user) : forget(email_address.user)
-          redirect_to request.referrer || root_url
+          redirect_to root_url
         else
           flash[:warning] = "Email address not activated.  Check your email for the activation link."
           redirect_to root_url
@@ -26,6 +26,6 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out if logged_in?
-    redirect_to root_url
+    redirect_to request.referrer || root_url
   end
 end

@@ -1,3 +1,8 @@
 <% provide(:title, 'Sign Up') %>
 
-<%= render 'signup' %>
+<% if !logged_in? %>
+  <%= render 'signup' %>
+<% else %>
+  <p>Please <%= link_to "Log out", logout_path, method: "delete" %> if you want to sign up as a new user</p>
+<% end %>
+

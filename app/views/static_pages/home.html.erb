@@ -18,8 +18,10 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-4">
-    <%= render 'users/signup' %>
-    <%= render 'sessions/login' %>
-  </div>
+  <% if !logged_in? %>
+    <div class="col-xs-4">
+      <%= render 'users/signup' %>
+      <%= render 'sessions/login' %>
+    </div>
+  <% end %>
 </div>
