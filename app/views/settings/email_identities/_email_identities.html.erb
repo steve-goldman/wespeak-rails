@@ -23,16 +23,16 @@
           <% if is_primary %>
             <span class="glyphicon glyphicon-ok"></span>
           <% else %>
-            <span class="glyphicon glyphicon-remove"></span>
+            <%= link_to "Make Primary", edit_settings_email_identity_path(id: email_address.id) %>
           <% end %>
         </td>
         <td>
-          <% if is_primary %>
-            <a href="#" disabled='true'>
-          <% else %>
-            <a href="#">
+          <% if !is_primary %>
+            <% warning = "Are you sure you want to delete " + email_address.email + "?" %>
+            <%= link_to settings_email_identity_path(id: email_address.id), method: :delete, data: { confirm: warning } do %>
+              <i class="glyphicon glyphicon-trash"></i>
+            <% end %>
           <% end %>
-          <span class="glyphicon glyphicon-trash"></span></a>
         </td>
       </tr>
     <% end %>
