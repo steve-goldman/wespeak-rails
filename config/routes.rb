@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   
   resources :users
   resources :email_address_activations, only: [:edit, :update]
+  resources :password_resets,           only: [:new, :create, :edit, :update]
 end

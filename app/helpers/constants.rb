@@ -8,4 +8,13 @@ module Constants
   class Regex
     EMAIL = VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   end
+
+  class ExpirationTimes
+    PASSWORD_RESET_EXPIRATION_HOURS = 2
+    
+    def Times.password_reset_expiration
+      PASSWORD_RESET_EXPIRATION_HOURS.hours.ago
+    end
+  end
+  
 end

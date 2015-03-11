@@ -1,0 +1,19 @@
+<% provide(:title, "Password Reset") %>
+
+<h2>Password Reset</h2>
+
+<%= form_for(:password_reset, url: password_reset_path, method: "patch") do |f| %>
+
+<%= hidden_field_tag :password_reset_token, @password_reset_token %>
+
+<%= hidden_field_tag :email, @email %>
+
+<%= f.label :password %>
+<%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+
+<%= f.label :password_confirmation, "Re-enter Password" %>
+<%= f.password_field :password_confirmation, placeholder: "Re-enter Password", class: "form-control" %>
+
+<%= f.submit "Update Password", class: "btn btn-primary" %>
+
+<% end %>

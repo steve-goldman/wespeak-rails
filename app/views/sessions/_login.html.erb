@@ -6,7 +6,9 @@
 <%= f.text_field :email, placeholder: "Email Address", class: "form-control" %>
 
 <%= f.label :password %>
+<%= link_to "(forgot password)", new_password_reset_path %>
 <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+
 
 <div class="checkbox">
   <%= f.label :remember_me do %>

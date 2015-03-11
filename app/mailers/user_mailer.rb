@@ -1,5 +1,7 @@
 class UserMailer < ApplicationMailer
 
+  add_template_helper(Constants)
+  
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -17,9 +19,10 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.password_reset.subject
   #
-  def password_reset
-    @greeting = "Hi"
-
-    mail to: "to@example.org"
+  def password_reset(user, email)
+    @user = user
+    @email = email
+    
+    mail to: email, subject: "WeSpeak password reset"
   end
 end
