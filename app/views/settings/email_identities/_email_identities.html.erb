@@ -41,9 +41,13 @@
 
 <%= form_for(:new_identity, url: settings_email_identities_path) do |f| %>
 
-<%= f.label :email, "Add an Email Address" %>
-<%= hidden_field_tag :user_id, @user.id %>
-<%= f.text_field :email, placeholder: "Email Address", class: "form-control" %>
-
-<%= f.submit "Submit", class: "btn btn-primary" %>
-<% end %>
+<div class="row">
+  <div class="col-md-4 col-xs-12">
+    <%= f.label :email, "Add an Email Address" %>
+    <%= hidden_field_tag :user_id, @user.id %>
+    <%= f.text_field :email, placeholder: "Email Address", class: "form-control" %>
+    
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
