@@ -1,6 +1,4 @@
 <ul class="nav nav-pills nav-stacked">
-  <li class="active"><a href="#">Email Identities</a></li>
-  <li><a href="#">Another Setting</a></li>
-  <li><a href="#">Another Setting</a></li>
-  <li><a href="#">Another Setting</a></li>
+  <%= content_tag(:li, link_to("General",          "#"),                            class: (yield(:active_tab) == "general"          ? "active" : "inactive")) %>
+  <%= content_tag(:li, link_to("Email Identities", settings_email_identities_path), class: (yield(:active_tab) == "email_identities" ? "active" : "inactive")) %>
 </ul>
