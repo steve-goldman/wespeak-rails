@@ -1,0 +1,49 @@
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Active Since</th>
+      <th>Primary</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.email_addresses.each do |email_address| %>
+    <% is_primary = email_address.id == @user.primary_email_address_id %>
+      <tr>
+        <td><%= email_address.email %></td>
+        <td>
+          <% if email_address.activated? %>
+            <%= email_address.activated_at %>
+          <% else %>
+            Not Activated
+          <% end %>
+        </td>
+        <td>
+          <% if is_primary %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+        </td>
+        <td>
+          <% if is_primary %>
+            <a href="#" disabled='true'>
+          <% else %>
+            <a href="#">
+          <% end %>
+          <span class="glyphicon glyphicon-trash"></span></a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= form_for(:new_identity, url: settings_email_identities_path) do |f| %>
+
+<%= f.label :email, "Add an Email Address" %>
+<%= hidden_field_tag :user_id, @user.id %>
+<%= f.text_field :email, placeholder: "Email Address", class: "form-control" %>
+
+<%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

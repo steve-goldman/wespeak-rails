@@ -28,7 +28,7 @@ class EmailAddressActivationsController < ApplicationController
       email_address.update_attributes({ activated: true, activated_at: Time.zone.now })
       log_in email_address.user
       flash[:success] = "Email address activated!"
-      redirect_to root_url
+      redirect_to settings_email_identities_path
     else
       flash[:danger] = "Invalid activation link"
       redirect_to root_url
