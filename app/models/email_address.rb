@@ -1,5 +1,6 @@
 class EmailAddress < ActiveRecord::Base
 
+  include ApplicationHelper
   include Constants
 
   # foreign key

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+  include ApplicationHelper
   include Constants
 
   # foreign key relationships
