@@ -24,7 +24,10 @@ class EmailAddress < ActiveRecord::Base
   
   # validations
 
-  validates :email, presence: true, length: { maximum: Lengths::EMAIL_ADDR_MAX }, format: { with: Regex::EMAIL }, uniqueness: true
+  validates :email, { presence: true,
+                      length: { maximum: Lengths::EMAIL_ADDR_MAX },
+                      format: { with: Regex::EMAIL },
+                      uniqueness: { case_sensitive: false } }
 
   validates :user_id, presence: true
 
