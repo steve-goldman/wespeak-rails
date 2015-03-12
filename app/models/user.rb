@@ -20,7 +20,9 @@ class User < ActiveRecord::Base
   
   # validations
 
-  validates :name, presence: true, length: { maximum: Lengths::USER_NAME_MAX }, uniqueness: true
+  validates :name, { presence: true,
+                     length: { maximum: Lengths::USER_NAME_MAX },
+                     uniqueness: { case_sensitive: false } }
 
   validates :password, length: { minimum: Lengths::PASSWORD_MIN }
 
