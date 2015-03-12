@@ -39,8 +39,8 @@ class EmailAddress < ActiveRecord::Base
   end
 
   def create_activation_digest
-    self.activation_token = ApplicationHelper.new_token
-    self.activation_digest = ApplicationHelper.digest(activation_token)
+    self.activation_token = new_token
+    self.activation_digest = digest(activation_token)
   end
   
 end

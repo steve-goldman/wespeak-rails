@@ -5,14 +5,14 @@ class UserMailerPreview < ActionMailer::Preview
   def email_address_activation
     user = User.first
     email_address = EmailAddress.find_by(id: user.primary_email_address_id)
-    email_address.activation_token = ApplicationHelper.new_token
+    email_address.activation_token = new_token
     UserMailer.email_address_activation(user, email_address)
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/user_mailer/password_reset
   def password_reset
     user = User.first
-    user.password_reset_token = ApplicationHelper.new_token
+    user.password_reset_token = new_token
     email = EmailAddress.find_by(id: user.primary_email_address_id).email
     UserMailer.password_reset(user, email)
   end

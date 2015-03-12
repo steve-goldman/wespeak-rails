@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: Lengths::PASSWORD_MIN }
 
   def remember
-    self.remember_token = ApplicationHelper.new_token
-    update_attribute(:remember_digest, ApplicationHelper.digest(remember_token))
+    self.remember_token = new_token
+    update_attribute(:remember_digest, digest(remember_token))
   end
 
   def remember_authenticated?(remember_token)
@@ -43,8 +43,8 @@ class User < ActiveRecord::Base
   end
 
   def create_password_reset_digest
-    self.password_reset_token = ApplicationHelper.new_token
-    update_attribute(:password_reset_digest, ApplicationHelper.digest(password_reset_token))
+    self.password_reset_token = new_token
+    update_attribute(:password_reset_digest, digest(password_reset_token))
     update_attribute(:password_reset_sent_at, Time.zone.now)
   end
 
