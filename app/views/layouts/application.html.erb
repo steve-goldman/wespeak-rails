@@ -12,11 +12,17 @@
     <%= render 'layouts/header' %>
       
       <div class="container">
-        <% flash.each do |message_type, message| %>
-          <div class="alert alert-<%= message_type %>"><%= message %></div>
-        <% end %>
-      
-        <%= render 'shared/error_messages' %>
+        <div class="row">
+          <div class="col-md-offset-4 col-md-4 col-xs-12">
+            <% flash.each do |message_type, message| %>
+              <div class="alert alert-<%= message_type %>"><%= message %></div>
+            <% end %>
+            <% PageErrors.get.each do |message| %>
+              <div class="alert alert-danger"><%= message %></div>
+            <% end %>
+            <% PageErrors.clear %>
+          </div>
+        </div>
         <%= yield %>
         <%= render 'layouts/footer' %>
         <%= debug(params) if Rails.env.development? %>
