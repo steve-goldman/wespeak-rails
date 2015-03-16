@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :password_resets,           only: [:new, :create, :edit, :update]
 
   namespace :settings do
-    resource  :general,          only: [:show]
+    resource  :general,          only: [:show, :update]
     resources :email_identities, only: [:index, :create, :destroy, :edit]
     resource  :notifications,    only: [:show]
   end

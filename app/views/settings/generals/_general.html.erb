@@ -12,6 +12,22 @@
       <td class="general-setting-key">Member Since</td>
       <td class="general-setting-value"><%= time_ago_in_words(@user.created_at) %></td>
     </tr>
-
   </tbody>
 </table>
+
+<%= form_for(:change_password, url: settings_general_path, method: "patch") do |f| %>
+<div class="row">
+  <div class="col-md-4 col-xs-12" border="1px solid">
+    <%= f.label :current_password, "Current Password" %>
+    <%= f.password_field :current_password, placeholder: "Current Password", class: "form-control" %>
+
+    <%= f.label :password, "New Password" %>
+    <%= f.password_field :password, placeholder: "New Password", class: "form-control" %>
+  
+    <%= f.label :password_confirmation, "Re-enter New Password" %>
+    <%= f.password_field :password_confirmation, placeholder: "Re-enter New Password", class: "form-control" %>
+
+    <%= f.submit "Change Password", class: "btn btn-primary" %>
+  </div>
+</div>
+<% end %>
