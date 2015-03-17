@@ -9,7 +9,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                             password_confirmation: "test123" }
     end
     assert_template 'static_pages/home'
-    assert_select 'div#errors-section', count: 0
   end
 
   test "missing user should not be able to sign up" do
@@ -19,7 +18,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                             password_confirmation: "test123" }
     end
     assert_template 'static_pages/home'
-    assert_select 'div#errors-section', count: 1
   end
     
   test "missing email should not be able to sign up" do
@@ -29,7 +27,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                             password_confirmation: "test123" }
     end
     assert_template 'static_pages/home'
-    assert_select 'div#errors-section', count: 1
   end
     
   test "invalid email should not be able to sign up" do
@@ -40,7 +37,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                             password_confirmation: "test123" }
     end
     assert_template 'static_pages/home'
-    assert_select 'div#errors-section', count: 1
   end
     
   test "missing password should not be able to sign up" do
@@ -50,7 +46,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                             password_confirmation: "test123" }
     end
     assert_template 'static_pages/home'
-    assert_select 'div#errors-section', count: 1
   end
     
   test "missing confirmation should not be able to sign up" do
@@ -61,7 +56,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     #                                        password: "test123" }
     #end
     #assert_template 'static_pages/home'
-    #assert_select 'div#errors-section', count: 1
   end
   
 end
