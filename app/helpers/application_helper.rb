@@ -47,6 +47,11 @@ module ApplicationHelper
     end
   end
 
+  def redirect_with_validation_flash(object, link)
+    put_validation_flash(object)
+    redirect_to link
+  end
+
   def put_validation_flash_now(object)
     object.validation_keys.each do |key|
       if !object.errors.messages[key].nil?
@@ -56,4 +61,8 @@ module ApplicationHelper
     end
   end
 
+  def render_with_validation_flash(object, render_options)
+    put_validation_flash_now(object)
+    render render_options
+  end
 end
