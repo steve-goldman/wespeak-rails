@@ -38,8 +38,9 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
     assert_redirected_with_flash [FlashMessages::TOKEN_INVALID], root_url
   end
 
-  test "successful submission should log in and redirect to settings/email_identities" do
+  test "successful submission should activate, log in, and redirect to settings/email_identities" do
     submit_update @email_address.activation_token, @email_address.email, @user.password
+    assert @email_address.reload.activated?, "email address should be activated"
     assert_logged_in_as @user
     assert_redirected_with_flash [FlashMessages::SUCCESS], settings_email_identities_path
   end
