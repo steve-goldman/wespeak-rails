@@ -26,12 +26,11 @@ class EmailAddressActivationsController < ApplicationController
   end
 
   def email_present
-    @email = params[:email]
-    redirect_with_flash(FlashMessages::EMAIL_MISSING, root_url) if @email.nil?
+    redirect_with_flash(FlashMessages::EMAIL_MISSING, root_url) if params[:email].nil?
   end
 
   def email_valid
-    @email_address = EmailAddress.find_by(email: @email)
+    @email_address = EmailAddress.find_by(email: params[:email])
     redirect_with_flash(FlashMessages::EMAIL_UNKNOWN, root_url) if @email_address.nil?
   end
 
