@@ -70,6 +70,12 @@ class User < ActiveRecord::Base
   def send_password_reset_email(email)
     UserMailer.password_reset(self, email).deliver_now
   end
+
+  def update_password(password, password_confirmation)
+    return self.update_attributes(password: password,
+                                  password_confirmation: password_confirmation,
+                                  password_reset_sent_at: Time.zone.now - ExpirationTimes.password_reset_expiration)
+  end
   
   def password_reset_expired?
     password_reset_sent_at < ExpirationTimes.password_reset_expiration
