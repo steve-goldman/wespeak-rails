@@ -11,4 +11,8 @@ class FlashMessage
   def message
     @message
   end
+
+  def to_s
+    "#{@level}: #{@message}"
+  end
 end
