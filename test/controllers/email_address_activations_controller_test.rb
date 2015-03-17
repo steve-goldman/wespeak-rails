@@ -32,6 +32,11 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
     assert_redirected_with_flash [FlashMessages::EMAIL_ALREADY_ACTIVE], root_url
   end
 
+  test "valid params should render edit" do
+    get_edit @email_address.activation_token, @email_address.email
+    assert_template :edit
+  end
+
   #
   # update tests
   #
