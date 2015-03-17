@@ -11,6 +11,10 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
     @email_address.save!
   end
 
+  #
+  # edit tests
+  #
+  
   test "missing email should redirect to root" do
     get_edit @email_address.activation_token, nil
     assert_redirected_with_flash [FlashMessages::EMAIL_MISSING], root_url
@@ -28,6 +32,10 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
     assert_redirected_with_flash [FlashMessages::EMAIL_ALREADY_ACTIVE], root_url
   end
 
+  #
+  # update tests
+  #
+  
   test "incorrect token should redirect to root" do
     submit_update "wrong-token", @email_address.email, @user.password
     assert_redirected_with_flash [FlashMessages::TOKEN_INVALID], root_url
