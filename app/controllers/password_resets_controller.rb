@@ -47,7 +47,7 @@ class PasswordResetsController < ApplicationController
       redirect_to root_url and return
     end
 
-    PageErrors.add_errors @email_address.user.errors.full_messages
+    put_validation_flash(@email_address)
     redirect_to action: "edit", password_reset_token: params[:password_reset_token], email: params[:email] and return
   end
 

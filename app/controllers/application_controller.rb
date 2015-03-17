@@ -5,6 +5,4 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
   
-  include PageErrors
-
 end

@@ -14,7 +14,7 @@ class Settings::GeneralsController < ApplicationController
     elsif params[:change_password][:password].blank?
       put_flash(FlashMessages::BLANK_PASSWORD)
     elsif !@user.update_attributes(change_password_params)
-      PageErrors.add_errors @user.errors.full_messages
+      put_validation_flash(@user)
     else
       put_flash(FlashMessages::SUCCESS)
     end

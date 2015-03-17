@@ -16,5 +16,7 @@ module Constants
       PASSWORD_RESET_EXPIRATION_HOURS.hours.ago
     end
   end
+
+  VALIDATION_FLASH_LEVEL = :danger
   
 end

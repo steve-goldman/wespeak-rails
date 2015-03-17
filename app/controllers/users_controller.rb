@@ -20,11 +20,11 @@ class UsersController < ApplicationController
         redirect_to root_url
       else
         @user.destroy
-        PageErrors.add_errors email_address.errors.full_messages
+        put_validation_flash(email_address)
         redirect_to root_url
       end
     else
-      PageErrors.add_errors @user.errors.full_messages
+      put_validation_flash(@user)
       redirect_to root_url
     end
   end

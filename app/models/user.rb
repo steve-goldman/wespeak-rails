@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
 
   include ApplicationHelper
+
+  include UsersHelper
+
   include Constants
 
   # foreign key relationships
@@ -15,17 +18,30 @@ class User < ActiveRecord::Base
 
   # password stuff
 
-  has_secure_password
+  has_secure_password validations: false
 
   
   # validations
 
-  validates :name, { presence: true,
-                     length: { maximum: Lengths::USER_NAME_MAX },
-                     uniqueness: { case_sensitive: false } }
+  def validation_keys
+    [:name, :password, :password_confirmation]
+  end
 
-  validates :password, length: { minimum: Lengths::PASSWORD_MIN }
+  validates :name, { presence:   { message: ValidationMessages::NAME_NOT_PRESENT.message },
+                     length:     { message: ValidationMessages::NAME_TOO_LONG.message,
+                                   maximum: Lengths::USER_NAME_MAX },
+                     uniqueness: { message: ValidationMessages::NAME_TAKEN.message,
+                                   case_sensitive: false } }
 
+  validates :password, { presence:     { message: ValidationMessages::PASSWORD_NOT_PRESENT.message },
+                         length:       { message: ValidationMessages::PASSWORD_TOO_SHORT.message,
+                                         minimum: Lengths::PASSWORD_MIN,
+                                         maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED } }
+
+  validates :password_confirmation, presence: { message: ValidationMessages::PASSWORD_CONFIRMATION_NOT_PRESENT.message }
+
+  validates :password, confirmation: { message: ValidationMessages::PASSWORD_CONFIRMATION_MISMATCH.message }
+  
   def remember
     self.remember_token = new_token
     update_attribute(:remember_digest, digest(remember_token))

@@ -1,6 +1,9 @@
 class EmailAddress < ActiveRecord::Base
 
   include ApplicationHelper
+
+  include UsersHelper
+
   include Constants
 
   # foreign key
@@ -24,12 +27,19 @@ class EmailAddress < ActiveRecord::Base
   
   # validations
 
-  validates :email, { presence: true,
-                      length: { maximum: Lengths::EMAIL_ADDR_MAX },
-                      format: { with: Regex::EMAIL },
-                      uniqueness: { case_sensitive: false } }
+  def validation_keys
+    [:email, :user_id]
+  end
 
-  validates :user_id, presence: true
+  validates :email, { presence:   { message: ValidationMessages::EMAIL_NOT_PRESENT.message },
+                      length:     { message: ValidationMessages::EMAIL_TOO_LONG.message,
+                                    maximum: Lengths::EMAIL_ADDR_MAX },
+                      format:     { message: ValidationMessages::EMAIL_FORMATTING.message,
+                                    with: Regex::EMAIL },
+                      uniqueness: { message: ValidationMessages::EMAIL_TAKEN.message,
+                                    case_sensitive: false } }
+
+  validates :user_id, presence: { message: ValidationMessages::EMAIL_MISSING_USER_ID }
 
 
   def authenticated?(activation_token)

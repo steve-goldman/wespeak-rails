@@ -28,7 +28,7 @@ module Settings
         UserMailer.email_address_activation(@user, email_address).deliver_now
         put_flash(FlashMessages::EMAIL_SENT)
       else
-        PageErrors.add_errors email_address.errors.full_messages
+        put_validation_flash(email_address)
       end
       redirect_to settings_email_identities_path
     end
