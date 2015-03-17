@@ -9,6 +9,7 @@ module EmailAddressActivationsHelper
     EMAIL_UNKNOWN        = FlashMessage.new(:danger,  "Invalid activation link: unknown email address")
     EMAIL_ALREADY_ACTIVE = FlashMessage.new(:warning, "This email address is already active")
     TOKEN_INVALID        = FlashMessage.new(:danger,  "Invalid activation link: bad token")
+    PASSWORD_MISSING     = FlashMessage.new(:danger,  "Password missing")
     PASSWORD_INCORRECT   = FlashMessage.new(:danger,  "Incorrect password")
   end
 

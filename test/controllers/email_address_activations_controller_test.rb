@@ -28,14 +28,19 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
     assert_redirected_with_flash [FlashMessages::EMAIL_ALREADY_ACTIVE], root_url
   end
 
-  test "incorrect password should render edit" do
-    submit_update @email_address.activation_token, @email_address.email, "wrong-password"
-    assert_rendered_with_flash [FlashMessages::PASSWORD_INCORRECT], :edit
-  end
-
   test "incorrect token should redirect to root" do
     submit_update "wrong-token", @email_address.email, @user.password
     assert_redirected_with_flash [FlashMessages::TOKEN_INVALID], root_url
+  end
+
+  test "missing password should render edit" do
+    submit_update @email_address.activation_token, @email_address.email, nil
+    assert_rendered_with_flash [FlashMessages::PASSWORD_MISSING], :edit
+  end
+
+  test "incorrect password should render edit" do
+    submit_update @email_address.activation_token, @email_address.email, "wrong-password"
+    assert_rendered_with_flash [FlashMessages::PASSWORD_INCORRECT], :edit
   end
 
   test "successful submission should activate, log in, and redirect to settings/email_identities" do
