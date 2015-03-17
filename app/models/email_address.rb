@@ -39,7 +39,7 @@ class EmailAddress < ActiveRecord::Base
                       uniqueness: { message: ValidationMessages::EMAIL_TAKEN.message,
                                     case_sensitive: false } }
 
-  validates :user_id, presence: { message: ValidationMessages::EMAIL_MISSING_USER_ID }
+  validates :user_id, presence: { message: ValidationMessages::EMAIL_MISSING_USER_ID.message }
 
 
   def authenticated?(activation_token)
