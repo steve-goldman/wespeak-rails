@@ -14,10 +14,18 @@ class ActiveSupport::TestCase
   include SessionsHelper
 
   def assert_flash(flash_messages)
+    fclone = flash.clone
     flash_messages.each do |flash_message|
-      assert !flash[flash_message.level].nil? && flash[flash_message.level].include?(flash_message.message),
-             "[#{flash_message.level}: '#{flash_message.message}'] not found in flash"
+      assert !flash[flash_message.level].nil? && !(index = flash[flash_message.level].index(flash_message.message)).nil?,
+             "[#{flash_message}] not found in flash"
+      fclone[flash_message.level].delete_at(index)
+      fclone.delete(flash_message.level) if flash[flash_message.level].empty?
     end
+
+    unexpected_messages = []
+    fclone.each { |message_type, message| unexpected_messages << FlashMessage.new(message_type, message).to_s }
+    
+    assert unexpected_messages.empty?, "Flash contains unexpected messages: " + unexpected_messages.join(",")
   end
   
   def assert_redirected_with_flash(flash_messages, link)
