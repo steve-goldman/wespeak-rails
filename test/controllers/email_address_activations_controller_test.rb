@@ -15,24 +15,24 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
   # edit tests
   #
   
-  test "missing email should redirect to root" do
+  test "missing email in edit should redirect to root" do
     get_edit @email_address.activation_token, nil
     assert_redirected_with_flash [FlashMessages::EMAIL_MISSING], root_url
   end
 
-  test "unknown email should redirect to root" do
+  test "unknown email in edit should redirect to root" do
     get_edit @email_address.activation_token, "unknown@email.addr"
     assert_redirected_with_flash [FlashMessages::EMAIL_UNKNOWN], root_url
   end
 
-  test "active email should redirect to root" do
+  test "active email in edit should redirect to root" do
     @email_address.activated = true
     @email_address.save!
     get_edit @email_address.activation_token, @email_address.email
     assert_redirected_with_flash [FlashMessages::EMAIL_ALREADY_ACTIVE], root_url
   end
 
-  test "valid params should render edit" do
+  test "valid params in edit should render edit" do
     get_edit @email_address.activation_token, @email_address.email
     assert_template :edit
   end
@@ -41,6 +41,23 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
   # update tests
   #
   
+  test "missing email in update should redirect to root" do
+    submit_update @email_address.activation_token, nil, @user.password
+    assert_redirected_with_flash [FlashMessages::EMAIL_MISSING], root_url
+  end
+
+  test "unknown email in update should redirect to root" do
+    submit_update @email_address.activation_token, "unknown@email.addr", @user.password
+    assert_redirected_with_flash [FlashMessages::EMAIL_UNKNOWN], root_url
+  end
+
+  test "active email in update should redirect to root" do
+    @email_address.activated = true
+    @email_address.save!
+    submit_update @email_address.activation_token, @email_address.email, @user.password
+    assert_redirected_with_flash [FlashMessages::EMAIL_ALREADY_ACTIVE], root_url
+  end
+
   test "incorrect token should redirect to root" do
     submit_update "wrong-token", @email_address.email, @user.password
     assert_redirected_with_flash [FlashMessages::TOKEN_INVALID], root_url
