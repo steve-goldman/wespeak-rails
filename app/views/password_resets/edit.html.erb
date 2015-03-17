@@ -6,7 +6,7 @@
 
 <%= hidden_field_tag :password_reset_token, @password_reset_token %>
 
-<%= hidden_field_tag :email, @email %>
+<%= f.hidden_field :email, @email_address.email %>
 
 <%= f.label :password %>
 <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
