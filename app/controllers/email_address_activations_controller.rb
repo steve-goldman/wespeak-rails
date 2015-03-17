@@ -1,40 +1,54 @@
 class EmailAddressActivationsController < ApplicationController
 
   include EmailAddressActivationsHelper
+
+  before_action :get_activation_token,  only: [:edit, :update]
+  before_action :email_present,         only: [:edit, :update]
+  before_action :email_valid,           only: [:edit, :update]
+  before_action :email_inactive,        only: [:edit, :update]
+  before_action :get_password,          only: [:update]
+  before_action :authenticate_password, only: [:update]
+  before_action :authenticate_token,    only: [:update]
   
   def edit
-    @activation_token = params[:id]
-    @email = params[:email]
   end
 
   def update
-    email = params[:email]
-
-    email_address = EmailAddress.find_by(email: email)
-    
-    # must be a good email address
-    if !email_address
-      put_flash(FlashMessages::MISSING_EMAIL)
-      redirect_to root_url and return
-    end
-
-    activation_token = params[:activation_token]
-    
-    # validate the password before giving anything else away
-    if !email_address.user.authenticate(params[:activation][:password])
-      put_flash(FlashMessages::INCORRECT_PASSWORD)
-      redirect_to action: "edit", activation_token: activation_token, email: email and return
-    end
-
-    if !email_address.activated && email_address.authenticated?(activation_token)
-      email_address.update_attributes({ activated: true, activated_at: Time.zone.now })
-      log_in email_address.user
-      put_flash(FlashMessages::SUCCESS)
-      redirect_to settings_email_identities_path
-    else
-      put_flash(FlashMessages::INVALID_TOKEN)
-      redirect_to root_url
-    end
+    @email_address.update_attributes({ activated: true, activated_at: Time.zone.now })
+    log_in @email_address.user
+    redirect_with_flash(FlashMessages::SUCCESS, settings_email_identities_path)
   end
 
+  private
+
+  def get_activation_token
+    @activation_token = params[:id]
+  end
+
+  def email_present
+    @email = params[:email]
+    redirect_with_flash(FlashMessages::EMAIL_MISSING, root_url) if @email.nil?
+  end
+
+  def email_valid
+    @email_address = EmailAddress.find_by(email: @email)
+    redirect_with_flash(FlashMessages::EMAIL_UNKNOWN, root_url) if @email_address.nil?
+  end
+
+  def email_inactive
+    redirect_with_flash(FlashMessages::EMAIL_ALREADY_ACTIVE, root_url) if @email_address.activated?
+  end
+
+  def get_password
+    @password = params[:activation][:password]
+  end
+
+  def authenticate_password
+    render_with_flash(FlashMessages::PASSWORD_INCORRECT, action: :edit) if !@email_address.user.authenticate(@password)
+  end
+
+  def authenticate_token
+    redirect_with_flash(FlashMessages::TOKEN_INVALID, root_url) if !@email_address.authenticated?(@activation_token)
+  end
+  
 end
