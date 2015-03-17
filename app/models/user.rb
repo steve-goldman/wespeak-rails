@@ -78,6 +78,6 @@ class User < ActiveRecord::Base
   end
   
   def password_reset_expired?
-    password_reset_sent_at < ExpirationTimes.password_reset_expiration
+    password_reset_sent_at.nil? || password_reset_sent_at < ExpirationTimes.password_reset_expiration
   end
 end
