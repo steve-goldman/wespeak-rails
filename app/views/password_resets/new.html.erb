@@ -3,14 +3,18 @@
 
 <% if !logged_in? %>
 
-  <%= form_for(:password_reset, url: password_resets_path, method: "post") do |f| %>
-
-  <%= f.label :email %>
-  <%= f.email_field :email, placeholder: "Email Address", class: "form-control" %>
-
-  <%= f.submit "Submit", class: "btn btn-primary" %>
-
-  <% end %>
+<div class="row">
+  <div class="col-md-offset-4 col-md-4 col-xs-12">
+    <%= form_for(:password_reset, url: password_resets_path, method: "post") do |f| %>
+    
+    <%= f.label :email %>
+    <%= f.email_field :email, placeholder: "Email Address", class: "form-control" %>
+    
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+    
+    <% end %>
+  </div>
+</div>
 
 <% else %>
 
