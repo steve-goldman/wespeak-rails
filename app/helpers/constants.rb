@@ -2,6 +2,7 @@ module Constants
   class Lengths
     USER_NAME_MAX  = 50
     PASSWORD_MIN   = 6
+    PASSWORD_MAX   = ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED 
     EMAIL_ADDR_MAX = 255
   end
 

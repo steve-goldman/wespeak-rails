@@ -34,13 +34,13 @@ class User < ActiveRecord::Base
                                    case_sensitive: false } }
 
   validates :password, { presence:     { message: ValidationMessages::PASSWORD_NOT_PRESENT.message },
-                         length:       { message: ValidationMessages::PASSWORD_TOO_SHORT.message,
+                         length:       { message: ValidationMessages::PASSWORD_LENGTH.message,
                                          minimum: Lengths::PASSWORD_MIN,
-                                         maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED } }
+                                         maximum: Lengths::PASSWORD_MAX } }
 
-  validates :password_confirmation, presence: { message: ValidationMessages::PASSWORD_CONFIRMATION_NOT_PRESENT.message }
+  validates :password_confirmation, presence: { message: ValidationMessages::CONFIRMATION_NOT_PRESENT.message }
 
-  validates :password, confirmation: { message: ValidationMessages::PASSWORD_CONFIRMATION_MISMATCH.message }
+  validates :password, confirmation: { message: ValidationMessages::CONFIRMATION_MISMATCH.message }
   
   def remember
     self.remember_token = new_token

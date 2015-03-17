@@ -13,10 +13,10 @@ module UsersHelper
     NAME_TOO_LONG      = ValidationMessage.new("Name must be less than #{Lengths::USER_NAME_MAX} characters")
     NAME_TAKEN         = ValidationMessage.new("That name is already in use")
 
-    PASSWORD_NOT_PRESENT              = ValidationMessage.new("Please choose a password")
-    PASSWORD_TOO_SHORT                = ValidationMessage.new("Password must be at least #{Lengths::PASSWORD_MIN} characters")
-    PASSWORD_CONFIRMATION_MISMATCH    = ValidationMessage.new("Password does not match confirmation")
-    PASSWORD_CONFIRMATION_NOT_PRESENT = ValidationMessage.new("Please confirm your password")
+    PASSWORD_NOT_PRESENT     = ValidationMessage.new("Please choose a password")
+    PASSWORD_LENGTH          = ValidationMessage.new("Password must be at least #{Lengths::PASSWORD_MIN} characters")
+    CONFIRMATION_MISMATCH    = ValidationMessage.new("Password does not match confirmation")
+    CONFIRMATION_NOT_PRESENT = ValidationMessage.new("Please confirm your password")
 
     EMAIL_NOT_PRESENT     = ValidationMessage.new("Please choose an email address")
     EMAIL_TOO_LONG        = ValidationMessage.new("Email address must be less than #{Lengths::EMAIL_ADDR_MAX} characters")
