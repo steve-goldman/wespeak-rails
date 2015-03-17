@@ -1,4 +1,7 @@
 class PasswordResetsController < ApplicationController
+
+  include PasswordResetsHelper
+
   before_action :get_email,        only: [:edit, :update]
   before_action :valid_email,      only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
@@ -12,14 +15,14 @@ class PasswordResetsController < ApplicationController
     email_address = EmailAddress.find_by(email: email)
 
     if !email_address
-      flash.now[:danger] = "Email address not found"
+      put_flash_now(FlashMessages::EMAIL_UNKNOWN)
       render 'new' and return
     end
 
     email_address.user.create_password_reset_digest
     email_address.user.send_password_reset_email(email)
 
-    flash[:info] = "Email sent with password reset link"
+    put_flash(FlashMessages::EMAIL_SENT)
     redirect_to root_url
   end
 
@@ -34,13 +37,13 @@ class PasswordResetsController < ApplicationController
 
     # disallow a blank password
     if params[:password_reset][:password].blank?
-      flash[:danger] = "Password can't be blank"
+      put_flash(FlashMessages::BLANK_PASSWORD)
       redirect_to action: "edit", password_reset_token: params[:password_reset_token], email: params[:email] and return
     end
 
     if @email_address.user.update_attributes(user_params)
       log_in @email_address.user
-      flash[:success] = "Password has been reset"
+      put_flash(FlashMessages::SUCCESS)
       redirect_to root_url and return
     end
 
@@ -74,14 +77,14 @@ class PasswordResetsController < ApplicationController
     unless (@email_address &&
             @email_address.activated? &&
             @email_address.user.password_reset_authenticated?(params[:id]))
-      flash[:danger] = "Invalid password reset link"
+      put_flash(FlashMessages::INVALID_LINK)
       redirect_to root_url
     end
   end
 
   def check_expiration
     if @email_address.user.password_reset_expired?
-      flash[:danger] = "This link has expired"
+      put_flash(FlashMessages::EXPIRED_LINK)
       redirect_to new_password_reset_url
     end
   end

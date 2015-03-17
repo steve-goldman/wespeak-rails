@@ -1,4 +1,7 @@
 class Settings::GeneralsController < ApplicationController
+
+  include GeneralsHelper
+
   before_action :get_user,       only: [:show, :update]
   before_action :user_logged_in, only: [:show, :update]
 
@@ -7,13 +10,13 @@ class Settings::GeneralsController < ApplicationController
 
   def update
     if !@user.authenticate(params[:change_password][:current_password])
-      flash[:danger] = "Incorrect password"
+      put_flash(FlashMessages::INCORRECT_PASSWORD)
     elsif params[:change_password][:password].blank?
-      flash[:danger] = "Password can't be blank"
+      put_flash(FlashMessages::BLANK_PASSWORD)
     elsif !@user.update_attributes(change_password_params)
       PageErrors.add_errors @user.errors.full_messages
     else
-      flash[:success] = "Password has been changed"
+      put_flash(FlashMessages::SUCCESS)
     end
 
     redirect_to settings_general_path
@@ -27,7 +30,7 @@ class Settings::GeneralsController < ApplicationController
 
   def user_logged_in
     unless !current_user.nil?
-      flash[:danger] = "Please log in to access this page"
+      put_flash(FlashMessages::NOT_LOGGED_IN)
       redirect_to root_url
     end
   end

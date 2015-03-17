@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  include UsersHelper
+  
   def new
     @user = User.new
   end
@@ -14,7 +16,7 @@ class UsersController < ApplicationController
         @user.update_attribute(:primary_email_address_id, email_address.id)
         # this is success
         UserMailer.email_address_activation(@user, email_address).deliver_now
-        flash[:info] = "Please check your email to activate your account"
+        put_flash(FlashMessages::EMAIL_SENT)
         redirect_to root_url
       else
         @user.destroy

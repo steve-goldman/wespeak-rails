@@ -1,6 +1,8 @@
 module Settings
   class EmailIdentitiesController < ApplicationController
 
+    include EmailIdentitiesHelper
+    
     include ActionView::Helpers::DateHelper
     
     before_action :get_user,        only: [:index, :create, :destroy, :edit]
@@ -24,7 +26,7 @@ module Settings
       email_address = @user.email_addresses.create(email: params[:new_identity][:email])
       if email_address.valid?
         UserMailer.email_address_activation(@user, email_address).deliver_now
-        flash[:info] = "Please check your email to activate this address"
+        put_flash(FlashMessages::EMAIL_SENT)
       else
         PageErrors.add_errors email_address.errors.full_messages
       end
@@ -49,14 +51,14 @@ module Settings
     
     def user_logged_in
       unless !current_user.nil?
-        flash[:danger] = "Please log in to access this page"
+        put_flash(FlashMessages::NOT_LOGGED_IN)
         redirect_to root_url
       end
     end
 
     def same_user
       unless @user.id == params[:user_id].to_i
-        flash[:danger] = "Something went wrong"
+        put_flash(FlashMessages::USER_MISMATCH)
         redirect_to root_url
       end
     end
@@ -64,21 +66,21 @@ module Settings
     def same_email_user
       @email_address = EmailAddress.find_by(id: params[:id])
       unless @email_address && @email_address.user == @user
-        flash[:danger] = "Something went wrong"
+        put_flash(FlashMessages::EMAIL_MISMATCH)
         redirect_to root_url
       end
     end
 
     def not_primary
       unless @email_address.id != @user.primary_email_address_id
-        flash[:danger] = "Cannot do this for primary email address"
+        put_flash(FlashMessages::CANNOT_DO_TO_PRIMARY)
         redirect_to settings_email_identities_path
       end
     end
 
     def activated
       unless @email_address.activated?
-        flash[:danger] = "Email address must be activated to be primary"
+        put_flash(FlashMessages::EMAIL_NOT_ACTIVATED)
         redirect_to settings_email_identities_path
       end
     end

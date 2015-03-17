@@ -15,4 +15,13 @@ module ApplicationHelper
     SecureRandom.urlsafe_base64
   end
 
+  def put_flash(flash_message)
+    flash[flash_message.level] ||= []
+    flash[flash_message.level] << flash_message.message
+  end
+
+  def put_flash_now(flash_message)
+    flash.now[flash_message.level] ||= []
+    flash.now[flash_message.level] << flash_message.message
+  end
 end

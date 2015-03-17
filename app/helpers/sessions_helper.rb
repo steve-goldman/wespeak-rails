@@ -1,5 +1,7 @@
 module SessionsHelper
 
+  include ApplicationHelper
+
   # logs in a user
   def log_in(user)
     session[:user_id] = user.id
@@ -43,4 +45,11 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
+
+  class FlashMessages
+    EMAIL_NOT_ACTIVATED       = FlashMessage.new(:warning,  "Email address not activated (check email for the activation link)")
+
+    INVALID_EMAIL_OR_PASSWORD = FlashMessage.new(:danger,   "Invalid email address or password")
+  end
+
 end

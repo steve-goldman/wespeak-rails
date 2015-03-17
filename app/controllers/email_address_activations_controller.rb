@@ -1,5 +1,7 @@
 class EmailAddressActivationsController < ApplicationController
 
+  include EmailAddressActivationsHelper
+  
   def edit
     @activation_token = params[:id]
     @email = params[:email]
@@ -12,7 +14,7 @@ class EmailAddressActivationsController < ApplicationController
     
     # must be a good email address
     if !email_address
-      flash[:danger] = "Invalid activation link"
+      put_flash(FlashMessages::MISSING_EMAIL)
       redirect_to root_url and return
     end
 
@@ -20,17 +22,17 @@ class EmailAddressActivationsController < ApplicationController
     
     # validate the password before giving anything else away
     if !email_address.user.authenticate(params[:activation][:password])
-      flash[:danger] = "Incorrect password"
+      put_flash(FlashMessages::INCORRECT_PASSWORD)
       redirect_to action: "edit", activation_token: activation_token, email: email and return
     end
 
     if !email_address.activated && email_address.authenticated?(activation_token)
       email_address.update_attributes({ activated: true, activated_at: Time.zone.now })
       log_in email_address.user
-      flash[:success] = "Email address activated!"
+      put_flash(FlashMessages::SUCCESS)
       redirect_to settings_email_identities_path
     else
-      flash[:danger] = "Invalid activation link"
+      put_flash(FlashMessages::INVALID_TOKEN)
       redirect_to root_url
     end
   end

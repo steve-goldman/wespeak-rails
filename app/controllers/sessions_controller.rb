@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     # find the email address
     email_address = EmailAddress.find_by(email: params[:session][:email].downcase)
     if email_address.nil?
-      flash.now[:danger] = 'bad email'
+      put_flash_now(FlashMessages::INVALID_EMAIL_OR_PASSWORD)
       render 'new'
     else
       # authenticate the user
@@ -14,11 +14,11 @@ class SessionsController < ApplicationController
             remember(email_address.user) : forget(email_address.user)
           redirect_to root_url
         else
-          flash[:warning] = "Email address not activated.  Check your email for the activation link."
+          put_flash(FlashMessages::EMAIL_NOT_ACTIVATED)
           redirect_to root_url
         end
       else
-        flash.now[:danger] = 'bad password'
+        put_flash(FlashMessages::INVALID_EMAIL_OR_PASSWORD)
         render 'new'
       end
     end
