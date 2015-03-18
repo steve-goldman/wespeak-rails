@@ -7,6 +7,7 @@ class EmailAddressActivationsController < ApplicationController
   before_action :email_inactive,         only: [:edit, :update]
   before_action :password_present,       only: [:update]
   before_action :password_authenticated, only: [:update]
+  before_action :token_present,          only: [:edit, :update]
   before_action :token_authenticated,    only: [:update]
   
   def edit
@@ -43,9 +44,13 @@ class EmailAddressActivationsController < ApplicationController
       !@email_address.user.authenticate(params[:activation][:password])
   end
 
+  def token_present
+    @activation_token = params[:id]
+  end
+  
   def token_authenticated
     redirect_with_flash(FlashMessages::TOKEN_INVALID, root_url) if
-      !@email_address.authenticated?(params[:id])
+      !@email_address.authenticated?(@activation_token)
   end
   
 end
