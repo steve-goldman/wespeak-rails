@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
 
   has_many :statements
 
+  has_many :groups
+
   # attr_accessors
 
   attr_accessor :email

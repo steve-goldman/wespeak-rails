@@ -10,6 +10,7 @@ class GroupsControllerTest < ActionController::TestCase
                          password_confirmation: "test123",
                          can_create_groups:     true)
     log_in @user
+    @group = @user.groups.create!(name: "added_group")
   end
 
   #
@@ -48,6 +49,44 @@ class GroupsControllerTest < ActionController::TestCase
     @user.update_attribute(:can_create_groups, false)
     post_create "group_name"
     assert_redirected_with_flash [FlashMessages::CANNOT_CREATE_GROUPS], root_url
+  end
+
+  test "create with missing name should redirect" do
+    [nil, "", "   "].each do |missing_name|
+      post_create missing_name
+      assert_rendered_with_flash [ValidationMessages::NAME_NOT_PRESENT], :new
+    end
+  end
+
+  test "create with taken name should redirect" do
+    post_create @group.name
+    assert_rendered_with_flash [ValidationMessages::NAME_TAKEN], :new
+  end
+
+  test "create with too long name should redirect" do
+    name = "a" * (Lengths::GROUP_NAME_MAX + 1)
+    post_create name
+    assert_rendered_with_flash [ValidationMessages::NAME_TOO_LONG], :new
+
+    name = "a" * Lengths::GROUP_NAME_MAX
+    post_create name
+    assert_redirected_with_flash [FlashMessages::SUCCESS], root_url
+    assert_not_nil Group.find_by(name: name)
+  end
+
+  test "create with bad format name should redirect" do
+    ["has space", "has@symbol", "!#%&", "a<>b", "a::b", "a;;b"].each do |invalid_name|
+      post_create invalid_name
+      assert_rendered_with_flash [ValidationMessages::NAME_FORMATTING], :new
+    end
+  end
+
+  test "create with valid name should redirect" do
+    ["HELLO", "world", "12345", "1-2-3-4", "1_2_3_4", "a.b.c"].each do |valid_name|
+      post_create valid_name
+      assert_redirected_with_flash [FlashMessages::SUCCESS], root_url
+      assert_not_nil Group.find_by(name: valid_name)
+    end
   end
 
   private
