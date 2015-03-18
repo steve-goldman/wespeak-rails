@@ -9,11 +9,18 @@ class StatementTypesTest < ActiveSupport::TestCase
     assert_nil      StatementTypes[:bogus_key]
   end
 
-  test "valid? works" do
-    assert     StatementTypes.valid?(:email_domain_filter)
-    assert     StatementTypes.valid?(:facebook_filter)
-    assert     StatementTypes.valid?(:location_filter)
-    assert_not StatementTypes.valid?(:bogus_key)
+  test "key? works" do
+    assert     StatementTypes.key?(:email_domain_filter)
+    assert     StatementTypes.key?(:facebook_filter)
+    assert     StatementTypes.key?(:location_filter)
+    assert_not StatementTypes.key?(:bogus_key)
+  end
+  
+  test "value? works" do
+    assert     StatementTypes.value?(1)
+    assert     StatementTypes.value?(2)
+    assert     StatementTypes.value?(3)
+    assert_not StatementTypes.value?(999999)
   end
   
 end

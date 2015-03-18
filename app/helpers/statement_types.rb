@@ -9,7 +9,12 @@ class StatementTypes
     @statement_types[key]
   end
 
-  def StatementTypes.valid?(key)
+  def StatementTypes.key?(key)
     @statement_types.key?(key)
   end
+
+  def StatementTypes.value?(value)
+    @statement_types.value?(value)
+  end
+
 end
