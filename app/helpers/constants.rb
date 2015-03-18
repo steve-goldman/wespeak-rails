@@ -4,10 +4,12 @@ module Constants
     PASSWORD_MIN   = 6
     PASSWORD_MAX   = ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED 
     EMAIL_ADDR_MAX = 255
+    GROUP_NAME_MAX = 64
   end
 
   class Regex
-    EMAIL = VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+    EMAIL = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+    GROUP = /\A[\w+\-.]+\z/i
   end
 
   class ExpirationTimes
