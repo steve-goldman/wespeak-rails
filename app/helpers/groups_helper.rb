@@ -3,7 +3,8 @@ module GroupsHelper
   include ApplicationHelper
 
   class FlashMessages
-    NOT_LOGGED_IN    = FlashMessage.new(:danger, "Must be logged in to access this page")
+    NOT_LOGGED_IN        = FlashMessage.new(:danger, "Must be logged in to access this page")
+    CANNOT_CREATE_GROUPS = FlashMessage.new(:danger, "You don't have permission to create groups right now")
   end
 
   class ValidationMessages
