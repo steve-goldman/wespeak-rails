@@ -8,4 +8,8 @@ class StatementTypes
   def StatementTypes.[](key)
     @statement_types[key]
   end
+
+  def StatementTypes.valid?(key)
+    @statement_types.key?(key)
+  end
 end
