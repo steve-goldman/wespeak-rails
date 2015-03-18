@@ -3,7 +3,7 @@
     <tr>
       <th>Email</th>
       <th>Active Since</th>
-      <th>Primary</th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -21,9 +21,9 @@
         </td>
         <td>
           <% if is_primary %>
-            <span class="glyphicon glyphicon-ok"></span>
-          <% else %>
-            <%= link_to "Make Primary", edit_settings_email_identity_path(id: email_address.id) %>
+            <div class="primary">Primary</div>
+          <% elsif email_address.activated? %>
+            <%= link_to "Make Primary", edit_settings_email_identity_path(id: email_address.id), disabled: true %>
           <% end %>
         </td>
         <td>
