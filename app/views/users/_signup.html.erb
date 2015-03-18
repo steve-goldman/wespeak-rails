@@ -1,5 +1,5 @@
 <div class="signup">
-  <%= form_for(@user) do |f| %>
+  <%= form_for(:user, url: users_path) do |f| %>
 
   <%= f.label :name, "User Name" %>
   <%= f.text_field :name, placeholder: "User Name", class: "form-control" %>
