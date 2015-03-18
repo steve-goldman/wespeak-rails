@@ -18,4 +18,10 @@ Rails.application.routes.draw do
     resources :email_identities, only: [:index, :create, :destroy, :edit]
     resource  :notifications,    only: [:show]
   end
+
+  resources :groups,             only: [:show, :new, :create]
+
+  namespace :filters do
+    resources :email_domain_filters, only: [:create]
+  end
 end

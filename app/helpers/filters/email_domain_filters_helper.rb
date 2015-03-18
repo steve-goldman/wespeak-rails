@@ -1,0 +1,2 @@
+module Filters::EmailDomainFiltersHelper
+end

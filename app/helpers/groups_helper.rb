@@ -2,6 +2,10 @@ module GroupsHelper
 
   include ApplicationHelper
 
+  class FlashMessages
+    NOT_LOGGED_IN    = FlashMessage.new(:danger, "Must be logged in to access this page")
+  end
+
   class ValidationMessages
     include Constants
 
