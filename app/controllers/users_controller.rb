@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
   include UsersHelper
+
+  before_action :not_logged_in, only: [:new, :create]
   
   def new
     @user = User.new
@@ -16,22 +18,23 @@ class UsersController < ApplicationController
         @user.update_attribute(:primary_email_address_id, email_address.id)
         # this is success
         UserMailer.email_address_activation(@user, email_address).deliver_now
-        put_flash(FlashMessages::EMAIL_SENT)
-        redirect_to root_url
+        redirect_with_flash(FlashMessages::EMAIL_SENT, root_url)
       else
         @user.destroy
-        put_validation_flash(email_address)
-        redirect_to root_url
+        redirect_with_validation_flash(email_address, root_url)
       end
     else
-      put_validation_flash(@user)
-      redirect_to root_url
+      redirect_with_validation_flash(@user, root_url)
     end
   end
 
   # private section
   
   private
+
+  def not_logged_in
+    redirect_with_flash(FlashMessages::LOGGED_IN, root_url) if logged_in?
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

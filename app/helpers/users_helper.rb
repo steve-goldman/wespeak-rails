@@ -4,6 +4,7 @@ module UsersHelper
 
   class FlashMessages
     EMAIL_SENT = FlashMessage.new(:info, "Check your email for the email address activation link")
+    LOGGED_IN  = FlashMessage.new(:info, "You must be logged out to reset your password")
   end
 
   class ValidationMessages
