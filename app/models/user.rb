@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   has_many :email_addresses
 
+  has_many :statements
+
   # attr_accessors
 
   attr_accessor :email

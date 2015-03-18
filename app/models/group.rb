@@ -2,6 +2,10 @@ class Group < ActiveRecord::Base
 
   include GroupsHelper
 
+  # foreign key relationships
+
+  has_many :statements
+  
   def validation_keys
     [:name]
   end
