@@ -36,7 +36,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "name should be case insensitively unique" do
     user =     User.new(name: "discgolfstu", password: "test123", password_confirmation: "test123")
-    assert user.save
+    user.save!
     assert_not User.new(name: "DiScGoLfStU", password: "test123", password_confirmation: "test123").valid?
   end
 end

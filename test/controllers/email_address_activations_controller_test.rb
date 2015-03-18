@@ -7,8 +7,7 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
   def setup
     @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
     @user.save!
-    @email_address = EmailAddress.new(email: "hello@world.com", user_id: @user.id)
-    @email_address.save!
+    @email_address = @user.email_addresses.create(email: "hello@world.com")
   end
 
   #
@@ -26,8 +25,7 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
   end
 
   test "active email in edit should redirect to root" do
-    @email_address.activated = true
-    @email_address.save!
+    @email_address.update_attribute(:activated, true)
     get_edit @email_address.activation_token, @email_address.email
     assert_redirected_with_flash [FlashMessages::EMAIL_ALREADY_ACTIVE], root_url
   end
@@ -52,8 +50,7 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
   end
 
   test "active email in update should redirect to root" do
-    @email_address.activated = true
-    @email_address.save!
+    @email_address.update_attribute(:activated, true)
     submit_update @email_address.activation_token, @email_address.email, @user.password
     assert_redirected_with_flash [FlashMessages::EMAIL_ALREADY_ACTIVE], root_url
   end

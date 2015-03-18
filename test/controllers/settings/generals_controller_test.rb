@@ -7,8 +7,7 @@ class Settings::GeneralsControllerTest < ActionController::TestCase
   def setup
     @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
     @user.save!
-    @email_address = EmailAddress.new(email: "hello@world.org", user_id: @user.id)
-    @email_address.save!
+    @email_address = @user.email_addresses.create(email: "hello@world.org")
     @user.primary_email_address_id = @email_address.id
     @user.save!
     log_in @user

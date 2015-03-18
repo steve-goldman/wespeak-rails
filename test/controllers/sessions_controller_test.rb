@@ -7,15 +7,9 @@ class SessionsControllerTest < ActionController::TestCase
   def setup
     @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
     @user.save!
-    @email_address1 = EmailAddress.new(email: "hello@world.org", user_id: @user.id)
-    @email_address1.activated = true
-    @email_address1.save!
-    @email_address2 = EmailAddress.new(email: "goodbye@world.org", user_id: @user.id)
-    @email_address2.activated = true
-    @email_address2.save!
-    @email_address3 = EmailAddress.new(email: "howdie@world.org", user_id: @user.id)
-    # not activating 3
-    @email_address3.save!
+    @email_address1 = @user.email_addresses.create(email: "hello@world.org",   activated: true)
+    @email_address2 = @user.email_addresses.create(email: "goodbye@world.org", activated: true)
+    @email_address3 = @user.email_addresses.create(email: "howdie@world.org",  activated: false)
   end
 
   #

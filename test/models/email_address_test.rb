@@ -29,13 +29,13 @@ class EmailAddressTest < ActiveSupport::TestCase
 
   test "email addresses should be case-insensitively unique" do
     email_address = EmailAddress.new(user_id: 1, email: "valid@email.org")
-    assert email_address.save
+    email_address.save!
     assert_not      EmailAddress.new(user_id: 2, email: "VaLiD@eMaIl.OrG").valid?
   end
 
   test "email should be saved as lower case" do
     email_address = EmailAddress.new(user_id: 1, email: "VALID@EMAIL.ORG")
-    email_address.save
+    email_address.save!
     assert_equal "valid@email.org", email_address.reload.email
   end
 end

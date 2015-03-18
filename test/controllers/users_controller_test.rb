@@ -57,7 +57,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "email taken in create alerts" do
-    EmailAddress.new(user_id: @user.id, email: "hello@world.org").save!
+    assert @user.email_addresses.create(email: "hello@world.org").valid?
     post_create "Stu", "hello@world.org", "test123", "test123"
     assert_redirected_with_flash [ValidationMessages::EMAIL_TAKEN], root_url
     assert_user_not_exists "Stu"
