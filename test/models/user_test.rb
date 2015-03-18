@@ -7,8 +7,7 @@ class UserTest < ActiveSupport::TestCase
   test "name, password, and confirmation should be present" do
     assert_not User.new(                password: "test123", password_confirmation: "test123").valid?
     assert_not User.new(name: "Stu G.",                      password_confirmation: "test123").valid?
-    # TODO: why does this evaluate as valid?
-    #assert_not User.new(name: "Stu G.", password: "test123").valid?
+    assert_not User.new(name: "Stu G.", password: "test123").valid?
     assert     User.new(name: "Stu G.", password: "test123", password_confirmation: "test123").valid?
   end
 

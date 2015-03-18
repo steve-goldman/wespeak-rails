@@ -49,13 +49,12 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   end
     
   test "missing confirmation should not be able to sign up" do
-    # TODO: why does this work?
-    #assert_no_difference 'User.count' do
-    #  post_via_redirect users_path, user: { name:  "disgolfstu",
-    #                                        email: "hello@world.org",
-    #                                        password: "test123" }
-    #end
-    #assert_template 'static_pages/home'
+    assert_no_difference 'User.count' do
+      post_via_redirect users_path, user: { name:  "disgolfstu",
+                                            email: "hello@world.org",
+                                            password: "test123" }
+    end
+    assert_template 'static_pages/home'
   end
   
 end
