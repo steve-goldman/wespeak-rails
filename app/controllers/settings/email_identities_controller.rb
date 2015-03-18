@@ -5,32 +5,18 @@ module Settings
     
     include ActionView::Helpers::DateHelper
     
-    before_action :get_user,        only: [:index, :create, :destroy, :edit]
-    before_action :user_logged_in,  only: [:index, :create, :destroy, :edit]
-    before_action :same_user,       only: [:create]
-    before_action :same_email_user, only: [:destroy, :edit]
-    before_action :not_primary,     only: [:destroy, :edit]
-    before_action :activated,       only: [:edit]
+    before_action :logged_in,         only: [:index, :create, :destroy, :edit]
+    before_action :email_creates,     only: [:create]
+    before_action :email_present,     only: [:destroy, :edit]
+    before_action :email_not_primary, only: [:destroy, :edit]
+    before_action :email_activated,   only: [:edit]
     
     def index
-      # user is assigned in the get_user before action
-
-      # nothing else to do
     end
 
     def create
-      # user is assigned in the get_user before action
-
-      # user is matched in the same_user before action
-
-      email_address = @user.email_addresses.create(email: params[:new_identity][:email])
-      if email_address.valid?
-        UserMailer.email_address_activation(@user, email_address).deliver_now
-        put_flash(FlashMessages::EMAIL_SENT)
-      else
-        put_validation_flash(email_address)
-      end
-      redirect_to settings_email_identities_path
+      UserMailer.email_address_activation(@user, @email_address).deliver_now
+      redirect_with_flash(FlashMessages::EMAIL_SENT, settings_email_identities_path)
     end
 
     def destroy
@@ -45,44 +31,29 @@ module Settings
 
     private
 
-    def get_user
+    def logged_in
       @user = current_user
-    end
-    
-    def user_logged_in
-      unless !current_user.nil?
-        put_flash(FlashMessages::NOT_LOGGED_IN)
-        redirect_to root_url
-      end
+      redirect_with_flash(FlashMessages::NOT_LOGGED_IN, root_url) if @user.nil?
     end
 
-    def same_user
-      unless @user.id == params[:user_id].to_i
-        put_flash(FlashMessages::USER_MISMATCH)
-        redirect_to root_url
-      end
-    end
-
-    def same_email_user
+    def email_present
       @email_address = EmailAddress.find_by(id: params[:id])
-      unless @email_address && @email_address.user == @user
-        put_flash(FlashMessages::EMAIL_MISMATCH)
-        redirect_to root_url
-      end
+      redirect_with_flash(FlashMessages::EMAIL_UNKNOWN, settings_email_identities_path) if @email_address.nil?
     end
 
-    def not_primary
-      unless @email_address.id != @user.primary_email_address_id
-        put_flash(FlashMessages::CANNOT_DO_TO_PRIMARY)
-        redirect_to settings_email_identities_path
-      end
+    def email_creates
+      @email_address = @user.email_addresses.create(email: params[:new_identity][:email])
+      redirect_with_validation_flash(@email_address, settings_email_identities_path) if !@email_address.valid?
     end
 
-    def activated
-      unless @email_address.activated?
-        put_flash(FlashMessages::EMAIL_NOT_ACTIVATED)
-        redirect_to settings_email_identities_path
-      end
+    def email_not_primary
+      redirect_with_flash(FlashMessages::CANNOT_DO_TO_PRIMARY, settings_email_identities_path) if
+        @email_address.id == @user.primary_email_address_id
+    end
+
+    def email_activated
+      redirect_with_flash(FlashMessages::EMAIL_NOT_ACTIVATED, settings_email_identities_path) if
+        !@email_address.activated?
     end
   end
 end
