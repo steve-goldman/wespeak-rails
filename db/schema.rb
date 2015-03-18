@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150318222234) do
     t.string   "password_reset_digest"
     t.datetime "password_reset_sent_at"
     t.string   "password_digest"
+    t.boolean  "can_create_groups",        default: false
   end
 
 end
