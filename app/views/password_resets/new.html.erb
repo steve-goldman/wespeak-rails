@@ -1,8 +1,6 @@
 <% provide(:title, "Forgot Password") %>
 <h2>Forgot Password</h2>
 
-<% if !logged_in? %>
-
 <div class="row">
   <div class="col-md-offset-4 col-md-4 col-xs-12">
     <%= form_for(:password_reset, url: password_resets_path, method: "post") do |f| %>
@@ -15,9 +13,3 @@
     <% end %>
   </div>
 </div>
-
-<% else %>
-
-  <p>Please <%= link_to "Log out", logout_path, method: "delete" %> if you want to reset your password.</p>
-
-<% end %>

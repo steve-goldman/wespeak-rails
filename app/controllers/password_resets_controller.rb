@@ -2,6 +2,7 @@ class PasswordResetsController < ApplicationController
 
   include PasswordResetsHelper
 
+  before_action :not_logged_in,        only: [:new, :create, :edit, :update]
   before_action :email_present,        only: [:create, :edit, :update]
   before_action :email_valid,          only: [:create, :edit, :update]
   before_action :email_active,         only: [:create, :edit, :update]
@@ -33,6 +34,10 @@ class PasswordResetsController < ApplicationController
   end
 
   private
+
+  def not_logged_in
+    redirect_with_flash(FlashMessages::LOGGED_IN, root_url) if logged_in?
+  end
 
   def email_present
     render_with_flash(FlashMessages::EMAIL_MISSING, action: :new) if

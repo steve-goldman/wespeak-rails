@@ -6,6 +6,7 @@ module PasswordResetsHelper
     SUCCESS          = FlashMessage.new(:success,  "Password has been reset!")
     
     EMAIL_SENT       = FlashMessage.new(:info,     "Check your email for the password reset link")
+    LOGGED_IN        = FlashMessage.new(:info,     "You must be logged out to reset your password")
 
     TOKEN_EXPIRED    = FlashMessage.new(:warning,  "This link has expired")
 

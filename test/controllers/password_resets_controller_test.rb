@@ -22,6 +22,12 @@ class PasswordResetsControllerTest < ActionController::TestCase
     assert_template :new
   end
 
+  test "new when logged in should redirect to root" do
+    log_in @user
+    get_new
+    assert_redirected_with_flash [FlashMessages::LOGGED_IN], root_url
+  end
+
   #
   # create tests
   #
@@ -43,11 +49,17 @@ class PasswordResetsControllerTest < ActionController::TestCase
     assert_rendered_with_flash [FlashMessages::EMAIL_NOT_ACTIVE], :new
   end
 
-  test "valid submission should redirect to root" do
+  test "valid submission in create should redirect to root" do
     post_create @email_address.email
     assert_redirected_with_flash [FlashMessages::EMAIL_SENT], root_url
   end
   
+  test "create when logged in should redirect to root" do
+    log_in @user
+    post_create @email_address.email
+    assert_redirected_with_flash [FlashMessages::LOGGED_IN], root_url
+  end
+
   #
   # edit tests
   #
@@ -80,6 +92,12 @@ class PasswordResetsControllerTest < ActionController::TestCase
     assert_template :edit
   end
   
+  test "edit when logged in should redirect to root" do
+    log_in @user
+    get_edit @user.password_reset_token, @email_address.email
+    assert_redirected_with_flash [FlashMessages::LOGGED_IN], root_url
+  end
+
   #
   # update tests
   #
@@ -139,13 +157,20 @@ class PasswordResetsControllerTest < ActionController::TestCase
     assert_rendered_with_flash [UsersHelper::ValidationMessages::CONFIRMATION_MISMATCH], :edit
   end
 
-  test "valid submission should update password, log in, and redirect to root" do
+  test "valid submission in updateshould update password, log in, and redirect to root" do
     new_password = "test123"
     patch_update @user.password_reset_token, @email_address.email, new_password, new_password
     assert @user.authenticate(new_password), "password should be changed"
     assert_logged_in_as @user
     assert_redirected_with_flash [FlashMessages::SUCCESS], root_url
   end
+
+  test "update when logged in should redirect to root" do
+    log_in @user
+    patch_update @user.password_reset_token, @email_address.email, "test123", "test123"
+    assert_redirected_with_flash [FlashMessages::LOGGED_IN], root_url
+  end
+
   
   private
 
