@@ -5,8 +5,7 @@ class UsersControllerTest < ActionController::TestCase
   include UsersHelper
 
   def setup
-    @user = User.new(name: "user", password: "test123", password_confirmation: "test123")
-    @user.save!
+    @user = User.create!(name: "user", password: "test123", password_confirmation: "test123")
   end
 
   #

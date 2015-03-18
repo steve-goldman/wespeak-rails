@@ -2,10 +2,8 @@ require 'test_helper'
 
 class StatementTest < ActiveSupport::TestCase
   def setup
-    @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
-    @user.save!
-    @group = Group.new(name: "the_group")
-    @group.save!
+    @user = User.create!(name: "Stu", password: "test123", password_confirmation: "test123")
+    @group = Group.create!(name: "the_group")
   end
 
   test "creating from user should work" do

@@ -5,9 +5,8 @@ class Settings::GeneralsControllerTest < ActionController::TestCase
   include Settings::GeneralsHelper
 
   def setup
-    @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
-    @user.save!
-    @email_address = @user.email_addresses.create(email: "hello@world.org")
+    @user = User.create!(name: "Stu", password: "test123", password_confirmation: "test123")
+    @email_address = @user.email_addresses.create!(email: "hello@world.org")
     @user.primary_email_address_id = @email_address.id
     @user.save!
     log_in @user

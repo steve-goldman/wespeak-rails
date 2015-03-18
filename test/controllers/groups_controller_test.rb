@@ -5,8 +5,7 @@ class GroupsControllerTest < ActionController::TestCase
   include GroupsHelper
   
   def setup
-    @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
-    @user.save!
+    @user = User.create!(name: "Stu", password: "test123", password_confirmation: "test123")
     log_in @user
   end
 

@@ -21,7 +21,7 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test "names should be case-insentively unique" do
-    Group.new(name: "HELLO").save!
+    Group.create!(name: "HELLO")
     assert_not Group.new(name: "hello").valid?
   end
 

@@ -5,11 +5,10 @@ class SessionsControllerTest < ActionController::TestCase
   include SessionsHelper
 
   def setup
-    @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
-    @user.save!
-    @email_address1 = @user.email_addresses.create(email: "hello@world.org",   activated: true)
-    @email_address2 = @user.email_addresses.create(email: "goodbye@world.org", activated: true)
-    @email_address3 = @user.email_addresses.create(email: "howdie@world.org",  activated: false)
+    @user = User.create!(name: "Stu", password: "test123", password_confirmation: "test123")
+    @email_address1 = @user.email_addresses.create!(email: "hello@world.org",   activated: true)
+    @email_address2 = @user.email_addresses.create!(email: "goodbye@world.org", activated: true)
+    @email_address3 = @user.email_addresses.create!(email: "howdie@world.org",  activated: false)
   end
 
   #

@@ -8,7 +8,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
     @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
     @user.create_password_reset_digest
     @user.save!
-    @email_address = @user.email_addresses.create(email: "hello@world.com", activated: true)
+    @email_address = @user.email_addresses.create!(email: "hello@world.com", activated: true)
   end
 
   #

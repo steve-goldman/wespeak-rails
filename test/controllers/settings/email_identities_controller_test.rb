@@ -5,17 +5,15 @@ class Settings::EmailIdentitiesControllerTest < ActionController::TestCase
   include Settings::EmailIdentitiesHelper
 
   def setup
-    @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
-    @user.save!
-    @email_address1 = @user.email_addresses.create(email: "hello@world.org",   activated: true, activated_at: Time.zone.now)
-    @email_address2 = @user.email_addresses.create(email: "goodbye@world.org", activated: true, activated_at: Time.zone.now)
-    @email_address3 = @user.email_addresses.create(email: "howdie@world.org",  activated: false)
+    @user = User.create!(name: "Stu", password: "test123", password_confirmation: "test123")
+    @email_address1 = @user.email_addresses.create!(email: "hello@world.org",   activated: true, activated_at: Time.zone.now)
+    @email_address2 = @user.email_addresses.create!(email: "goodbye@world.org", activated: true, activated_at: Time.zone.now)
+    @email_address3 = @user.email_addresses.create!(email: "howdie@world.org",  activated: false)
     @user.update_attribute(:primary_email_address_id, @email_address1.id)
     log_in @user
 
-    @other_user = User.new(name: "Mike", password: "test123", password_confirmation: "test123")
-    @other_user.save!
-    @other_email_address = @other_user.email_addresses.create(email: "mike@mikenet.com", activated: true, activated_at: Time.zone.now)
+    @other_user = User.create!(name: "Mike", password: "test123", password_confirmation: "test123")
+    @other_email_address = @other_user.email_addresses.create!(email: "mike@mikenet.com", activated: true, activated_at: Time.zone.now)
   end
 
   #

@@ -5,9 +5,8 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
   include EmailAddressActivationsHelper
 
   def setup
-    @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
-    @user.save!
-    @email_address = @user.email_addresses.create(email: "hello@world.com")
+    @user = User.create!(name: "Stu", password: "test123", password_confirmation: "test123")
+    @email_address = @user.email_addresses.create!(email: "hello@world.com")
   end
 
   #

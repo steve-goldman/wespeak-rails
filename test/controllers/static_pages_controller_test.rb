@@ -2,8 +2,7 @@ require 'test_helper'
 
 class StaticPagesControllerTest < ActionController::TestCase
   def setup
-    @user = User.new(name: "Stu", password: "test123", password_confirmation: "test123")
-    @user.save!
+    @user = User.create!(name: "Stu", password: "test123", password_confirmation: "test123")
   end
 
   test "home when logged out should get home" do
