@@ -12,6 +12,10 @@ class Settings::EmailIdentitiesControllerTest < ActionController::TestCase
     @email_address3 = @user.email_addresses.create(email: "howdie@world.org",  activated: false)
     @user.update_attribute(:primary_email_address_id, @email_address1.id)
     log_in @user
+
+    @other_user = User.new(name: "Mike", password: "test123", password_confirmation: "test123")
+    @other_user.save!
+    @other_email_address = @other_user.email_addresses.create(email: "mike@mikenet.com", activated: true, activated_at: Time.zone.now)
   end
 
   #
@@ -85,6 +89,11 @@ class Settings::EmailIdentitiesControllerTest < ActionController::TestCase
     assert_redirected_with_flash [FlashMessages::EMAIL_UNKNOWN], settings_email_identities_path
   end
   
+  test "edit for another user's email should alert" do
+    get_edit @other_email_address.id
+    assert_redirected_with_flash [FlashMessages::EMAIL_UNKNOWN], settings_email_identities_path
+  end
+  
   test "edit for primary email should alert" do
     get_edit @email_address1.id
     assert_redirected_with_flash [FlashMessages::CANNOT_DO_TO_PRIMARY], settings_email_identities_path
@@ -113,6 +122,11 @@ class Settings::EmailIdentitiesControllerTest < ActionController::TestCase
 
   test "destroy for unknown id shoudl alert" do
     delete_destroy 999999
+    assert_redirected_with_flash [FlashMessages::EMAIL_UNKNOWN], settings_email_identities_path
+  end
+
+  test "destroy for another user's email should alert" do
+    delete_destroy @other_email_address.id
     assert_redirected_with_flash [FlashMessages::EMAIL_UNKNOWN], settings_email_identities_path
   end
 

@@ -38,7 +38,8 @@ module Settings
 
     def email_present
       @email_address = EmailAddress.find_by(id: params[:id])
-      redirect_with_flash(FlashMessages::EMAIL_UNKNOWN, settings_email_identities_path) if @email_address.nil?
+      redirect_with_flash(FlashMessages::EMAIL_UNKNOWN, settings_email_identities_path) if
+        @email_address.nil? || @email_address.user_id != current_user.id
     end
 
     def email_creates
