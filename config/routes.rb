@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get    'settings' => 'settings/generals#show'
   
-  resources :users
+  resources :users,                     only: [:new, :create]
   resources :email_address_activations, only: [:edit, :update]
   resources :password_resets,           only: [:new, :create, :edit, :update]
 
