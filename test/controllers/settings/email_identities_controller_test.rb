@@ -54,7 +54,9 @@ class Settings::EmailIdentitiesControllerTest < ActionController::TestCase
     assert_redirected_with_flash [UsersHelper::ValidationMessages::EMAIL_TOO_LONG], settings_email_identities_path
 
     e = "a" * (Lengths::EMAIL_ADDR_MAX - "@email.addr".length) + "@email.addr"
-    post_create e
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      post_create e
+    end
     assert_redirected_with_flash [FlashMessages::EMAIL_SENT], settings_email_identities_path
   end
 
@@ -75,8 +77,9 @@ class Settings::EmailIdentitiesControllerTest < ActionController::TestCase
   end
 
   test "create with valid params should send an email" do
-    post_create"new@email.addr"
-    # TODO: how to assert the email was sent
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      post_create "new@email.addr"
+    end
     assert_redirected_with_flash [FlashMessages::EMAIL_SENT], settings_email_identities_path
   end
 

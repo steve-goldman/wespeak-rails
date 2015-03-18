@@ -45,7 +45,9 @@ class UsersControllerTest < ActionController::TestCase
     assert_user_not_exists "Stu"
 
     email = "a" * (Lengths::EMAIL_ADDR_MAX - "@world.org".length) + "@world.org"
-    post_create "Stu", email, "test123", "test123"
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      post_create "Stu", email, "test123", "test123"
+    end
     assert_redirected_with_flash [FlashMessages::EMAIL_SENT], root_url
     assert_user_exists "Stu"
   end
@@ -76,7 +78,9 @@ class UsersControllerTest < ActionController::TestCase
     assert_user_not_exists name
 
     name = "a" * Lengths::USER_NAME_MAX
-    post_create name, "hello@world.org", "test123", "test123"
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      post_create name, "hello@world.org", "test123", "test123"
+    end
     assert_redirected_with_flash [FlashMessages::EMAIL_SENT], root_url
     assert_user_exists name
   end
@@ -129,8 +133,9 @@ end
   end
   
   test "create with valid params should send email and redirect to root" do
-    post_create "Stu", "hello@world.org", "test123", "test123"
-    # TODO: how to assert the email was sent?
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      post_create "Stu", "hello@world.org", "test123", "test123"
+    end
     assert_redirected_with_flash [FlashMessages::EMAIL_SENT], root_url
     assert_user_exists "Stu"
   end
