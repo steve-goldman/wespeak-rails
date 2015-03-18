@@ -38,4 +38,12 @@ class EmailAddressTest < ActiveSupport::TestCase
     email_address.save!
     assert_equal "valid@email.org", email_address.reload.email
   end
+
+  test "email should not be too long" do
+    email = "a" * (Lengths::EMAIL_ADDR_MAX + 1 - "@email.addr".length) + "@email.addr"
+    assert_not EmailAddress.new(user_id: 1, email: email).valid?
+
+    email = "a" * (Lengths::EMAIL_ADDR_MAX - "@email.addr".length) + "@email.addr"
+    assert EmailAddress.new(user_id: 1, email: email).valid?
+  end
 end
