@@ -6,8 +6,8 @@ class CreateEmailAddresses < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :email_addresses, :users
+    
     add_index :email_addresses, :email
-    add_index :email_addresses, :user_id
+
   end
 end

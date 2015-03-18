@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318210132) do
+ActiveRecord::Schema.define(version: 20150318222234) do
 
   create_table "email_addresses", force: :cascade do |t|
     t.string   "email"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150318210132) do
     t.datetime "activated_at"
   end
 
+  add_index "email_addresses", ["email"], name: "index_email_addresses_on_email"
   add_index "email_addresses", ["user_id"], name: "index_email_addresses_on_user_id"
 
   create_table "groups", force: :cascade do |t|
@@ -47,8 +48,8 @@ ActiveRecord::Schema.define(version: 20150318210132) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.integer  "primary_email_address_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "remember_digest"
     t.string   "password_reset_digest"
     t.datetime "password_reset_sent_at"
