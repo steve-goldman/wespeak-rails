@@ -22,6 +22,12 @@ class EmailDomainFilter < ActiveRecord::Base
                        format:   { message: ValidationMessages::DOMAIN_FORMATTING.message,
                                    with: Regex::EMAIL_DOMAIN} }
 
+  def EmailDomainFilter.get_record(domain, active)
+    record = EmailDomainFilter.find_by(domain: domain, active: active)
+    return record if !record.nil?
+    EmailDomainFilter.create!(domain: domain, active: active)
+  end
+  
   private
 
   def downcase_domain

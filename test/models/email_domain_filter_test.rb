@@ -33,4 +33,11 @@ class EmailDomainFilterTest < ActiveSupport::TestCase
       EmailDomainFilter.create!(domain: "stanford.edu", active: false)
     end
   end
+
+  test "get_record should not create duplicates" do
+    before_count = EmailDomainFilter.count
+    filter1 = EmailDomainFilter.get_record("stanford.edu", true)
+    filter2 = EmailDomainFilter.get_record("stanford.edu", true)
+    assert_equal before_count + 1, EmailDomainFilter.count
+  end
 end
