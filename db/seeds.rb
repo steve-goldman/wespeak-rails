@@ -12,6 +12,8 @@ user = User.create!(name:                  "discgolfstu",
                     password_confirmation: "foobar",
                     can_create_groups:     true)
 
-user.email_addresses.create!(email: "steve.goldman@gmail.com", activated: true, activated_at: Time.zone.now)
+primary_email_address = user.email_addresses.create!(email: "steve.goldman@gmail.com", activated: true, activated_at: Time.zone.now)
 user.email_addresses.create!(email: "steve@wespeakapp.com",    activated: true, activated_at: Time.zone.now)
 user.email_addresses.create!(email: "stu@wespeakapp.com",      activated: false)
+
+user.update_attribute(:primary_email_address_id, primary_email_address.id)
