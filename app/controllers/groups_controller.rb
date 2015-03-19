@@ -28,7 +28,7 @@ class GroupsController < ApplicationController
   end
 
   def group_creates
-    group = @user.groups.create(name: params[:group][:name])
+    group = @user.groups_i_created.create(name: params[:group][:name])
     render_with_validation_flash(group, action: :new) if !group.valid?
   end
 end

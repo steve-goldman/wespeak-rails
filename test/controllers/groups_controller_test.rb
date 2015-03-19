@@ -10,7 +10,7 @@ class GroupsControllerTest < ActionController::TestCase
                          password_confirmation: "test123",
                          can_create_groups:     true)
     log_in @user
-    @group = @user.groups.create!(name: "added_group")
+    @group = @user.groups_i_created.create!(name: "added_group")
   end
 
   #

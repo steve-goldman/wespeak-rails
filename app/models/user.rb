@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :statements
 
-  has_many :groups
+  has_many :groups_i_created, class_name: "Group"
 
   # attr_accessors
 
