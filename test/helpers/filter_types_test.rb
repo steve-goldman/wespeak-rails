@@ -3,16 +3,16 @@ require 'test_helper'
 class FilterTypesTest < ActiveSupport::TestCase
 
   test "[] works" do
-    assert_equal 1001, FilterTypes[:email_domain_filter]
-    assert_equal 1002, FilterTypes[:facebook_filter]
-    assert_equal 1003, FilterTypes[:location_filter]
+    assert_equal 1001, FilterTypes[:email_domain]
+    assert_equal 1002, FilterTypes[:facebook]
+    assert_equal 1003, FilterTypes[:location]
     assert_nil         FilterTypes[:bogus_key]
   end
 
   test "key? works" do
-    assert     FilterTypes.key?(:email_domain_filter)
-    assert     FilterTypes.key?(:facebook_filter)
-    assert     FilterTypes.key?(:location_filter)
+    assert     FilterTypes.key?(:email_domain)
+    assert     FilterTypes.key?(:facebook)
+    assert     FilterTypes.key?(:location)
     assert_not FilterTypes.key?(:bogus_key)
   end
   

@@ -9,12 +9,12 @@ class StatementTypes
     rem_location_filter:     1006,
 
     # rules
-    lifespan:                2001,
-    support_needed:          2002,
-    votespan:                2003,
-    votes_needed:            2004,
-    yeses_needed:            2005,
-    inactivity_timeout:      2006,
+    lifespan_rule:           2001,
+    support_needed_rule:     2002,
+    votespan_rule:           2003,
+    votes_needed_rule:       2004,
+    yeses_needed_rule:       2005,
+    inactivity_timeout_rule: 2006,
 
     # data
     cover_photo:             3001,

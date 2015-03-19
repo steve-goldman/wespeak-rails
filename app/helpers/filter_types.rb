@@ -1,8 +1,8 @@
 class FilterTypes
   @filter_types = {
-    email_domain_filter: 1001,
-    facebook_filter:     1002,
-    location_filter:     1003,
+    email_domain: 1001,
+    facebook:     1002,
+    location:     1003,
   }
 
   def FilterTypes.[](key)
