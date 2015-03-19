@@ -1,6 +1,6 @@
 <% provide(:title, "Group Creation") %>
 <div class="row">
-  <div class="col-md-offset-4 col-md-4 col-xs-12">
+  <div class="col-md-offset-3 col-md-6 col-xs-12">
     <%= render 'list_pending_groups', groups: @user.groups_pending_configuration_i_created %>
     <%= render 'list_active_groups',  groups: @user.active_groups_i_created                %>
     <%= render 'create_group' %>
