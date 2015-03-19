@@ -2,17 +2,22 @@ class GroupsController < ApplicationController
 
   include GroupsHelper
 
-  before_action :logged_in,         only: [:index, :edit, :new, :create]
-  before_action :can_create_groups, only: [:index, :edit, :new, :create]
+  before_action :logged_in,         only: [:index, :edit, :destroy, :new, :create]
+  before_action :can_create_groups, only: [:index, :edit, :destroy, :new, :create]
   before_action :group_creates,     only: [:create]
-  before_action :group_known,       only: [:edit]
-  before_action :user_matches,      only: [:edit]
-  before_action :group_not_active,  only: [:edit]
+  before_action :group_known,       only: [:edit, :destroy]
+  before_action :user_matches,      only: [:edit, :destroy]
+  before_action :group_not_active,  only: [:edit, :destroy]
 
   def index
   end
 
   def edit
+  end
+
+  def destroy
+    @group.destroy
+    redirect_to groups_path
   end
   
   def new

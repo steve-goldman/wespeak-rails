@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resource  :notifications,    only: [:show]
   end
 
-  resources :groups,             only: [:index, :edit, :show, :new, :create]
+  resources :groups,             only: [:index, :edit, :destroy, :show, :new, :create]
 
   namespace :filters do
     resources :email_domain_filters, only: [:create]

@@ -67,6 +67,49 @@ class GroupsControllerTest < ActionController::TestCase
   end
 
   #
+  # destroy tests
+  #
+
+  test "destroy when not logged in should redirect" do
+    log_out
+    delete_destroy @group.id
+    assert_redirected_with_flash [FlashMessages::NOT_LOGGED_IN], root_url
+  end
+
+  test "destroy when cannot create groups should redirect" do
+    @user.update_attribute(:can_create_groups, false)
+    delete_destroy @group.id
+    assert_redirected_with_flash [FlashMessages::CANNOT_CREATE_GROUPS], root_url
+  end
+
+  test "destroy for unknown group should redirect" do
+    delete_destroy 999999
+    assert_redirected_with_flash [FlashMessages::GROUP_UNKNOWN], groups_path
+  end
+
+  test "destroy for active group should redirect" do
+    @group.update_attribute(:active, true)
+    delete_destroy @group.id
+    assert_redirected_with_flash [FlashMessages::GROUP_ACTIVE], groups_path
+  end
+  
+  test "destroy for another user's group should redirect" do
+    other_user = User.create!(name:                  "Mike",
+                              password:              "test123",
+                              password_confirmation: "test123",
+                              can_create_groups:     true)
+    other_group = other_user.groups_i_created.create!(name: "other_group")
+    delete_destroy other_group.id
+    assert_redirected_with_flash [FlashMessages::USER_MISMATCH], groups_path
+  end
+
+  test "destroy with valid params should work" do
+    delete_destroy @group.id
+    assert_redirected_with_flash [], groups_path
+    assert_nil Group.find_by(id: @group.id)
+  end
+
+  #
   # new tests
   #
 
@@ -150,6 +193,10 @@ class GroupsControllerTest < ActionController::TestCase
 
   def get_edit(id)
     get :edit, id: id
+  end
+
+  def delete_destroy(id)
+    delete :destroy, id: id
   end
 
   def get_new
