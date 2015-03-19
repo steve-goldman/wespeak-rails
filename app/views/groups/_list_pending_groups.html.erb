@@ -1,0 +1,19 @@
+<% if groups.any? %>
+<h2>Pending Configuration</h2>
+<table class="table table-hover table-striped">
+  <thead>
+    <th>Name</th>
+    <th>Created</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% groups.each do |group| %>
+    <tr>
+      <td><%= group.name %></td>
+      <td><%= time_ago_in_words(group.created_at) + " ago" %></td>
+      <td><%= %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

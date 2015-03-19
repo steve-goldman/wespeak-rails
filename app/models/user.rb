@@ -84,4 +84,13 @@ class User < ActiveRecord::Base
   def password_reset_expired?
     password_reset_sent_at.nil? || password_reset_sent_at < ExpirationTimes.password_reset_expiration
   end
+
+  def groups_pending_configuration_i_created
+    groups_i_created.where(active: false)
+  end
+
+  def active_groups_i_created
+    groups_i_created.where(active: true)
+  end
+  
 end
