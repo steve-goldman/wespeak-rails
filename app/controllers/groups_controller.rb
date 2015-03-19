@@ -2,10 +2,13 @@ class GroupsController < ApplicationController
 
   include GroupsHelper
 
-  before_action :logged_in,         only: [:new, :create]
-  before_action :can_create_groups, only: [:new, :create]
+  before_action :logged_in,         only: [:index, :new, :create]
+  before_action :can_create_groups, only: [:index, :new, :create]
   before_action :group_creates,     only: [:create]
 
+  def index
+  end
+  
   def new
   end
 
