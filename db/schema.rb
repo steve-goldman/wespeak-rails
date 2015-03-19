@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319190743) do
+ActiveRecord::Schema.define(version: 20150319211511) do
 
   create_table "email_addresses", force: :cascade do |t|
     t.string   "email"
@@ -37,10 +37,16 @@ ActiveRecord::Schema.define(version: 20150319190743) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "active",     default: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "active",                  default: false
     t.integer  "user_id"
+    t.integer  "lifespan_rule"
+    t.integer  "support_needed_rule"
+    t.integer  "votespan_rule"
+    t.integer  "votes_needed_rule"
+    t.integer  "yeses_needed_rule"
+    t.integer  "inactivity_timeout_rule"
   end
 
   create_table "statements", force: :cascade do |t|
