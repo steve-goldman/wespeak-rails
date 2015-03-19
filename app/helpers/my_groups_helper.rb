@@ -1,4 +1,4 @@
-module GroupsHelper
+module MyGroupsHelper
 
   include ApplicationHelper
 

@@ -2,7 +2,7 @@ class EmailDomainFilter < ActiveRecord::Base
 
   include ApplicationHelper
 
-  include GroupsHelper
+  include MyGroupsHelper
 
   include Constants
 

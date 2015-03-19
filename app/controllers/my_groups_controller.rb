@@ -1,9 +1,9 @@
-class GroupsController < ApplicationController
+class MyGroupsController < ApplicationController
 
-  include GroupsHelper
+  include MyGroupsHelper
 
-  before_action :logged_in,         only: [:index, :edit, :destroy, :new, :create]
-  before_action :can_create_groups, only: [:index, :edit, :destroy, :new, :create]
+  before_action :logged_in,         only: [:index, :edit, :destroy, :create]
+  before_action :can_create_groups, only: [:index, :edit, :destroy, :create]
   before_action :group_creates,     only: [:create]
   before_action :group_known,       only: [:edit, :destroy]
   before_action :user_matches,      only: [:edit, :destroy]
@@ -17,12 +17,9 @@ class GroupsController < ApplicationController
 
   def destroy
     @group.destroy
-    redirect_to groups_path
+    redirect_to my_groups_path
   end
   
-  def new
-  end
-
   def create
     redirect_with_flash(FlashMessages::SUCCESS, root_url)
   end
@@ -40,20 +37,20 @@ class GroupsController < ApplicationController
 
   def group_creates
     @group = @user.groups_i_created.create(name: params[:group][:name])
-    render_with_validation_flash(@group, action: :new) if !@group.valid?
+    render_with_validation_flash(@group, action: :index) if !@group.valid?
   end
 
   def group_known
     @group = Group.find_by(id: params[:id])
-    redirect_with_flash(FlashMessages::GROUP_UNKNOWN, groups_path) if @group.nil?
+    redirect_with_flash(FlashMessages::GROUP_UNKNOWN, my_groups_path) if @group.nil?
   end
 
   def user_matches
-    redirect_with_flash(FlashMessages::USER_MISMATCH, groups_path) if @group.user_id != @user.id
+    redirect_with_flash(FlashMessages::USER_MISMATCH, my_groups_path) if @group.user_id != @user.id
   end
 
   def group_not_active
-    redirect_with_flash(FlashMessages::GROUP_ACTIVE, groups_path) if @group.active?
+    redirect_with_flash(FlashMessages::GROUP_ACTIVE, my_groups_path) if @group.active?
   end
 
 end
