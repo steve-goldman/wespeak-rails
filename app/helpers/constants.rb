@@ -23,5 +23,20 @@ module Constants
   end
 
   VALIDATION_FLASH_LEVEL = :danger
-  
+
+  TIMESPAN_INPUT_OPTIONS = [
+    ["15 minutes", 15.minutes.to_i],
+    ["30 minutes", 30.minutes.to_i],
+    ["1 hour"    , 1.hour.to_i],
+    ["3 hours"   , 3.hours.to_i],
+    ["6 hours"   , 6.hours.to_i],
+    ["12 hours"  , 12.hours.to_i],
+    ["1 day"     , 1.day.to_i],
+    ["2 days"    , 2.days.to_i],
+    ["3 days"    , 3.days.to_i],
+    ["4 days"    , 4.days.to_i],
+    ["5 days"    , 5.days.to_i],
+    ["6 days"    , 6.days.to_i],
+    ["7 days"    , 7.days.to_i],
+  ];
 end
