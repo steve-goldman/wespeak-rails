@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319161800) do
+ActiveRecord::Schema.define(version: 20150319190743) do
 
   create_table "email_addresses", force: :cascade do |t|
     t.string   "email"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150319161800) do
     t.integer  "content_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "state"
   end
 
   add_index "statements", ["group_id"], name: "index_statements_on_group_id"
