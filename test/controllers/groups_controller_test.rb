@@ -30,6 +30,43 @@ class GroupsControllerTest < ActionController::TestCase
   end
 
   #
+  # edit tests
+  #
+
+  test "edit when not logged in should redirect" do
+    log_out
+    get_edit @group.id
+    assert_redirected_with_flash [FlashMessages::NOT_LOGGED_IN], root_url
+  end
+
+  test "edit when cannot create groups should redirect" do
+    @user.update_attribute(:can_create_groups, false)
+    get_edit @group.id
+    assert_redirected_with_flash [FlashMessages::CANNOT_CREATE_GROUPS], root_url
+  end
+
+  test "edit for unknown group should redirect" do
+    get_edit 999999
+    assert_redirected_with_flash [FlashMessages::GROUP_UNKNOWN], groups_path
+  end
+
+  test "edit for active group should redirect" do
+    @group.update_attribute(:active, true)
+    get_edit @group.id
+    assert_redirected_with_flash [FlashMessages::GROUP_ACTIVE], groups_path
+  end
+  
+  test "edit for another user's group should redirect" do
+    other_user = User.create!(name:                  "Mike",
+                              password:              "test123",
+                              password_confirmation: "test123",
+                              can_create_groups:     true)
+    other_group = other_user.groups_i_created.create!(name: "other_group")
+    get_edit other_group.id
+    assert_redirected_with_flash [FlashMessages::USER_MISMATCH], groups_path
+  end
+
+  #
   # new tests
   #
 
@@ -109,6 +146,10 @@ class GroupsControllerTest < ActionController::TestCase
 
   def get_index
     get :index
+  end
+
+  def get_edit(id)
+    get :edit, id: id
   end
 
   def get_new

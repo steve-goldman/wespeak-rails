@@ -10,7 +10,7 @@
     <tr>
       <td><%= group.name %></td>
       <td><%= time_ago_in_words(group.created_at) + " ago" %></td>
-      <td><%= %></td>
+      <td><%= link_to "Configure", edit_group_path(group.id) %></td>
     </tr>
     <% end %>
   </tbody>
