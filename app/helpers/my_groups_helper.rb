@@ -3,7 +3,8 @@ module MyGroupsHelper
   include ApplicationHelper
 
   class FlashMessages
-    SUCCESS              = FlashMessage.new(:success, "Group has been created!")
+    CREATE_SUCCESS       = FlashMessage.new(:success, "Group created!")
+    UPDATE_SUCCESS       = FlashMessage.new(:success, "Group rules updated!")
     
     NOT_LOGGED_IN        = FlashMessage.new(:danger,  "Must be logged in to access this page")
     CANNOT_CREATE_GROUPS = FlashMessage.new(:danger,  "You don't have permission to create groups right now")
@@ -23,5 +24,13 @@ module MyGroupsHelper
     DOMAIN_NOT_PRESENT = ValidationMessage.new("Please choose a domain")
     DOMAIN_TOO_LONG    = ValidationMessage.new("Domain must be less than #{Lengths::EMAIL_DOMAIN_MAX} characters")
     DOMAIN_FORMATTING  = ValidationMessage.new("That is not a valid email domain")
+
+    LIFESPAN_DURATION  = ValidationMessage.new("Lifespan must be between #{Timespans.in_words(Timespans::LIFESPAN_MIN)} and #{Timespans.in_words(Timespans::LIFESPAN_MAX)}")
+    VOTESPAN_DURATION  = ValidationMessage.new("Vote lifespan must be between #{Timespans.in_words(Timespans::VOTESPAN_MIN)} and #{Timespans.in_words(Timespans::VOTESPAN_MAX)}")
+    INACTIVITY_TIMEOUT_DURATION  = ValidationMessage.new("Member inactivity timeout must be between #{Timespans.in_words(Timespans::INACTIVITY_TIMEOUT_MIN)} and #{Timespans.in_words(Timespans::INACTIVITY_TIMEOUT_MAX)}")
+
+    SUPPORT_NEEDED_BOUNDS = ValidationMessage.new("Support needed must be between #{Needed::SUPPORT_MIN / 100.0} and #{Needed::SUPPORT_MAX / 100.0}")
+    VOTES_NEEDED_BOUNDS = ValidationMessage.new("Votes needed must be between #{Needed::VOTES_MIN / 100.0} and #{Needed::VOTES_MAX / 100.0}")
+    YESES_NEEDED_BOUNDS = ValidationMessage.new("Yeses needed must be between #{Needed::YESES_MIN / 100.0} and #{Needed::YESES_MAX / 100.0}")
   end
 end

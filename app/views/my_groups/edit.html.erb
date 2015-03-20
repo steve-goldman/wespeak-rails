@@ -10,7 +10,7 @@
       <tbody>
         <tr>
           <td><%= f.label :lifespan_rule, "Statement Lifespan" %></td>
-          <td><%= f.select(:lifespan_rule, options_for_select(Constants::TIMESPAN_INPUT_OPTIONS, @group.lifespan_rule), class: "form-control") %></td>
+          <td><%= f.select(:lifespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.lifespan_rule), class: "form-control") %></td>
         </tr>
         <tr>
           <td><%= f.label :support_needed_rule, "Support Needed (%)" %></td>
@@ -18,7 +18,7 @@
         </tr>
         <tr>
           <td><%= f.label :votespan_rule, "Vote Lifespan" %></td>
-          <td><%= f.select(:votespan_rule, options_for_select(Constants::TIMESPAN_INPUT_OPTIONS, @group.votespan_rule), class: "form-control") %></td>
+          <td><%= f.select(:votespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.votespan_rule), class: "form-control") %></td>
         </tr>
         <tr>
           <td><%= f.label :yeses_needed_rule, "Votes Needed (%)" %></td>
@@ -28,10 +28,14 @@
           <td><%= f.label :yeses_needed_rule, "Yeses Needed (%)" %></td>
           <td><%= f.text_field :yeses_needed_rule, value: @group.yeses_needed_rule / 100.0, class: "form-control" %>
         </tr>
+        <tr>
+          <td><%= f.label :inactivity_timeout_rule, "Member Inactivity Timeout" %></td>
+          <td><%= f.select(:inactivity_timeout_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.inactivity_timeout_rule), class: "form-control") %></td>
+        </tr>
       </tbody>
     </table>
 
-    <%= f.submit "Activate Group", class: "btn btn-primary" %>
+    <%= f.submit "Update Rules", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

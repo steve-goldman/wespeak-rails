@@ -1,6 +1,11 @@
 class Statement < ActiveRecord::Base
 
   include StatementsHelper
+
+  def validation_keys
+    [:valid_statement_type,
+     :valid_statement_state]
+  end
   
   validate :valid_statement_type
   validate :valid_statement_state

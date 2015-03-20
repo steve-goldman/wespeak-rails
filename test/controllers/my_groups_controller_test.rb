@@ -66,6 +66,327 @@ class MyGroupsControllerTest < ActionController::TestCase
     assert_redirected_with_flash [FlashMessages::USER_MISMATCH], my_groups_path
   end
 
+  test "edit with valid group should render edit" do
+    get_edit @group.id
+    assert_rendered_with_flash [], :edit
+  end
+
+  #
+  # update tests
+  #
+
+  test "update when not logged in should redirect" do
+    log_out
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::NOT_LOGGED_IN], root_url
+  end
+
+  test "update when cannot create groups should redirect" do
+    @user.update_attribute(:can_create_groups, false)
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::CANNOT_CREATE_GROUPS], root_url
+  end
+
+  test "update for unknown group should redirect" do
+    patch_update(999999,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::GROUP_UNKNOWN], my_groups_path
+  end
+
+  test "update for active group should redirect" do
+    @group.update_attribute(:active, true)
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+
+    assert_redirected_with_flash [FlashMessages::GROUP_ACTIVE], my_groups_path
+  end
+  
+  test "update for another user's group should redirect" do
+    other_user = User.create!(name:                  "Mike",
+                              password:              "test123",
+                              password_confirmation: "test123",
+                              can_create_groups:     true)
+    other_group = other_user.groups_i_created.create!(name: "other_group")
+    patch_update(other_group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::USER_MISMATCH], my_groups_path
+  end
+
+  test "update with invalid lifespan alerts" do
+    patch_update(@group.id,
+                 Timespans::LIFESPAN_MIN - 1,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::LIFESPAN_DURATION], :edit
+
+    patch_update(@group.id,
+                 Timespans::LIFESPAN_MIN,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+
+    patch_update(@group.id,
+                 Timespans::LIFESPAN_MAX + 1,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::LIFESPAN_DURATION], :edit
+
+    patch_update(@group.id,
+                 Timespans::LIFESPAN_MAX,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+  end
+
+  test "update with invalid votespan alerts" do
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 Timespans::VOTESPAN_MIN - 1,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::VOTESPAN_DURATION], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 Timespans::VOTESPAN_MIN,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 Timespans::VOTESPAN_MAX + 1,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::VOTESPAN_DURATION], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 Timespans::VOTESPAN_MAX,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+  end
+
+  test "update with invalid inactivity timeout alerts" do
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 Timespans::INACTIVITY_TIMEOUT_MIN - 1)
+    assert_rendered_with_flash [ValidationMessages::INACTIVITY_TIMEOUT_DURATION], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 Timespans::INACTIVITY_TIMEOUT_MIN)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 Timespans::INACTIVITY_TIMEOUT_MAX + 1)
+    assert_rendered_with_flash [ValidationMessages::INACTIVITY_TIMEOUT_DURATION], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 Timespans::INACTIVITY_TIMEOUT_MAX)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+  end
+
+  test "update with invalid support needed alerts" do
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 Needed::SUPPORT_MIN - 1,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::SUPPORT_NEEDED_BOUNDS], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 Needed::SUPPORT_MIN,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 Needed::SUPPORT_MAX + 1,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::SUPPORT_NEEDED_BOUNDS], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 Needed::SUPPORT_MAX,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+  end
+  
+  test "update with invalid votes needed alerts" do
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 Needed::VOTES_MIN - 1,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::VOTES_NEEDED_BOUNDS], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 Needed::VOTES_MIN,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 Needed::VOTES_MAX + 1,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::VOTES_NEEDED_BOUNDS], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 Needed::VOTES_MAX,
+                 @group.yeses_needed_rule,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+  end
+
+  test "update with invalid yeses needed alerts" do
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 Needed::YESES_MIN - 1,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::YESES_NEEDED_BOUNDS], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 Needed::YESES_MIN,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 Needed::YESES_MAX + 1,
+                 @group.inactivity_timeout_rule)
+    assert_rendered_with_flash [ValidationMessages::YESES_NEEDED_BOUNDS], :edit
+
+    patch_update(@group.id,
+                 @group.lifespan_rule,
+                 @group.support_needed_rule,
+                 @group.votespan_rule,
+                 @group.votes_needed_rule,
+                 Needed::YESES_MAX,
+                 @group.inactivity_timeout_rule)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+  end
+
+  test "update with valid params updates params" do
+    patch_update(@group.id,
+                 Timespans::LIFESPAN_MIN,
+                 Needed::SUPPORT_MIN,
+                 Timespans::VOTESPAN_MIN,
+                 Needed::VOTES_MIN,
+                 Needed::YESES_MIN,
+                 Timespans::INACTIVITY_TIMEOUT_MIN)
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+
+    @group.reload
+
+    assert_equal Timespans::LIFESPAN_MIN,           @group.lifespan_rule 
+    assert_equal Needed::SUPPORT_MIN,               @group.support_needed_rule
+    assert_equal Timespans::VOTESPAN_MIN,           @group.votespan_rule
+    assert_equal Needed::VOTES_MIN,                 @group.votes_needed_rule
+    assert_equal Needed::YESES_MIN,                 @group.yeses_needed_rule
+    assert_equal Timespans::INACTIVITY_TIMEOUT_MIN, @group.inactivity_timeout_rule 
+  end
+
   #
   # destroy tests
   #
@@ -144,7 +465,7 @@ class MyGroupsControllerTest < ActionController::TestCase
 
     name = "a" * Lengths::GROUP_NAME_MAX
     post_create name
-    assert_redirected_with_flash [FlashMessages::SUCCESS], root_url
+    assert_redirected_with_flash [FlashMessages::CREATE_SUCCESS], my_groups_path
     assert_not_nil Group.find_by(name: name)
   end
 
@@ -158,7 +479,7 @@ class MyGroupsControllerTest < ActionController::TestCase
   test "create with valid name should redirect" do
     ["HELLO", "world", "12345", "1-2-3-4", "1_2_3_4", "a.b.c"].each do |valid_name|
       post_create valid_name
-      assert_redirected_with_flash [FlashMessages::SUCCESS], root_url
+      assert_redirected_with_flash [FlashMessages::CREATE_SUCCESS], my_groups_path
       assert_not_nil Group.find_by(name: valid_name)
     end
   end
@@ -171,6 +492,15 @@ class MyGroupsControllerTest < ActionController::TestCase
 
   def get_edit(id)
     get :edit, id: id
+  end
+
+  def patch_update(id, lifespan, support_needed, votespan, votes_needed, yeses_needed, inactivity_timeout)
+    patch :update, id: id, my_group: { lifespan_rule:           lifespan,
+                                       support_needed_rule:     support_needed,
+                                       votespan_rule:           votespan,
+                                       votes_needed_rule:       votes_needed,
+                                       yeses_needed_rule:       yeses_needed,
+                                       inactivity_timeout_rule: inactivity_timeout }
   end
 
   def delete_destroy(id)
