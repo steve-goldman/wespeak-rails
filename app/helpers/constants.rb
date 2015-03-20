@@ -59,10 +59,10 @@ module Constants
 
   class Needed
     SUPPORT_MIN = 1
-    SUPPORT_MAX = 9999
+    SUPPORT_MAX = 99
     VOTES_MIN   = 1
-    VOTES_MAX   = 9999
+    VOTES_MAX   = 99
     YESES_MIN   = 1
-    YESES_MAX   = 9999
+    YESES_MAX   = 99
   end
 end

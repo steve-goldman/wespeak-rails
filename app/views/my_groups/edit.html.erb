@@ -14,7 +14,7 @@
         </tr>
         <tr>
           <td><%= f.label :support_needed_rule, "Support Needed (%)" %></td>
-          <td><%= f.text_field :support_needed_rule, value: @group.support_needed_rule / 100.0, class: "form-control" %>
+          <td><%= f.text_field :support_needed_rule, value: @group.support_needed_rule, class: "form-control" %>
         </tr>
         <tr>
           <td><%= f.label :votespan_rule, "Vote Lifespan" %></td>
@@ -22,11 +22,11 @@
         </tr>
         <tr>
           <td><%= f.label :yeses_needed_rule, "Votes Needed (%)" %></td>
-          <td><%= f.text_field :votes_needed_rule, value: @group.votes_needed_rule / 100.0, class: "form-control" %>
+          <td><%= f.text_field :votes_needed_rule, value: @group.votes_needed_rule, class: "form-control" %>
         </tr>
         <tr>
           <td><%= f.label :yeses_needed_rule, "Yeses Needed (%)" %></td>
-          <td><%= f.text_field :yeses_needed_rule, value: @group.yeses_needed_rule / 100.0, class: "form-control" %>
+          <td><%= f.text_field :yeses_needed_rule, value: @group.yeses_needed_rule, class: "form-control" %>
         </tr>
         <tr>
           <td><%= f.label :inactivity_timeout_rule, "Member Inactivity Timeout" %></td>

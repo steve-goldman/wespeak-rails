@@ -29,8 +29,8 @@ module MyGroupsHelper
     VOTESPAN_DURATION  = ValidationMessage.new("Vote lifespan must be between #{Timespans.in_words(Timespans::VOTESPAN_MIN)} and #{Timespans.in_words(Timespans::VOTESPAN_MAX)}")
     INACTIVITY_TIMEOUT_DURATION  = ValidationMessage.new("Member inactivity timeout must be between #{Timespans.in_words(Timespans::INACTIVITY_TIMEOUT_MIN)} and #{Timespans.in_words(Timespans::INACTIVITY_TIMEOUT_MAX)}")
 
-    SUPPORT_NEEDED_BOUNDS = ValidationMessage.new("Support needed must be between #{Needed::SUPPORT_MIN / 100.0} and #{Needed::SUPPORT_MAX / 100.0}")
-    VOTES_NEEDED_BOUNDS = ValidationMessage.new("Votes needed must be between #{Needed::VOTES_MIN / 100.0} and #{Needed::VOTES_MAX / 100.0}")
-    YESES_NEEDED_BOUNDS = ValidationMessage.new("Yeses needed must be between #{Needed::YESES_MIN / 100.0} and #{Needed::YESES_MAX / 100.0}")
+    SUPPORT_NEEDED_BOUNDS = ValidationMessage.new("Support needed must be between #{Needed::SUPPORT_MIN} and #{Needed::SUPPORT_MAX}")
+    VOTES_NEEDED_BOUNDS   = ValidationMessage.new("Votes needed must be between #{Needed::VOTES_MIN} and #{Needed::VOTES_MAX}")
+    YESES_NEEDED_BOUNDS   = ValidationMessage.new("Yeses needed must be between #{Needed::YESES_MIN} and #{Needed::YESES_MAX}")
   end
 end

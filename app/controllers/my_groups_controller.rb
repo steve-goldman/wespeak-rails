@@ -17,7 +17,7 @@ class MyGroupsController < ApplicationController
   end
 
   def update
-    redirect_with_flash(FlashMessages::UPDATE_SUCCESS, my_groups_path)
+    redirect_with_flash(FlashMessages::UPDATE_SUCCESS, edit_my_group_path(id: @group.id))
   end
 
   def destroy

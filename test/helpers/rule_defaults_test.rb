@@ -4,10 +4,10 @@ class RuleDefaultsTest < ActiveSupport::TestCase
 
   test "[] works" do
     assert_equal 3.days.to_i, RuleDefaults[:lifespan]
-    assert_equal 500,         RuleDefaults[:support_needed]
+    assert_equal 5,           RuleDefaults[:support_needed]
     assert_equal 1.day.to_i,  RuleDefaults[:votespan]
-    assert_equal 4000,        RuleDefaults[:votes_needed]
-    assert_equal 5000,        RuleDefaults[:yeses_needed]
+    assert_equal 40,          RuleDefaults[:votes_needed]
+    assert_equal 50,          RuleDefaults[:yeses_needed]
     assert_equal 5.days.to_i, RuleDefaults[:inactivity_timeout]
     assert_nil                RuleDefaults[:bogus_key]
   end
