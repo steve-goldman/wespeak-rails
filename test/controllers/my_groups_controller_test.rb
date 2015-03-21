@@ -581,10 +581,61 @@ class MyGroupsControllerTest < ActionController::TestCase
   test "activate with valid params should work" do
     post_activate @group.id
     assert @group.reload.active
-    assert_rendered_with_flash [], :show
+    assert_redirected_with_flash [FlashMessages::ACTIVATED_SUCCESS], my_group_path(@group.id)
   end
 
-private
+  #
+  # update invitations tests
+  #
+
+  test "update invitations when not logged in should redirect" do
+    log_out
+    patch_update_invitations(@group.id, 0)
+    assert_redirected_with_flash [FlashMessages::NOT_LOGGED_IN], root_url
+  end
+
+  test "update invitations when cannot create groups should redirect" do
+    @user.update_attribute(:can_create_groups, false)
+    patch_update_invitations(@group.id, 0)
+    assert_redirected_with_flash [FlashMessages::CANNOT_CREATE_GROUPS], root_url
+  end
+
+  test "update invitations for unknown group should redirect" do
+    patch_update_invitations(999999, 0)
+    assert_redirected_with_flash [FlashMessages::GROUP_UNKNOWN], my_groups_path
+  end
+
+  test "update invitations for active group should redirect" do
+    @group.update_attribute(:active, true)
+    patch_update_invitations(@group.id, 0)
+    assert_redirected_with_flash [FlashMessages::GROUP_ACTIVE], my_groups_path
+  end
+  
+  test "update invitations for another user's group should redirect" do
+    other_user = User.create!(name:                  "Mike",
+                              password:              "test123",
+                              password_confirmation: "test123",
+                              can_create_groups:     true)
+    other_group = other_user.groups_i_created.create!(name: "other_group")
+    patch_update_invitations(other_group.id, 0)
+    assert_redirected_with_flash [FlashMessages::USER_MISMATCH], my_groups_path
+  end
+
+  test "update invitations with range should work" do
+    patch_update_invitations(@group.id, -2)
+    assert_rendered_with_flash [ValidationMessages::INVITATIONS_BOUNDS], :edit
+
+    patch_update_invitations(@group.id, Invitations::MAX_PER_DAY + 1)
+    assert_rendered_with_flash [ValidationMessages::INVITATIONS_BOUNDS], :edit
+
+    (0..Invitations::MAX_PER_DAY).each do |n|
+      patch_update_invitations(@group.id, n)
+      assert_redirected_with_flash [FlashMessages::UPDATE_INVITATIONS_SUCCESS], edit_my_group_path(@group.id)
+      assert_equal n, @group.reload.invitations
+    end
+  end
+
+  private
 
   def get_index
     get :index
@@ -601,6 +652,10 @@ private
                                        votes_needed_rule:       votes_needed,
                                        yeses_needed_rule:       yeses_needed,
                                        inactivity_timeout_rule: inactivity_timeout }
+  end
+
+  def patch_update_invitations(id, invitations)
+    patch :update_invitations, id: id, invitations: { per_day: invitations }
   end
 
   def delete_destroy(id)

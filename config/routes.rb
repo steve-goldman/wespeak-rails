@@ -23,8 +23,9 @@ Rails.application.routes.draw do
     resources :group_email_domains, only: [:create, :destroy]
 
     member do
-      get  :ready_to_activate
-      post :activate
+      patch :update_invitations
+      get   :ready_to_activate
+      post  :activate
     end
   end
 end

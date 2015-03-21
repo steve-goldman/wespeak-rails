@@ -71,4 +71,15 @@ class GroupTest < ActiveSupport::TestCase
     assert_not Group.new(name: "group", yeses_needed_rule: Needed::YESES_MAX + 1).valid?
     assert     Group.new(name: "group", yeses_needed_rule: Needed::YESES_MAX).valid?
   end
+
+  test "invitations should be in bounds" do
+    assert_not Group.new(name: "group", invitations: -2).valid?
+    assert_not Group.new(name: "group", invitations: Invitations::MAX_PER_DAY + 1).valid?
+
+    assert     Group.new(name: "group", invitations: Invitations::NOT_REQUIRED).valid?
+    (0..Invitations::MAX_PER_DAY).each do |n|
+          assert     Group.new(name: "group", invitations: n).valid?
+    end
+  end
+  
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321151818) do
+ActiveRecord::Schema.define(version: 20150321202400) do
 
   create_table "email_addresses", force: :cascade do |t|
     t.string   "email"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150321151818) do
     t.integer  "votes_needed_rule"
     t.integer  "yeses_needed_rule"
     t.integer  "inactivity_timeout_rule"
+    t.integer  "invitations"
   end
 
   create_table "statements", force: :cascade do |t|

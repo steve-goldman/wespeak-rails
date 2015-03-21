@@ -1,0 +1,6 @@
+<%= form_for :invitations, url: update_invitations_my_group_path(@group.id), method: :patch do |f| %>
+<p>Invitations:
+<%= f.select(:per_day, options_for_select(Constants::Invitations::INPUT_OPTIONS, @group.invitations), class: "form-control") %>
+</p>
+<%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

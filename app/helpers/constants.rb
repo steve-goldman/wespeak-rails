@@ -25,6 +25,22 @@ module Constants
 
   VALIDATION_FLASH_LEVEL = :danger
 
+  class Invitations
+    NOT_REQUIRED = -1
+    DEFAULT = NOT_REQUIRED
+    
+    MAX_PER_DAY  = 10
+
+    INPUT_OPTIONS = [
+      ["Not required", NOT_REQUIRED],
+      ["Members may send 0 per day"   ,  0],
+      ["Members may send 1 per day"   ,  1],
+      ["Members may send 2 per day"   ,  2],
+      ["Members may send 5 per day"   ,  5],
+      ["Members may send 10 per day"  , 10],
+    ]
+  end
+
   class Timespans
     INPUT_OPTIONS = [
       ["15 minutes", 15.minutes.to_i],

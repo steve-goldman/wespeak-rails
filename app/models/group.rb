@@ -10,9 +10,10 @@ class Group < ActiveRecord::Base
   # after initialize section
 
   after_initialize :set_rules_to_defaults
+  after_initialize :set_invitations_to_defaults
   
   def validation_keys
-    [:name, :rules]
+    [:name, :rules, :invitation_rules]
   end
 
   validates :name, { presence:   { message: ValidationMessages::NAME_NOT_PRESENT.message },
@@ -25,6 +26,8 @@ class Group < ActiveRecord::Base
 
   validate :rules
 
+  validate :invitation_rules
+
   private
 
   def set_rules_to_defaults
@@ -34,6 +37,10 @@ class Group < ActiveRecord::Base
     self.votes_needed_rule       ||= RuleDefaults[:votes_needed]
     self.yeses_needed_rule       ||= RuleDefaults[:yeses_needed]
     self.inactivity_timeout_rule ||= RuleDefaults[:inactivity_timeout]
+  end
+
+  def set_invitations_to_defaults
+    self.invitations             ||= Invitations::DEFAULT
   end
 
   def rules
@@ -49,5 +56,10 @@ class Group < ActiveRecord::Base
       yeses_needed_rule < Needed::YESES_MIN || yeses_needed_rule > Needed::YESES_MAX
     errors.add(:rules, ValidationMessages::INACTIVITY_TIMEOUT_DURATION.message) if
       inactivity_timeout_rule < Timespans::INACTIVITY_TIMEOUT_MIN || inactivity_timeout_rule > Timespans::INACTIVITY_TIMEOUT_MAX
+  end
+
+  def invitation_rules
+    errors.add(:invitation_rules, ValidationMessages::INVITATIONS_BOUNDS.message) if
+      invitations != Invitations::NOT_REQUIRED && (invitations < 0 || invitations > Invitations::MAX_PER_DAY)
   end
 end

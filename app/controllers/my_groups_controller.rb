@@ -2,13 +2,14 @@ class MyGroupsController < ApplicationController
 
   include MyGroupsHelper
 
-  before_action :logged_in,         only: [:index, :edit, :update, :destroy, :create, :ready_to_activate, :activate]
-  before_action :can_create_groups, only: [:index, :edit, :update, :destroy, :create, :ready_to_activate, :activate]
-  before_action :group_creates,     only: [:create]
-  before_action :group_known,       only: [:edit, :update, :destroy, :ready_to_activate, :activate]
-  before_action :user_matches,      only: [:edit, :update, :destroy, :ready_to_activate, :activate]
-  before_action :group_not_active,  only: [:edit, :update, :destroy, :ready_to_activate, :activate]
-  before_action :group_updates,     only: [:update]
+  before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :destroy, :create, :ready_to_activate, :activate]
+  before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :destroy, :create, :ready_to_activate, :activate]
+  before_action :group_creates,      only: [:create]
+  before_action :group_known,        only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
+  before_action :user_matches,       only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
+  before_action :group_not_active,   only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
+  before_action :rules_update,       only: [:update]
+  before_action :invitations_update, only: [:update_invitations]
 
   def show
   end
@@ -24,11 +25,15 @@ class MyGroupsController < ApplicationController
 
   def activate
     @group.update_attribute(:active, true)
-    render :show
+    redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, my_group_path(@group.id))
   end
 
   def update
     redirect_with_flash(FlashMessages::UPDATE_SUCCESS, edit_my_group_path(id: @group.id))
+  end
+
+  def update_invitations
+    redirect_with_flash(FlashMessages::UPDATE_INVITATIONS_SUCCESS, edit_my_group_path(id: @group.id))
   end
 
   def destroy
@@ -69,7 +74,7 @@ class MyGroupsController < ApplicationController
     redirect_with_flash(FlashMessages::GROUP_ACTIVE, my_groups_path) if @group.active?
   end
 
-  def group_updates
+  def rules_update
     render_with_validation_flash(@group, action: :edit) if
       !@group.update_attributes(lifespan_rule:           params[:my_group][:lifespan_rule],
                                 support_needed_rule:     params[:my_group][:support_needed_rule],
@@ -77,6 +82,11 @@ class MyGroupsController < ApplicationController
                                 votes_needed_rule:       params[:my_group][:votes_needed_rule],
                                 yeses_needed_rule:       params[:my_group][:yeses_needed_rule],
                                 inactivity_timeout_rule: params[:my_group][:inactivity_timeout_rule])
+  end
+
+  def invitations_update
+    render_with_validation_flash(@group, action: :edit) if
+      !@group.update_attributes(invitations: params[:invitations][:per_day])
   end
 
 end
