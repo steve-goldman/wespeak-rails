@@ -3,10 +3,58 @@
   <div class="col-md-offset-3 col-md-6 col-xs-12">
     <h3>Settings for <%= @group.name %></h3>
     <p><%= link_to "Back to My Groups", my_groups_path %></p>
-    <%= render 'my_groups/rules' %>
-    <%= render 'group_email_domains/index' %>
-    <%= render 'my_groups/facebook' %>
-    <%= render 'my_groups/invitations' %>
-    <%= render 'my_groups/locations' %>
+
+    <div class="group-email-domains">
+      <h4>Email Address Restrictions Settings</h4>
+      <p>
+        Restrict users based on email addresses?  Leaving this empty
+        makes no restrictions.  Otherwise, users will not be
+        restricted if they have an email address that matches one of
+        the domains.  Remember, anything you set here can be changed
+        later by the group.
+      </p>
+      <%= render 'group_email_domains/index' %>
+      <%= render 'group_email_domains/new' %>
+    </div>
+
+    <div class="group-rules">
+      <h4>Rules Settings</h4>
+      <p>
+        Set up the initial rules for the group.  Remember, anything
+        you set here can be changed later by the group.
+      </p>
+      <%= render 'my_groups/rules' %>
+    </div>
+    
+    <div class="group-rules">
+      <h4>Facebook Restrictions Settings</h4>
+      <p>
+        Restrict users based on whether they have a Facebook account?
+        Remember, anything you set here can be changed later by the
+        group.
+      </p>
+      <%= render 'my_groups/facebook' %>
+    </div>
+
+    <div class="group-rules">
+      <h4>Invitation Settings</h4>
+      <p>
+        Should participation be by invitation only?  Remember,
+        anything you set here can be changed later by the group.
+      </p>
+      <%= render 'my_groups/invitations' %>
+    </div>
+
+    <div class="group-rules">
+      <h4>Location Restrictions Settings</h4>
+      <p>
+        Restrict users based on location?  Leaving this empty makes no
+        restrictions.  Otherwise, users will not be restricted if they
+        are inside one of the regions.  Remember, anything you set
+        here can be changed later by the group.
+      </p>
+      <%= render 'my_groups/locations' %>
+    </div>
+
   </div>
 </div>

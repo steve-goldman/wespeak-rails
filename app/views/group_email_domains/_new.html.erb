@@ -1,0 +1,5 @@
+<%= form_for(:group_email_domain, url: my_group_group_email_domains_path(@group.id)) do |f| %>
+<%= f.label :email, "Add an Email Domain" %>
+<%= f.text_field :domain, placeholder: "Email Domain", class: "form-control" %>
+<%= f.submit "Add Domain", class: "btn btn-primary" %>
+<% end %>

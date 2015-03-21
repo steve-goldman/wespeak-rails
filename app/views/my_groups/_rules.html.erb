@@ -1,40 +1,36 @@
-<div class="group-rules">
-  <h4>Rules Settings</h4>
-  <p>Set up the initial rules for the group.  Remember, anything you set here can be changed later by the group.</p>
-  <%= form_for(:my_group, url: my_group_path(@group.id), method: "patch") do |f| %>
-  <table class="table table-hover table-striped">
-    <thead>
-      <th>Rule</th>
-      <th>Value</th>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= f.label :lifespan_rule, "Statement Lifespan" %></td>
-        <td><%= f.select(:lifespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.lifespan_rule), class: "form-control") %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :support_needed_rule, "Support Needed (%)" %></td>
-        <td><%= f.number_field :support_needed_rule, value: @group.support_needed_rule, min: Constants::Needed::SUPPORT_MIN, max: Constants::Needed::SUPPORT_MAX, maxlength: 2, class: "form-control" %>
-      </tr>
-      <tr>
-        <td><%= f.label :votespan_rule, "Vote Lifespan" %></td>
-        <td><%= f.select(:votespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.votespan_rule), class: "form-control") %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :yeses_needed_rule, "Votes Needed (%)" %></td>
-        <td><%= f.number_field :votes_needed_rule, value: @group.votes_needed_rule, min: Constants::Needed::VOTES_MIN, max: Constants::Needed::VOTES_MAX, maxlength: 2, class: "form-control" %>
-      </tr>
-      <tr>
-        <td><%= f.label :yeses_needed_rule, "Yeses Needed (%)" %></td>
-        <td><%= f.number_field :yeses_needed_rule, value: @group.yeses_needed_rule, min: Constants::Needed::YESES_MIN, max: Constants::Needed::YESES_MAX, maxlength: 2, class: "form-control" %>
-      </tr>
-      <tr>
-        <td><%= f.label :inactivity_timeout_rule, "Member Inactivity Timeout" %></td>
-        <td><%= f.select(:inactivity_timeout_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.inactivity_timeout_rule), class: "form-control") %></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <%= f.submit "Save", class: "btn btn-primary" %>
-  <% end %>
-</div>
+<%= form_for(:my_group, url: my_group_path(@group.id), method: "patch") do |f| %>
+<table class="table table-hover table-striped">
+  <thead>
+    <th>Rule</th>
+    <th>Value</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= f.label :lifespan_rule, "Statement Lifespan" %></td>
+      <td><%= f.select(:lifespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.lifespan_rule), class: "form-control") %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :support_needed_rule, "Support Needed (%)" %></td>
+      <td><%= f.number_field :support_needed_rule, value: @group.support_needed_rule, min: Constants::Needed::SUPPORT_MIN, max: Constants::Needed::SUPPORT_MAX, maxlength: 2, class: "form-control" %>
+    </tr>
+    <tr>
+      <td><%= f.label :votespan_rule, "Vote Lifespan" %></td>
+      <td><%= f.select(:votespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.votespan_rule), class: "form-control") %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :yeses_needed_rule, "Votes Needed (%)" %></td>
+      <td><%= f.number_field :votes_needed_rule, value: @group.votes_needed_rule, min: Constants::Needed::VOTES_MIN, max: Constants::Needed::VOTES_MAX, maxlength: 2, class: "form-control" %>
+    </tr>
+    <tr>
+      <td><%= f.label :yeses_needed_rule, "Yeses Needed (%)" %></td>
+      <td><%= f.number_field :yeses_needed_rule, value: @group.yeses_needed_rule, min: Constants::Needed::YESES_MIN, max: Constants::Needed::YESES_MAX, maxlength: 2, class: "form-control" %>
+    </tr>
+    <tr>
+      <td><%= f.label :inactivity_timeout_rule, "Member Inactivity Timeout" %></td>
+      <td><%= f.select(:inactivity_timeout_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.inactivity_timeout_rule), class: "form-control") %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>
