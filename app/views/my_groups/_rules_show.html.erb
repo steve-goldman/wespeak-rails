@@ -5,21 +5,27 @@
   </thead>
   <tbody>
     <tr>
+      <td>Statement Lifespan</td>
       <td><%= Constants::Timespans::in_words(@group.lifespan_rule) %></td>
     </tr>
     <tr>
+      <td>Support Needed</td>
       <td><%= @group.support_needed_rule %>%</td>
     </tr>
     <tr>
+      <td>Vote Lifespan</td>
       <td><%= Constants::Timespans::in_words(@group.votespan_rule) %></td>
     </tr>
     <tr>
+      <td>Votes Needed</td>
       <td><%= @group.votes_needed_rule %>%</td>
     </tr>
     <tr>
+      <td>Yeses Needed</td>
       <td><%= @group.yeses_needed_rule %>%</td>
     </tr>
     <tr>
+      <td>Member Inactivity Timeout</td>
       <td><%= Constants::Timespans::in_words(@group.inactivity_timeout_rule) %></td>
     </tr>
   </tbody>

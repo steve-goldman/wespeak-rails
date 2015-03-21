@@ -2,12 +2,12 @@
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
     <h3>Settings for <%= @group.name %></h3>
-    <p><%= link_to "Back to My Groups", my_groups_path %></p>
+    <p><%= link_to "Back to my groups", my_groups_path %></p>
 
     <p>
-      When you are happy with all the settings, click "Create" to
-      create the group.  After the group is created, only the group
-      will be able to change these settings.
+      When you are happy with all the settings, click "Ready to
+      Create" to create the group.  After the group is created, only
+      the group will be able to change these settings.
     </p>
     <div class="settings-group">
       <h4>Email Address Restrictions Settings</h4>
@@ -61,5 +61,10 @@
       <%= render 'my_groups/locations' %>
     </div>
 
+    <div class="ready-to-activate">
+      <%= form_for(:ready_to_activate, url: ready_to_activate_my_group_path(@group.id), method: :get) do |f| %>
+      <%= f.submit "Ready to Create", class: "btn btn-primary" %>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -2,18 +2,21 @@ class MyGroupsController < ApplicationController
 
   include MyGroupsHelper
 
-  before_action :logged_in,         only: [:index, :edit, :update, :destroy, :create]
-  before_action :can_create_groups, only: [:index, :edit, :update, :destroy, :create]
+  before_action :logged_in,         only: [:index, :edit, :update, :destroy, :create, :ready_to_activate]
+  before_action :can_create_groups, only: [:index, :edit, :update, :destroy, :create, :ready_to_activate]
   before_action :group_creates,     only: [:create]
-  before_action :group_known,       only: [:edit, :update, :destroy]
-  before_action :user_matches,      only: [:edit, :update, :destroy]
-  before_action :group_not_active,  only: [:edit, :update, :destroy]
+  before_action :group_known,       only: [:edit, :update, :destroy, :ready_to_activate]
+  before_action :user_matches,      only: [:edit, :update, :destroy, :ready_to_activate]
+  before_action :group_not_active,  only: [:edit, :update, :destroy, :ready_to_activate]
   before_action :group_updates,     only: [:update]
 
   def index
   end
 
   def edit
+  end
+
+  def ready_to_activate
   end
 
   def update

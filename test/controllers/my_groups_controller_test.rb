@@ -498,6 +498,48 @@ class MyGroupsControllerTest < ActionController::TestCase
     end
   end
 
+  #
+  # ready_to_activate tests
+  #
+
+  test "ready_to_activate when not logged in should redirect" do
+    log_out
+    get_ready_to_activate @group.id
+    assert_redirected_with_flash [FlashMessages::NOT_LOGGED_IN], root_url
+  end
+
+  test "ready_to_activate when cannot create groups should redirect" do
+    @user.update_attribute(:can_create_groups, false)
+    get_ready_to_activate @group.id
+    assert_redirected_with_flash [FlashMessages::CANNOT_CREATE_GROUPS], root_url
+  end
+
+  test "ready_to_activate for unknown group should redirect" do
+    get_ready_to_activate 999999
+    assert_redirected_with_flash [FlashMessages::GROUP_UNKNOWN], my_groups_path
+  end
+
+  test "ready_to_activate for active group should redirect" do
+    @group.update_attribute(:active, true)
+    get_ready_to_activate @group.id
+    assert_redirected_with_flash [FlashMessages::GROUP_ACTIVE], my_groups_path
+  end
+  
+  test "ready_to_activate for another user's group should redirect" do
+    other_user = User.create!(name:                  "Mike",
+                              password:              "test123",
+                              password_confirmation: "test123",
+                              can_create_groups:     true)
+    other_group = other_user.groups_i_created.create!(name: "other_group")
+    get_ready_to_activate other_group.id
+    assert_redirected_with_flash [FlashMessages::USER_MISMATCH], my_groups_path
+  end
+
+  test "ready_to_activate with valid params should work" do
+    get_ready_to_activate @group.id
+    assert_rendered_with_flash [], :ready_to_activate
+  end
+
   private
 
   def get_index
@@ -523,6 +565,10 @@ class MyGroupsControllerTest < ActionController::TestCase
 
   def post_create(name)
     post :create, group: { name: name }
+  end
+
+  def get_ready_to_activate(id)
+    get :ready_to_activate, id: id
   end
 
 end

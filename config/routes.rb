@@ -21,5 +21,10 @@ Rails.application.routes.draw do
 
   resources :my_groups,          only: [:index, :edit, :update, :destroy, :create] do
     resources :group_email_domains, only: [:create, :destroy]
+
+    member do
+      get  :ready_to_activate
+      post :activate
+    end
   end
 end
