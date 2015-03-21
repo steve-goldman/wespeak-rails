@@ -32,9 +32,7 @@ class GroupEmailDomainTest < ActiveSupport::TestCase
   end
 
   test "duplicates should not be allowed" do
-    @group.group_email_domains.create!(domain: "stanford.edu")
-    assert_raises ActiveRecord::RecordNotUnique do
-      @group.group_email_domains.create!(domain: "stanford.edu")
-    end
+    assert     @group.group_email_domains.create(domain: "stanford.edu").valid?
+    assert_not @group.group_email_domains.create(domain: "stanford.edu").valid?
   end
 end
