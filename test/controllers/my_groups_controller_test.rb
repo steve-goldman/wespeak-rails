@@ -456,6 +456,8 @@ class MyGroupsControllerTest < ActionController::TestCase
   test "create with taken name should redirect" do
     post_create @group.name
     assert_rendered_with_flash [ValidationMessages::NAME_TAKEN], :index
+    post_create @group.name.upcase
+    assert_rendered_with_flash [ValidationMessages::NAME_TAKEN], :index
   end
 
   test "create with too long name should redirect" do
