@@ -1,0 +1,7 @@
+<p>
+  <% if @group.invitations == Constants::Invitations::NOT_REQUIRED %>
+  Invitations are not required for participation in this group.
+  <% else %>
+  Members may send up to <%= @group.invitations %> per day.
+  <% end %>
+</p>
