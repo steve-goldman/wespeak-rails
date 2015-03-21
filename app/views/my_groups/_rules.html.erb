@@ -1,0 +1,36 @@
+<%= form_for(:my_group, url: my_group_path(@group.id), method: "patch") do |f| %>
+<table class="table table-hover table-striped">
+  <thead>
+    <th>Rule</th>
+    <th>Value</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= f.label :lifespan_rule, "Statement Lifespan" %></td>
+      <td><%= f.select(:lifespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.lifespan_rule), class: "form-control") %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :support_needed_rule, "Support Needed (%)" %></td>
+      <td><%= f.text_field :support_needed_rule, value: @group.support_needed_rule, class: "form-control" %>
+    </tr>
+    <tr>
+      <td><%= f.label :votespan_rule, "Vote Lifespan" %></td>
+      <td><%= f.select(:votespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.votespan_rule), class: "form-control") %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :yeses_needed_rule, "Votes Needed (%)" %></td>
+      <td><%= f.text_field :votes_needed_rule, value: @group.votes_needed_rule, class: "form-control" %>
+    </tr>
+    <tr>
+      <td><%= f.label :yeses_needed_rule, "Yeses Needed (%)" %></td>
+      <td><%= f.text_field :yeses_needed_rule, value: @group.yeses_needed_rule, class: "form-control" %>
+    </tr>
+    <tr>
+      <td><%= f.label :inactivity_timeout_rule, "Member Inactivity Timeout" %></td>
+      <td><%= f.select(:inactivity_timeout_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.inactivity_timeout_rule), class: "form-control") %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= f.submit "Update Rules", class: "btn btn-primary" %>
+<% end %>
