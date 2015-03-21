@@ -4,7 +4,7 @@
     <h3>Settings for <%= @group.name %></h3>
     <p><%= link_to "Back to My Groups", my_groups_path %></p>
 
-    <div class="group-email-domains">
+    <div class="settings-group">
       <h4>Email Address Restrictions Settings</h4>
       <p>
         Restrict users based on email addresses?  Leaving this empty
@@ -17,7 +17,7 @@
       <%= render 'group_email_domains/new' %>
     </div>
 
-    <div class="group-rules">
+    <div class="settings-group">
       <h4>Rules Settings</h4>
       <p>
         Set up the initial rules for the group.  Remember, anything
@@ -26,7 +26,7 @@
       <%= render 'my_groups/rules' %>
     </div>
     
-    <div class="group-rules">
+    <div class="settings-group">
       <h4>Facebook Restrictions Settings</h4>
       <p>
         Restrict users based on whether they have a Facebook account?
@@ -36,7 +36,7 @@
       <%= render 'my_groups/facebook' %>
     </div>
 
-    <div class="group-rules">
+    <div class="settings-group">
       <h4>Invitation Settings</h4>
       <p>
         Should participation be by invitation only?  Remember,
@@ -45,7 +45,7 @@
       <%= render 'my_groups/invitations' %>
     </div>
 
-    <div class="group-rules">
+    <div class="settings-group">
       <h4>Location Restrictions Settings</h4>
       <p>
         Restrict users based on location?  Leaving this empty makes no
