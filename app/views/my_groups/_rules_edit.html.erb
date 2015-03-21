@@ -18,7 +18,7 @@
       <td><%= f.select(:votespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.votespan_rule), class: "form-control") %></td>
     </tr>
     <tr>
-      <td><%= f.label :yeses_needed_rule, "Votes Needed (%)" %></td>
+      <td><%= f.label :votes_needed_rule, "Votes Needed (%)" %></td>
       <td><%= f.number_field :votes_needed_rule, value: @group.votes_needed_rule, min: Constants::Needed::VOTES_MIN, max: Constants::Needed::VOTES_MAX, maxlength: 2, class: "form-control" %>
     </tr>
     <tr>
