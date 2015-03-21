@@ -540,7 +540,51 @@ class MyGroupsControllerTest < ActionController::TestCase
     assert_rendered_with_flash [], :ready_to_activate
   end
 
-  private
+
+  #
+  # activate tests
+  #
+
+  test "activate when not logged in should redirect" do
+    log_out
+    post_activate @group.id
+    assert_redirected_with_flash [FlashMessages::NOT_LOGGED_IN], root_url
+  end
+
+  test "activate when cannot create groups should redirect" do
+    @user.update_attribute(:can_create_groups, false)
+    post_activate @group.id
+    assert_redirected_with_flash [FlashMessages::CANNOT_CREATE_GROUPS], root_url
+  end
+
+  test "activate for unknown group should redirect" do
+    post_activate 999999
+    assert_redirected_with_flash [FlashMessages::GROUP_UNKNOWN], my_groups_path
+  end
+
+  test "activate for active group should redirect" do
+    @group.update_attribute(:active, true)
+    post_activate @group.id
+    assert_redirected_with_flash [FlashMessages::GROUP_ACTIVE], my_groups_path
+  end
+  
+  test "activate for another user's group should redirect" do
+    other_user = User.create!(name:                  "Mike",
+                              password:              "test123",
+                              password_confirmation: "test123",
+                              can_create_groups:     true)
+    other_group = other_user.groups_i_created.create!(name: "other_group")
+    post_activate other_group.id
+    assert_redirected_with_flash [FlashMessages::USER_MISMATCH], my_groups_path
+  end
+
+  test "activate with valid params should work" do
+    post_activate @group.id
+    assert @group.reload.active
+    assert_rendered_with_flash [], :show
+  end
+
+private
 
   def get_index
     get :index
@@ -569,6 +613,10 @@ class MyGroupsControllerTest < ActionController::TestCase
 
   def get_ready_to_activate(id)
     get :ready_to_activate, id: id
+  end
+
+  def post_activate(id)
+    post :activate, id: id
   end
 
 end
