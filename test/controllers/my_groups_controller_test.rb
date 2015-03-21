@@ -156,7 +156,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  @group.yeses_needed_rule,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
 
     patch_update(@group.id,
                  Timespans::LIFESPAN_MAX + 1,
@@ -174,7 +174,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  @group.yeses_needed_rule,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
   end
 
   test "update with invalid votespan alerts" do
@@ -194,7 +194,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  @group.yeses_needed_rule,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
 
     patch_update(@group.id,
                  @group.lifespan_rule,
@@ -212,7 +212,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  @group.yeses_needed_rule,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
   end
 
   test "update with invalid inactivity timeout alerts" do
@@ -232,7 +232,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  @group.yeses_needed_rule,
                  Timespans::INACTIVITY_TIMEOUT_MIN)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
 
     patch_update(@group.id,
                  @group.lifespan_rule,
@@ -250,7 +250,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  @group.yeses_needed_rule,
                  Timespans::INACTIVITY_TIMEOUT_MAX)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
   end
 
   test "update with invalid support needed alerts" do
@@ -270,7 +270,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  @group.yeses_needed_rule,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
 
     patch_update(@group.id,
                  @group.lifespan_rule,
@@ -288,7 +288,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  @group.yeses_needed_rule,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
   end
   
   test "update with invalid votes needed alerts" do
@@ -308,7 +308,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  Needed::VOTES_MIN,
                  @group.yeses_needed_rule,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
 
     patch_update(@group.id,
                  @group.lifespan_rule,
@@ -326,7 +326,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  Needed::VOTES_MAX,
                  @group.yeses_needed_rule,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
   end
 
   test "update with invalid yeses needed alerts" do
@@ -346,7 +346,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  Needed::YESES_MIN,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
 
     patch_update(@group.id,
                  @group.lifespan_rule,
@@ -364,7 +364,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  @group.votes_needed_rule,
                  Needed::YESES_MAX,
                  @group.inactivity_timeout_rule)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
   end
 
   test "update with valid params updates params" do
@@ -375,7 +375,7 @@ class MyGroupsControllerTest < ActionController::TestCase
                  Needed::VOTES_MIN,
                  Needed::YESES_MIN,
                  Timespans::INACTIVITY_TIMEOUT_MIN)
-    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], my_groups_path
+    assert_redirected_with_flash [FlashMessages::UPDATE_SUCCESS], edit_my_group_path(@group.id)
 
     @group.reload
 
@@ -465,8 +465,9 @@ class MyGroupsControllerTest < ActionController::TestCase
 
     name = "a" * Lengths::GROUP_NAME_MAX
     post_create name
-    assert_redirected_with_flash [FlashMessages::CREATE_SUCCESS], my_groups_path
-    assert_not_nil Group.find_by(name: name)
+    group = Group.find_by(name: name)
+    assert_not_nil group
+    assert_redirected_with_flash [FlashMessages::CREATE_SUCCESS], edit_my_group_path(group.id)
   end
 
   test "create with bad format name should redirect" do
@@ -479,8 +480,9 @@ class MyGroupsControllerTest < ActionController::TestCase
   test "create with valid name should redirect" do
     ["HELLO", "world", "12345", "1-2-3-4", "1_2_3_4", "a.b.c"].each do |valid_name|
       post_create valid_name
-      assert_redirected_with_flash [FlashMessages::CREATE_SUCCESS], my_groups_path
-      assert_not_nil Group.find_by(name: valid_name)
+      group = Group.find_by(name: valid_name)
+      assert_not_nil group
+      assert_redirected_with_flash [FlashMessages::CREATE_SUCCESS], edit_my_group_path(group.id)
     end
   end
 
