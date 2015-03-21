@@ -3,18 +3,23 @@
   <thead>
     <tr>
       <th>Domain</th>
+      <% if allow_deletes %>
       <th></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
     <% @group.group_email_domains.each do |group_email_domain| %>
     <tr>
       <td><%= group_email_domain.domain %></td>
+      <% if allow_deletes %>
       <td>
         <% warning = "Are you sure you want to delete " + group_email_domain.domain + "?" %>
         <%= link_to my_group_group_email_domain_path(my_group_id: @group.id, id: group_email_domain.id), method: :delete, data: { confirm: warning } do %>
         <i class="glyphicon glyphicon-trash"></i>
         <% end %>
+      </td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>
