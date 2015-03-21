@@ -430,6 +430,16 @@ class MyGroupsControllerTest < ActionController::TestCase
     assert_nil Group.find_by(id: @group.id)
   end
 
+  test "destroy should destroy dependent group email domains" do
+    @group.group_email_domains.create!(domain: "stanford.edu")
+    @group.group_email_domains.create!(domain: "vanderbilt.edu")
+    @group.group_email_domains.create!(domain: "google.com")
+    assert_equal 3, GroupEmailDomain.where(group_id: @group.id).count
+
+    delete_destroy @group.id
+    assert_equal 0, GroupEmailDomain.where(group_id: @group.id).count
+  end
+
   #
   # create tests
   #
@@ -514,4 +524,5 @@ class MyGroupsControllerTest < ActionController::TestCase
   def post_create(name)
     post :create, group: { name: name }
   end
+
 end
