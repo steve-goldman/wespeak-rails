@@ -1,0 +1,26 @@
+<table class="table table-hover table-striped">
+  <thead>
+    <th>Rule</th>
+    <th>Value</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= Constants::Timespans::in_words(@group.lifespan_rule) %></td>
+    </tr>
+    <tr>
+      <td><%= @group.support_needed_rule %>%</td>
+    </tr>
+    <tr>
+      <td><%= Constants::Timespans::in_words(@group.votespan_rule) %></td>
+    </tr>
+    <tr>
+      <td><%= @group.votes_needed_rule %>%</td>
+    </tr>
+    <tr>
+      <td><%= @group.yeses_needed_rule %>%</td>
+    </tr>
+    <tr>
+      <td><%= Constants::Timespans::in_words(@group.inactivity_timeout_rule) %></td>
+    </tr>
+  </tbody>
+</table>
