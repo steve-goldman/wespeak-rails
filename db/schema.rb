@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321142534) do
+ActiveRecord::Schema.define(version: 20150321151818) do
 
   create_table "email_addresses", force: :cascade do |t|
     t.string   "email"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20150321142534) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "group_email_domains", ["group_id", "domain"], name: "index_group_email_domains_on_group_id_and_domain", unique: true
   add_index "group_email_domains", ["group_id"], name: "index_group_email_domains_on_group_id"
 
   create_table "groups", force: :cascade do |t|
