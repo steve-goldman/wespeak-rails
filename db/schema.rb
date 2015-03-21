@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319211511) do
+ActiveRecord::Schema.define(version: 20150321142534) do
 
   create_table "email_addresses", force: :cascade do |t|
     t.string   "email"
@@ -26,14 +26,15 @@ ActiveRecord::Schema.define(version: 20150319211511) do
   add_index "email_addresses", ["email"], name: "index_email_addresses_on_email"
   add_index "email_addresses", ["user_id"], name: "index_email_addresses_on_user_id"
 
-  create_table "email_domain_filters", force: :cascade do |t|
+  create_table "group_email_domains", force: :cascade do |t|
+    t.integer  "group_id"
     t.string   "domain"
-    t.boolean  "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "email_domain_filters", ["domain", "active"], name: "index_email_domain_filters_on_domain_and_active", unique: true
+  add_index "group_email_domains", ["group_id", "domain"], name: "index_group_email_domains_on_group_id_and_domain", unique: true
+  add_index "group_email_domains", ["group_id"], name: "index_group_email_domains_on_group_id"
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"

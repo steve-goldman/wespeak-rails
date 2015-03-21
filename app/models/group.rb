@@ -4,6 +4,7 @@ class Group < ActiveRecord::Base
 
   # foreign key relationships
 
+  has_many :group_email_domains
   has_many :statements
 
   # after initialize section
