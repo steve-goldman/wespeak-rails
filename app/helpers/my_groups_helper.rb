@@ -3,7 +3,6 @@ module MyGroupsHelper
   include ApplicationHelper
 
   class FlashMessages
-    CREATE_SUCCESS       = FlashMessage.new(:success, "Group created!")
     UPDATE_SUCCESS       = FlashMessage.new(:success, "Group rules updated!")
     
     NOT_LOGGED_IN        = FlashMessage.new(:danger,  "Must be logged in to access this page")

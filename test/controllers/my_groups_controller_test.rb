@@ -479,7 +479,7 @@ class MyGroupsControllerTest < ActionController::TestCase
     post_create name
     group = Group.find_by(name: name)
     assert_not_nil group
-    assert_redirected_with_flash [FlashMessages::CREATE_SUCCESS], edit_my_group_path(group.id)
+    assert_redirected_with_flash [], edit_my_group_path(group.id)
   end
 
   test "create with bad format name should redirect" do
@@ -494,7 +494,7 @@ class MyGroupsControllerTest < ActionController::TestCase
       post_create valid_name
       group = Group.find_by(name: valid_name)
       assert_not_nil group
-      assert_redirected_with_flash [FlashMessages::CREATE_SUCCESS], edit_my_group_path(group.id)
+      assert_redirected_with_flash [], edit_my_group_path(group.id)
     end
   end
 

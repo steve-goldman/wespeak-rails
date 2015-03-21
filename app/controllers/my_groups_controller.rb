@@ -26,7 +26,7 @@ class MyGroupsController < ApplicationController
   end
   
   def create
-    redirect_with_flash(FlashMessages::CREATE_SUCCESS, edit_my_group_path(@group.id))
+    redirect_to edit_my_group_path(@group.id)
   end
 
   private
