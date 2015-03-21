@@ -11,6 +11,7 @@ module MyGroupsHelper
     USER_MISMATCH        = FlashMessage.new(:danger,  "Something went wrong: user mismatch")
     GROUP_UNKNOWN        = FlashMessage.new(:danger,  "Something went wrong: group unknown")
     GROUP_ACTIVE         = FlashMessage.new(:danger,  "Active groups can not be configured")
+    DOMAIN_UNKNOWN        = FlashMessage.new(:danger,  "Something went wrong: domain unknown")
   end
 
   class ValidationMessages

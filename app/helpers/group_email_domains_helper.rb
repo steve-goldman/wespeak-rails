@@ -1,0 +1,2 @@
+module GroupEmailDomainsHelper
+end
