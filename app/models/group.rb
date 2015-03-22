@@ -28,6 +28,17 @@ class Group < ActiveRecord::Base
 
   validate :invitation_rules
 
+  def activate
+    update_attributes(active:                          true,
+                      initial_lifespan_rule:           lifespan_rule,
+                      initial_support_needed_rule:     support_needed_rule,
+                      initial_votespan_rule:           votespan_rule,
+                      initial_votes_needed_rule:       votes_needed_rule,
+                      initial_yeses_needed_rule:       yeses_needed_rule,
+                      initial_inactivity_timeout_rule: inactivity_timeout_rule,
+                      initial_invitations:             invitations)
+  end
+
   private
 
   def set_rules_to_defaults
@@ -62,4 +73,5 @@ class Group < ActiveRecord::Base
     errors.add(:invitation_rules, ValidationMessages::INVITATIONS_BOUNDS.message) if
       invitations != Invitations::NOT_REQUIRED && (invitations < 0 || invitations > Invitations::MAX_PER_DAY)
   end
+
 end

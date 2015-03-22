@@ -24,7 +24,7 @@ class MyGroupsController < ApplicationController
   end
 
   def activate
-    @group.update_attribute(:active, true)
+    @group.activate
     redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, my_group_path(@group.id))
   end
 
