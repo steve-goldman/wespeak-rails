@@ -12,7 +12,9 @@ class GroupsController < ApplicationController
   before_action :invitations_update, only: [:update_invitations]
 
   def show
-    @name = params[:name]
+    @group = Group.where("lower(name) = ?", params[:name].downcase).first
+    @message = params[:name]
+    render('shared/error_page') if @group.nil?
   end
 
   def index
