@@ -12,6 +12,7 @@ class MyGroupsController < ApplicationController
   before_action :invitations_update, only: [:update_invitations]
 
   def show
+    @name = params[:name]
   end
 
   def index
