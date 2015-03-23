@@ -10,19 +10,6 @@ class GroupsController < ApplicationController
   before_action :group_not_active,   only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
   before_action :rules_update,       only: [:update]
   before_action :invitations_update, only: [:update_invitations]
-  before_action :group_found,        only: [:show_profile, :show_votes, :show_proposals, :activate_member]
-  before_action :is_active_member,   only: [:show_profile, :show_votes, :show_proposals, :activate_member]
-  before_action :email_eligible,     only: [:show_profile, :show_votes, :show_proposals, :activate_member]
-  before_action :change_eligible,    only: [:show_profile, :show_votes, :show_proposals, :activate_member]
-
-  def show_profile
-  end
-
-  def show_votes
-  end
-
-  def show_proposals
-  end
 
   def index
   end
@@ -36,17 +23,6 @@ class GroupsController < ApplicationController
   def activate
     @group.activate
     redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, profile_path(@group.name))
-  end
-
-  def activate_member
-    if @change_eligible
-      if @active_member
-        @active_member.update_attributes(active_seconds: @group.inactivity_timeout_rule, updated_at: Time.zone.now)
-      else
-        @group.active_members.create(user_id: current_user.id, active_seconds: @group.inactivity_timeout_rule)
-      end
-    end
-    redirect_to profile_path(@group.name)
   end
 
   def update
@@ -110,32 +86,4 @@ class GroupsController < ApplicationController
       !@group.update_attributes(invitations: params[:invitations][:per_day])
   end
 
-  def group_found
-    @group = Group.where("lower(name) = ?", params[:name].downcase).first
-    render('shared/error_page') if @group.nil?
-  end
-
-  def is_active_member
-    if logged_in?
-      @active_member = @group.active_members.find_by(user_id: current_user.id)
-    else
-      @active_member = nil
-    end
-  end
-
-  def email_eligible
-    return true if !@group.group_email_domains.any?
-    if logged_in?
-      current_user.email_addresses.each do |email|
-        @email_eligible = true and return if
-          email.activated && @group.group_email_domains.exists?(domain: email.domain)
-      end
-    else
-      @email_eligible = false
-    end
-  end
-
-  def change_eligible
-    @change_eligible = @email_eligible
-  end
 end

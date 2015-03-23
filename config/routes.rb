@@ -19,11 +19,11 @@ Rails.application.routes.draw do
     resource  :notifications,    only: [:show]
   end
 
-  get 'groups/:name',           to: 'groups#show_profile'
-  get 'groups/:name/profile',   to: 'groups#show_profile',   as: :profile
-  get 'groups/:name/votes',     to: 'groups#show_votes',     as: :votes
-  get 'groups/:name/proposals', to: 'groups#show_proposals', as: :proposals
-  post 'groups/:name/activate_member', to: 'groups#activate_member', as: :activate_member
+  get  'groups/:name',           to: 'profiles#show'
+  get  'groups/:name/profile',   to: 'profiles#show',  as: :profile
+  get  'groups/:name/votes',     to: 'votes#show',     as: :votes
+  get  'groups/:name/proposals', to: 'proposals#show', as: :proposals
+  post 'groups/:name/activate_member', to: 'profiles#activate_member', as: :activate_member
   
   resources :groups,          only: [:index, :edit, :update, :destroy, :create] do
     resources :group_email_domains, only: [:create, :destroy]
