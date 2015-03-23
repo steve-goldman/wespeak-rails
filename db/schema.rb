@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323034731) do
+ActiveRecord::Schema.define(version: 20150323193926) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -85,6 +85,12 @@ ActiveRecord::Schema.define(version: 20150323034731) do
   add_index "statements", ["group_id"], name: "index_statements_on_group_id"
   add_index "statements", ["statement_type"], name: "index_statements_on_statement_type"
   add_index "statements", ["user_id"], name: "index_statements_on_user_id"
+
+  create_table "taglines", force: :cascade do |t|
+    t.text     "tagline"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
