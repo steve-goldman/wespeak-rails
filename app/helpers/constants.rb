@@ -72,6 +72,10 @@ module Constants
         "#{n} #{name}#{n > 1 ? 's' : ''}" if n > 0
       }.compact.reverse.join(' ')
     end
+
+    def Timespans.full_time(t)
+      t.strftime "%d %b %Y at %l:%M:%S %p"
+    end
   end
 
   class Needed
