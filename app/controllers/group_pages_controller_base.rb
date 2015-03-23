@@ -31,4 +31,8 @@ class GroupPagesControllerBase < ApplicationController
     @change_eligible = @email_eligible
   end
 
+  def enforce_change_eligible
+    redirect_with_flash [FlashMessages::NOT_CHANGE_ELIGIBLE], request.referer if !@change_eligible
+  end
+
 end
