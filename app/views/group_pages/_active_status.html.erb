@@ -7,8 +7,10 @@
     Expires in <%= time_ago_in_words(@active_member.active_until) %>
   </p>
   <p>
-    <%= link_to "Extend membership", activate_member_path(@group.name), method: :post %>
-    to <%= time_ago_in_words(Time.zone.now + @group.inactivity_timeout_rule) %>
+    <% if @change_eligible %>
+      <%= link_to "Extend membership", activate_member_path(@group.name), method: :post %>
+      to <%= time_ago_in_words(Time.zone.now + @group.inactivity_timeout_rule) %>
+    <% end %>
   </p>
   <% else %>
     <span class="red-light">Not active.</span>
