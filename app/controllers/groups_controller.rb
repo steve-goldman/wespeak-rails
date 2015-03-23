@@ -11,6 +11,7 @@ class GroupsController < ApplicationController
   before_action :rules_update,       only: [:update]
   before_action :invitations_update, only: [:update_invitations]
   before_action :group_found,        only: [:show_profile, :show_votes, :show_proposals]
+  before_action :is_active_member,   only: [:show_profile, :show_votes, :show_proposals]
 
   def show_profile
   end
@@ -99,5 +100,13 @@ class GroupsController < ApplicationController
   def group_found
     @group = Group.where("lower(name) = ?", params[:name].downcase).first
     render('shared/error_page') if @group.nil?
+  end
+
+  def is_active_member
+    if logged_in?
+      @active_member = @group.active_members.find_by(user_id: current_user.id)
+    else
+      @active_member = nil
+    end
   end
 end

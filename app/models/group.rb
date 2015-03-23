@@ -6,6 +6,7 @@ class Group < ActiveRecord::Base
 
   has_many :group_email_domains, dependent: :destroy
   has_many :statements
+  has_many :active_members
 
   # after initialize section
 
@@ -37,6 +38,22 @@ class Group < ActiveRecord::Base
                       initial_yeses_needed_rule:       yeses_needed_rule,
                       initial_inactivity_timeout_rule: inactivity_timeout_rule,
                       initial_invitations:             invitations)
+  end
+
+  def make_user_active(user)
+    # TODO: put record in the master activity log
+
+    if active_members.exists?(user_id: user.id)
+      active_members.update_attributes(active_seconds: inactivity_timeout_rule)
+    else
+      active_members.create(active_seconds: inactivity_timeout)
+    end
+  end
+
+  def make_user_inactive(user)
+    # TODO: put record in the master activity log
+
+    active_members.find_by(user_id: user_id).destroy
   end
 
   private
