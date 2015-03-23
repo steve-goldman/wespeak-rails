@@ -1,9 +1,11 @@
-<table class="table table-hover table-striped">
-  <% @group.get_taglines(:alive).reverse.each do |tagline| %>
-  <tr>
-    <td>
-      <%= render 'show', tagline: tagline %>
-    </td>
-  </tr>
-  <% end %>
-</table>
+<div class="proposals-list">
+  <table class="table table-hover table-striped">
+    <% @group.get_taglines(:alive).reverse.each do |tagline| %>
+    <tr>
+      <td>
+        <%= render 'show', tagline: tagline %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
