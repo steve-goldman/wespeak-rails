@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   get  'groups/:name/profile',   to: 'profiles#show',  as: :profile
   get  'groups/:name/votes',     to: 'votes#show',     as: :votes
   get  'groups/:name/proposals', to: 'proposals#show', as: :proposals
-  post 'groups/:name/activate_member', to: 'profiles#activate_member', as: :activate_member
+  post 'groups/:name/activate_membership', to: 'profiles#activate_member', as: :activate_membership
+  delete 'groups/:name/deactivate_membership', to: 'profiles#deactivate_member', as: :deactivate_membership
   
   resources :groups,          only: [:index, :edit, :update, :destroy, :create] do
     resources :group_email_domains, only: [:create, :destroy]
