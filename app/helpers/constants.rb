@@ -7,6 +7,7 @@ module Constants
     EMAIL_ADDR_MAX   = 255
     EMAIL_DOMAIN_MAX = 255
     GROUP_NAME_MAX   = 64
+    TAGLINE_MAX      = 250
   end
 
   class Regex

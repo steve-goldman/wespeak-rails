@@ -37,5 +37,8 @@ module GroupsHelper
     YESES_NEEDED_BOUNDS   = ValidationMessage.new("Yeses needed must be between #{Needed::YESES_MIN} and #{Needed::YESES_MAX}")
 
     INVITATIONS_BOUNDS = ValidationMessage.new("Invitations must be between 0 and #{Invitations::MAX_PER_DAY}")
+
+    TAGLINE_NOT_PRESENT = ValidationMessage.new("Please write a tagline")
+    TAGLINE_TOO_LONG    = ValidationMessage.new("Please limit the length to #{Lengths::TAGLINE_MAX} characters")
   end
 end
