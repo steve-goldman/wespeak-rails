@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323030615) do
+ActiveRecord::Schema.define(version: 20150323034731) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20150323030615) do
     t.string   "activation_digest"
     t.boolean  "activated",         default: false
     t.datetime "activated_at"
+    t.string   "domain"
   end
 
   add_index "email_addresses", ["email"], name: "index_email_addresses_on_email"

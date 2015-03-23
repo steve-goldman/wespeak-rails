@@ -14,6 +14,7 @@ class EmailAddress < ActiveRecord::Base
   # before save stuff
 
   before_save :downcase_email
+  before_save :set_domain
 
 
   # before create stuff
@@ -50,6 +51,10 @@ class EmailAddress < ActiveRecord::Base
 
   def downcase_email
     self.email.downcase!
+  end
+
+  def set_domain
+    self.domain = email.split("@")[1]
   end
 
   def create_activation_digest
