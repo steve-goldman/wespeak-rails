@@ -1,0 +1,7 @@
+<p class="tagline">
+  <% if !@group.tagline.nil? %>
+  "<%= @group.tagline %>"
+  <% else %>
+  This group has no tagline.
+  <% end %>
+</p>

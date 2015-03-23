@@ -1,9 +1,5 @@
 <%= form_for(:group, url: group_path(@group.id), method: "patch") do |f| %>
 <table class="table table-hover table-striped">
-  <thead>
-    <th>Rule</th>
-    <th>Value</th>
-  </thead>
   <tbody>
     <tr>
       <td><%= f.label :lifespan_rule, "Statement Lifespan" %></td>

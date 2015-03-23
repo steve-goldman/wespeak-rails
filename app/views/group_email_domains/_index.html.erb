@@ -1,13 +1,5 @@
 <% if @group.group_email_domains.any? %>
 <table class="table table-hover table-striped">
-  <thead>
-    <tr>
-      <th>Domain</th>
-      <% if allow_deletes %>
-      <th></th>
-      <% end %>
-    </tr>
-  </thead>
   <tbody>
     <% @group.group_email_domains.each do |group_email_domain| %>
     <tr>
@@ -24,4 +16,10 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+<p class="no-data">There are no email address restrictions.</p>
+<% end %>
+
+<% if change_link %>
+<div class="change-link"><%= link_to "Propose change", "#" %></div>
 <% end %>

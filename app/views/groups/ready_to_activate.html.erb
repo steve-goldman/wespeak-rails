@@ -13,16 +13,12 @@
 
     <div class="settings-group">
       <h4>Email Address Restrictions</h4>
-      <% if !@group.group_email_domains.any? %>
-      <p>There are no email address restrictions.</p>
-      <% else %>
-      <%= render 'group_email_domains/index', allow_deletes: false %>
-      <% end %>
+      <%= render 'group_email_domains/index', allow_deletes: false, change_link: false %>
     </div>
 
     <div class="settings-group">
       <h4>Rules</h4>
-      <%= render 'groups/rules_show' %>
+      <%= render 'groups/rules_show', change_links: false %>
     </div>
 
     <div class="settings-group">
@@ -32,7 +28,7 @@
 
     <div class="settings-group">
       <h4>Invitations</h4>
-      <%= render 'groups/invitations_show' %>
+      <%= render 'groups/invitations_show', change_link: false %>
     </div>
     
     <div class="settings-group">

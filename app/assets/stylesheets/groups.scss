@@ -5,6 +5,16 @@
     border-color: silver;
 }
 
+.no-data {
+    font-style: italic;
+}
+
+.change-link {
+    font-size: xx-small;
+    text-align: right;
+    line-height: 100%;
+}
+
 .ready-to-activate {
     form {
         border: 0px;
@@ -18,6 +28,10 @@
 }
 
 .tagline {
+    font-style: italic;
+}
+
+.invitations {
     font-style: italic;
 }
 
