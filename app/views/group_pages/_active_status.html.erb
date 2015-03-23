@@ -11,7 +11,10 @@
     to <%= time_ago_in_words(Time.zone.now + @group.inactivity_timeout_rule) %>
   </p>
   <% else %>
-    <%= link_to "Become active", activate_member_path(@group.name), method: :post %>
+    <span class="red-light">Not active.</span>
+    <% if @change_eligible %>
+      <%= link_to "Become active", activate_member_path(@group.name), method: :post %>
+    <% end %>
   <% end %>
 </div>
 <% end %>
