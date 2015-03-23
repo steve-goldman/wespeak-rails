@@ -40,6 +40,14 @@ class Group < ActiveRecord::Base
                       initial_invitations:             invitations)
   end
 
+  def create_statement(user, statement_type, content_id)
+    statements.create(user_id:        user_id,
+                      statement_type: statement_type,
+                      content_id:     content_id,
+                      state:          StatementStates[:alive],
+                      lifespan:       lifespan_rule)
+  end
+
   private
 
   def set_rules_to_defaults

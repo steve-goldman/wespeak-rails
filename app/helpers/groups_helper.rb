@@ -14,6 +14,7 @@ module GroupsHelper
     GROUP_ACTIVE         = FlashMessage.new(:danger,  "Active groups cannot be configured")
     DOMAIN_UNKNOWN       = FlashMessage.new(:danger,  "Something went wrong: domain unknown")
     NOT_CHANGE_ELIGIBLE  = FlashMessage.new(:danger,  "You're not eligible to participate")
+    STATEMENT_UNKNOWN    = FlashMessage.new(:danger,  "Something went wrong: proposal unknown")
   end
 
   class ValidationMessages

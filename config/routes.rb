@@ -19,12 +19,23 @@ Rails.application.routes.draw do
     resource  :notifications,    only: [:show]
   end
 
-  get  'groups/:name',           to: 'profiles#show'
-  get  'groups/:name/profile',   to: 'profiles#show',  as: :profile
-  get  'groups/:name/votes',     to: 'votes#show',     as: :votes
-  get  'groups/:name/proposals', to: 'proposals#show', as: :proposals
-  post 'groups/:name/activate_membership', to: 'profiles#activate_member', as: :activate_membership
+  # main profile pages
+  get    'groups/:name',                       to: 'profiles#show'
+  get    'groups/:name/profile',               to: 'profiles#show',  as: :profile
+  get    'groups/:name/votes',                 to: 'votes#show',     as: :votes
+  get    'groups/:name/proposals',             to: 'proposals#show', as: :proposals
+
+  # extending and discontinuing active membership
+  post   'groups/:name/activate_membership',   to: 'profiles#activate_member',   as: :activate_membership
   delete 'groups/:name/deactivate_membership', to: 'profiles#deactivate_member', as: :deactivate_membership
+
+  # proposals
+  get    'groups/:name/proposals/:id',          to: 'proposals#show',  as: :proposal
+
+  # taglines
+  get    'groups/:name/proposals/taglines/new', to: 'taglines#new',    as: :new_tagline
+  post   'groups/:name/proposals/taglines',     to: 'taglines#create'
+  get    'groups/:name/proposals/taglines',     to: 'taglines#index',  as: :taglines
   
   resources :groups,          only: [:index, :edit, :update, :destroy, :create] do
     resources :group_email_domains, only: [:create, :destroy]
