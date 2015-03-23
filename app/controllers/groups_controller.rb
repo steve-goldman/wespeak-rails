@@ -12,6 +12,8 @@ class GroupsController < ApplicationController
   before_action :invitations_update, only: [:update_invitations]
   before_action :group_found,        only: [:show_profile, :show_votes, :show_proposals]
   before_action :is_active_member,   only: [:show_profile, :show_votes, :show_proposals]
+  before_action :email_eligible,     only: [:show_profile, :show_votes, :show_proposals]
+  before_action :change_eligible,    only: [:show_profile, :show_votes, :show_proposals]
 
   def show_profile
   end
@@ -108,5 +110,21 @@ class GroupsController < ApplicationController
     else
       @active_member = nil
     end
+  end
+
+  def email_eligible
+    return true if !@group.group_email_domains.any?
+    if logged_in?
+      current_user.email_addresses.each do |email|
+        @email_eligible = true and return if
+          email.activated && @group.group_email_domains.exists?(domain: email.domain)
+      end
+    else
+      @email_eligible = false
+    end
+  end
+
+  def change_eligible
+    @change_eligible = @email_eligible
   end
 end
