@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   delete 'groups/:name/deactivate_membership', to: 'profiles#deactivate_member', as: :deactivate_membership
 
   # taglines
-  get    'groups/:name/proposals/taglines/new', to: 'taglines#new',    as: :new_tagline
   get    'groups/:name/proposals/taglines',     to: 'taglines#index',  as: :taglines
   post   'groups/:name/proposals/taglines',     to: 'taglines#create'
   
