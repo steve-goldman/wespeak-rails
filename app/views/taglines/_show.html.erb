@@ -13,6 +13,10 @@
         <td class="statement-stats-key">Expires</td>
         <td><%= Constants::Timespans::full_time(tagline.statement.alive_until) %></td>
       </tr>
+      <tr>
+        <td class="statement-stats-key"><span class="glyphicon glyphicon-link"></span></td>
+        <td><%= link_to "Direct", proposal_path(@group.name, tagline.statement.id) %>
+      </tr>
     </table>
   </div>
   <div class="col-md-8 col-xs-12">
