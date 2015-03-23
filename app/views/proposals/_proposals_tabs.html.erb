@@ -1,0 +1,6 @@
+<div class="group-tabs">
+  <ul class="nav nav-tabs">
+    <%= content_tag(:li, link_to("All Proposals", proposals_path(@group.name)), class: (yield(:active_proposals_tab) == "all"      ? "active" : "inactive")) %>
+    <%= content_tag(:li, link_to("Taglines",      taglines_path(@group.name)),  class: (yield(:active_proposals_tab) == "taglines" ? "active" : "inactive")) %>
+  </ul>
+</div>
