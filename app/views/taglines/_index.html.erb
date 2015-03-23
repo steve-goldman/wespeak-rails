@@ -1,5 +1,5 @@
 <table class="table table-hover table-striped">
-  <% @group.get_taglines(:alive).each do |tagline| %>
+  <% @group.get_taglines(:alive).reverse.each do |tagline| %>
   <tr>
     <td>
       <%= render 'show', tagline: tagline %>
