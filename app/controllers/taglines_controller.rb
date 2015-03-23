@@ -12,6 +12,12 @@ class TaglinesController < GroupPagesControllerBase
   end
 
   def create
+    if @active_member
+      @active_member.extend_active @group.inactivity_timeout_rule
+    else
+      @group.active_members.create(user_id: current_user.id,
+                                   active_seconds: @group.inactivity_timeout_rule)
+    end
     redirect_to proposal_path(@group.name, @statement.id)
   end
 
