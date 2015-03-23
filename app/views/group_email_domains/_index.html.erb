@@ -24,7 +24,4 @@
   <% if @change_eligible %>
     <div class="change-link"><%= link_to "Propose change", "#" %></div>
   <% end %>
-  <% if @group.group_email_domains.any? %>
-    <p class="restricted-verdict">You are <% if @email_eligible %>not<% end %> restricted.</p>
-  <% end %>
 <% end %>
