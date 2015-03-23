@@ -1,6 +1,6 @@
 class Group < ActiveRecord::Base
 
-  include MyGroupsHelper
+  include GroupsHelper
 
   # foreign key relationships
 

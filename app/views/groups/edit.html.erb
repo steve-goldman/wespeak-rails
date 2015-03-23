@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
     <h3>Settings for <%= @group.name %></h3>
-    <p><%= link_to "Back to my groups", my_groups_path %></p>
+    <p><%= link_to "Back to my groups", groups_path %></p>
 
     <p>
       When you are happy with all the settings, click "Ready to
@@ -28,7 +28,7 @@
         Set up the initial rules for the group.  Remember, anything
         you set here can be changed later by the group.
       </p>
-      <%= render 'my_groups/rules_edit' %>
+      <%= render 'groups/rules_edit' %>
     </div>
     
     <div class="settings-group">
@@ -38,7 +38,7 @@
         Remember, anything you set here can be changed later by the
         group.
       </p>
-      <%= render 'my_groups/facebook_edit' %>
+      <%= render 'groups/facebook_edit' %>
     </div>
 
     <div class="settings-group">
@@ -47,7 +47,7 @@
         Should participation be by invitation only?  Remember,
         anything you set here can be changed later by the group.
       </p>
-      <%= render 'my_groups/invitations_edit' %>
+      <%= render 'groups/invitations_edit' %>
     </div>
 
     <div class="settings-group">
@@ -58,11 +58,11 @@
         are inside one of the regions.  Remember, anything you set
         here can be changed later by the group.
       </p>
-      <%= render 'my_groups/locations' %>
+      <%= render 'groups/locations' %>
     </div>
 
     <div class="ready-to-activate">
-      <%= form_for(:ready_to_activate, url: ready_to_activate_my_group_path(@group.id), method: :get) do |f| %>
+      <%= form_for(:ready_to_activate, url: ready_to_activate_group_path(@group.id), method: :get) do |f| %>
       <%= f.submit "Ready to Create", class: "btn btn-primary" %>
       <% end %>
     </div>

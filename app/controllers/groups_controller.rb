@@ -1,6 +1,6 @@
-class MyGroupsController < ApplicationController
+class GroupsController < ApplicationController
 
-  include MyGroupsHelper
+  include GroupsHelper
 
   before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :destroy, :create, :ready_to_activate, :activate]
   before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :destroy, :create, :ready_to_activate, :activate]
@@ -26,24 +26,24 @@ class MyGroupsController < ApplicationController
 
   def activate
     @group.activate
-    redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, my_group_path(@group.id))
+    redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, group_path(@group.id))
   end
 
   def update
-    redirect_with_flash(FlashMessages::UPDATE_SUCCESS, edit_my_group_path(id: @group.id))
+    redirect_with_flash(FlashMessages::UPDATE_SUCCESS, edit_group_path(id: @group.id))
   end
 
   def update_invitations
-    redirect_with_flash(FlashMessages::UPDATE_INVITATIONS_SUCCESS, edit_my_group_path(id: @group.id))
+    redirect_with_flash(FlashMessages::UPDATE_INVITATIONS_SUCCESS, edit_group_path(id: @group.id))
   end
 
   def destroy
     @group.destroy
-    redirect_to my_groups_path
+    redirect_to groups_path
   end
   
   def create
-    redirect_to edit_my_group_path(@group.id)
+    redirect_to edit_group_path(@group.id)
   end
 
   private
@@ -64,25 +64,25 @@ class MyGroupsController < ApplicationController
 
   def group_known
     @group = Group.find_by(id: params[:id])
-    redirect_with_flash(FlashMessages::GROUP_UNKNOWN, my_groups_path) if @group.nil?
+    redirect_with_flash(FlashMessages::GROUP_UNKNOWN, groups_path) if @group.nil?
   end
 
   def user_matches
-    redirect_with_flash(FlashMessages::USER_MISMATCH, my_groups_path) if @group.user_id != @user.id
+    redirect_with_flash(FlashMessages::USER_MISMATCH, groups_path) if @group.user_id != @user.id
   end
 
   def group_not_active
-    redirect_with_flash(FlashMessages::GROUP_ACTIVE, my_groups_path) if @group.active?
+    redirect_with_flash(FlashMessages::GROUP_ACTIVE, groups_path) if @group.active?
   end
 
   def rules_update
     render_with_validation_flash(@group, action: :edit) if
-      !@group.update_attributes(lifespan_rule:           params[:my_group][:lifespan_rule],
-                                support_needed_rule:     params[:my_group][:support_needed_rule],
-                                votespan_rule:           params[:my_group][:votespan_rule],
-                                votes_needed_rule:       params[:my_group][:votes_needed_rule],
-                                yeses_needed_rule:       params[:my_group][:yeses_needed_rule],
-                                inactivity_timeout_rule: params[:my_group][:inactivity_timeout_rule])
+      !@group.update_attributes(lifespan_rule:           params[:group][:lifespan_rule],
+                                support_needed_rule:     params[:group][:support_needed_rule],
+                                votespan_rule:           params[:group][:votespan_rule],
+                                votes_needed_rule:       params[:group][:votes_needed_rule],
+                                yeses_needed_rule:       params[:group][:yeses_needed_rule],
+                                inactivity_timeout_rule: params[:group][:inactivity_timeout_rule])
   end
 
   def invitations_update

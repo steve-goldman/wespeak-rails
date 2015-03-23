@@ -1,6 +1,6 @@
 class GroupEmailDomainsController < ApplicationController
 
-  include MyGroupsHelper
+  include GroupsHelper
 
   before_action :logged_in,               only: [:create, :destroy]
   before_action :can_create_groups,       only: [:create, :destroy]
@@ -12,12 +12,12 @@ class GroupEmailDomainsController < ApplicationController
   
 
   def create
-    redirect_to edit_my_group_path(@group.id)
+    redirect_to edit_group_path(@group.id)
   end
 
   def destroy
     @domain.destroy
-    redirect_to edit_my_group_path(@group.id)
+    redirect_to edit_group_path(@group.id)
   end
 
   private
@@ -32,26 +32,26 @@ class GroupEmailDomainsController < ApplicationController
   end
 
   def group_known
-    @group = Group.find_by(id: params[:my_group_id])
-    redirect_with_flash(FlashMessages::GROUP_UNKNOWN, my_groups_path) if @group.nil?
+    @group = Group.find_by(id: params[:group_id])
+    redirect_with_flash(FlashMessages::GROUP_UNKNOWN, groups_path) if @group.nil?
   end
 
   def email_domain_known
     @domain = GroupEmailDomain.find_by(group_id: @group.id, id: params[:id])
-    redirect_with_flash(FlashMessages::DOMAIN_UNKNOWN, my_groups_path) if @domain.nil?
+    redirect_with_flash(FlashMessages::DOMAIN_UNKNOWN, groups_path) if @domain.nil?
   end
 
   def user_matches
-    redirect_with_flash(FlashMessages::USER_MISMATCH, my_groups_path) if @group.user_id != @user.id
+    redirect_with_flash(FlashMessages::USER_MISMATCH, groups_path) if @group.user_id != @user.id
   end
 
   def group_not_active
-    redirect_with_flash(FlashMessages::GROUP_ACTIVE, my_groups_path) if @group.active?
+    redirect_with_flash(FlashMessages::GROUP_ACTIVE, groups_path) if @group.active?
   end
 
   def email_domain_creates
     group_email_domain = @group.group_email_domains.create(domain: params[:group_email_domain][:domain])
-    @group.group_email_domains.destroy(group_email_domain) and render_with_validation_flash(group_email_domain, 'my_groups/edit') if !group_email_domain.valid?
+    @group.group_email_domains.destroy(group_email_domain) and render_with_validation_flash(group_email_domain, 'groups/edit') if !group_email_domain.valid?
   end
 
 end

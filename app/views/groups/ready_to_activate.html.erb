@@ -2,8 +2,8 @@
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
     <h3>Review settings for <%= @group.name %></h3>
-    <p><%= link_to "Back to #{@group.name} configuration", edit_my_group_path(@group.id) %></p>
-    <p><%= link_to "Back to my groups", my_groups_path %></p>
+    <p><%= link_to "Back to #{@group.name} configuration", edit_group_path(@group.id) %></p>
+    <p><%= link_to "Back to my groups", groups_path %></p>
 
     <p>
       Please review these settings.  To make changes, go back to the
@@ -22,26 +22,26 @@
 
     <div class="settings-group">
       <h4>Rules</h4>
-      <%= render 'my_groups/rules_show' %>
+      <%= render 'groups/rules_show' %>
     </div>
 
     <div class="settings-group">
       <h4>Facebook Restrictions</h4>
-      <%= render 'my_groups/facebook_edit' %>
+      <%= render 'groups/facebook_edit' %>
     </div>
 
     <div class="settings-group">
       <h4>Invitations</h4>
-      <%= render 'my_groups/invitations_show' %>
+      <%= render 'groups/invitations_show' %>
     </div>
     
     <div class="settings-group">
       <h4>Location Restrictions</h4>
-      <%= render 'my_groups/locations' %>
+      <%= render 'groups/locations' %>
     </div>
 
     <div class="ready-to-activate">
-      <%= form_for(:activate, url: activate_my_group_path(@group.id)) do |f| %>
+      <%= form_for(:activate, url: activate_group_path(@group.id)) do |f| %>
       <%= f.submit "Create", class: "btn btn-primary", data: { confirm: "Are you sure? This can't be undone." } %>
       <% end %>
     </div>

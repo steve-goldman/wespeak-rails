@@ -1,6 +1,6 @@
 class GroupEmailDomain < ActiveRecord::Base
 
-  include MyGroupsHelper
+  include GroupsHelper
   
   # foreign key
 

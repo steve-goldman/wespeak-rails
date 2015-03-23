@@ -19,9 +19,9 @@ Rails.application.routes.draw do
     resource  :notifications,    only: [:show]
   end
 
-  get 'my_groups/:name', to: 'my_groups#show'
+  get 'groups/:name', to: 'groups#show'
   
-  resources :my_groups,          only: [:index, :edit, :update, :destroy, :create] do
+  resources :groups,          only: [:index, :edit, :update, :destroy, :create] do
     resources :group_email_domains, only: [:create, :destroy]
 
     member do
