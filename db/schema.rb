@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323010443) do
+ActiveRecord::Schema.define(version: 20150323011932) do
 
   create_table "email_addresses", force: :cascade do |t|
     t.string   "email"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20150323010443) do
     t.integer  "initial_yeses_needed_rule"
     t.integer  "initial_inactivity_timeout_rule"
     t.integer  "initial_invitations"
+    t.text     "tagline"
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name"
