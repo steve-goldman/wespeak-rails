@@ -1,0 +1,7 @@
+<div class="group-tabs">
+  <ul class="nav nav-pills nav-stacked">
+    <%= content_tag(:li, link_to("Profile",   profile_path(@group.name)), class: (yield(:active_tab)   == "profile"   ? "active" : "inactive")) %>
+    <%= content_tag(:li, link_to("Votes",     votes_path(@group.name)), class: (yield(:active_tab)     == "votes"     ? "active" : "inactive")) %>
+    <%= content_tag(:li, link_to("Proposals", proposals_path(@group.name)), class: (yield(:active_tab) == "proposals" ? "active" : "inactive")) %>
+  </ul>
+</div>

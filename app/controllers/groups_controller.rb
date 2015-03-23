@@ -10,11 +10,15 @@ class GroupsController < ApplicationController
   before_action :group_not_active,   only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
   before_action :rules_update,       only: [:update]
   before_action :invitations_update, only: [:update_invitations]
+  before_action :group_found,        only: [:show_profile, :show_votes, :show_proposals]
 
   def show_profile
-    @group = Group.where("lower(name) = ?", params[:name].downcase).first
-    @message = params[:name]
-    render('shared/error_page') if @group.nil?
+  end
+
+  def show_votes
+  end
+
+  def show_proposals
   end
 
   def index
@@ -92,4 +96,8 @@ class GroupsController < ApplicationController
       !@group.update_attributes(invitations: params[:invitations][:per_day])
   end
 
+  def group_found
+    @group = Group.where("lower(name) = ?", params[:name].downcase).first
+    render('shared/error_page') if @group.nil?
+  end
 end
