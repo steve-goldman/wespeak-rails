@@ -1,10 +1,34 @@
 .left-header {
-    text-align: right;
+    text-align: center;
+}
+
+.group-tabs {
+    ul {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.profile-header {
+    table {
+        border-collapse: separate;
+        border-spacing: 10px 0px;
+    }
 }
 
 .profile-photo {
     img {
         width: 100%;
+    }
+}
+
+.tagline {
+    valign: middle;
+    margin: 20px;
+
+    span {
+        font-style: italic;
+        font-size: x-large;
     }
 }
 
@@ -19,17 +43,14 @@
 }
 
 .settings-group {
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     border: 1px solid;
     padding: 5px;
     border-color: silver;
 }
 
 .no-data {
-    font-style: italic;
-}
-
-.restricted-verdict {
     font-style: italic;
 }
 
@@ -50,13 +71,6 @@
     }
 }
 
-.tagline {
-    span {
-        font-style: italic;
-        font-size: xx-large;
-    }
-}
-
 .invitations {
     font-style: italic;
 }
@@ -64,16 +78,8 @@
 .group-name {
     font-style: italic;
     font-size: x-large;
-    text-align: right;
-}
-
-.group-tabs {
-    li {
-        text-align: right;
-    }
 }
 
 .group-summary-stats {
-    text-align: right;
     font-size: x-small;
 }

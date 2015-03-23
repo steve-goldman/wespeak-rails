@@ -1,13 +1,13 @@
-<div class="tagline">
+<div class="outer">
   <span>
-    <% if @group.tagline.nil? %>
-      This group has no tagline.
-    <% else %>
-      "<%= @group.tagline %>"
-    <% end %>
-
-    <% if @change_eligible %>
-      <div class="change-link"><%= link_to "Propose change", "#" %></div>
-    <% end %>
+  <% if @group.tagline.nil? %>
+    This group has no tagline.
+  <% else %>
+    "<%= @group.tagline %>"
+  <% end %>
   </span>
+
+  <% if @change_eligible %>
+    <div class="change-link"><%= link_to "Propose change", "#" %></div>
+  <% end %>
 </div>

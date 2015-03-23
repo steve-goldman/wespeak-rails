@@ -1,10 +1,14 @@
 <div class="profile-header">
-  <div class="row">
-    <div class="col-md-4 col-xs-12">
-      <%= render 'profile_photo' %>
-    </div>
-    <div class="col-md-8 col-xs-12">
-      <%= render 'tagline' %>
-    </div>
-  </div>
+  <table>
+    <col width="33%">
+    <col width="67%">
+    <tr>
+      <td class="profile-photo">
+        <%= render 'profile_photo' %>
+      </td>
+      <td class="tagline">
+        <%= render 'tagline' %>
+      </td>
+    </tr>
+  </table>
 </div>
