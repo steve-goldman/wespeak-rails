@@ -2,6 +2,12 @@
     text-align: right;
 }
 
+.profile-photo {
+    img {
+        width: 100%;
+    }
+}
+
 .green-light {
     color: green;
     font-weight: bold;
@@ -29,7 +35,6 @@
 
 .change-link {
     font-size: xx-small;
-    text-align: right;
     line-height: 100%;
 }
 
@@ -46,7 +51,10 @@
 }
 
 .tagline {
-    font-style: italic;
+    span {
+        font-style: italic;
+        font-size: xx-large;
+    }
 }
 
 .invitations {

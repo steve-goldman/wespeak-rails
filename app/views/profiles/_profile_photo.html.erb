@@ -1,0 +1,6 @@
+<div class="profile-photo">
+  <%= image_tag("no-image.png") %>
+  <% if @change_eligible %>
+    <div class="change-link"><%= link_to "Propose change", "#" %></div>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+<div class="tagline">
+  <span>
+    <% if @group.tagline.nil? %>
+      This group has no tagline.
+    <% else %>
+      "<%= @group.tagline %>"
+    <% end %>
+
+    <% if @change_eligible %>
+      <div class="change-link"><%= link_to "Propose change", "#" %></div>
+    <% end %>
+  </span>
+</div>
