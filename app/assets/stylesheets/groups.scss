@@ -20,3 +20,19 @@
 .tagline {
     font-style: italic;
 }
+
+.group-name {
+    font-style: italic;
+    text-align: right;
+}
+
+.group-tabs {
+    li {
+        text-align: right;
+    }
+}
+
+.group-summary-stats {
+    text-align: right;
+    font-size: x-small;
+}
