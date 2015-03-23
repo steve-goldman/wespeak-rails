@@ -10,9 +10,10 @@ class ProfilesController < GroupPagesControllerBase
   def activate_member
     if @change_eligible
       if @active_member
-        @active_member.update_attributes(active_seconds: @group.inactivity_timeout_rule, updated_at: Time.zone.now)
+        @active_member.extend_active @group.inactivity_timeout_rule
       else
-        @group.active_members.create(user_id: current_user.id, active_seconds: @group.inactivity_timeout_rule)
+        @group.active_members.create(user_id: current_user.id,
+                                     active_seconds: @group.inactivity_timeout_rule)
       end
     end
     redirect_to request.referer
