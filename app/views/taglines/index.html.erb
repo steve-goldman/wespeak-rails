@@ -7,7 +7,9 @@
   </div>
   <div class="col-md-9 col-xs-12">
     <%= render 'proposals/proposals_tabs' %>
-    <%= render 'taglines/new' %>
+    <% if @change_eligible %>
+      <%= render 'taglines/new' %>
+    <% end %>
     <%= render 'taglines/index' %>
   </div>
 </div>
