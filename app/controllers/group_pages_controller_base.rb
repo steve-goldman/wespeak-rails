@@ -16,7 +16,7 @@ class GroupPagesControllerBase < ApplicationController
   end
 
   def email_eligible
-    return true if !@group.group_email_domains.any?
+    @email_eligible = true and return if !@group.group_email_domains.any?
     if logged_in?
       current_user.email_addresses.each do |email|
         @email_eligible = true and return if
