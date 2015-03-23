@@ -11,7 +11,7 @@ class GroupsController < ApplicationController
   before_action :rules_update,       only: [:update]
   before_action :invitations_update, only: [:update_invitations]
 
-  def show
+  def show_profile
     @group = Group.where("lower(name) = ?", params[:name].downcase).first
     @message = params[:name]
     render('shared/error_page') if @group.nil?
