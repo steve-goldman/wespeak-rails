@@ -2,6 +2,8 @@ class Statement < ActiveRecord::Base
 
   include StatementsHelper
 
+  belongs_to :user
+
   def validation_keys
     [:valid_statement_type,
      :valid_statement_state]
@@ -9,6 +11,14 @@ class Statement < ActiveRecord::Base
   
   validate :valid_statement_type
   validate :valid_statement_state
+
+  def alive_until
+    created_at + lifespan
+  end
+
+  def get_tagline
+    Tagline.find_by(statement_id: id)
+  end
 
   private
 

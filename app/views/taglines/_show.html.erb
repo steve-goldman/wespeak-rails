@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-4 col-xs-12">
+    <table class="table table-hover table-striped">
+      <tr>
+        <td class="statement-stats-key">Member</td>
+        <td><span class="username"><%= tagline.statement.user.name %></span></td>
+      </tr>
+      <tr>
+        <td class="statement-stats-key">Created</td>
+        <td><%= time_ago_in_words(tagline.statement.created_at) %> ago</td>
+      </tr>
+      <tr>
+        <td class="statement-stats-key">Expires</td>
+        <td><%= Constants::Timespans::full_time(tagline.statement.alive_until) %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-8 col-xs-12">
+    <div class="tagline">
+      <span><%= tagline.tagline %></span>
+    </div>
+  </div>
+</div>

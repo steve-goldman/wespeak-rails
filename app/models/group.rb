@@ -40,12 +40,21 @@ class Group < ActiveRecord::Base
                       initial_invitations:             invitations)
   end
 
-  def create_statement(user, statement_type, content_id)
+  def create_statement(user, statement_type)
     statements.create(user_id:        user_id,
                       statement_type: statement_type,
-                      content_id:     content_id,
                       state:          StatementStates[:alive],
                       lifespan:       lifespan_rule)
+  end
+
+  def get_taglines(state)
+    statement_ids =  "SELECT statement_id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
+    statement_ids += " AND state = :state" if !state.nil?
+    
+    Tagline.where("statement_id IN (#{statement_ids})",
+                  group_id:       id,
+                  statement_type: StatementTypes[:tagline],
+                  state:          StatementStates[state])
   end
 
   private

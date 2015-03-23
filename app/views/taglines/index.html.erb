@@ -1,12 +1,11 @@
 <% provide(:title, @group.name) %>
 <% provide(:active_tab, :proposals) %>
-<% provide(:active_proposals_tab, :taglines) %>
 <div class="row">
   <div class="col-md-3 col-xs-12">
     <%= render 'group_pages/left_header' %>
   </div>
   <div class="col-md-9 col-xs-12">
-    <%= render 'proposals/proposals_tabs' %>
+    <%= render 'proposals/proposals_tabs', active_tab: :taglines %>
     <% if @change_eligible %>
       <%= render 'taglines/new' %>
     <% end %>
