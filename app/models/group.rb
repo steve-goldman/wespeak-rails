@@ -40,22 +40,6 @@ class Group < ActiveRecord::Base
                       initial_invitations:             invitations)
   end
 
-  def make_user_active(user)
-    # TODO: put record in the master activity log
-
-    if active_members.exists?(user_id: user.id)
-      active_members.update_attributes(active_seconds: inactivity_timeout_rule)
-    else
-      active_members.create(active_seconds: inactivity_timeout)
-    end
-  end
-
-  def make_user_inactive(user)
-    # TODO: put record in the master activity log
-
-    active_members.find_by(user_id: user_id).destroy
-  end
-
   private
 
   def set_rules_to_defaults
