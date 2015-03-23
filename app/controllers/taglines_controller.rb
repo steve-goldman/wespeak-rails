@@ -1,8 +1,8 @@
 class TaglinesController < GroupPagesControllerBase
-  before_action :group_found,             only: [:new, :create]
-  before_action :is_active_member,        only: [:new, :create]
-  before_action :email_eligible,          only: [:new, :create]
-  before_action :change_eligible,         only: [:new, :create]
+  before_action :group_found,             only: [:new, :create, :index]
+  before_action :is_active_member,        only: [:new, :create, :index]
+  before_action :email_eligible,          only: [:new, :create, :index]
+  before_action :change_eligible,         only: [:new, :create, :index]
   before_action :enforce_change_eligible, only: [:new, :create]
 
   before_action :tagline_creates,         only: [:create]

@@ -1,10 +1,12 @@
 <% provide(:title, @group.name) %>
 <% provide(:active_tab, :proposals) %>
+<% provide(:active_proposals_tab, :all) %>
 <div class="row">
   <div class="col-md-3 col-xs-12">
     <%= render 'group_pages/left_header' %>
   </div>
   <div class="col-md-9 col-xs-12">
-    <%= render 'show' %>
+    <%= render 'proposals_tabs' %>
+    <%= render 'index' %>
   </div>
 </div>
