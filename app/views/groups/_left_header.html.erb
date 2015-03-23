@@ -1,6 +1,16 @@
 <h2 class="group-name"><%= @group.name %></h2>
 <div class="group-summary-stats">
-  <p>This many active members</p>
   <p>This many passed proposals</p>
+  <p><%= @group.active_members.count %> active member<% if @group.active_members.count != 1 %>s<% end %></p>
+  <p>
+    <% if @active_member %>
+    You will be active until <%= @active_member.updated_at + @active_member.active_seconds %>
+    <%= link_to "Refresh activation", activate_member_path(@group.name), method: :post %>
+    <% elsif @change_eligible %>
+    <%= link_to "Become an active member", activate_member_path(@group.name), method: :post %>
+    <% else %>
+    You are not eligible to be an active member
+    <% end %>
+  </p>
 </div>
 <%= render 'group_tabs' %>

@@ -10,10 +10,10 @@ class GroupsController < ApplicationController
   before_action :group_not_active,   only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
   before_action :rules_update,       only: [:update]
   before_action :invitations_update, only: [:update_invitations]
-  before_action :group_found,        only: [:show_profile, :show_votes, :show_proposals]
-  before_action :is_active_member,   only: [:show_profile, :show_votes, :show_proposals]
-  before_action :email_eligible,     only: [:show_profile, :show_votes, :show_proposals]
-  before_action :change_eligible,    only: [:show_profile, :show_votes, :show_proposals]
+  before_action :group_found,        only: [:show_profile, :show_votes, :show_proposals, :activate_member]
+  before_action :is_active_member,   only: [:show_profile, :show_votes, :show_proposals, :activate_member]
+  before_action :email_eligible,     only: [:show_profile, :show_votes, :show_proposals, :activate_member]
+  before_action :change_eligible,    only: [:show_profile, :show_votes, :show_proposals, :activate_member]
 
   def show_profile
   end
@@ -36,6 +36,17 @@ class GroupsController < ApplicationController
   def activate
     @group.activate
     redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, profile_path(@group.name))
+  end
+
+  def activate_member
+    if @change_eligible
+      if @active_member
+        @active_member.update_attributes(active_seconds: @group.inactivity_timeout_rule, updated_at: Time.zone.now)
+      else
+        @group.active_members.create(user_id: current_user.id, active_seconds: @group.inactivity_timeout_rule)
+      end
+    end
+    redirect_to profile_path(@group.name)
   end
 
   def update
