@@ -10,15 +10,6 @@ class Statement < ActiveRecord::Base
   validate :valid_statement_type
   validate :valid_statement_state
 
-  def Statement.create_statement(group, user, statement_type, content, initial)
-    state = initial ? StatementStates[:accepted] : StatementStates[:alive]
-    statement = Statement.create(group_id:       group.id,
-                                 user_id:        user.id,
-                                 statement_type: statement_type,
-                                 content_id:     content.id,
-                                 state:          state)
-  end
-  
   private
 
   def valid_statement_type
