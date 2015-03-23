@@ -581,7 +581,7 @@ class GroupsControllerTest < ActionController::TestCase
   test "activate with valid params should work" do
     post_activate @group.id
     assert @group.reload.active
-    assert_redirected_with_flash [FlashMessages::ACTIVATED_SUCCESS], group_path(@group.id)
+    assert_redirected_with_flash [FlashMessages::ACTIVATED_SUCCESS], profile_path(@group.name)
   end
 
   #

@@ -33,7 +33,7 @@ class GroupsController < ApplicationController
 
   def activate
     @group.activate
-    redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, group_path(@group.id))
+    redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, profile_path(@group.name))
   end
 
   def update
