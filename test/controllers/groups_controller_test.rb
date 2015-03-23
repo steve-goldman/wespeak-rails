@@ -490,7 +490,7 @@ class GroupsControllerTest < ActionController::TestCase
   end
 
   test "create with valid name should redirect" do
-    ["HELLO", "world", "12345", "1-2-3-4", "1_2_3_4", "a.b.c"].each do |valid_name|
+    ["HELLO", "world", "12345", "1-2-3-4", "1_2_3_4"].each do |valid_name|
       post_create valid_name
       group = Group.find_by(name: valid_name)
       assert_not_nil group

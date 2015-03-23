@@ -15,7 +15,7 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test "valid group names should be valid" do
-    ["HELLO", "world", "12345", "1-2-3-4", "1_2_3_4", "a.b.c"].each do |valid_name|
+    ["HELLO", "world", "12345", "1-2-3-4", "1_2_3_4"].each do |valid_name|
       assert Group.new(name: valid_name).valid?
     end
   end

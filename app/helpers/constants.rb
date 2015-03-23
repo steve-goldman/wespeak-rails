@@ -12,7 +12,7 @@ module Constants
   class Regex
     EMAIL = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
     EMAIL_DOMAIN = /\A[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-    GROUP = /\A[\w+\-.]+\z/i
+    GROUP = /\A[\w+\-]+\z/i
   end
 
   class ExpirationTimes
