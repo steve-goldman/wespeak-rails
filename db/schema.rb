@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323195420) do
+ActiveRecord::Schema.define(version: 20150323211555) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -89,8 +89,9 @@ ActiveRecord::Schema.define(version: 20150323195420) do
 
   create_table "taglines", force: :cascade do |t|
     t.text     "tagline"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "statement_id"
   end
 
   create_table "users", force: :cascade do |t|
