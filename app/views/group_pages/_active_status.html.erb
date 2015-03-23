@@ -15,9 +15,9 @@
       </p>
     <% end %>
   <% else %>
-    <span class="red-light">Not active.</span>
+    <p class="red-light">Not active.</p>
     <% if @change_eligible %>
-      <%= link_to "Become active", activate_membership_path(@group.name), method: :post %>
+      <p><%= link_to "Become active", activate_membership_path(@group.name), method: :post %></p>
     <% end %>
   <% end %>
 </div>
