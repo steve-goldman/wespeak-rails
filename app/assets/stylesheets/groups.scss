@@ -1,3 +1,17 @@
+.left-header {
+    text-align: right;
+}
+
+.green-light {
+    color: green;
+    font-weight: bold;
+}
+
+.red-light {
+    color: red;
+    font-weight: bold;
+}
+
 .settings-group {
     margin-bottom: 30px;
     border: 1px solid;
@@ -41,6 +55,7 @@
 
 .group-name {
     font-style: italic;
+    font-size: x-large;
     text-align: right;
 }
 

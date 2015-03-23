@@ -1,0 +1,17 @@
+<% if logged_in? %>
+<div class="settings-group">
+  <h4>Membership Status</h4>
+  <% if @active_member %>
+  <p>
+    <span class="green-light">Active!</span>
+    Expires in <%= time_ago_in_words(@active_member.active_until) %>
+  </p>
+  <p>
+    <%= link_to "Extend membership", activate_member_path(@group.name), method: :post %>
+    to <%= time_ago_in_words(Time.zone.now + @group.inactivity_timeout_rule) %>
+  </p>
+  <% else %>
+    <%= link_to "Become active", activate_member_path(@group.name), method: :post %>
+  <% end %>
+</div>
+<% end %>

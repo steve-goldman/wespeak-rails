@@ -21,3 +21,7 @@ user.update_attribute(:primary_email_address_id, primary_email_address.id)
 group = user.groups_i_created.create!(name: "test_group")
 group.group_email_domains.create!(domain: "wespeakapp.com")
 group.activate
+
+group2 = user.groups_i_created.create!(name: "another_group")
+group2.group_email_domains.create!(domain: "criterion.com")
+group2.activate

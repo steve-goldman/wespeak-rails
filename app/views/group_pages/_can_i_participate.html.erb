@@ -1,0 +1,18 @@
+<div class="settings-group">
+<h4>Can I Participate?</h4>
+<% if logged_in? %>
+  <% if @change_eligible %>
+    <p class="green-light">Yes!</p>
+  <% else %>
+    <p class="red-light">No</p>
+    <% if !@email_eligible %>
+      <p>
+        <%= link_to "Add an email address", settings_email_identities_path %>
+        that matches this group's requirements.
+      </p>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>Log in to participate<p>
+<% end %>
+</div>
