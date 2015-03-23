@@ -6,18 +6,19 @@ class SessionsController < ApplicationController
   before_action :logged_in,              only: [:destroy]
   
   def new
+    @referer = request.referer
   end
   
   def create
     log_in @email_address.user
     params[:session][:remember_me] == '1' ?
       remember(@email_address.user) : forget(@email_address.user)
-    redirect_to root_url
+    redirect_to params[:referer] || root_url
   end
   
   def destroy
     log_out
-    redirect_to root_url
+    redirect_to request.referer || root_url
   end
   
   private
