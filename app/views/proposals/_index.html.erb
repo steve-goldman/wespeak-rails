@@ -1,0 +1,11 @@
+<div class="proposals-list">
+  <table class="table table-hover table-striped">
+    <% @group.get_all_statements(:alive).reverse.each do |tuple| %>
+    <tr>
+      <td>
+        <%= render('taglines/show', tagline: tuple[:content]) if tuple[:statement_type] == :tagline %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

@@ -47,6 +47,28 @@ class Group < ActiveRecord::Base
                       lifespan:       lifespan_rule)
   end
 
+  def get_all_statements(state)
+    if state.nil?
+      @statements_array = Statement.where(group_id: id).map { |record| record }
+    else
+      @statements_array = Statement.where(group_id: id, state: StatementStates[state]).map { |record| record }
+    end
+
+    ids_filter  = "SELECT statement_id FROM statements WHERE group_id = :group_id"
+    ids_filter += " AND state = :state" if !state.nil?
+
+    @statement_pointers = []
+
+    [
+      [Tagline, :tagline]
+    ].each do |tuple|
+      insert_filtered(tuple[0].where("statement_id IN (#{ids_filter})", group_id: id, state: StatementStates[state]),
+                      tuple[1])
+    end
+
+    @statement_pointers
+  end
+
   def get_taglines(state)
     statement_ids =  "SELECT statement_id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
     statement_ids += " AND state = :state" if !state.nil?
@@ -58,6 +80,18 @@ class Group < ActiveRecord::Base
   end
 
   private
+
+  # for shoving the records from a specific table into the proper location
+  # of the pointers array
+  def insert_filtered(records, content_type)
+    last_i = -1
+    records.each do |record|
+      for i in (last_i + 1)..(@statements_array.count - 1)
+        @statement_pointers[i] = { statement_type: content_type, content: record } and last_i = i and break if
+          @statements_array[i].statement_type == StatementTypes[content_type]
+      end
+    end
+  end
 
   def set_rules_to_defaults
     self.lifespan_rule           ||= RuleDefaults[:lifespan]
