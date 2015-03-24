@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324160505) do
+ActiveRecord::Schema.define(version: 20150324202515) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20150324160505) do
     t.integer  "lifespan"
   end
 
+  add_index "statements", ["group_id", "created_at"], name: "index_statements_on_group_id_and_created_at"
   add_index "statements", ["group_id"], name: "index_statements_on_group_id"
   add_index "statements", ["statement_type"], name: "index_statements_on_statement_type"
   add_index "statements", ["user_id"], name: "index_statements_on_user_id"

@@ -47,12 +47,11 @@ class Group < ActiveRecord::Base
                       lifespan:       lifespan_rule)
   end
 
-  def get_all_statements(statement_state, page, per_page)
-    @statement_state = statement_state
+  def get_all_statements(statement_state, page, per_page, order = "created_at DESC")
     if @statement_state.nil?
-      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id)
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id).order(order)
     else
-      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id, state: StatementStates[@statement_state])
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id, state: StatementStates[@statement_state]).order(order)
     end
   end
 
@@ -82,7 +81,7 @@ class Group < ActiveRecord::Base
     statement_pointers
   end
 
-  def get_of_type(statement_type, state, page, per_page)
+  def get_of_type(statement_type, state, page, per_page, order = "created_at DESC")
     # TODO: where can i move this map that makes sense?
     type_map = {
       tagline: Tagline,
@@ -95,7 +94,7 @@ class Group < ActiveRecord::Base
     type_map[statement_type].paginate(page: page, per_page: per_page).where("statement_id IN (#{statement_ids})",
                                                                             group_id:       id,
                                                                             statement_type: StatementTypes[statement_type],
-                                                                            state:          StatementStates[state])
+                                                                            state:          StatementStates[state]).order(order)
   end
 
   private
