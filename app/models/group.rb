@@ -47,31 +47,43 @@ class Group < ActiveRecord::Base
                       lifespan:       lifespan_rule)
   end
 
-  def get_all_statements(state)
-    if state.nil?
-      @statements_array = Statement.where(group_id: id).map { |record| record }
+  def get_all_statements(statement_state, page, per_page = DEFAULT_RECORDS_PER_PAGE)
+    @statement_state = statement_state
+    if @statement_state.nil?
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id)
     else
-      @statements_array = Statement.where(group_id: id, state: StatementStates[state]).map { |record| record }
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id, state: StatementStates[@statement_state])
+    end
+  end
+
+  def get_statement_pointers
+    statement_ids_map = {}
+    i = 0
+    statement_ids = ""
+    @all_statements.each do |statement|
+      statement_ids_map[statement.id] = i
+      statement_ids += ", " if i != 0
+      statement_ids += statement.id.to_s
+      i += 1
     end
 
-    ids_filter  = "SELECT statement_id FROM statements WHERE group_id = :group_id"
-    ids_filter += " AND state = :state" if !state.nil?
-
-    @statement_pointers = []
+    statement_pointers = []
 
     [
       [Tagline, :tagline],
       [Update,  :update ],
     ].each do |tuple|
-      insert_filtered(tuple[0].where("statement_id IN (#{ids_filter})", group_id: id, state: StatementStates[state]),
-                      tuple[1])
+      # this shoves the content records in the appropriate location of the statement pointers array
+      tuple[0].where("statement_id IN (#{statement_ids})", group_id: id).each do |record|
+        statement_pointers[statement_ids_map[record.statement_id]] = { statement_type: tuple[1], content: record }
+      end
     end
 
-    @statement_pointers
+    statement_pointers
   end
 
   def get_of_type(statement_type, state)
-    # TODO: where can i move this that makes sense?
+    # TODO: where can i move this map that makes sense?
     type_map = {
       tagline: Tagline,
       update:  Update,
@@ -87,18 +99,6 @@ class Group < ActiveRecord::Base
   end
 
   private
-
-  # for shoving the records from a specific table into the proper location
-  # of the pointers array
-  def insert_filtered(records, content_type)
-    last_i = -1
-    records.each do |record|
-      for i in (last_i + 1)..(@statements_array.count - 1)
-        @statement_pointers[i] = { statement_type: content_type, content: record } and last_i = i and break if
-          @statements_array[i].statement_type == StatementTypes[content_type]
-      end
-    end
-  end
 
   def set_rules_to_defaults
     self.lifespan_rule           ||= RuleDefaults[:lifespan]

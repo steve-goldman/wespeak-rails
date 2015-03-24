@@ -1,6 +1,6 @@
 <div class="proposals-list">
   <table class="table">
-    <% @statements.each do |tuple| %>
+    <% @statement_pointers.each do |tuple| %>
     <tr>
       <td>
         <%= render('taglines/show', tagline: tuple[:content]) if tuple[:statement_type] == :tagline %>
@@ -8,5 +8,7 @@
       </td>
     </tr>
     <% end %>
+
   </table>
+  <%= will_paginate @all_statements %>
 </div>

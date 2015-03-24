@@ -10,7 +10,8 @@ class ProposalsController < GroupPagesControllerBase
   before_action :statement_found,     only: [:show]
 
   def index
-    @statements = @group.get_all_statements(:alive).reverse
+    @all_statements     = @group.get_all_statements(:alive, params[:page])
+    @statement_pointers = @group.get_statement_pointers
   end
 
   def show

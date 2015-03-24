@@ -27,6 +27,8 @@ module Constants
 
   VALIDATION_FLASH_LEVEL = :danger
 
+  DEFAULT_RECORDS_PER_PAGE = 10
+
   class Invitations
     NOT_REQUIRED = -1
     DEFAULT = NOT_REQUIRED
