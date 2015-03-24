@@ -19,7 +19,7 @@ class UpdatesController < GroupPagesControllerBase
   end
 
   def index
-    @statements = @group.get_updates(:alive).reverse
+    @statements = @group.get_of_type(:update, :alive).reverse
   end
 
   private

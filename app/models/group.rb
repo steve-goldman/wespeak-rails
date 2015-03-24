@@ -70,24 +70,20 @@ class Group < ActiveRecord::Base
     @statement_pointers
   end
 
-  def get_taglines(state)
+  def get_of_type(statement_type, state)
+    # TODO: where can i move this that makes sense?
+    type_map = {
+      tagline: Tagline,
+      update:  Update,
+    }
+  
     statement_ids =  "SELECT statement_id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
     statement_ids += " AND state = :state" if !state.nil?
-    
-    Tagline.where("statement_id IN (#{statement_ids})",
-                  group_id:       id,
-                  statement_type: StatementTypes[:tagline],
-                  state:          StatementStates[state])
-  end
 
-  def get_updates(state)
-    statement_ids =  "SELECT statement_id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
-    statement_ids += " AND state = :state" if !state.nil?
-    
-    Update.where("statement_id IN (#{statement_ids})",
-                 group_id:       id,
-                 statement_type: StatementTypes[:update],
-                 state:          StatementStates[state])
+    type_map[statement_type].where("statement_id IN (#{statement_ids})",
+                                   group_id:       id,
+                                   statement_type: StatementTypes[statement_type],
+                                   state:          StatementStates[state])
   end
 
   private
