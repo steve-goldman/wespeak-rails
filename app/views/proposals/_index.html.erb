@@ -1,12 +1,7 @@
 <div class="proposals-list">
   <table class="table">
-    <% @statement_pointers.each do |tuple| %>
-    <tr>
-      <td>
-        <%= render('taglines/show', tagline: tuple[:content]) if tuple[:statement_type] == :tagline %>
-        <%= render('updates/show',  update:  tuple[:content]) if tuple[:statement_type] == :update  %>
-      </td>
-    </tr>
+    <% @statement_pointers.each do |statement_pointer| %>
+      <%= render 'statement_pointer', statement_pointer: statement_pointer %>
     <% end %>
 
   </table>

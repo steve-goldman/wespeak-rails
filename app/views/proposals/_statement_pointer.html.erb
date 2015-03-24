@@ -1,0 +1,6 @@
+<tr>
+  <td>
+    <%= render('taglines/show', tagline: statement_pointer[:content]) if statement_pointer[:statement_type] == :tagline %>
+    <%= render('updates/show',  update:  statement_pointer[:content]) if statement_pointer[:statement_type] == :update  %>
+  </td>
+</tr>
