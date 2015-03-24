@@ -19,7 +19,7 @@ class TaglinesController < GroupPagesControllerBase
   end
 
   def index
-    @statements = @group.get_of_type(:tagline, :alive).reverse
+    @statements = @group.get_of_type(:tagline, :alive, params[:page])
   end
 
   private

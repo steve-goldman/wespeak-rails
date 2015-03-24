@@ -82,7 +82,7 @@ class Group < ActiveRecord::Base
     statement_pointers
   end
 
-  def get_of_type(statement_type, state)
+  def get_of_type(statement_type, state, page, per_page)
     # TODO: where can i move this map that makes sense?
     type_map = {
       tagline: Tagline,
@@ -92,10 +92,10 @@ class Group < ActiveRecord::Base
     statement_ids =  "SELECT statement_id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
     statement_ids += " AND state = :state" if !state.nil?
 
-    type_map[statement_type].where("statement_id IN (#{statement_ids})",
-                                   group_id:       id,
-                                   statement_type: StatementTypes[statement_type],
-                                   state:          StatementStates[state])
+    type_map[statement_type].paginate(page: page, per_page: per_page).where("statement_id IN (#{statement_ids})",
+                                                                            group_id:       id,
+                                                                            statement_type: StatementTypes[statement_type],
+                                                                            state:          StatementStates[state])
   end
 
   private
