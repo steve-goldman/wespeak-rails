@@ -47,7 +47,7 @@ class Group < ActiveRecord::Base
                       lifespan:       lifespan_rule)
   end
 
-  def get_all_statements(statement_state, page, per_page = DEFAULT_RECORDS_PER_PAGE)
+  def get_all_statements(statement_state, page, per_page)
     @statement_state = statement_state
     if @statement_state.nil?
       @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id)
