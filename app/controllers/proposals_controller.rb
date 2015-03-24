@@ -12,6 +12,11 @@ class ProposalsController < GroupPagesControllerBase
   def index
     @all_statements     = @group.get_all_statements(:alive, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
     @statement_pointers = @group.get_statement_pointers
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show

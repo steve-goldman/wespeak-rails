@@ -1,13 +1,7 @@
-<div class="proposals-list">
-  <table class="table">
-    <% @statements.each do |tagline| %>
-    <tr>
-      <td>
-        <%= render 'show', tagline: tagline %>
-      </td>
-    </tr>
-    <% end %>
-  </table>
+<table id="proposals-list" class="table">
+  <%= render 'statements' %>
+</table>
 
+<div id="infinite-scrolling">
   <%= will_paginate @statements %>
 </div>

@@ -20,6 +20,11 @@ class TaglinesController < GroupPagesControllerBase
 
   def index
     @statements = @group.get_of_type(:tagline, :alive, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private

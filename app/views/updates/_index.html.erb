@@ -1,13 +1,7 @@
-<div class="proposals-list">
-  <table class="table">
-    <% @statements.each do |update| %>
-    <tr>
-      <td>
-        <%= render 'show', update: update %>
-      </td>
-    </tr>
-    <% end %>
-  </table>
+<table id="proposals-list" class="table">
+  <%= render 'statements' %>
+</table>
 
+<div id="infinite-scrolling">
   <%= will_paginate @statements %>
 </div>
