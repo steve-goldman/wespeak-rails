@@ -21,7 +21,7 @@ class StatementTypes
     profile_photo:           3002,
     tagline:                 3003,
     photo:                   3004,
-    text:                    3005,
+    update:                  3005,
   }
 
   @type_names = {
@@ -46,7 +46,7 @@ class StatementTypes
     3002 => "Profile Photo",
     3003 => "Tagline",
     3004 => "Photo",
-    3005 => "Text",
+    3005 => "Update",
   }
 
   def StatementTypes.[](key)
