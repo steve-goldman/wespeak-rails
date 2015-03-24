@@ -24,6 +24,31 @@ class StatementTypes
     text:                    3005,
   }
 
+  @type_names = {
+    # participation filters
+    1001 => "add_email_domain_filter",
+    1002 => "rem_email_domain_filter",
+    1003 => "add_facebook_filter",
+    1004 => "rem_facebook_filter",
+    1005 => "add_location_filter",
+    1006 => "rem_location_filter",
+
+    # rules
+    2001 => "lifespan_rule",
+    2002 => "support_needed_rule",
+    2003 => "votespan_rule",
+    2004 => "votes_needed_rule",
+    2005 => "yeses_needed_rule",
+    2006 => "inactivity_timeout_rule",
+    
+    # data
+    3001 => "Cover Photo",
+    3002 => "Profile Photo",
+    3003 => "Tagline",
+    3004 => "Photo",
+    3005 => "Text",
+  }
+
   def StatementTypes.[](key)
     @statement_types[key]
   end
@@ -34,6 +59,10 @@ class StatementTypes
 
   def StatementTypes.value?(value)
     @statement_types.value?(value)
+  end
+
+  def StatementTypes.name(value)
+    @type_names[value]
   end
 
 end
