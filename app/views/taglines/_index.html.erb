@@ -1,6 +1,6 @@
 <div class="proposals-list">
   <table class="table">
-    <% @group.get_taglines(:alive).reverse.each do |tagline| %>
+    <% @statements.each do |tagline| %>
     <tr>
       <td>
         <%= render 'show', tagline: tagline %>

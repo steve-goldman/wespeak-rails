@@ -1,6 +1,6 @@
 <div class="proposals-list">
   <table class="table">
-    <% @group.get_updates(:alive).reverse.each do |update| %>
+    <% @statements.each do |update| %>
     <tr>
       <td>
         <%= render 'show', update: update %>

@@ -19,6 +19,7 @@ class TaglinesController < GroupPagesControllerBase
   end
 
   def index
+    @statements = @group.get_taglines(:alive).reverse
   end
 
   private

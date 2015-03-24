@@ -1,6 +1,6 @@
 <div class="proposals-list">
   <table class="table">
-    <% @group.get_all_statements(:alive).reverse.each do |tuple| %>
+    <% @statements.each do |tuple| %>
     <tr>
       <td>
         <%= render('taglines/show', tagline: tuple[:content]) if tuple[:statement_type] == :tagline %>
