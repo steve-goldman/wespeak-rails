@@ -9,5 +9,11 @@
       <%= render 'proposals/proposals_tabs', active_tab: :taglines %>
       <%= render 'taglines/show', tagline: @statement.get_tagline %>
     <% end %>
+
+    <% if @statement.statement_type == StatementTypes[:update] %>
+      <%= render 'proposals/proposals_tabs', active_tab: :updates %>
+      <%= render 'updates/show', update:  @statement.get_update %>
+    <% end %>
+
   </div>
 </div>

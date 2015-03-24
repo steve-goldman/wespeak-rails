@@ -4,6 +4,7 @@
     <tr>
       <td>
         <%= render('taglines/show', tagline: tuple[:content]) if tuple[:statement_type] == :tagline %>
+        <%= render('updates/show',  update:  tuple[:content]) if tuple[:statement_type] == :update  %>
       </td>
     </tr>
     <% end %>

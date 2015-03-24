@@ -60,7 +60,8 @@ class Group < ActiveRecord::Base
     @statement_pointers = []
 
     [
-      [Tagline, :tagline]
+      [Tagline, :tagline],
+      [Update,  :update ],
     ].each do |tuple|
       insert_filtered(tuple[0].where("statement_id IN (#{ids_filter})", group_id: id, state: StatementStates[state]),
                       tuple[1])
@@ -77,6 +78,16 @@ class Group < ActiveRecord::Base
                   group_id:       id,
                   statement_type: StatementTypes[:tagline],
                   state:          StatementStates[state])
+  end
+
+  def get_updates(state)
+    statement_ids =  "SELECT statement_id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
+    statement_ids += " AND state = :state" if !state.nil?
+    
+    Update.where("statement_id IN (#{statement_ids})",
+                 group_id:       id,
+                 statement_type: StatementTypes[:update],
+                 state:          StatementStates[state])
   end
 
   private

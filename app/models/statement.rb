@@ -20,6 +20,10 @@ class Statement < ActiveRecord::Base
     Tagline.find_by(statement_id: id)
   end
 
+  def get_update
+    Update.find_by(statement_id: id)
+  end
+
   private
 
   def valid_statement_type

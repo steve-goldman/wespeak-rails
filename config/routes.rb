@@ -33,6 +33,10 @@ Rails.application.routes.draw do
   get    'groups/:name/proposals/taglines',     to: 'taglines#index',  as: :taglines
   post   'groups/:name/proposals/taglines',     to: 'taglines#create'
   
+  # updates
+  get    'groups/:name/proposals/updates',     to: 'updates#index',  as: :updates
+  post   'groups/:name/proposals/updates',     to: 'updates#create'
+  
   # proposals (catch-all)
   get    'groups/:name/proposals/:id',          to: 'proposals#show',  as: :proposal
 
