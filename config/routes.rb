@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   post   'groups/:name/activate_membership',   to: 'profiles#activate_member',   as: :activate_membership
   delete 'groups/:name/deactivate_membership', to: 'profiles#deactivate_member', as: :deactivate_membership
 
+  # for sending group invitations
+  post   'groups/:name/send_invitation',       to: 'send_invitations#create', as: :send_invitations
+
   # taglines
   get    'groups/:name/proposals/taglines',     to: 'taglines#index',  as: :taglines
   post   'groups/:name/proposals/taglines',     to: 'taglines#create'

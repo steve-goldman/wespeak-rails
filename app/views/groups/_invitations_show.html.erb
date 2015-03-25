@@ -1,10 +1,14 @@
-<p class="invitations">
+<span class="invitations">
   <% if @group.invitations == Constants::Invitations::NOT_REQUIRED %>
-  Invitations are not required for participation in this group.
+    Invitations are not required for participation in this group.
   <% else %>
-  Members may send up to <%= @group.invitations %> per day.
+    Members may send up to <%= @group.invitations %> per day.
   <% end %>
-  <% if change_link %>
+</span>
+<% if change_link %>
   <div class="change-link"><%= link_to "Propose change", "#" %></div>
+  <% if @group.invitations != Constants::Invitations::NOT_REQUIRED %>
+    <%= render 'send_invitations/new' %>
   <% end %>
-</p>
+<% end %>
+

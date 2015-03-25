@@ -1,5 +1,10 @@
 .left-header {
     text-align: center;
+
+    form {
+        border: 0px;
+        margin: 5px;
+    }
 }
 
 .group-tabs {
@@ -91,4 +96,9 @@
 .proposals-list {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.invites-remaining {
+    color: green;
+    font-weight: bold;
 }

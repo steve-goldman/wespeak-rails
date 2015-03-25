@@ -14,6 +14,9 @@ class GroupPagesControllerBase < ApplicationController
   def is_active_member
     if logged_in?
       @active_member = @group.active_members.find_by(user_id: current_user.id)
+      if @group.invitations != Invitations::NOT_REQUIRED
+        @num_invitations_remaining = @group.invitations - SentInvitation.num_sent_today(current_user, @group)
+      end
     else
       @active_member = nil
     end
