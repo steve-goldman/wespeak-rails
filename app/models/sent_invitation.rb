@@ -31,6 +31,14 @@ class SentInvitation < ActiveRecord::Base
   validates :user_id, presence: { message: ValidationMessages::EMAIL_MISSING_USER_ID.message }
 
   validates :group_id, presence: { message: ValidationMessages::EMAIL_MISSING_GROUP_ID.message }
+
+  def SentInvitation.num_sent_today(user, group, t = Time.zone.now)
+    SentInvitation
+      .where(user_id: user.id, group_id: group.id)
+      .where("created_at >= :today AND created_at < :tomorrow",
+             today: t.beginning_of_day,
+             tomorrow: (t + 1.day).beginning_of_day).count
+  end
   
   private
 

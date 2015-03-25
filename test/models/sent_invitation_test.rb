@@ -45,4 +45,20 @@ class SentInvitationTest < ActiveSupport::TestCase
     email = "a" * (Lengths::EMAIL_ADDR_MAX - "@email.addr".length) + "@email.addr"
     assert SentInvitation.new(user_id: 1, group_id: 1, email: email).valid?
   end
+
+  test "num sent test" do
+    user = User.create!(name: "Stu G.", password: "test123", password_confirmation: "test123")
+    group = Group.create!(name: "group")
+    
+    SentInvitation.create!(user_id: user.id, group_id: group.id, email: "stu@stu1.com", created_at: Time.zone.parse("20150323"))
+    SentInvitation.create!(user_id: user.id, group_id: group.id, email: "stu@stu2.com", created_at: Time.zone.parse("20150324"))
+    SentInvitation.create!(user_id: user.id, group_id: group.id, email: "stu@stu3.com", created_at: Time.zone.parse("20150324"))
+    SentInvitation.create!(user_id: user.id, group_id: group.id, email: "stu@stu4.com", created_at: Time.zone.parse("20150325"))
+
+    assert_equal 0, SentInvitation.num_sent_today(user, group, Time.zone.parse("20150322"))
+    assert_equal 1, SentInvitation.num_sent_today(user, group, Time.zone.parse("20150323"))
+    assert_equal 2, SentInvitation.num_sent_today(user, group, Time.zone.parse("20150324"))
+    assert_equal 1, SentInvitation.num_sent_today(user, group, Time.zone.parse("20150325"))
+    assert_equal 0, SentInvitation.num_sent_today(user, group, Time.zone.parse("20150326"))
+  end
 end
