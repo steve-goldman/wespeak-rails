@@ -24,6 +24,7 @@ module UsersHelper
     EMAIL_FORMATTING      = ValidationMessage.new("Email address is invalid")
     EMAIL_TAKEN           = ValidationMessage.new("That email address is already in use")
     EMAIL_MISSING_USER_ID = ValidationMessage.new("Something went wrong: no user for email address")
+    EMAIL_MISSING_GROUP_ID= ValidationMessage.new("Something went wrong: no group for invitation")
   end
 
 end
