@@ -1,9 +1,9 @@
-<% if groups.any? %>
+<% if @groups_pending.any? %>
 <div class="settings-group">
   <h4>Groups Pending Configuration</h4>
   <table class="table table-hover table-striped">
     <tbody>
-      <% groups.each do |group| %>
+      <% @groups_pending.each do |group| %>
       <tr>
         <td><%= link_to group.name, edit_group_path(group.id) %></td>
         <td>Created <%= time_ago_in_words(group.created_at) + " ago" %></td>
