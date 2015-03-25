@@ -30,9 +30,4 @@ class GroupEmailDomainTest < ActiveSupport::TestCase
       assert_not @group.group_email_domains.build(domain: invalid_domain).valid?
     end
   end
-
-  test "duplicates should not be allowed" do
-    assert     @group.group_email_domains.create(domain: "stanford.edu").valid?
-    assert_not @group.group_email_domains.create(domain: "stanford.edu").valid?
-  end
 end

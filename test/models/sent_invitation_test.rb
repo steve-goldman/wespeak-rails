@@ -28,9 +28,10 @@ class SentInvitationTest < ActiveSupport::TestCase
     end
   end
 
-  test "email addresses should be case-insensitively unique" do
+  test "should be able to invite the same person more than once" do
     email_address = SentInvitation.create!(user_id: 1, group_id: 1, email: "valid@email.org").valid?
-    assert_not      SentInvitation.new(user_id: 2, group_id: 1, email: "VaLiD@eMaIl.OrG").valid?
+    assert          SentInvitation.new(user_id: 2, group_id: 1, email: "valid@email.org").valid?
+    assert          SentInvitation.new(user_id: 2, group_id: 1, email: "VaLiD@eMaIl.OrG").valid?
   end
 
   test "email should be saved as lower case" do
