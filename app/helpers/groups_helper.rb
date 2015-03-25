@@ -30,7 +30,6 @@ module GroupsHelper
 
     DOMAIN_NOT_PRESENT = ValidationMessage.new("Please choose a domain")
     DOMAIN_TOO_LONG    = ValidationMessage.new("Domain must be less than #{Lengths::EMAIL_DOMAIN_MAX} characters")
-    DOMAIN_TAKEN       = ValidationMessage.new("That domain is already associated with this group")
     DOMAIN_FORMATTING  = ValidationMessage.new("That is not a valid email domain")
 
     LIFESPAN_DURATION  = ValidationMessage.new("Lifespan must be between #{Timespans.in_words(Timespans::LIFESPAN_MIN)} and #{Timespans.in_words(Timespans::LIFESPAN_MAX)}")

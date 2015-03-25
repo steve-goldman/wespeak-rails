@@ -45,12 +45,13 @@ class GroupEmailDomainsControllerTest < ActionController::TestCase
   test "create with taken domain should redirect" do
     new_domain = "wespeakapp.com"
     post_create @group.id, new_domain
-    assert_not_nil GroupEmailDomain.find_by(group_id: @group.id, domain: new_domain)
+    assert_equal 1, @group.group_email_domains.where(domain: new_domain).count
     assert_redirected_with_flash [], edit_group_path(@group.id)
     post_create @group.id, new_domain
-    assert_rendered_with_flash [ValidationMessages::DOMAIN_TAKEN], 'groups/edit'
-    post_create @group.id, new_domain.upcase
-    assert_rendered_with_flash [ValidationMessages::DOMAIN_TAKEN], 'groups/edit'
+    assert_equal 1, @group.group_email_domains.where(domain: new_domain).count
+    assert_redirected_with_flash [], edit_group_path(@group.id)
+    assert_equal 1, @group.group_email_domains.where(domain: new_domain).count
+    assert_redirected_with_flash [], edit_group_path(@group.id)
   end
 
   test "create with too long domain should redirect" do

@@ -50,7 +50,7 @@ class GroupEmailDomainsController < ApplicationController
   end
 
   def email_domain_creates
-    group_email_domain = @group.group_email_domains.create(domain: params[:group_email_domain][:domain])
+    group_email_domain = @group.group_email_domains.find_or_create_by(domain: params[:group_email_domain][:domain])
     @group.group_email_domains.destroy(group_email_domain) and render_with_validation_flash(group_email_domain, 'groups/edit') if !group_email_domain.valid?
   end
 

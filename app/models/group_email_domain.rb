@@ -21,8 +21,6 @@ class GroupEmailDomain < ActiveRecord::Base
   validates :domain, { presence:   { message: ValidationMessages::DOMAIN_NOT_PRESENT.message },
                        length:     { message: ValidationMessages::DOMAIN_TOO_LONG.message,
                                      maximum: Lengths::EMAIL_DOMAIN_MAX },
-                       uniqueness: { message: ValidationMessages::DOMAIN_TAKEN.message,
-                                     case_sensitive: false },
                        format:     { message: ValidationMessages::DOMAIN_FORMATTING.message,
                                      with: Regex::EMAIL_DOMAIN} }
 
