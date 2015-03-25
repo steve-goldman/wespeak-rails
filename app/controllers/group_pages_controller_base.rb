@@ -6,7 +6,7 @@ class GroupPagesControllerBase < ApplicationController
 
   def group_found
     @group = Group.where("lower(name) = ?", params[:name].downcase).first
-    render('shared/error_page') if @group.nil?
+    render('shared/error_page') and return if @group.nil?
     redirect_with_flash(FlashMessages::GROUP_NOT_ACTIVE, request.referer || root_url) if
       !@group.active?
   end

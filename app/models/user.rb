@@ -8,13 +8,15 @@ class User < ActiveRecord::Base
 
   # foreign key relationships
 
-  has_many :email_addresses
+  has_many :email_addresses, dependent: :destroy
 
   has_many :statements
 
   has_many :groups_i_created, class_name: "Group"
 
-  has_many :sent_invitations
+  has_many :sent_invitations, dependent: :destroy
+
+  has_many :received_invitations, dependent: :destroy
 
   # attr_accessors
 
@@ -94,5 +96,8 @@ class User < ActiveRecord::Base
   def active_groups_i_created
     groups_i_created.where(active: true)
   end
-  
+
+  def primary_email
+    email_addresses.find(primary_email_address_id).email
+  end
 end

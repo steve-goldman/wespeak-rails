@@ -9,7 +9,15 @@ class SentInvitationsController < GroupPagesControllerBase
   before_action :invitation_creates,      only: [:create]
 
   def create
-    # TODO: send invitation by email
+    email_address = EmailAddress.find_by(email: @email)
+    if !email_address.nil?
+      email_address.user.received_invitations.create(group_id: @group.id)
+      # TODO: send notification of invitation
+    else
+      # TODO: put this in the invitations pending signup table
+      # TODO: send notification of invitation
+    end
+    
     redirect_with_flash FlashMessages::INVITATION_SENT, request.referer || root_url
   end
 
@@ -20,7 +28,8 @@ class SentInvitationsController < GroupPagesControllerBase
   end
 
   def invitation_creates
-    invitation = current_user.sent_invitations.create(group_id: @group.id, email: params[:sent_invitation][:email])
+    @email = params[:sent_invitations][:email]
+    invitation = current_user.sent_invitations.create(group_id: @group.id, email: @email)
     render_with_validation_flash(invitation, action_name) if !invitation.valid?
   end
 end
