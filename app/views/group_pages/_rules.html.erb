@@ -1,4 +1,4 @@
 <div class="settings-group">
   <h4>Group Rules</h4>
-  <%= render 'groups/rules_show', change_links: logged_in? %>
+  <%= render 'groups/rules_show', change_links: !@change_eligible.nil? %>
 </div>
