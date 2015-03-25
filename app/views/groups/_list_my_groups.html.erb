@@ -1,0 +1,17 @@
+<div class="settings-group">
+  <h4>My Groups</h4>
+  <% if @my_groups.any? %>
+  <table class="table table-hover table-striped">
+    <tbody>
+      <% @my_groups.each do |group| %>
+      <tr>
+        <td><%= link_to group.name, group_path(group.name) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  <p>You're not following any groups!</p>
+  <% end %>
+</div>
+  
