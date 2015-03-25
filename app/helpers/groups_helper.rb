@@ -6,6 +6,7 @@ module GroupsHelper
     ACTIVATED_SUCCESS    = FlashMessage.new(:success, "Group created!")
     UPDATE_SUCCESS       = FlashMessage.new(:success, "Group rules updated!")
     UPDATE_INVITATIONS_SUCCESS = FlashMessage.new(:success, "Invitations settings updated!")
+    INVITATION_SENT      = FlashMessage.new(:success, "Invitation sent!")
     
     NOT_LOGGED_IN        = FlashMessage.new(:danger,  "Must be logged in to access this page")
     CANNOT_CREATE_GROUPS = FlashMessage.new(:danger,  "You don't have permission to create groups right now")
@@ -16,6 +17,7 @@ module GroupsHelper
     DOMAIN_UNKNOWN       = FlashMessage.new(:danger,  "Something went wrong: domain unknown")
     NOT_CHANGE_ELIGIBLE  = FlashMessage.new(:danger,  "You're not eligible to participate")
     STATEMENT_UNKNOWN    = FlashMessage.new(:danger,  "Something went wrong: proposal unknown")
+    NO_INVITES           = FlashMessage.new(:danger,  "You have no more invites today, try again tomorrow")
   end
 
   class ValidationMessages

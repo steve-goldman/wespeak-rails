@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 
   has_many :groups_i_created, class_name: "Group"
 
+  has_many :sent_invitations
+
   # attr_accessors
 
   attr_accessor :email

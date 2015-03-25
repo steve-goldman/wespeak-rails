@@ -8,7 +8,7 @@
 <% if change_link %>
   <div class="change-link"><%= link_to "Propose change", "#" %></div>
   <% if @group.invitations != Constants::Invitations::NOT_REQUIRED %>
-    <%= render 'send_invitations/new' %>
+    <%= render 'sent_invitations/new' %>
   <% end %>
 <% end %>
 
