@@ -104,5 +104,17 @@ class GroupTest < ActiveSupport::TestCase
     assert_equal RuleDefaults[:inactivity_timeout], group.initial_inactivity_timeout_rule
     assert_equal Invitations::DEFAULT,              group.initial_invitations
   end
+
+  test "invitations required since stuff" do
+    group = Group.create!(name: "group", invitations: 1)
+    assert_not_nil group.reload.invitations_required_since
+    t0 = group.reload.invitations_required_since
+
+    group.update_attributes(invitations: 2)
+    assert_equal t0, group.reload.invitations_required_since
+
+    group.update_attributes(invitations: Invitations::NOT_REQUIRED)
+    assert_nil     group.reload.invitations_required_since
+  end
   
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325025551) do
+ActiveRecord::Schema.define(version: 20150325041538) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20150325025551) do
     t.integer  "initial_inactivity_timeout_rule"
     t.integer  "initial_invitations"
     t.text     "tagline"
+    t.datetime "invitations_required_since"
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name"

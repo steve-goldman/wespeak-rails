@@ -12,6 +12,12 @@ class Group < ActiveRecord::Base
 
   after_initialize :set_rules_to_defaults
   after_initialize :set_invitations_to_defaults
+
+
+  # before save section
+
+  before_save :set_invitations_required_since
+  
   
   def validation_keys
     [:name, :rules, :invitation_rules]
@@ -110,6 +116,14 @@ class Group < ActiveRecord::Base
 
   def set_invitations_to_defaults
     self.invitations             ||= Invitations::DEFAULT
+  end
+
+  def set_invitations_required_since
+    if invitations == Invitations::NOT_REQUIRED
+      self.invitations_required_since = nil
+    else
+      self.invitations_required_since ||= Time.zone.now
+    end
   end
 
   def rules
