@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
 
   has_many :received_invitations, dependent: :destroy
 
+  has_many :sent_invitations, dependent: :destroy
+
   # attr_accessors
 
   attr_accessor :email
