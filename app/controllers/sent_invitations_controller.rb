@@ -11,7 +11,7 @@ class SentInvitationsController < GroupPagesControllerBase
   def create
     email_address = EmailAddress.find_by(email: @email)
     if !email_address.nil?
-      email_address.user.received_invitations.first_or_create(group_id: @group.id)
+      email_address.user.received_invitations.find_or_create_by(group_id: @group.id)
       # TODO: send notification of invitation
     else
       # TODO: put this in the invitations pending signup table
