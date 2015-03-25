@@ -29,12 +29,22 @@ class SentInvitationsControllerTest < ActionController::TestCase
   test "send invitation to existing user" do
     post_create(@user2.primary_email)
     assert_redirected_with_flash [FlashMessages::INVITATION_SENT], root_url
-    assert_not_nil ReceivedInvitation.find_by(user_id: @user2.id, group_id: @group.id)
+    assert_equal 1, @user1.sent_invitations.where(group_id: @group.id, email: @user2.primary_email).count
+    assert_equal 1, @user2.received_invitations.where(group_id: @group.id).count
 
     # second should not work
     post_create(@user3.primary_email)
     assert_redirected_with_flash [FlashMessages::NO_INVITES], root_url
-    assert_nil     ReceivedInvitation.find_by(user_id: @user3.id, group_id: @group.id)
+    assert_equal 0, @user1.sent_invitations.where(group_id: @group.id, email: @user3.primary_email).count
+    assert_equal 0, @user3.received_invitations.where(group_id: @group.id).count
+
+    # allow one more
+    @group.update_attributes(invitations: 2)
+
+    # sending to the same address should be a no-op for the received table
+    post_create(@user2.primary_email)
+    assert_equal 2, @user1.sent_invitations.where(group_id: @group.id, email: @user2.primary_email).count
+    assert_equal 1, @user2.received_invitations.where(group_id: @group.id).count
   end
 
   private
