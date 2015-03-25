@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325041538) do
+ActiveRecord::Schema.define(version: 20150325042315) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20150325041538) do
   end
 
   add_index "sent_invitations", ["email"], name: "index_sent_invitations_on_email"
+  add_index "sent_invitations", ["user_id", "group_id", "created_at"], name: "index_sent_invitations_on_user_id_and_group_id_and_created_at"
   add_index "sent_invitations", ["user_id"], name: "index_sent_invitations_on_user_id"
 
   create_table "statements", force: :cascade do |t|
