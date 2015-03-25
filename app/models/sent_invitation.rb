@@ -24,9 +24,7 @@ class SentInvitation < ActiveRecord::Base
                       length:     { message: ValidationMessages::EMAIL_TOO_LONG.message,
                                     maximum: Lengths::EMAIL_ADDR_MAX },
                       format:     { message: ValidationMessages::EMAIL_FORMATTING.message,
-                                    with: Regex::EMAIL },
-                      uniqueness: { message: ValidationMessages::EMAIL_TAKEN.message,
-                                    case_sensitive: false } }
+                                    with: Regex::EMAIL } }
 
   validates :user_id, presence: { message: ValidationMessages::EMAIL_MISSING_USER_ID.message }
 
