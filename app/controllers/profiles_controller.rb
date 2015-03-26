@@ -9,19 +9,12 @@ class ProfilesController < GroupPagesControllerBase
   end
 
   def activate_member
-    if @active_member
-      @active_member.extend_active @group.inactivity_timeout_rule
-    else
-      @group.active_members.create(user_id: current_user.id,
-                                   active_seconds: @group.inactivity_timeout_rule)
-    end
+    make_member_active @group, current_user, @active_member
     redirect_to request.referer
   end
 
   def deactivate_member
-    if @active_member
-      @active_member.destroy
-    end
+    make_member_inactive @group, current_user, @active_member
     redirect_to request.referer
   end
 

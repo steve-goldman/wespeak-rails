@@ -2,6 +2,25 @@ module GroupsHelper
 
   include ApplicationHelper
 
+  def make_member_active(group, user, active_member)
+    if active_member
+      active_member.extend_active group.inactivity_timeout_rule
+    else
+      group.active_members.create user_id:        user.id,
+                                  active_seconds: group.inactivity_timeout_rule
+    end
+
+    # TODO: add to group member activity log
+  end
+
+  def make_member_inactive(group, user, active_member)
+    if active_member
+      active_member.destroy
+    end
+
+    # TODO: add to group member activity log
+  end
+
   class FlashMessages
     ACTIVATED_SUCCESS    = FlashMessage.new(:success, "Group created!")
     UPDATE_SUCCESS       = FlashMessage.new(:success, "Group rules updated!")
