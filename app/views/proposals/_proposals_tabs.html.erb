@@ -1,7 +1,7 @@
 <div class="group-tabs">
   <ul class="nav nav-tabs">
-    <%= content_tag(:li, link_to("All Proposals", proposals_path(@group.name)), class: active_tab == :all      ? "active" : "inactive") %>
-    <%= content_tag(:li, link_to("Taglines",      taglines_path(@group.name)),  class: active_tab == :taglines ? "active" : "inactive") %>
-    <%= content_tag(:li, link_to("Updates",       updates_path(@group.name)),   class: active_tab == :updates ?  "active" : "inactive") %>
+    <%= content_tag(:li, link_to("All (#{@group.get_count(:alive)})",                proposals_path(@group.name)), class: active_tab == :all      ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Taglines (#{@group.get_count(:alive, :tagline)})", taglines_path(@group.name)),  class: active_tab == :taglines ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Updates (#{@group.get_count(:alive, :update)})",   updates_path(@group.name)),   class: active_tab == :updates  ? "active" : "inactive") %>
   </ul>
 </div>

@@ -54,6 +54,13 @@ class Group < ActiveRecord::Base
                       lifespan:       lifespan_rule)
   end
 
+  def get_count(state = nil, type = nil)
+    set = Statement.where(group_id: id)
+    set = set.where(state: StatementStates[state]) if !state.nil?
+    set = set.where(statement_type: StatementTypes[type]) if !type.nil?
+    set.count
+  end
+
   def get_all_statements(statement_state, page, per_page, order = "created_at DESC")
     if @statement_state.nil?
       @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id).order(order)
