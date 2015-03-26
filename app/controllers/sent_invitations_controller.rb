@@ -1,6 +1,6 @@
 class SentInvitationsController < GroupPagesControllerBase
   before_action :group_found,             only: [:create]
-  before_action :is_active_member,        only: [:create]
+  before_action :membership_info,         only: [:create]
   before_action :email_eligible,          only: [:create]
   before_action :change_eligible,         only: [:create]
   before_action :enforce_change_eligible, only: [:create]

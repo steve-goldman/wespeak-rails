@@ -10,7 +10,7 @@ module GroupsHelper
                                   active_seconds: group.inactivity_timeout_rule
     end
 
-    # TODO: add to group member activity log
+    MembershipHistory.create(user_id: user.id, group_id: group.id, active: true)
   end
 
   def make_member_inactive(group, user, active_member)
@@ -18,7 +18,7 @@ module GroupsHelper
       active_member.destroy
     end
 
-    # TODO: add to group member activity log
+    MembershipHistory.create(user_id: user.id, group_id: group.id, active: false)
   end
 
   class FlashMessages

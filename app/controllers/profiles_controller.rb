@@ -1,6 +1,6 @@
 class ProfilesController < GroupPagesControllerBase
   before_action :group_found,             only: [:show, :activate_member, :deactivate_member]
-  before_action :is_active_member,        only: [:show, :activate_member, :deactivate_member]
+  before_action :membership_info,         only: [:show, :activate_member, :deactivate_member]
   before_action :email_eligible,          only: [:show, :activate_member]
   before_action :change_eligible,         only: [:show, :activate_member]
   before_action :enforce_change_eligible, only: [:activate_member]

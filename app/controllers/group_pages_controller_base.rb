@@ -11,14 +11,16 @@ class GroupPagesControllerBase < ApplicationController
       !@group.active?
   end
 
-  def is_active_member
+  def membership_info
     if logged_in?
       @active_member = @group.active_members.find_by(user_id: current_user.id)
+      @membership_history = @group.membership_histories.where(user_id: current_user.id, active: true).first
       if @group.invitations != Invitations::NOT_REQUIRED
         @num_invitations_remaining = @group.invitations - SentInvitation.num_sent_today(current_user, @group)
       end
     else
       @active_member = nil
+      @membership_history = nil
     end
   end
 

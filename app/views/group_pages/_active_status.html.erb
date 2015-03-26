@@ -1,24 +1,16 @@
 <% if logged_in? %>
 <div class="settings-group">
-  <h4>Membership Status</h4>
+  <h4>Active Status</h4>
   <% if @active_member %>
-      <p class="green-light">Active!</p>
-      <p>Since <%= time_ago_in_words(@active_member.created_at) %> ago</p> 
-      <p>Expires in <%= time_ago_in_words(@active_member.active_until) %></p>
-    <% if @change_eligible %>
-      <p>
-        <%= link_to "Extend membership", activate_membership_path(@group.name), method: :post %>
-        to <%= time_ago_in_words(Time.zone.now + @group.inactivity_timeout_rule) %>
-      </p>
-      <p>
-        <%= link_to "Discontinue membership", deactivate_membership_path(@group.name), method: :delete %>
-      </p>
-    <% end %>
+    <p class="green-light">Yes!</p>
+    <p>Since <%= time_ago_in_words(@active_member.created_at) %> ago</p>
+    <p>Valid for <%= time_ago_in_words(@active_member.active_until) %></p>
+    <p><%= link_to "Discontinue membership", deactivate_membership_path(@group.name), method: :delete %></p>
   <% else %>
-    <p class="red-light">Not active.</p>
-    <% if @change_eligible %>
-      <p><%= link_to "Become active", activate_membership_path(@group.name), method: :post %></p>
-    <% end %>
+    <p class="red-light">No.</p>
+  <% end %>
+  <% if @change_eligible %>
+    <p><%= link_to "Extend membership", activate_membership_path(@group.name), method: :post %></p>
   <% end %>
 </div>
 <% end %>

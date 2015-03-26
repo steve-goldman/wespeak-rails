@@ -7,6 +7,7 @@ class Group < ActiveRecord::Base
   has_many :group_email_domains, dependent: :destroy
   has_many :statements
   has_many :active_members
+  has_many :membership_histories
 
   # after initialize section
 

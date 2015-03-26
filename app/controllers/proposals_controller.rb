@@ -3,7 +3,7 @@ class ProposalsController < GroupPagesControllerBase
   include GroupsHelper
 
   before_action :group_found,        only: [:index, :show]
-  before_action :is_active_member,   only: [:index, :show]
+  before_action :membership_info,    only: [:index, :show]
   before_action :email_eligible,     only: [:index, :show]
   before_action :change_eligible,    only: [:index, :show]
 
