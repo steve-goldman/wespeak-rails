@@ -59,7 +59,7 @@ class GroupsController < ApplicationController
 
   def group_creates
     @group = @user.groups_i_created.create(name: params[:group][:name])
-    render_with_validation_flash(@group, action: :index) if !@group.valid?
+    redirect_with_validation_flash(@group, action: :index) if !@group.valid?
   end
 
   def group_known

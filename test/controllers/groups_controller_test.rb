@@ -459,21 +459,21 @@ class GroupsControllerTest < ActionController::TestCase
   test "create with missing name should redirect" do
     [nil, "", "   "].each do |missing_name|
       post_create missing_name
-      assert_rendered_with_flash [ValidationMessages::NAME_NOT_PRESENT], :index
+      assert_redirected_with_flash [ValidationMessages::NAME_NOT_PRESENT], groups_path
     end
   end
 
   test "create with taken name should redirect" do
     post_create @group.name
-    assert_rendered_with_flash [ValidationMessages::NAME_TAKEN], :index
+    assert_redirected_with_flash [ValidationMessages::NAME_TAKEN], groups_path
     post_create @group.name.upcase
-    assert_rendered_with_flash [ValidationMessages::NAME_TAKEN], :index
+    assert_redirected_with_flash [ValidationMessages::NAME_TAKEN], groups_path
   end
 
   test "create with too long name should redirect" do
     name = "a" * (Lengths::GROUP_NAME_MAX + 1)
     post_create name
-    assert_rendered_with_flash [ValidationMessages::NAME_TOO_LONG], :index
+    assert_redirected_with_flash [ValidationMessages::NAME_TOO_LONG], groups_path
 
     name = "a" * Lengths::GROUP_NAME_MAX
     post_create name
@@ -485,7 +485,7 @@ class GroupsControllerTest < ActionController::TestCase
   test "create with bad format name should redirect" do
     ["has space", "has@symbol", "!#%&", "a<>b", "a::b", "a;;b"].each do |invalid_name|
       post_create invalid_name
-      assert_rendered_with_flash [ValidationMessages::NAME_FORMATTING], :index
+      assert_redirected_with_flash [ValidationMessages::NAME_FORMATTING], groups_path
     end
   end
 
