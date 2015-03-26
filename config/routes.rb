@@ -20,14 +20,19 @@ Rails.application.routes.draw do
   post   'users/login',                     to: 'sessions#create',                  as: :logins
   delete 'users/logout',                    to: 'sessions#destroy',                 as: :logout
 
-  get    'settings' => 'settings/generals#show'
-  
-  namespace :settings do
-    resource  :general,          only: [:show, :update]
-    resources :email_identities, only: [:index, :create, :destroy, :edit]
-    resource  :notifications,    only: [:show]
-  end
+  # user settings
+  get    'users/settings',                  to: 'settings/generals#show',           as: :settings
 
+  get    'users/settings/general',          to: 'settings/generals#show',           as: :settings_general
+  patch  'users/settings/general',          to: 'settings/generals#update',         as: :update_settings_general
+
+  get    'users/settings/email',                  to: 'settings/email_identities#index',   as: :settings_email_identities
+  post   'users/settings/email',                  to: 'settings/email_identities#create'
+  get    'users/settings/email/:id/make_primary', to: 'settings/email_identities#edit',    as: :edit_settings_email_identity
+  delete 'users/settings/email/:id',              to: 'settings/email_identities#destroy', as: :settings_email_identity
+
+  get    'users/settings/notifications',          to: 'settings/notifications#show',       as: :settings_notifications
+  
   # main profile pages
   get    'groups/:name',                       to: 'profiles#show'
   get    'groups/:name/profile',               to: 'profiles#show',   as: :profile

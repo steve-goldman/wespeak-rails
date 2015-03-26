@@ -15,7 +15,7 @@
   </tbody>
 </table>
 
-<%= form_for(:change_password, url: settings_general_path, method: "patch") do |f| %>
+<%= form_for(:change_password, url: update_settings_general_path, method: "patch") do |f| %>
 <div class="row">
   <div class="col-md-4 col-xs-12" border="1px solid">
     <%= f.label :current_password, "Current Password" %>
