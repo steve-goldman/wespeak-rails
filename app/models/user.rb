@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
 
   has_many :groups_i_created, class_name: "Group"
 
-  has_many :sent_invitations, dependent: :destroy
-
   has_many :received_invitations, dependent: :destroy
 
   has_many :sent_invitations, dependent: :destroy
