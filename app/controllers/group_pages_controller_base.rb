@@ -37,7 +37,8 @@ class GroupPagesControllerBase < ApplicationController
   end
 
   def change_eligible
-    @change_eligible = @email_eligible
+    @change_eligible = logged_in? && @email_eligible
+    logger.info "CHANGE_ELIGIBLE: #{@change_eligible}"
   end
 
   def enforce_change_eligible
