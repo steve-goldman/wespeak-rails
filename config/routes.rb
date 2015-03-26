@@ -21,9 +21,9 @@ Rails.application.routes.draw do
   delete 'users/logout',                    to: 'sessions#destroy',                 as: :destroy_session
 
   # user settings
-  get    'users/settings',                  to: 'settings/generals#show',           as: :settings
+  get    'users/settings',                  to: 'settings/generals#show',           as: :show_settings
 
-  get    'users/settings/general',          to: 'settings/generals#show',           as: :settings_general
+  get    'users/settings/general',          to: 'settings/generals#show',           as: :show_settings_general
   patch  'users/settings/general',          to: 'settings/generals#update',         as: :update_settings_general
 
   get    'users/settings/email',                  to: 'settings/email_identities#index',   as: :settings_email_identities
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get    'users/settings/email/:id/make_primary', to: 'settings/email_identities#edit',    as: :edit_settings_email_identity
   delete 'users/settings/email/:id',              to: 'settings/email_identities#destroy', as: :destroy_settings_email_identity
 
-  get    'users/settings/notifications',          to: 'settings/notifications#show',       as: :settings_notifications
+  get    'users/settings/notifications',          to: 'settings/notifications#show',       as: :show_settings_notifications
   
   # main profile pages
   get    'groups/:name',                       to: 'profiles#show'

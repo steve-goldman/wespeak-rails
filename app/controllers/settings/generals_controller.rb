@@ -11,7 +11,7 @@ class Settings::GeneralsController < ApplicationController
   end
 
   def update
-    redirect_with_flash(FlashMessages::SUCCESS, settings_general_path)
+    redirect_with_flash(FlashMessages::SUCCESS, show_settings_general_path)
   end
 
   private

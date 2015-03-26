@@ -50,7 +50,7 @@ class Settings::GeneralsControllerTest < ActionController::TestCase
   test "update with valid params should update password" do
     patch_update "test123", "test321", "test321"
     assert @user.reload.authenticate("test321"), "password should be changed"
-    assert_redirected_with_flash [FlashMessages::SUCCESS], settings_general_path
+    assert_redirected_with_flash [FlashMessages::SUCCESS], show_settings_general_path
   end
 
   test "update when logged out should redirect to root" do

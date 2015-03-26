@@ -1,5 +1,5 @@
 <ul class="nav nav-pills nav-stacked">
-  <%= content_tag(:li, link_to("General",          settings_general_path),          class: (yield(:active_tab) == "general"          ? "active" : "inactive")) %>
+  <%= content_tag(:li, link_to("General",          show_settings_general_path),          class: (yield(:active_tab) == "general"          ? "active" : "inactive")) %>
   <%= content_tag(:li, link_to("Email Addresses",  settings_email_identities_path), class: (yield(:active_tab) == "email_identities" ? "active" : "inactive")) %>
-  <%= content_tag(:li, link_to("Notifications",    settings_notifications_path),    class: (yield(:active_tab) == "notifications"    ? "active" : "inactive")) %>
+  <%= content_tag(:li, link_to("Notifications",    show_settings_notifications_path),    class: (yield(:active_tab) == "notifications"    ? "active" : "inactive")) %>
 </ul>
