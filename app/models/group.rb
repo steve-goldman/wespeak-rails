@@ -111,6 +111,10 @@ class Group < ActiveRecord::Base
                                                                             state:          StatementStates[state]).order(order)
   end
 
+  def requires_invitations
+    invitations != Invitations::NOT_REQUIRED
+  end
+
   private
 
   def set_rules_to_defaults
