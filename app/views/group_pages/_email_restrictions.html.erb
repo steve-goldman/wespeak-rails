@@ -1,4 +1,4 @@
 <div class="settings-group">
   <h4>Email Address Restrictions</h4>
-  <%= render 'group_email_domains/index', allow_deletes: false, change_link: !@change_eligible.nil? %>
+  <%= render 'group_email_domains/index', group: @info.group, allow_deletes: false, change_link: @info.change_eligible? %>
 </div>

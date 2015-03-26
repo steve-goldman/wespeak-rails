@@ -3,7 +3,7 @@
     <tr>
       <td>Statement Lifespan</td>
       <td>
-        <%= Constants::Timespans::in_words(@group.lifespan_rule) %>
+        <%= Constants::Timespans::in_words(group.lifespan_rule) %>
         <% if change_links %>
         <div class="change-link"><%= link_to "Propose change", "#" %></div>
         <% end %>
@@ -12,7 +12,7 @@
     <tr>
       <td>Support Needed</td>
       <td>
-        <%= @group.support_needed_rule %>%
+        <%= group.support_needed_rule %>%
         <% if change_links %>
         <div class="change-link"><%= link_to "Propose change", "#" %></div>
         <% end %>
@@ -21,7 +21,7 @@
     <tr>
       <td>Vote Lifespan</td>
       <td>
-        <%= Constants::Timespans::in_words(@group.votespan_rule) %>
+        <%= Constants::Timespans::in_words(group.votespan_rule) %>
         <% if change_links %>
         <div class="change-link"><%= link_to "Propose change", "#" %></div>
         <% end %>
@@ -30,7 +30,7 @@
     <tr>
       <td>Votes Needed</td>
       <td>
-        <%= @group.votes_needed_rule %>%
+        <%= group.votes_needed_rule %>%
         <% if change_links %>
         <div class="change-link"><%= link_to "Propose change", "#" %></div>
         <% end %>
@@ -39,7 +39,7 @@
     <tr>
       <td>Yeses Needed</td>
       <td>
-        <%= @group.yeses_needed_rule %>%
+        <%= group.yeses_needed_rule %>%
         <% if change_links %>
         <div class="change-link"><%= link_to "Propose change", "#" %></div>
         <% end %>
@@ -48,7 +48,7 @@
     <tr>
       <td>Member Inactivity Timeout</td>
       <td>
-        <%= Constants::Timespans::in_words(@group.inactivity_timeout_rule) %>
+        <%= Constants::Timespans::in_words(group.inactivity_timeout_rule) %>
         <% if change_links %>
         <div class="change-link"><%= link_to "Propose change", "#" %></div>
         <% end %>

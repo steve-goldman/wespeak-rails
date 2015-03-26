@@ -1,6 +1,6 @@
-<%= form_for :sent_invitation, url: sent_invitations_path(@group.name) do |f| %>
-<p><span class="invites-remaining"><%= @num_invitations_remaining %></span> invitation<%= @num_invitations_remaining != 1 ? "s" : "" %> left today</p>
-  <% if @num_invitations_remaining > 0 %>
+<%= form_for :sent_invitation, url: sent_invitations_path(@info.group.name) do |f| %>
+<p><span class="invites-remaining"><%= @info.invitations_remaining %></span> invitation<%= @info.invitations_remaining != 1 ? "s" : "" %> left today</p>
+  <% if @info.invitations_remaining > 0 %>
     <%= f.email_field :email, placeholder: "Email Address", class: "form-control" %>
     <%= f.submit "Invite", class: "btn btn-primary" %>
   <% end %>

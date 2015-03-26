@@ -1,13 +1,13 @@
 <% if logged_in? %>
   <div class="settings-group">
     <h4>Membership Status</h4>
-    <% if @membership_history %>
+    <% if @info.member_history %>
       <p class="green-light">Yes!</p>
-      <p>Since <%= time_ago_in_words(@membership_history.created_at) %> ago</p>
+      <p>Since <%= time_ago_in_words(@info.member_history.created_at) %> ago</p>
     <% else %>
       <p class="red-light">No.</p>
-      <% if @change_eligible %>
-        <p><%= link_to "Join!", activate_membership_path(@group.name), method: :post %>
+      <% if @info.change_eligible? %>
+        <p><%= link_to "Join!", activate_membership_path(@info.group.name), method: :post %>
       <% end %>
     <% end %>
   </div>

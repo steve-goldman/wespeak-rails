@@ -111,7 +111,7 @@ class Group < ActiveRecord::Base
                                                                             state:          StatementStates[state]).order(order)
   end
 
-  def requires_invitations
+  def invitations_required?
     invitations != Invitations::NOT_REQUIRED
   end
 

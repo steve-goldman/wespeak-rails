@@ -1,16 +1,13 @@
 class UpdatesController < GroupPagesControllerBase
-  before_action :group_found,             only: [:create, :index]
-  before_action :membership_info,         only: [:create, :index]
-  before_action :email_eligible,          only: [:create, :index]
-  before_action :change_eligible,         only: [:create, :index]
+
   before_action :enforce_change_eligible, only: [:create]
 
   before_action :statement_creates,       only: [:create]
   before_action :update_creates,          only: [:create]
 
   def create
-    make_member_active @group, current_user, @active_member
-    redirect_to proposal_path(@group.name, @statement.id)
+    make_member_active @info.group, current_user, @info.active_member
+    redirect_to proposal_path(@info.group.name, @statement.id)
   end
 
   def index
@@ -25,7 +22,7 @@ class UpdatesController < GroupPagesControllerBase
   private
 
   def statement_creates
-    @statement = @group.create_statement(current_user, StatementTypes[:update])
+    @statement = @info.group.create_statement(current_user, StatementTypes[:update])
     redirect_with_validation_flash(@statement, request.referer) if !@statement.valid?
   end
 

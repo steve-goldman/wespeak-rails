@@ -1,8 +1,4 @@
 class TaglinesController < GroupPagesControllerBase
-  before_action :group_found,             only: [:create, :index]
-  before_action :membership_info,         only: [:create, :index]
-  before_action :email_eligible,          only: [:create, :index]
-  before_action :change_eligible,         only: [:create, :index]
   before_action :enforce_change_eligible, only: [:create]
 
   before_action :statement_creates,       only: [:create]
@@ -25,7 +21,7 @@ class TaglinesController < GroupPagesControllerBase
   private
 
   def statement_creates
-    @statement = @group.create_statement(current_user, StatementTypes[:tagline])
+    @statement = @info.group.create_statement(current_user, StatementTypes[:tagline])
     redirect_with_validation_flash(@statement, request.referer) if !@statement.valid?
   end
 
