@@ -3,6 +3,6 @@
   <ul class="dropdown-menu">
     <li><%= link_to "Settings", show_settings_path %></li>
     <li role="presentation" class="divider"></li>
-    <li><%= link_to "Logout", destroy_session_path %></li>
+    <li><%= link_to "Logout", destroy_session_path, method: :delete %></li>
   </ul>
 </li>

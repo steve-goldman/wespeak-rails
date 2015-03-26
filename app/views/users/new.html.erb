@@ -7,6 +7,6 @@
     </div>
   </div>
 <% else %>
-  <p>Please <%= link_to "Log out", destroy_session_path %> if you want to sign up as a new user.</p>
+  <p>Please <%= link_to "Log out", destroy_session_path, method: :delete %> if you want to sign up as a new user.</p>
 <% end %>
 
