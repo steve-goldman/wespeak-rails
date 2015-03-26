@@ -7,6 +7,6 @@
     </div>
   </div>
 <% else %>
-  <p>Please <%= link_to "Log out", logout_path %> if you want to log in as a different user.</p>
+  <p>Please <%= link_to "Log out", destroy_session_path %> if you want to log in as a different user.</p>
 <% end %>
 

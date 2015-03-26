@@ -29,7 +29,7 @@
         <td>
           <% if !is_primary %>
             <% warning = "Are you sure you want to delete " + email_address.email + "?" %>
-            <%= link_to settings_email_identity_path(id: email_address.id), method: :delete, data: { confirm: warning } do %>
+            <%= link_to destroy_settings_email_identity_path(id: email_address.id), method: :delete, data: { confirm: warning } do %>
               <i class="glyphicon glyphicon-trash"></i>
             <% end %>
           <% end %>
@@ -39,7 +39,7 @@
   </tbody>
 </table>
 
-<%= form_for(:new_identity, url: settings_email_identities_path) do |f| %>
+<%= form_for(:new_identity, url: create_settings_email_identity_path) do |f| %>
 
 <div class="row">
   <div class="col-md-4 col-xs-12">
