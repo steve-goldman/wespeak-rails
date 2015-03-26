@@ -4,9 +4,7 @@
 
 <div class="row">
   <div class="col-md-offset-4 col-md-4 col-xs-12">
-    <%= form_for(:activation, url: email_address_activation_path, method: "patch") do |f| %>
-    
-    <%= hidden_field_tag :id, @activation_token %>
+    <%= form_for(:activation, url: update_email_address_activation_path(@activation_token)) do |f| %>
     
     <%= hidden_field_tag :email, @email_address.email %>
     

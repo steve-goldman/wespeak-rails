@@ -35,12 +35,12 @@ class EmailAddressActivationsController < ApplicationController
   end
 
   def password_present
-    render_with_flash(FlashMessages::PASSWORD_MISSING, action: :edit) if
+    redirect_with_flash(FlashMessages::PASSWORD_MISSING, root_url) if
       params[:activation].nil? || params[:activation][:password].nil?
   end
 
   def password_authenticated
-    render_with_flash(FlashMessages::PASSWORD_INCORRECT, action: :edit) if
+    redirect_with_flash(FlashMessages::PASSWORD_INCORRECT, root_url) if
       !@email_address.user.authenticate(params[:activation][:password])
   end
 

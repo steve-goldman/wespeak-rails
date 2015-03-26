@@ -1,18 +1,27 @@
 Rails.application.routes.draw do
   root   'static_pages#home'
 
-  get    'signup' => 'users#new'
+  # user creation
+  get    'users/new',                       to: 'users#new',                        as: :new_user
+  post   'users',                           to: 'users#create',                     as: :users
 
-  get    'login'  => 'sessions#new'
-  post   'login'  => 'sessions#create'
-  delete 'logout' => 'sessions#destroy'
+  # password reset
+  get    'users/password_reset',            to: 'password_resets#new',              as: :new_password_reset
+  post   'users/password_reset',            to: 'password_resets#create',           as: :password_resets
+  get    'users/password_reset/:id/udpate', to: 'password_resets#edit',             as: :edit_password_reset
+  patch  'users/password_reset/:id',        to: 'password_resets#update',           as: :update_password_reset
+
+  # email address activation
+  get    'users/activate_email/:id',        to: 'email_address_activations#edit',   as: :edit_email_address_activation
+  patch  'users/activate_email/:id',        to: 'email_address_activations#update', as: :update_email_address_activation
+
+  # log in/log out
+  get    'users/login',                     to: 'sessions#new',                     as: :login
+  post   'users/login',                     to: 'sessions#create',                  as: :logins
+  delete 'users/logout',                    to: 'sessions#destroy',                 as: :logout
 
   get    'settings' => 'settings/generals#show'
   
-  resources :users,                     only: [:new, :create]
-  resources :email_address_activations, only: [:edit, :update]
-  resources :password_resets,           only: [:new, :create, :edit, :update]
-
   namespace :settings do
     resource  :general,          only: [:show, :update]
     resources :email_identities, only: [:index, :create, :destroy, :edit]

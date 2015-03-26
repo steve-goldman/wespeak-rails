@@ -61,12 +61,12 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
 
   test "missing password should render edit" do
     submit_update @email_address.activation_token, @email_address.email, nil
-    assert_rendered_with_flash [FlashMessages::PASSWORD_MISSING], :edit
+    assert_redirected_with_flash [FlashMessages::PASSWORD_MISSING], root_url
   end
 
   test "incorrect password should render edit" do
     submit_update @email_address.activation_token, @email_address.email, "wrong-password"
-    assert_rendered_with_flash [FlashMessages::PASSWORD_INCORRECT], :edit
+    assert_redirected_with_flash [FlashMessages::PASSWORD_INCORRECT], root_url
   end
 
   test "successful submission should activate, log in, and redirect to settings/email_identities" do
