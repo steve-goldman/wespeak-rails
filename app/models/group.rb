@@ -5,9 +5,9 @@ class Group < ActiveRecord::Base
   # foreign key relationships
 
   has_many :group_email_domains, dependent: :destroy
-  has_many :statements
-  has_many :active_members
-  has_many :membership_histories
+  has_many :statements, dependent: :destroy
+  has_many :active_members, dependent: :destroy
+  has_many :membership_histories, dependent: :destroy
 
   # after initialize section
 
