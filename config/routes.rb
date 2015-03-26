@@ -32,6 +32,18 @@ Rails.application.routes.draw do
   delete 'users/settings/email/:id',              to: 'settings/email_identities#destroy', as: :destroy_settings_email_identity
 
   get    'users/settings/notifications',          to: 'settings/notifications#show',       as: :show_settings_notifications
+
+  # group creation
+  get    'groups',                               to: 'groups#index',                as: :groups
+  get    'groups/:id/configure',                 to: 'groups#edit',                 as: :edit_group
+  post   'groups/:group_id/configure/email',     to: 'group_email_domains#create',  as: :create_group_email_domain
+  delete 'groups/:group_id/configure/email/:id', to: 'group_email_domains#destroy', as: :destroy_group_email_domain
+  patch  'groups/:id',                           to: 'groups#update',               as: :update_group
+  patch  'groups/:id/update_invitations',        to: 'groups#update_invitations',   as: :update_invitations_group
+  get    'groups/:id/ready_to_activate',         to: 'groups#ready_to_activate',    as: :ready_to_activate_group
+  post   'groups/:id/activate',                  to: 'groups#activate',             as: :activate_group
+  delete 'groups/:id',                           to: 'groups#destroy',              as: :destroy_group
+  post   'groups',                               to: 'groups#create',               as: :create_group
   
   # main profile pages
   get    'groups/:name',                       to: 'profiles#show'
@@ -57,13 +69,4 @@ Rails.application.routes.draw do
   # proposals (catch-all)
   get    'groups/:name/proposals/:id',          to: 'proposals#show',  as: :proposal
 
-  resources :groups,          only: [:index, :edit, :update, :destroy, :create] do
-    resources :group_email_domains, only: [:create, :destroy]
-
-    member do
-      patch :update_invitations
-      get   :ready_to_activate
-      post  :activate
-    end
-  end
 end

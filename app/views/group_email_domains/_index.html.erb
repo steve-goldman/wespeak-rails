@@ -7,7 +7,7 @@
       <% if allow_deletes %>
       <td>
         <% warning = "Are you sure you want to delete " + group_email_domain.domain + "?" %>
-        <%= link_to group_group_email_domain_path(group_id: @group.id, id: group_email_domain.id), method: :delete, data: { confirm: warning } do %>
+        <%= link_to destroy_group_email_domain_path(group_id: @group.id, id: group_email_domain.id), method: :delete, data: { confirm: warning } do %>
         <i class="glyphicon glyphicon-trash"></i>
         <% end %>
       </td>

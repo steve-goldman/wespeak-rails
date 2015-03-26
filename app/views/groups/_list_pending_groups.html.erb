@@ -9,7 +9,7 @@
         <td>Created <%= time_ago_in_words(group.created_at) + " ago" %></td>
         <td>
           <% warning = "Are you sure you want to delete " + group.name + "?" %>
-          <%= link_to group_path(group.id), method: :delete, data: { confirm: warning } do %>
+          <%= link_to destroy_group_path(group.id), method: :delete, data: { confirm: warning } do %>
           <i class="glyphicon glyphicon-trash"></i>
           <% end %>
         </td>

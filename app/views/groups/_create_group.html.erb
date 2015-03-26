@@ -1,6 +1,6 @@
 <div class="settings-group">
   <h4>Create a Group</h4>
-  <%= form_for(:group, url: groups_path, method: "post") do |f| %>
+  <%= form_for(:group, url: create_group_path) do |f| %>
   <%= f.label :name, "Group Name" %>
   <%= f.text_field :name, placeholder: "Group Name", class: "form-control" %>
   <%= f.submit "Create", class: "btn btn-primary" %>
