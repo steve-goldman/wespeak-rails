@@ -7,7 +7,7 @@ class TaglinesController < GroupPagesControllerBase
   before_action :valid_state,             only: [:index]
 
   def create
-    make_member_active @info.group, current_user, @active_member
+    make_member_active @info.group, @info.user, @active_member
     redirect_to proposal_path(@info.group.name, @statement.id)
   end
 
@@ -23,7 +23,7 @@ class TaglinesController < GroupPagesControllerBase
   private
 
   def statement_creates
-    @statement = @info.group.create_statement(current_user, StatementTypes[:tagline])
+    @statement = @info.group.create_statement(@info.user, StatementTypes[:tagline])
     redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
   end
 
