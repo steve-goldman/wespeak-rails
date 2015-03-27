@@ -17,33 +17,33 @@
 .profile-header {
     margin-bottom: 15px;
 
-    .profile-photo {
+    .left-side {
         img {
             width: 100%;
         }
     }
     
-    .tagline {
-        valign: middle;
-        margin: 0px;
+    .right-side {
+        padding-left: 10px;
+
+        .tagline {
+            valign: middle;
+            margin: 0px;
+            
+            span {
+                font-style: italic;
+                font-size: small;
+            }
+        }
         
-        span {
-            font-style: italic;
+        .membership {
+            margin-top: 10px;
             font-size: small;
         }
-    }
-    
-    .membership {
-        margin-top: 10px;
-        font-size: small;
-    }
-
-    .profile-text {
-        padding-left: 10px;
-    }
-
-    .group-name {
-        font-size: xx-large;
+        
+        .group-name {
+            font-size: xx-large;
+        }
     }
 }
 
