@@ -47,11 +47,15 @@ class GroupUserInfo
   end
 
   def email_eligible?
-    !@email_eligible.nil? && @email_eligible
+    not_nilfalse @email_eligible
+  end
+
+  def invitation_eligible?
+    not_nilfalse @invitation_eligible
   end
   
   def change_eligible?
-    !@change_eligible.nil? && @change_eligible
+    not_nilfalse @change_eligible
   end
 
   def invitations_remaining
@@ -59,6 +63,10 @@ class GroupUserInfo
   end
 
   private
+
+  def not_nilfalse(var)
+    !var.nil? && var
+  end
 
   def get_email_eligible
     return true if !@group.group_email_domains.any?
