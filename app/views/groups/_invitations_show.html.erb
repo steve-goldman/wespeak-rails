@@ -10,5 +10,7 @@
   <% if group.invitations_required? %>
     <%= render 'sent_invitations/new' %>
   <% end %>
+<% elsif ineligible %>
+  <p class="red-light">You have not been invited</p>
 <% end %>
 
