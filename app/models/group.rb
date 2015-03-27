@@ -70,6 +70,8 @@ class Group < ActiveRecord::Base
   end
 
   def get_statement_pointers
+    return [] if @all_statements.empty?
+
     statement_ids_map = {}
     i = 0
     statement_ids = ""
