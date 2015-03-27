@@ -11,12 +11,12 @@ class GroupUserInfo
       @member_history = @group.membership_histories.where(user_id: @user.id, active: true).first
 
       @email_eligible = get_email_eligible
+      @invitation_eligible = get_invitation_eligible
 
-      # TODO: invitation eligible
       # TODO: facebook eligible
       # TODO: location eligible
 
-      @change_eligible = @email_eligible
+      @change_eligible = @email_eligible && @invitation_eligible
       # TODO: && @invitation_eligible && @facebook_eligible && @location_eligible
 
       @invitations_remaining = @group.invitations - SentInvitation.num_sent_today(@user, @group) if
@@ -73,5 +73,13 @@ class GroupUserInfo
     @user.email_addresses.where(activated: true).each do |email_address|
       return true if @group.group_email_domains.exists?(domain: email_address.domain)
     end
+    false
+  end
+
+  def get_invitation_eligible
+    return true if !@group.invitations_required?
+    return true if @member_history
+    return true if !@user.received_invitations.find_by(group_id: @group.id).nil?
+    false
   end
 end
