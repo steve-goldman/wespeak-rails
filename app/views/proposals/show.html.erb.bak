@@ -1,0 +1,19 @@
+<% provide(:title, @info.group.name) %>
+<% provide(:active_tab, :proposals) %>
+<div class="row">
+  <div class="col-md-3 col-xs-12">
+    <%= render 'group_pages/left_header' %>
+  </div>
+  <div class="col-md-9 col-xs-12">
+    <% if @statement.statement_type == StatementTypes[:tagline] %>
+      <%= render 'group_pages/statement_tabs', state: :alive, active_tab: :taglines %>
+      <%= render 'taglines/show', tagline: @statement.get_tagline %>
+    <% end %>
+
+    <% if @statement.statement_type == StatementTypes[:update] %>
+      <%= render 'group_pages/statement_tabs', state: :alive, active_tab: :updates %>
+      <%= render 'updates/show', update:  @statement.get_update %>
+    <% end %>
+
+  </div>
+</div>

@@ -8,7 +8,7 @@ class UpdatesController < GroupPagesControllerBase
 
   def create
     make_member_active @info.group, @info.user, @info.active_member
-    redirect_to proposal_path(@info.group.name, @statement.id)
+    redirect_to updates_path(@info.group.name, :alive)
   end
 
   def index

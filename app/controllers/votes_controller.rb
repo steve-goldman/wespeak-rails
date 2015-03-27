@@ -2,7 +2,7 @@ class VotesController < GroupPagesControllerBase
 
   include GroupsHelper
 
-  def index
+  def show
     @all_statements     = @info.group.get_all_statements(:voting, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
     @statement_pointers = @info.group.get_statement_pointers
 
