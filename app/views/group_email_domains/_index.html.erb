@@ -22,7 +22,4 @@
 
 <% if change_link %>
   <div class="change-link"><%= link_to "Propose change", "#" %></div>
-<% elsif ineligible %>
-  <p class="red-light">You do not have one of these</p>
-  <p><%= link_to "Add an email address to your account", settings_email_identities_path %></p>
 <% end %>
