@@ -86,16 +86,13 @@
 
 .statement-stats {
     table {
-        text-align: right;
+        text-align: center;
     }
 
-    .statement-type {
-        font-weight: bold;
-    }
+    font-weight: bold;
 
-    .username {
+    .value {
         font-family: monospace;
-        font-weight: bold;
     }
 }
 

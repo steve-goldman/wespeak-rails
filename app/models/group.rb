@@ -48,10 +48,12 @@ class Group < ActiveRecord::Base
   end
 
   def create_statement(user, statement_type)
-    statements.create(user_id:        user.id,
-                      statement_type: statement_type,
-                      state:          StatementStates[:alive],
-                      lifespan:       lifespan_rule)
+    statements.create(user_id:             user.id,
+                      statement_type:      statement_type,
+                      state:               StatementStates[:alive],
+                      lifespan:            lifespan_rule,
+                      support_needed:      Group.num_needed(active_members.count, support_needed_rule),
+                      eligible_supporters: active_members.count)
   end
 
   def get_count(state = nil, type = nil)

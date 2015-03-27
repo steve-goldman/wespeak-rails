@@ -1,23 +1,39 @@
-<table>
+<table class="table">
   <tr>
     <td>
-      <span class="statement-type"><%= StatementTypes.name(statement.statement_type) %></span>
-      by <span class="username"><%= statement.user.name %></span>
+      <%= StatementTypes.name(statement.statement_type) %> by
+    </td>
+    <td>
+      <span class="value"><%= statement.user.name %></span>
     </td>
   </tr>
   <tr>
     <td>
-      Created <%= time_ago_in_words(statement.created_at) %> ago
+      Created
+    </td>
+    <td>
+      <span class="value"><%= time_ago_in_words(statement.created_at) %> ago</span>
     </td>
   </tr>
   <tr>
     <td>
-      Expires on <%= Constants::Timespans::full_time(statement.alive_until) %>
+      Expires
+    </td>
+    <td>
+      <span class="value"><%= Constants::Timespans::full_time(statement.alive_until) %></span>
     </td>
   </tr>
   <tr>
     <td>
-      <%= link_to "Direct link", proposal_path(@info.group.name, statement.id) %>
+      Needs support
+    </td>
+    <td>
+      <span class="value"><%= statement.support_needed %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <%= render 'group_pages/support_button', statement: statement %>
     </td>
   </tr>
 </table>
