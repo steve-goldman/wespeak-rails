@@ -69,6 +69,14 @@ class GroupUserInfo
     @invitations_remaining
   end
 
+  def support_eligible?(statement)
+    # can un/support if:
+    #  user already supported
+    #      OR
+    #  user was active when it was created
+    statement.user_supports?(@user) || (@active_member && @active_member.can_support?(statement))
+  end
+
   private
 
   def not_nilfalse(var)

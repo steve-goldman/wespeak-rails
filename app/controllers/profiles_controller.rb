@@ -69,7 +69,7 @@ class ProfilesController < GroupPagesControllerBase
     #      OR
     #  user was active when it was created
     redirect_with_flash(FlashMessages::NOT_SUPPORT_ELIGIBLE, request.referer || root_url) if
-      !@statement.user_supports?(@info.user) && (!@info.active_member || !@info.active_member.can_support?(@statement))
+      !@info.support_eligible?(@statement)
   end
 
   def support_creates
