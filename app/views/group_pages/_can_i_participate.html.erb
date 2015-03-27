@@ -5,12 +5,6 @@
     <p class="green-light">Yes!</p>
   <% else %>
     <p class="red-light">No.</p>
-    <% if !@email_eligible %>
-      <p>
-        <%= link_to "Add an email address", settings_email_identities_path %>
-        that matches this group's requirements.
-      </p>
-    <% end %>
   <% end %>
 <% else %>
   <p><%= link_to "Log in", new_session_path %> to participate<p>
