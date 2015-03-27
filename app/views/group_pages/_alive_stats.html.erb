@@ -36,13 +36,13 @@
       Has support
     </td>
     <td>
-      <span id="support-count" class="value"><%= statement.supports.count %>
+      <span id="support-count-<%= statement.id %>" class="value"><%= statement.supports.count %>
     </td>
   </tr>
   <tr>
     <td colspan="2">
       <% if @info.active_member && @info.active_member.can_support?(statement) %>
-        <div id="support-button">
+        <div id="support-button-<%= statement.id %>">
           <% if statement.user_supports?(@info.user) %>
             <%= render 'group_pages/unsupport_button', statement: statement %>
           <% else %>

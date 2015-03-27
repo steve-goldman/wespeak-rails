@@ -1,2 +1,2 @@
-$("#support-button").html("<%= j render 'group_pages/support_button', statement: @statement %>")
-$("#support-count").html("<%= @statement.supports.count %>")
+$("#support-button-<%= @statement.id %>").html("<%= j render 'group_pages/support_button', statement: @statement %>")
+$("#support-count-<%= @statement.id %>").html("<%= @statement.supports.count %>")
