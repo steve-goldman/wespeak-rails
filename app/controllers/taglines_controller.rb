@@ -1,4 +1,5 @@
 class TaglinesController < GroupPagesControllerBase
+
   before_action :enforce_change_eligible, only: [:create]
 
   before_action :statement_creates,       only: [:create]
