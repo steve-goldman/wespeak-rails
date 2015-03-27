@@ -18,9 +18,13 @@ user.email_addresses.create!(email: "stu@wespeakapp.com",   domain: "wespeakapp.
 
 user.update_attribute(:primary_email_address_id, primary_email_address.id)
 
-group = user.groups_i_created.create!(name: "test_group", invitations: 5)
+#group = user.groups_i_created.create!(name: "test_group", invitations: 5)
+group = user.groups_i_created.create!(name: "test_group")
 group.group_email_domains.create!(domain: "wespeakapp.com")
+group.group_email_domains.create!(domain: "gmail.com")
 group.activate
+
+user.received_invitations.create!(group_id: group.id)
 
 group2 = user.groups_i_created.create!(name: "another_group", invitations: 5)
 group2.group_email_domains.create!(domain: "criterion.com")
