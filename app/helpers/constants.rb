@@ -77,7 +77,7 @@ module Constants
     end
 
     def Timespans.full_time(t)
-      t.strftime "%d %b %Y at %l:%M:%S %p"
+      t.strftime "%B %d %Y at %l:%M:%S %p"
     end
   end
 

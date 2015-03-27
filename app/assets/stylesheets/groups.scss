@@ -85,7 +85,16 @@
 }
 
 .statement-stats {
-    .key {
+    table {
+        text-align: right;
+    }
+
+    .statement-type {
+        font-weight: bold;
+    }
+
+    .username {
+        font-family: monospace;
         font-weight: bold;
     }
 }

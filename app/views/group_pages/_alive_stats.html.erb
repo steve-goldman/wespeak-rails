@@ -1,26 +1,23 @@
-<table class="table">
+<table>
   <tr>
-    <td class="key">Type</td>
-    <td><span class="statement-type"><%= StatementTypes.name(statement.statement_type) %></span></td>
+    <td>
+      <span class="statement-type"><%= StatementTypes.name(statement.statement_type) %></span>
+      by <span class="username"><%= statement.user.name %></span>
+    </td>
   </tr>
   <tr>
-    <td class="key">State</td>
-    <td>Alive</td>
+    <td>
+      Created <%= time_ago_in_words(statement.created_at) %> ago
+    </td>
   </tr>
   <tr>
-    <td class="key">Member</td>
-    <td><span class="username"><%= statement.user.name %></span></td>
+    <td>
+      Expires on <%= Constants::Timespans::full_time(statement.alive_until) %>
+    </td>
   </tr>
   <tr>
-    <td class="key">Created</td>
-    <td><%= time_ago_in_words(statement.created_at) %> ago</td>
-  </tr>
-  <tr>
-    <td class="key">Expires</td>
-    <td><%= Constants::Timespans::full_time(statement.alive_until) %></td>
-  </tr>
-  <tr>
-    <td class="key"><span class="glyphicon glyphicon-link"></span></td>
-    <td><%= link_to "Direct", proposal_path(@info.group.name, statement.id) %>
+    <td>
+      <%= link_to "Direct link", proposal_path(@info.group.name, statement.id) %>
+    </td>
   </tr>
 </table>
