@@ -5,7 +5,7 @@
     <%= render 'group_pages/left_header' %>
   </div>
   <div class="col-md-9 col-xs-12">
-    <%= render 'proposals/proposals_tabs', active_tab: :taglines %>
+    <%= render 'group_pages/statement_tabs', page: :proposals, state: :alive, active_tab: :taglines %>
     <%= render 'taglines/index' %>
   </div>
 </div>

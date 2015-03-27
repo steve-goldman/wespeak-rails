@@ -59,14 +59,14 @@ Rails.application.routes.draw do
   post   'groups/:name/sent_invitation',       to: 'sent_invitations#create', as: :sent_invitations
 
   # taglines
-  get    'groups/:name/proposals/taglines',     to: 'taglines#index',  as: :taglines
-  post   'groups/:name/proposals/taglines',     to: 'taglines#create'
+  get    'groups/:name/taglines/:state',       to: 'taglines#index',  as: :taglines
+  post   'groups/:name/taglines',              to: 'taglines#create', as: :create_tagline
   
   # updates
-  get    'groups/:name/proposals/updates',     to: 'updates#index',  as: :updates
-  post   'groups/:name/proposals/updates',     to: 'updates#create'
+  get    'groups/:name/updates/:state',        to: 'updates#index',  as: :updates
+  post   'groups/:name/updates',               to: 'updates#create', as: :create_update
   
   # proposals (catch-all)
-  get    'groups/:name/proposals/:id',          to: 'proposals#show',  as: :proposal
+  get    'groups/:name/proposals/:id',         to: 'proposals#show',  as: :proposal
 
 end

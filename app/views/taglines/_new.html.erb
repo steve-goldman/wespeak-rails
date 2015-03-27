@@ -1,5 +1,5 @@
 <div class="new-tagline">
-  <%= form_for :tagline, url: taglines_path(@info.group.name), method: :post do |f| %>
+  <%= form_for :tagline, url: create_tagline_path(@info.group.name), method: :post do |f| %>
 
   <h4>Tagline Proposal</h4>
   <p>

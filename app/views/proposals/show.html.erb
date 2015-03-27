@@ -6,12 +6,12 @@
   </div>
   <div class="col-md-9 col-xs-12">
     <% if @statement.statement_type == StatementTypes[:tagline] %>
-      <%= render 'proposals/proposals_tabs', active_tab: :taglines %>
+      <%= render 'group_pages/statement_tabs', page: :proposals, state: :alive, active_tab: :taglines %>
       <%= render 'taglines/show', tagline: @statement.get_tagline %>
     <% end %>
 
     <% if @statement.statement_type == StatementTypes[:update] %>
-      <%= render 'proposals/proposals_tabs', active_tab: :updates %>
+      <%= render 'group_pages/statement_tabs', page: :proposals, state: :alive, active_tab: :updates %>
       <%= render 'updates/show', update:  @statement.get_update %>
     <% end %>
 

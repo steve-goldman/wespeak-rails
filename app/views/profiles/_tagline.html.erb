@@ -8,6 +8,6 @@
   </span>
 
   <% if @info.change_eligible? %>
-    <div class="change-link"><%= link_to "Propose change", taglines_path(@info.group.name) %></div>
+    <div class="change-link"><%= link_to "Propose change", taglines_path(@info.group.name, :alive) %></div>
   <% end %>
 </div>
