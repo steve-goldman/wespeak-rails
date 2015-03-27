@@ -117,6 +117,10 @@ class Group < ActiveRecord::Base
     invitations != Invitations::NOT_REQUIRED
   end
 
+  def membership_count
+    membership_histories.select(:user_id).distinct.count
+  end
+
   private
 
   def set_rules_to_defaults

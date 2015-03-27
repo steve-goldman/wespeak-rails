@@ -6,8 +6,18 @@
       <td class="profile-photo">
         <%= render 'group_pages/profile_photo' %>
       </td>
-      <td class="tagline">
-        <%= render 'group_pages/tagline' %>
+      <td class="profile-text">
+        <div class="group-name">
+          <%= @info.group.name %>
+        </div>
+        <div class="tagline">
+          <%= render 'group_pages/tagline' %>
+        </div>
+        <div class="membership">
+          <%= @info.group.membership_count %> member<%= @info.group.membership_count != 1 ? "s" : "" %>,
+          <%= @info.group.active_members.count %> active
+          </div>
+        </div>
       </td>
     </tr>
   </table>

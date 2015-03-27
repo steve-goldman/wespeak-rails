@@ -15,26 +15,35 @@
 }
 
 .profile-header {
-    table {
-        border-collapse: separate;
-        border-spacing: 10px 0px;
-    }
     margin-bottom: 15px;
-}
 
-.profile-photo {
-    img {
-        width: 100%;
+    .profile-photo {
+        img {
+            width: 100%;
+        }
     }
-}
+    
+    .tagline {
+        valign: middle;
+        margin: 0px;
+        
+        span {
+            font-style: italic;
+            font-size: small;
+        }
+    }
+    
+    .membership {
+        margin-top: 10px;
+        font-size: small;
+    }
 
-.tagline, .update {
-    valign: middle;
-    margin: 20px;
+    .profile-text {
+        padding-left: 10px;
+    }
 
-    span {
-        font-style: italic;
-        font-size: x-large;
+    .group-name {
+        font-size: xx-large;
     }
 }
 
@@ -71,23 +80,8 @@
     }
 }
 
-.group-header {
-    h2 {
-        text-align: left;
-    }
-}
-
 .invitations {
     font-style: italic;
-}
-
-.group-name {
-    font-style: italic;
-    font-size: x-large;
-}
-
-.group-summary-stats {
-    font-size: x-small;
 }
 
 .statement-stats-key {
