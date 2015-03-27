@@ -5,12 +5,12 @@ class TaglinesController < GroupPagesControllerBase
   before_action :tagline_creates,         only: [:create]
 
   def create
-    make_member_active @group, current_user, @active_member
-    redirect_to proposal_path(@group.name, @statement.id)
+    make_member_active @info.group, current_user, @active_member
+    redirect_to proposal_path(@info.group.name, @statement.id)
   end
 
   def index
-    @statements = @group.get_of_type(:tagline, :alive, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+    @statements = @info.group.get_of_type(:tagline, :alive, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
 
     respond_to do |format|
       format.html

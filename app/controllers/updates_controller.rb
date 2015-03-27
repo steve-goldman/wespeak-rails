@@ -11,7 +11,7 @@ class UpdatesController < GroupPagesControllerBase
   end
 
   def index
-    @statements = @group.get_of_type(:update, :alive, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+    @statements = @info.group.get_of_type(:update, :alive, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
 
     respond_to do |format|
       format.html
