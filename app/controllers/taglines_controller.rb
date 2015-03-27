@@ -7,7 +7,7 @@ class TaglinesController < GroupPagesControllerBase
   before_action :valid_state,             only: [:index]
 
   def create
-    make_member_active @info.group, @info.user, @active_member
+    make_member_active @info.group, @info.user, @info.active_member
     redirect_to proposal_path(@info.group.name, @statement.id)
   end
 
