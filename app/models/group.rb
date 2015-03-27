@@ -164,4 +164,10 @@ class Group < ActiveRecord::Base
       invitations != Invitations::NOT_REQUIRED && (invitations < 0 || invitations > Invitations::MAX_PER_DAY)
   end
 
+  def Group.num_needed(count, per_hundred)
+    needed, remainder = (count * per_hundred).divmod(100)
+    needed += 1 if remainder != 0
+    needed
+  end
+
 end
