@@ -1,6 +1,8 @@
 <div class="group-tabs">
   <ul class="nav nav-tabs">
-    <%= render 'group_pages/profile_header' if @state == :accepted %>
+    <%= render 'group_pages/profile_header' %>
+
+    <%= render 'group_pages/group_tabs' %>
 
     <%= content_tag(
         :li,
