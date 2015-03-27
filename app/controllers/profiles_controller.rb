@@ -21,11 +21,17 @@ class ProfilesController < GroupPagesControllerBase
   end
 
   def support
-    redirect_to request.referer || root_url
+    respond_to do |format|
+      format.html { redirect_to request.referer || root_url }
+      format.js
+    end
   end
 
   def unsupport
-    redirect_to request.referer || root_url
+    respond_to do |format|
+      format.html { redirect_to request.referer || root_url }
+      format.js
+    end
   end
 
   def activate_member
