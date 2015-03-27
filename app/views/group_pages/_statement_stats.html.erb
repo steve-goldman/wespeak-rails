@@ -1,1 +1,3 @@
-<%= render('group_pages/alive_stats', statement: statement) if statement.state == StatementStates[:alive] %>
+<div class="statement-stats">
+  <%= render('group_pages/alive_stats', statement: statement) if statement.state == StatementStates[:alive] %>
+</div>

@@ -84,8 +84,17 @@
     font-style: italic;
 }
 
-.statement-stats-key {
-    font-weight: bold;
+.statement-stats {
+    .key {
+        font-weight: bold;
+    }
+}
+
+.statement {
+    .tagline, .update {
+        font-size: large;
+        font-style: italic;
+    }
 }
 
 .proposals-list {
