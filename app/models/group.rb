@@ -48,7 +48,7 @@ class Group < ActiveRecord::Base
   end
 
   def create_statement(user, statement_type)
-    statements.create(user_id:        user_id,
+    statements.create(user_id:        user.id,
                       statement_type: statement_type,
                       state:          StatementStates[:alive],
                       lifespan:       lifespan_rule)
