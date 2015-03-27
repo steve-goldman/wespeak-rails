@@ -5,6 +5,12 @@
     <p class="green-light">Yes!</p>
   <% else %>
     <p class="red-light">No.</p>
+    <% if !@info.email_eligible? %>
+      <p class="red-light">Must have a matching email address</p>
+    <% end%>
+    <% if !@info.invitation_eligible? %>
+      <p class="red-light">You have not been invited</p>
+    <% end%>
   <% end %>
 <% else %>
   <p><%= link_to "Log in", new_session_path %> to participate<p>
