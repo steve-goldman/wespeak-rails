@@ -55,7 +55,7 @@ class GroupUserInfo
   end
 
   def invitations_remaining
-    !@invitations_remaining.nil? && @invitations_remaining
+    @invitations_remaining
   end
 
   private
