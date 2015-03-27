@@ -70,8 +70,8 @@ class GroupUserInfo
 
   def get_email_eligible
     return true if !@group.group_email_domains.any?
-    @user.email_addresses.where(activated: true).each do |email|
-      return true if @group.group_email_domains.exists?(domain: email.domain)
+    @user.email_addresses.where(activated: true).each do |email_address|
+      return true if @group.group_email_domains.exists?(domain: email_address.domain)
     end
   end
 end
