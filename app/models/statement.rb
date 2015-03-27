@@ -4,6 +4,8 @@ class Statement < ActiveRecord::Base
 
   belongs_to :user
 
+  has_many :supports
+
   def validation_keys
     [:valid_statement_type,
      :valid_statement_state]
@@ -22,6 +24,18 @@ class Statement < ActiveRecord::Base
 
   def get_update
     Update.find_by(statement_id: id)
+  end
+
+  def user_supports?(user)
+    supports.exists?(user_id: user.id)
+  end
+
+  def add_support(user)
+    supports.create(user_id: user.id)
+  end
+
+  def remove_support(user)
+    supports.find_by(user_id: user.id).destroy
   end
 
   private

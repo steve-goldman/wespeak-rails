@@ -1,0 +1,25 @@
+<% if statement.user_supports?(@info.user) %>
+
+  <%= form_for :unsupport, url: unsupport_path(@info.group.name), method: :delete do |f| %>
+
+    <%= hidden_field_tag :statement_id, statement.id %>
+
+    <%= hidden_field_tag :state, @info.state %>
+  
+    <%= f.submit "Unsupport", class: "btn" %>
+
+  <% end %>
+
+<% else %>
+
+  <%= form_for :support, url: support_path(@info.group.name) do |f| %>
+
+    <%= hidden_field_tag :statement_id, statement.id %>
+
+    <%= hidden_field_tag :state, @info.state %>
+  
+    <%= f.submit "Support!", class: "btn btn-primary" %>
+
+  <% end %>
+
+<% end %>

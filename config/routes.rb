@@ -49,6 +49,10 @@ Rails.application.routes.draw do
   get    'groups/:name',                       to: 'profiles#show'
   get    'groups/:name/profile/:state',        to: 'profiles#show',   as: :profile
 
+  # support
+  post   'groups/:name/support',               to: 'profiles#support',   as: :support
+  delete 'groups/:name/unsupport',             to: 'profiles#unsupport', as: :unsupport
+
   # extending and discontinuing active membership
   post   'groups/:name/activate_membership',   to: 'profiles#activate_member',   as: :activate_membership
   delete 'groups/:name/deactivate_membership', to: 'profiles#deactivate_member', as: :deactivate_membership

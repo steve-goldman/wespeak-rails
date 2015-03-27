@@ -1,10 +1,13 @@
 class GroupUserInfo
-  def initialize(group_name, user)
+  def initialize(group_name, state, user)
     @user = user
 
     @group = Group.find_by("lower(name) = ?", group_name.downcase)
     return if @group.nil?
     return if !@group.active?
+
+    return if !state.nil? && !StatementStates.key?(state.to_sym)
+    @state = (state || "accepted").to_sym
 
     if @user
       @active_member  = @group.active_members.find_by(user_id: @user.id)
@@ -36,6 +39,10 @@ class GroupUserInfo
 
   def group
     @group
+  end
+
+  def state
+    @state
   end
 
   def member_history

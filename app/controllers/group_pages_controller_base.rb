@@ -7,11 +7,13 @@ class GroupPagesControllerBase < ApplicationController
   protected
 
   def group_user_info
-    @info = GroupUserInfo.new(params[:name], current_user)
+    @info = GroupUserInfo.new(params[:name], params[:state], current_user)
     if !@info.valid?
       render('shared/error_page') and return if @info.group.nil?
-      redirect_with_flash(FlashMessages::GROUP_NOT_ACTIVE, request.referer || root_url) if
+      redirect_with_flash(FlashMessages::GROUP_NOT_ACTIVE, request.referer || root_url) and return if
         !@info.group.active?
+      redirect_with_flash(FlashMessages::STATE_UNKNOWN, request.referer || root_url) and return if
+        @info.state.nil?
     end
   end
 

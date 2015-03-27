@@ -4,7 +4,6 @@ class TaglinesController < GroupPagesControllerBase
 
   before_action :statement_creates,       only: [:create]
   before_action :tagline_creates,         only: [:create]
-  before_action :valid_state,             only: [:index]
 
   def create
     make_member_active @info.group, @info.user, @info.active_member
@@ -12,7 +11,7 @@ class TaglinesController < GroupPagesControllerBase
   end
 
   def index
-    @statements = @info.group.get_of_type(:tagline, @state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+    @statements = @info.group.get_of_type(:tagline, @info.state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
 
     respond_to do |format|
       format.html
@@ -30,11 +29,6 @@ class TaglinesController < GroupPagesControllerBase
   def tagline_creates
     tagline = Tagline.create(statement_id: @statement.id, tagline: params[:tagline][:tagline])
     @statement.destroy and render_with_validation_flash(tagline, action: :index) if !tagline.valid?
-  end
-
-  def valid_state
-    @state = params[:state].to_sym
-    redirect_with_flash(FlashMessages::STATE_UNKNOWN, request.referer || root_url) if !StatementStates.key?(@state)
   end
 
 end
