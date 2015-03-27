@@ -7,12 +7,6 @@ class StatementStates
     rejected: 5,
   }
 
-  @statement_pages = {
-    alive:    :proposals,
-    voting:   :votes,
-    accepted: :profile,
-  }
-
   def StatementStates.[](key)
     @statement_states[key]
   end
@@ -23,10 +17,6 @@ class StatementStates
 
   def StatementStates.value?(value)
     @statement_states.value?(value)
-  end
-
-  def StatementStates.page(key)
-    @statement_pages[key]
   end
 
 end

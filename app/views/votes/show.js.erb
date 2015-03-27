@@ -1,7 +1,0 @@
-$('#proposals-list').append('<%= j render 'group_pages/statement_pointers' %>');
-<% if @all_statements.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate @all_statements %>');
-<% else %>
-  $(window).off('scroll');
-  $('.pagination').remove();
-<% end %>

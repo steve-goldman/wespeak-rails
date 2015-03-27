@@ -5,7 +5,7 @@
     <tbody>
       <% @my_groups.each do |group| %>
       <tr>
-        <td><%= link_to group.name, profile_path(group.name) %></td>
+        <td><%= link_to group.name, profile_path(group.name, :accepted) %></td>
       </tr>
       <% end %>
     </tbody>

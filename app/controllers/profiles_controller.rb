@@ -3,7 +3,8 @@ class ProfilesController < GroupPagesControllerBase
   before_action :enforce_change_eligible, only: [:activate_member]
 
   def show
-    @all_statements     = @info.group.get_all_statements(:accepted, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+    @state              = (params[:state] || "accepted").to_sym
+    @all_statements     = @info.group.get_all_statements(@state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
     @statement_pointers = @info.group.get_statement_pointers
 
     respond_to do |format|

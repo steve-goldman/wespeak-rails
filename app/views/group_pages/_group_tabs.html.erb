@@ -1,7 +1,9 @@
 <div class="group-tabs">
   <ul class="nav nav-pills nav-stacked">
-    <%= content_tag(:li, link_to("Profile",   profile_path(@info.group.name)), class: (yield(:active_tab)   == "profile"   ? "active" : "inactive")) %>
-    <%= content_tag(:li, link_to("Votes",     votes_path(@info.group.name)), class: (yield(:active_tab)     == "votes"     ? "active" : "inactive")) %>
-    <%= content_tag(:li, link_to("Proposals", proposals_path(@info.group.name)), class: (yield(:active_tab) == "proposals" ? "active" : "inactive")) %>
+    <%= content_tag(:li, link_to("Accepted", profile_path(@info.group.name, :accepted)), class: @state == :accepted ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Rejected", profile_path(@info.group.name, :rejected)), class: @state == :rejected ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Voting",   profile_path(@info.group.name, :voting)),   class: @state == :voting   ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Alive",    profile_path(@info.group.name, :alive)),    class: @state == :alive    ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Dead",     profile_path(@info.group.name, :dead)),     class: @state == :dead     ? "active" : "inactive") %>
   </ul>
 </div>

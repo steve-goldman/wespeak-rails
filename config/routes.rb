@@ -47,9 +47,7 @@ Rails.application.routes.draw do
   
   # main profile pages
   get    'groups/:name',                       to: 'profiles#show'
-  get    'groups/:name/profile',               to: 'profiles#show',   as: :profile
-  get    'groups/:name/votes',                 to: 'votes#show',      as: :votes
-  get    'groups/:name/proposals',             to: 'proposals#show',  as: :proposals
+  get    'groups/:name/profile/:state',        to: 'profiles#show',   as: :profile
 
   # extending and discontinuing active membership
   post   'groups/:name/activate_membership',   to: 'profiles#activate_member',   as: :activate_membership

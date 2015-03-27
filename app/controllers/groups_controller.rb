@@ -26,7 +26,7 @@ class GroupsController < ApplicationController
 
   def activate
     @group.activate
-    redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, profile_path(@group.name))
+    redirect_with_flash(FlashMessages::ACTIVATED_SUCCESS, request.referer || profile_path(@group.name, :accepted))
   end
 
   def update

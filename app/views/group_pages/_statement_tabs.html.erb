@@ -1,9 +1,22 @@
 <div class="group-tabs">
   <ul class="nav nav-tabs">
-    <% page = StatementStates.page(state) %>
-    <%= render 'group_pages/profile_header' if page == :profile %>
-    <%= content_tag(:li, link_to("All (#{@info.group.get_count(state)})", send("#{page}_path", @info.group.name)), class: active_tab == :all ? "active" : "inactive") %>
-    <%= content_tag(:li, link_to("Taglines (#{@info.group.get_count(state, :tagline)})", taglines_path(@info.group.name, state)), class: active_tab == :taglines ? "active" : "inactive") %>
-    <%= content_tag(:li, link_to("Updates (#{@info.group.get_count(state, :update)})",   updates_path(@info.group.name, state)),  class: active_tab == :updates  ? "active" : "inactive") %>
+    <%= render 'group_pages/profile_header' if @state == :accepted %>
+
+    <%= content_tag(
+        :li,
+        link_to("All (#{@info.group.get_count(@state)})", profile_path(@info.group.name, @state)),
+        class: active_tab == :all ? "active" : "inactive") %>
+
+    <%= content_tag(
+        :li,
+        link_to("Taglines (#{@info.group.get_count(@state, :tagline)})",
+        taglines_path(@info.group.name, @state)),
+        class: active_tab == :taglines ? "active" : "inactive") %>
+    
+    <%= content_tag(
+        :li,
+        link_to("Updates (#{@info.group.get_count(@state, :update)})",
+        updates_path(@info.group.name, @state)),
+        class: active_tab == :updates  ? "active" : "inactive") %>
   </ul>
 </div>
