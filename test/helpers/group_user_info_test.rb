@@ -2,6 +2,8 @@ require 'test_helper'
 
 class GroupUserInfoTest < ActiveSupport::TestCase
 
+  include GroupsHelper
+  
   def setup
     @group = Group.create!(name: "the_group", active: true)
     @user = User.create!(name: "stu", password: "test123", password_confirmation: "test123")
@@ -83,6 +85,41 @@ class GroupUserInfoTest < ActiveSupport::TestCase
     @user.received_invitations.create!(group_id: @group.id)
     assert GroupUserInfo.new(@group.name, nil, @user).invitation_eligible?
     assert GroupUserInfo.new(@group.name, nil, @user).change_eligible?
+  end
+
+  test "should not be able to support when not active" do
+    statement = Statement.create!(group_id: @group.id,
+                                  user_id: @user.id,
+                                  statement_type: StatementTypes[:tagline],
+                                  state: StatementStates[:alive])
+    assert_not GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
+  end
+
+  test "should not be able to support when active after statement" do
+    statement = Statement.create!(group_id: @group.id,
+                                  user_id: @user.id,
+                                  statement_type: StatementTypes[:tagline],
+                                  state: StatementStates[:alive])
+    make_member_active(@group, @user, nil)
+    assert_not GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
+  end
+
+  test "should be able to support statement when not active if supported before" do
+    statement = Statement.create!(group_id: @group.id,
+                                  user_id: @user.id,
+                                  statement_type: StatementTypes[:tagline],
+                                  state: StatementStates[:alive])
+    statement.add_support(@user)
+    assert GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
+  end
+
+  test "should be able to support when active before statement" do
+    make_member_active(@group, @user, nil)
+    statement = Statement.create!(group_id: @group.id,
+                                  user_id: @user.id,
+                                  statement_type: StatementTypes[:tagline],
+                                  state: StatementStates[:alive])
+    assert GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
   end
 
 end
