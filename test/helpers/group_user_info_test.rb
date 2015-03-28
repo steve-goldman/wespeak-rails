@@ -88,37 +88,25 @@ class GroupUserInfoTest < ActiveSupport::TestCase
   end
 
   test "should not be able to support when not active" do
-    statement = Statement.create!(group_id: @group.id,
-                                  user_id: @user.id,
-                                  statement_type: StatementTypes[:tagline],
-                                  state: StatementStates[:alive])
+    statement = @group.create_statement(@user, :tagline)
     assert_not GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
   end
 
   test "should not be able to support when active after statement" do
-    statement = Statement.create!(group_id: @group.id,
-                                  user_id: @user.id,
-                                  statement_type: StatementTypes[:tagline],
-                                  state: StatementStates[:alive])
+    statement = @group.create_statement(@user, :tagline)
     make_member_active(@group, @user, nil)
     assert_not GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
   end
 
   test "should be able to support statement when not active if supported before" do
-    statement = Statement.create!(group_id: @group.id,
-                                  user_id: @user.id,
-                                  statement_type: StatementTypes[:tagline],
-                                  state: StatementStates[:alive])
+    statement = @group.create_statement(@user, :tagline)
     statement.add_support(@user)
     assert GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
   end
 
   test "should be able to support when active before statement" do
     make_member_active(@group, @user, nil)
-    statement = Statement.create!(group_id: @group.id,
-                                  user_id: @user.id,
-                                  statement_type: StatementTypes[:tagline],
-                                  state: StatementStates[:alive])
+    statement = @group.create_statement(@user, :tagline)
     assert GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
   end
 
