@@ -25,7 +25,7 @@ class ProposalTypesControllerBase < GroupPagesControllerBase
   protected
 
   def statement_creates
-    @statement = @info.group.create_statement(@info.user, StatementTypes[@type])
+    @statement = @info.group.create_statement(@info.user, @type)
     redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
   end
 

@@ -30,7 +30,7 @@ class TaglinesController < GroupPagesControllerBase
   private
 
   def statement_creates
-    @statement = @info.group.create_statement(@info.user, StatementTypes[:tagline])
+    @statement = @info.group.create_statement(@info.user, :tagline)
     redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
   end
 

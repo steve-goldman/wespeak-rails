@@ -52,7 +52,7 @@ class Group < ActiveRecord::Base
     statements.create(created_at:          now,
                       updated_at:          now,
                       user_id:             user.id,
-                      statement_type:      statement_type,
+                      statement_type:      StatementTypes[statement_type],
                       state:               StatementStates[:alive],
                       expires_at:          now + lifespan_rule,
                       support_needed:      Group.num_needed(active_members.count, support_needed_rule),

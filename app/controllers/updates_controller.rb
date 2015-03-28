@@ -30,7 +30,7 @@ class UpdatesController < GroupPagesControllerBase
   private
 
   def statement_creates
-    @statement = @info.group.create_statement(@info.user, StatementTypes[:update])
+    @statement = @info.group.create_statement(@info.user, :update)
     redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
   end
 
