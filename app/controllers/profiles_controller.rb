@@ -69,11 +69,13 @@ class ProfilesController < GroupPagesControllerBase
   end
 
   def support_creates
+    @info.make_member_active
     support = @statement.add_support(@info.user)
     redirect_with_validation_flash(support, request.referer || root_url) if !support.valid?
   end
 
   def support_destroys
+    @info.make_member_active
     @statement.remove_support(@info.user)
   end
 
