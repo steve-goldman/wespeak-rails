@@ -1,5 +1,5 @@
 <div class="new-update">
-  <%= form_for :update, url: create_update_path(@info.group.name), method: :post do |f| %>
+  <%= form_for :update, url: create_update_path(@info.group.name), method: :post, remote: true do |f| %>
 
   <h4>Update Proposal</h4>
   <p>

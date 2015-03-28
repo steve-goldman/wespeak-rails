@@ -7,7 +7,7 @@ class GroupUserInfo
     return if !@group.active?
 
     return if !state.nil? && !StatementStates.key?(state.to_sym)
-    @state = (state || "accepted").to_sym
+    @state = (state || :accepted.to_s).to_sym
 
     if @user
       @active_member  = @group.active_members.find_by(user_id: @user.id)
@@ -43,6 +43,10 @@ class GroupUserInfo
 
   def state
     @state
+  end
+
+  def set_state_alive
+    @state = :alive
   end
 
   def member_history

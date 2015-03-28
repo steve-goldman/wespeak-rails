@@ -21,4 +21,8 @@ class GroupPagesControllerBase < ApplicationController
     redirect_with_flash(FlashMessages::NOT_CHANGE_ELIGIBLE, request.referer) if !@info.change_eligible?
   end
 
+  def get_of_type(type, state)
+    @statements = @info.group.get_of_type(type, state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+  end
+
 end

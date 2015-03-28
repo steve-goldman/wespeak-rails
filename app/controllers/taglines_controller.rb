@@ -5,14 +5,22 @@ class TaglinesController < GroupPagesControllerBase
   before_action :statement_creates,       only: [:create]
   before_action :tagline_creates,         only: [:create]
 
+  before_action do
+    get_of_type(:tagline, (params[:state] || :alive.to_s).to_sym)
+  end
+
   def create
     make_member_active @info.group, @info.user, @info.active_member
-    redirect_to taglines_path(@info.group.name, :alive)
+
+    @info.set_state_alive
+
+    respond_to do |format|
+      format.html { redirect_to taglines_path(@info.group.name, :alive) }
+      format.js   { render 'show_tabs' }
+    end
   end
 
   def index
-    @statements = @info.group.get_of_type(:tagline, @info.state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
-
     respond_to do |format|
       format.html
       format.js { render 'show_tabs' if params[:page].nil? }
