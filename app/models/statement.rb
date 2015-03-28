@@ -14,10 +14,6 @@ class Statement < ActiveRecord::Base
   validate :valid_statement_type
   validate :valid_statement_state
 
-  def alive_until
-    created_at + lifespan
-  end
-
   def get_tagline
     Tagline.find_by(statement_id: id)
   end
