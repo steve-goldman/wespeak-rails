@@ -16,7 +16,7 @@ class ProfilesController < GroupPagesControllerBase
 
     respond_to do |format|
       format.html
-      format.js
+      format.js { render 'show_tabs' if params[:page].nil? }
     end
   end
 

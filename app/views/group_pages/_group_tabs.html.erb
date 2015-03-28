@@ -1,9 +1,9 @@
 <div class="group-tabs">
   <ul class="nav nav-pills">
-    <%= content_tag(:li, link_to("Accepted", profile_path(@info.group.name, :accepted)), class: @info.state == :accepted ? "active" : "inactive") %>
-    <%= content_tag(:li, link_to("Rejected", profile_path(@info.group.name, :rejected)), class: @info.state == :rejected ? "active" : "inactive") %>
-    <%= content_tag(:li, link_to("Voting",   profile_path(@info.group.name, :voting)),   class: @info.state == :voting   ? "active" : "inactive") %>
-    <%= content_tag(:li, link_to("Alive",    profile_path(@info.group.name, :alive)),    class: @info.state == :alive    ? "active" : "inactive") %>
-    <%= content_tag(:li, link_to("Dead",     profile_path(@info.group.name, :dead)),     class: @info.state == :dead     ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Accepted", profile_path(@info.group.name, :accepted), remote: true), class: @info.state == :accepted ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Rejected", profile_path(@info.group.name, :rejected), remote: true), class: @info.state == :rejected ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Voting",   profile_path(@info.group.name, :voting),   remote: true), class: @info.state == :voting   ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Alive",    profile_path(@info.group.name, :alive),    remote: true), class: @info.state == :alive    ? "active" : "inactive") %>
+    <%= content_tag(:li, link_to("Dead",     profile_path(@info.group.name, :dead),     remote: true), class: @info.state == :dead     ? "active" : "inactive") %>
   </ul>
 </div>

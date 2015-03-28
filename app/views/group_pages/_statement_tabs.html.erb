@@ -6,19 +6,19 @@
 
     <%= content_tag(
         :li,
-        link_to("All (#{@info.group.get_count(@info.state)})", profile_path(@info.group.name, @info.state)),
+        link_to("All (#{@info.group.get_count(@info.state)})", profile_path(@info.group.name, @info.state), remote: true),
         class: active_tab == :all ? "active" : "inactive") %>
 
     <%= content_tag(
         :li,
         link_to("Taglines (#{@info.group.get_count(@info.state, :tagline)})",
-        taglines_path(@info.group.name, @info.state)),
+        taglines_path(@info.group.name, @info.state), remote: true),
         class: active_tab == :taglines ? "active" : "inactive") %>
     
     <%= content_tag(
         :li,
         link_to("Updates (#{@info.group.get_count(@info.state, :update)})",
-        updates_path(@info.group.name, @info.state)),
+        updates_path(@info.group.name, @info.state), remote: true),
         class: active_tab == :updates  ? "active" : "inactive") %>
   </ul>
 </div>

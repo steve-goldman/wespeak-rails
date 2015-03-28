@@ -4,7 +4,8 @@
     <%= render 'group_pages/left_header' %>
   </div>
   <div class="col-md-9 col-xs-12">
-    <%= render 'group_pages/statement_tabs', active_tab: :updates %>
-    <%= render 'updates/index' %>
+    <div id="tabbed-content">
+      <%= render 'tabbed_content' %>
+    </div>
   </div>
 </div>
