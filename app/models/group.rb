@@ -120,9 +120,12 @@ class Group < ActiveRecord::Base
   end
 
   def statement_accepted(statement)
-    # TODO: update:
+    if statement.statement_type == StatementTypes[:tagline]
+      update_attributes(tagline: statement.get_tagline.tagline)
+    end
+
+    # TODO:
     #   profile photo
-    #   tagline
     #   rules
     #   email domains
     #   facebook

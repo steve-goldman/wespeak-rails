@@ -85,6 +85,7 @@ class Statement < ActiveRecord::Base
     else
       update_attributes(state:         StatementStates[:accepted],
                         vote_ended_at: now)
+      group.statement_accepted self
     end
   end
 

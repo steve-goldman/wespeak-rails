@@ -112,6 +112,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "enough votes and yeses should be accepted" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    Tagline.create!(statement_id: statement.id, tagline: "All of western thought")
     Statement.num_needed(@group.active_members.count, @group.support_needed_rule).times do |i|
       statement.add_support(users[i])
     end
@@ -129,6 +130,20 @@ class StateMachineTest < ActiveSupport::TestCase
     StateMachine.end_votes(statement.vote_ends_at + 1)
     statement.reload
     assert_equal StatementStates[:accepted], statement.state
+  end
+
+  test "accepted tagline updates" do
+    GroupUserInfo.new(@group.name, nil, @user).make_member_active
+    statement = @group.create_statement(@user, :tagline)
+    tagline   = Tagline.create!(statement_id: statement.id, tagline: "All of western thought")
+    statement.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement.reload
+    # voting now
+    statement.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload    
+    assert_equal tagline.tagline, @group.tagline
   end
 
   private
