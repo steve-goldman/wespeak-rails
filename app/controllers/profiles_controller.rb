@@ -64,10 +64,6 @@ class ProfilesController < GroupPagesControllerBase
   end
 
   def support_eligible
-    # can un/support if:
-    #  user already supported
-    #      OR
-    #  user was active when it was created
     redirect_with_flash(FlashMessages::NOT_SUPPORT_ELIGIBLE, request.referer || root_url) if
       !@info.support_eligible?(@statement)
   end
