@@ -81,6 +81,26 @@ class GroupUserInfo
     statement.user_supports?(@user) || (@active_member && @active_member.can_support?(statement))
   end
 
+  def make_member_active
+    if @active_member
+      @active_member.extend_active @group.inactivity_timeout_rule
+    else
+      @active_member = group.active_members.create user_id:        @user.id,
+                                                   active_seconds: @group.inactivity_timeout_rule
+    end
+
+    MembershipHistory.create(user_id: @user.id, group_id: @group.id, active: true)
+  end
+
+  def make_member_inactive
+    if @active_member
+      @active_member.destroy
+      @active_member = nil
+    end
+
+    MembershipHistory.create(user_id: @user.id, group_id: @group.id, active: false)
+  end
+
   private
 
   def not_nilfalse(var)

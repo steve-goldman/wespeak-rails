@@ -35,12 +35,12 @@ class ProfilesController < GroupPagesControllerBase
   end
 
   def activate_member
-    make_member_active @info.group, @info.user, @info.active_member
+    @info.make_member_active
     redirect_to request.referer
   end
 
   def deactivate_member
-    make_member_inactive @info.group, @info.user, @info.active_member
+    @info.make_member_inactive
     redirect_to request.referer
   end
 

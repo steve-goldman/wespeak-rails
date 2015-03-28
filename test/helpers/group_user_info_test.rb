@@ -93,9 +93,10 @@ class GroupUserInfoTest < ActiveSupport::TestCase
   end
 
   test "should not be able to support when active after statement" do
+    info = GroupUserInfo.new(@group.name, nil, @user)
     statement = @group.create_statement(@user, :tagline)
-    make_member_active(@group, @user, nil)
-    assert_not GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
+    info.make_member_active
+    assert_not info.support_eligible?(statement)
   end
 
   test "should be able to support statement when not active if supported before" do
@@ -105,9 +106,10 @@ class GroupUserInfoTest < ActiveSupport::TestCase
   end
 
   test "should be able to support when active before statement" do
-    make_member_active(@group, @user, nil)
+    info = GroupUserInfo.new(@group.name, nil, @user)
+    info.make_member_active
     statement = @group.create_statement(@user, :tagline)
-    assert GroupUserInfo.new(@group.name, nil, @user).support_eligible?(statement)
+    assert info.support_eligible?(statement)
   end
 
 end

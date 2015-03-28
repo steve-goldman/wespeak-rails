@@ -10,8 +10,6 @@ class TaglinesController < GroupPagesControllerBase
   end
 
   def create
-    make_member_active @info.group, @info.user, @info.active_member
-
     @info.set_state_alive
 
     respond_to do |format|
@@ -30,6 +28,7 @@ class TaglinesController < GroupPagesControllerBase
   private
 
   def statement_creates
+    @info.make_member_active
     @statement = @info.group.create_statement(@info.user, :tagline)
     redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
   end
