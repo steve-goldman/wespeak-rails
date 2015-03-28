@@ -35,4 +35,21 @@ class StatementTest < ActiveSupport::TestCase
                                     statement_type: StatementTypes[:add_email_domain_filter],
                                     state:          999999).valid?
   end
+
+    test "needed tests" do
+    assert_equal 1, Statement.num_needed(1, 1)
+    assert_equal 1, Statement.num_needed(1, 10)
+    assert_equal 1, Statement.num_needed(1, 50)
+
+    assert_equal 1, Statement.num_needed(2, 1)
+    assert_equal 1, Statement.num_needed(2, 50)
+    assert_equal 2, Statement.num_needed(2, 51)
+
+    assert_equal 1, Statement.num_needed(10, 9)
+    assert_equal 1, Statement.num_needed(10, 10)
+    assert_equal 2, Statement.num_needed(10, 11)
+    assert_equal 2, Statement.num_needed(10, 20)
+    assert_equal 3, Statement.num_needed(10, 21)
+  end
+  
 end

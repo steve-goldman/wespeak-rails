@@ -117,20 +117,4 @@ class GroupTest < ActiveSupport::TestCase
     assert_nil     group.reload.invitations_required_since
   end
 
-  test "needed tests" do
-    assert_equal 1, Group.num_needed(1, 1)
-    assert_equal 1, Group.num_needed(1, 10)
-    assert_equal 1, Group.num_needed(1, 50)
-
-    assert_equal 1, Group.num_needed(2, 1)
-    assert_equal 1, Group.num_needed(2, 50)
-    assert_equal 2, Group.num_needed(2, 51)
-
-    assert_equal 1, Group.num_needed(10, 9)
-    assert_equal 1, Group.num_needed(10, 10)
-    assert_equal 2, Group.num_needed(10, 11)
-    assert_equal 2, Group.num_needed(10, 20)
-    assert_equal 3, Group.num_needed(10, 21)
-  end
-  
 end

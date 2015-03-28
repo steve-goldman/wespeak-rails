@@ -49,14 +49,7 @@ class Group < ActiveRecord::Base
 
   def create_statement(user, statement_type)
     now = Time.zone.now
-    statements.create(created_at:          now,
-                      updated_at:          now,
-                      user_id:             user.id,
-                      statement_type:      StatementTypes[statement_type],
-                      state:               StatementStates[:alive],
-                      expires_at:          now + lifespan_rule,
-                      support_needed:      Group.num_needed(active_members.count, support_needed_rule),
-                      eligible_supporters: active_members.count)
+    Statement.new_statement(now, self, user, statement_type)
   end
 
   def get_count(state = nil, type = nil)
@@ -167,12 +160,6 @@ class Group < ActiveRecord::Base
   def invitation_rules
     errors.add(:invitation_rules, ValidationMessages::INVITATIONS_BOUNDS.message) if
       invitations != Invitations::NOT_REQUIRED && (invitations < 0 || invitations > Invitations::MAX_PER_DAY)
-  end
-
-  def Group.num_needed(count, per_hundred)
-    needed, remainder = (count * per_hundred).divmod(100)
-    needed += 1 if remainder != 0
-    needed
   end
 
 end
