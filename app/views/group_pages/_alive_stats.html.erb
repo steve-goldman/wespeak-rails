@@ -41,7 +41,7 @@
   </tr>
   <tr>
     <td colspan="2">
-      <% if @info.active_member && @info.active_member.can_support?(statement) %>
+      <% if @info.support_eligible?(statement) %>
         <div id="support-button-<%= statement.id %>">
           <% if statement.user_supports?(@info.user) %>
             <%= render 'group_pages/unsupport_button', statement: statement %>
