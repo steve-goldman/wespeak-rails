@@ -93,4 +93,9 @@ module Constants
     YESES_MIN   = 1
     YESES_MAX   = 99
   end
+
+  class Votes
+    NO = 1
+    YES = 2
+  end
 end

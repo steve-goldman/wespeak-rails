@@ -4,7 +4,11 @@ class Statement < ActiveRecord::Base
 
   belongs_to :user
 
+  belongs_to :group
+
   has_many :supports
+
+  has_many :votes
 
   def validation_keys
     [:valid_statement_type,
@@ -34,6 +38,15 @@ class Statement < ActiveRecord::Base
     supports.find_by(user_id: user.id).destroy
   end
 
+  def cast_vote(user, vote)
+    record = votes.find_by(user_id: user.id)
+    if record
+      record.update_attributes(vote: vote)
+    else
+      votes.create(user_id: user.id, vote: vote)
+    end
+  end
+
   #
   # state transitions
   #
@@ -48,6 +61,31 @@ class Statement < ActiveRecord::Base
                      expires_at:          now + group.lifespan_rule,
                      support_needed:      Statement.num_needed(group.active_members.count, group.support_needed_rule),
                      eligible_supporters: group.active_members.count)
+  end
+
+  def to_dead(now)
+    update_attributes(state:           StatementStates[:dead],
+                      expired_at:      now)
+  end
+
+  def to_voting(now)
+    update_attributes(state:           StatementStates[:voting],
+                      votes_needed:    Statement.num_needed(group.active_members.count, group.votes_needed_rule),
+                      eligible_voters: group.active_members.count,
+                      yeses_needed:    group.yeses_needed_rule,
+                      vote_began_at:   now,
+                      vote_ends_at:    now + group.votespan_rule)
+  end
+
+  def to_vote_over(now)
+    total = Vote.total self
+    if total < votes_needed || Vote.yes_count(self) < Statement.num_needed(total, yeses_needed)
+      update_attributes(state:         StatementStates[:rejected],
+                        vote_ended_at: now)
+    else
+      update_attributes(state:         StatementStates[:accepted],
+                        vote_ended_at: now)
+    end
   end
 
   private

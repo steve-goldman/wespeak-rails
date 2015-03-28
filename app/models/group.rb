@@ -119,6 +119,17 @@ class Group < ActiveRecord::Base
     membership_histories.select(:user_id).distinct.count
   end
 
+  def statement_accepted(statement)
+    # TODO: update:
+    #   profile photo
+    #   tagline
+    #   rules
+    #   email domains
+    #   facebook
+    #   invitations
+    #   locations
+  end
+
   private
 
   def set_rules_to_defaults

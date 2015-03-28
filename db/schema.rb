@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328192805) do
+ActiveRecord::Schema.define(version: 20150328225247) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -117,6 +117,13 @@ ActiveRecord::Schema.define(version: 20150328192805) do
     t.integer  "support_needed"
     t.integer  "eligible_supporters"
     t.datetime "expires_at"
+    t.datetime "expired_at"
+    t.datetime "vote_began_at"
+    t.datetime "vote_ends_at"
+    t.datetime "vote_ended_at"
+    t.integer  "votes_needed"
+    t.integer  "eligible_voters"
+    t.integer  "yeses_needed"
   end
 
   add_index "statements", ["group_id", "created_at"], name: "index_statements_on_group_id_and_created_at"
@@ -131,6 +138,7 @@ ActiveRecord::Schema.define(version: 20150328192805) do
     t.datetime "updated_at",   null: false
   end
 
+  add_index "supports", ["statement_id", "user_id"], name: "index_supports_on_statement_id_and_user_id", unique: true
   add_index "supports", ["statement_id"], name: "index_supports_on_statement_id"
   add_index "supports", ["user_id"], name: "index_supports_on_user_id"
 
@@ -163,5 +171,17 @@ ActiveRecord::Schema.define(version: 20150328192805) do
     t.string   "password_digest"
     t.boolean  "can_create_groups",        default: false
   end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "statement_id"
+    t.integer  "vote"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "votes", ["statement_id", "user_id"], name: "index_votes_on_statement_id_and_user_id", unique: true
+  add_index "votes", ["statement_id"], name: "index_votes_on_statement_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end
