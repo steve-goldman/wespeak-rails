@@ -85,8 +85,8 @@ class GroupUserInfo
     if @active_member
       @active_member.extend_active @group.inactivity_timeout_rule
     else
-      @active_member = group.active_members.create user_id:        @user.id,
-                                                   active_seconds: @group.inactivity_timeout_rule
+      @active_member = @group.active_members.create user_id:        @user.id,
+                                                    active_seconds: @group.inactivity_timeout_rule
     end
 
     MembershipHistory.create(user_id: @user.id, group_id: @group.id, active: true)
