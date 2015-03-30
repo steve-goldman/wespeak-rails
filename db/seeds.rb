@@ -85,3 +85,15 @@ support_statement.update_attributes(created_at:    Time.zone.now - group.votespa
                                     vote_ends_at:  Time.zone.now)
 support_statement.cast_vote(user, Votes::YES)
 StateMachine.end_votes(Time.zone.now)
+
+# accept a new email domain
+domain_statement = group.create_statement(user, :group_email_domain_change)
+domain_change = GroupEmailDomainChange.create(statement_id: domain_statement.id, change_type: GroupEmailDomainChangeTypes[:add], domain: "haha.com")
+domain_statement.add_support(user)
+StateMachine.alive_to_voting(Time.zone.now)
+domain_statement.update_attributes(created_at:    Time.zone.now - group.votespan_rule - 1.hour,
+                                   updated_at:    Time.zone.now - group.votespan_rule,
+                                   vote_began_at: Time.zone.now - group.votespan_rule,
+                                   vote_ends_at:  Time.zone.now)
+domain_statement.cast_vote(user, Votes::YES)
+StateMachine.end_votes(Time.zone.now)
