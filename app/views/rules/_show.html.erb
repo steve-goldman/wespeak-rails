@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-6 col-xs-12">
+    <%= render('group_pages/statement_stats', statement: rule.statement) %>
+  </div>
+  <div class="col-md-6 col-xs-12">
+    <div class="statement">
+      <% if rule.rule_type == RuleTypes[:lifespan] %>
+        <span class="rule">Change lifespan to: <%= Constants::Timespans::in_words(rule.rule_value) %></span>
+      <% end %>
+      <% if rule.rule_type == RuleTypes[:support_needed] %>
+        <span class="rule">Change support needed to: <%= rule.rule_value %>%</span>
+      <% end %>
+      <% if rule.rule_type == RuleTypes[:votespan] %>
+        <span class="rule">Change votespan to: <%= Constants::Timespans::in_words(rule.rule_value) %></span>
+      <% end %>
+      <% if rule.rule_type == RuleTypes[:votes_needed] %>
+        <span class="rule">Change votes needed to: <%= rule.rule_value %>%</span>
+      <% end %>
+      <% if rule.rule_type == RuleTypes[:yeses_needed] %>
+        <span class="rule">Change yeses needed to: <%= rule.rule_value %>%</span>
+      <% end %>
+      <% if rule.rule_type == RuleTypes[:inactivity_timeout] %>
+        <span class="rule">Change inactivity timeout to: <%= Constants::Timespans::in_words(rule.rule_value) %></span>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="new-rule">
+  <h4>Rule Change Proposal</h4>
+
+  <div class="row">
+    <div class="col-md-6 col-xs-12">
+      <table class="table">
+        <%= form_for :lifespan_rule, url: create_lifespan_rule_path(@info.group.name), method: :post do |f| %>
+        <tr>
+          <td><%= f.label :lifespan_rule, "Statement Lifespan" %></td>
+          <td><%= f.select(:rule_value, options_for_select(Constants::Timespans::INPUT_OPTIONS, @info.group.lifespan_rule), class: "form-control") %></td>
+          <td><%= f.submit "Propose", class: "btn btn-primary" %></td>
+        </tr>
+        <% end %>
+        <%= form_for :support_needed_rule, url: create_support_needed_rule_path(@info.group.name), method: :post do |f| %>
+        <tr>
+          <td><%= f.label :support_needed_rule, "Support Needed (%)" %></td>
+          <td>
+            <output name="support_needed" for="support_needed_rule_rule_value"><%= @info.group.support_needed_rule %>%</output>
+            <%= f.range_field :rule_value,
+                value: @info.group.support_needed_rule,
+                min: Constants::Needed::SUPPORT_MIN,
+                max: Constants::Needed::SUPPORT_MAX,
+                oninput: "support_needed.value=support_needed_rule_rule_value.value + '%'" %>
+          </td>
+          <td><%= f.submit "Propose", class: "btn btn-primary" %></td>
+        </tr>
+        <% end %>
+        <%= form_for :votespan_rule, url: create_votespan_rule_path(@info.group.name), method: :post do |f| %>
+        <tr>
+          <td><%= f.label :votespan_rule, "Statement Votespan" %></td>
+          <td><%= f.select(:rule_value, options_for_select(Constants::Timespans::INPUT_OPTIONS, @info.group.votespan_rule), class: "form-control") %></td>
+          <td><%= f.submit "Propose", class: "btn btn-primary" %></td>
+        </tr>
+        <% end %>
+        <%= form_for :votes_needed_rule, url: create_votes_needed_rule_path(@info.group.name), method: :post do |f| %>
+        <tr>
+          <td><%= f.label :votes_needed_rule, "Votes Needed (%)" %></td>
+          <td>
+            <output name="votes_needed" for="votes_needed_rule_rule_value"><%= @info.group.votes_needed_rule %>%</output>
+            <%= f.range_field :rule_value,
+                value: @info.group.votes_needed_rule,
+                min: Constants::Needed::VOTES_MIN,
+                max: Constants::Needed::VOTES_MAX,
+                oninput: "votes_needed.value=votes_needed_rule_rule_value.value + '%'" %>
+          </td>
+          <td><%= f.submit "Propose", class: "btn btn-primary" %></td>
+        </tr>
+        <% end %>
+        <%= form_for :yeses_needed_rule, url: create_yeses_needed_rule_path(@info.group.name), method: :post do |f| %>
+        <tr>
+          <td><%= f.label :yeses_needed_rule, "Yeses Needed (%)" %></td>
+          <td>
+            <output name="yeses_needed" for="yeses_needed_rule_rule_value"><%= @info.group.yeses_needed_rule %>%</output>
+            <%= f.range_field :rule_value,
+                value: @info.group.yeses_needed_rule,
+                min: Constants::Needed::YESES_MIN,
+                max: Constants::Needed::YESES_MAX,
+                oninput: "yeses_needed.value=yeses_needed_rule_rule_value.value + '%'" %>
+          </td>
+          <td><%= f.submit "Propose", class: "btn btn-primary" %></td>
+        </tr>
+        <% end %>
+        <%= form_for :inactivity_timeout_rule, url: create_inactivity_timeout_rule_path(@info.group.name), method: :post do |f| %>
+        <tr>
+          <td><%= f.label :inactivity_timeout_rule, "Inactivity Timeout" %></td>
+          <td><%= f.select(:rule_value, options_for_select(Constants::Timespans::INPUT_OPTIONS, @info.group.inactivity_timeout_rule), class: "form-control") %></td>
+          <td><%= f.submit "Propose", class: "btn btn-primary" %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

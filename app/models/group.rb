@@ -85,6 +85,7 @@ class Group < ActiveRecord::Base
     [
       [Tagline, :tagline],
       [Update,  :update ],
+      [Rule,    :rule   ],
     ].each do |tuple|
       # this shoves the content records in the appropriate location of the statement pointers array
       tuple[0].where("statement_id IN (#{statement_ids})", group_id: id).each do |record|
@@ -100,6 +101,7 @@ class Group < ActiveRecord::Base
     type_map = {
       tagline: Tagline,
       update:  Update,
+      rule:    Rule,
     }
   
     statement_ids =  "SELECT statement_id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"

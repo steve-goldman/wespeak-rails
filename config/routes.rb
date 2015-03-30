@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   
   # main profile pages
   get    'groups/:name',                       to: 'profiles#show'
+  get    'groups/:name/profile',               to: 'profiles#show'
   get    'groups/:name/profile/:state',        to: 'profiles#show',   as: :profile
 
   # support
@@ -71,6 +72,15 @@ Rails.application.routes.draw do
   # updates
   get    'groups/:name/updates/:state',        to: 'updates#index',  as: :updates
   post   'groups/:name/updates',               to: 'updates#create', as: :create_update
+  
+  # rules
+  get    'groups/:name/rules/:state',             to: 'rules#index',                          as: :rules
+  post   'groups/:name/lifespan_rules',           to: 'rules#create_lifespan_rule',           as: :create_lifespan_rule
+  post   'groups/:name/support_needed_rules',     to: 'rules#create_support_needed_rule',     as: :create_support_needed_rule
+  post   'groups/:name/votespan_rules',           to: 'rules#create_votespan_rule',           as: :create_votespan_rule
+  post   'groups/:name/votes_needed_rules',       to: 'rules#create_votes_needed_rule',       as: :create_votes_needed_rule
+  post   'groups/:name/yeses_needed_rules',       to: 'rules#create_yeses_needed_rule',       as: :create_yeses_needed_rule
+  post   'groups/:name/inactivity_timeout_rules', to: 'rules#create_inactivity_timeout_rule', as: :create_inactivity_timeout_rule
   
   # proposals (catch-all)
   get    'groups/:name/proposals/:id',         to: 'proposals#show',  as: :proposal

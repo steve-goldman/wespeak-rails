@@ -5,7 +5,7 @@
       <td>
         <%= Constants::Timespans::in_words(group.lifespan_rule) %>
         <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", "#" %></div>
+        <div class="change-link"><%= link_to "Propose change", rules_path(@info.group.name, :alive) %></div>
         <% end %>
       </td>
     </tr>
@@ -14,7 +14,7 @@
       <td>
         <%= group.support_needed_rule %>%
         <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", "#" %></div>
+        <div class="change-link"><%= link_to "Propose change", rules_path(@info.group.name, :alive) %></div>
         <% end %>
       </td>
     </tr>
@@ -23,7 +23,7 @@
       <td>
         <%= Constants::Timespans::in_words(group.votespan_rule) %>
         <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", "#" %></div>
+        <div class="change-link"><%= link_to "Propose change", rules_path(@info.group.name, :alive) %></div>
         <% end %>
       </td>
     </tr>
@@ -32,7 +32,7 @@
       <td>
         <%= group.votes_needed_rule %>%
         <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", "#" %></div>
+        <div class="change-link"><%= link_to "Propose change", rules_path(@info.group.name, :alive) %></div>
         <% end %>
       </td>
     </tr>
@@ -41,7 +41,7 @@
       <td>
         <%= group.yeses_needed_rule %>%
         <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", "#" %></div>
+        <div class="change-link"><%= link_to "Propose change", rules_path(@info.group.name, :alive) %></div>
         <% end %>
       </td>
     </tr>
@@ -50,7 +50,7 @@
       <td>
         <%= Constants::Timespans::in_words(group.inactivity_timeout_rule) %>
         <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", "#" %></div>
+        <div class="change-link"><%= link_to "Propose change", rules_path(@info.group.name, :alive) %></div>
         <% end %>
       </td>
     </tr>

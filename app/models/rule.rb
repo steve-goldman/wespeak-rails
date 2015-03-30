@@ -13,7 +13,7 @@ class Rule < ActiveRecord::Base
   validates :statement_id, { presence: { message: ValidationMessages::STATEMENT_ID_NOT_PRESENT.message } }
 
   validates :rule_type, { inclusion: { in: RuleTypes.values,
-                                       message: ValidationMessages::RULE_TYPE_UNKNOWN } }
+                                       message: ValidationMessages::RULE_TYPE_UNKNOWN.message } }
 
   validate :valid_rule_value
 
