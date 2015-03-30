@@ -7,6 +7,8 @@ class GroupUserInfoTest < ActiveSupport::TestCase
   def setup
     @group = Group.create!(name: "the_group", active: true)
     @user = User.create!(name: "stu", password: "test123", password_confirmation: "test123")
+
+    @other_user = User.create(name: "mike", password: "test123", password_confirmation: "test123")
   end
   
   test "unknown group not valid" do
@@ -112,4 +114,35 @@ class GroupUserInfoTest < ActiveSupport::TestCase
     assert info.support_eligible?(statement)
   end
 
+  test "should not be able to vote when not active" do
+    assert_not GroupUserInfo.new(@group.name, nil, @user).vote_eligible?(make_voting_statement)
+  end
+
+  test "should not be able to vote when active after vote began" do
+    voting_statement = make_voting_statement
+    info = GroupUserInfo.new(@group.name, nil, @user)
+    info.make_member_active
+    assert_not info.vote_eligible?(voting_statement)
+  end
+
+  test "should be able to vote when not active if voted before" do
+    voting_statement = make_voting_statement
+    voting_statement.cast_vote(@user, Votes::YES)
+    assert GroupUserInfo.new(@group.name, nil, @user).vote_eligible?(voting_statement)
+  end
+
+  test "should be able to support when active before vote" do
+    info = GroupUserInfo.new(@group.name, nil, @user)
+    info.make_member_active
+    assert info.vote_eligible?(make_voting_statement)    
+  end
+
+  private
+
+  def make_voting_statement
+    voting_statement = @group.create_statement(@other_user, :tagline)
+    voting_statement.add_support(@other_user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    voting_statement.reload
+  end
 end
