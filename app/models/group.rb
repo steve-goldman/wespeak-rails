@@ -145,15 +145,20 @@ class Group < ActiveRecord::Base
       elsif rule.rule_type == RuleTypes[:inactivity_timeout]
         update_attributes(inactivity_timeout_rule: rule.rule_value)
       end
+    elsif statement.statement_type == StatementTypes[:group_email_domain_change]
+      domain_change = statement.get_domain_change
+      if domain_change.change_type == GroupEmailDomainChangeTypes[:add]
+        group_email_domains.create(domain: domain_change.domain) if !group_email_domains.exists?(domain: domain_change.domain)
+      elsif domain_change.change_type == GroupEmailDomainChangeTypes[:remove]
+        group_email_domains.find_by(domain: domain_change.domain).destroy if group_email_domains.exists?(domain: domain_change.domain)
+      elsif domain_change.change_type == GroupEmailDomainChangeTypes[:remove_all]
+        group_email_domains.destroy_all
+      end
     end
-    
 
     # TODO:
     #   profile photo
-    #   rules
-    #   email domains
     #   facebook
-    #   invitations
     #   locations
   end
 

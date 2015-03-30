@@ -34,6 +34,10 @@ class Statement < ActiveRecord::Base
     Invitation.find_by(statement_id: id)
   end
 
+  def get_domain_change
+    GroupEmailDomainChange.find_by(statement_id: id)
+  end
+
   def user_supports?(user)
     supports.exists?(user_id: user.id)
   end

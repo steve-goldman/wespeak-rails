@@ -184,6 +184,91 @@ class StateMachineTest < ActiveSupport::TestCase
     assert_equal invitation.invitations, @group.invitations
   end
 
+  test "add group email domain updates" do
+    GroupUserInfo.new(@group.name, nil, @user).make_member_active
+    statement = @group.create_statement(@user, :group_email_domain_change)
+    GroupEmailDomainChange.create!(statement_id: statement.id, change_type: GroupEmailDomainChangeTypes[:add], domain: "wespeakapp.com")
+    statement.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement.reload
+    # voting now
+    statement.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload    
+    assert @group.group_email_domains.exists?(domain: "wespeakapp.com")
+
+    # another accepted statement wouldn't add the same domain again
+    statement2 = @group.create_statement(@user, :group_email_domain_change)
+    GroupEmailDomainChange.create!(statement_id: statement2.id, change_type: GroupEmailDomainChangeTypes[:add], domain: "wespeakapp.com")
+    statement2.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement2.reload
+    # voting now
+    statement2.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload    
+    assert_equal 1, @group.group_email_domains.where(domain: "wespeakapp.com").count
+  end
+
+  test "remove group email domain updates" do
+    GroupUserInfo.new(@group.name, nil, @user).make_member_active
+    @group.group_email_domains.create!(domain: "wespeakapp.com")
+    assert @group.group_email_domains.exists?(domain: "wespeakapp.com")
+    
+    statement = @group.create_statement(@user, :group_email_domain_change)
+    GroupEmailDomainChange.create!(statement_id: statement.id, change_type: GroupEmailDomainChangeTypes[:remove], domain: "wespeakapp.com")
+    statement.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement.reload
+    # voting now
+    statement.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload    
+    assert_not @group.group_email_domains.exists?(domain: "wespeakapp.com")
+
+    # another accepted statement for the same domain wouldn't cause a problem
+    statement2 = @group.create_statement(@user, :group_email_domain_change)
+    GroupEmailDomainChange.create!(statement_id: statement2.id, change_type: GroupEmailDomainChangeTypes[:remove], domain: "wespeakapp.com")
+    statement2.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement2.reload
+    # voting now
+    statement2.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload
+    assert_equal 0, @group.group_email_domains.count
+  end
+
+  test "remove all group email domain updates" do
+    GroupUserInfo.new(@group.name, nil, @user).make_member_active
+    @group.group_email_domains.create!(domain: "wespeakapp.com")
+    @group.group_email_domains.create!(domain: "gmail.com")
+    assert_equal 2, @group.group_email_domains.count
+    
+    statement = @group.create_statement(@user, :group_email_domain_change)
+    GroupEmailDomainChange.create!(statement_id: statement.id, change_type: GroupEmailDomainChangeTypes[:remove_all], domain: "bogus.com")
+    statement.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement.reload
+    # voting now
+    statement.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload    
+    assert_equal 0, @group.group_email_domains.count
+
+    # another accepted statement when list is empty wouldn't cause a problem
+    statement2 = @group.create_statement(@user, :group_email_domain_change)
+    GroupEmailDomainChange.create!(statement_id: statement2.id, change_type: GroupEmailDomainChangeTypes[:remove_all], domain: "bogus.com")
+    statement2.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement2.reload
+    # voting now
+    statement2.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload
+    assert_equal 0, @group.group_email_domains.count
+  end
+
   private
 
   def make_active_users(n)
