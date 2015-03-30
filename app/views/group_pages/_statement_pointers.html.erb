@@ -1,9 +1,10 @@
 <% @statement_pointers.each do |statement_pointer| %>
 <tr>
   <td>
-    <%= render('taglines/show', tagline: statement_pointer[:content]) if statement_pointer[:statement_type] == :tagline %>
-    <%= render('updates/show',  update:  statement_pointer[:content]) if statement_pointer[:statement_type] == :update  %>
-    <%= render('rules/show',    rule:    statement_pointer[:content]) if statement_pointer[:statement_type] == :rule    %>
+    <%= render('taglines/show',    tagline:    statement_pointer[:content]) if statement_pointer[:statement_type] == :tagline    %>
+    <%= render('updates/show',     update:     statement_pointer[:content]) if statement_pointer[:statement_type] == :update     %>
+    <%= render('rules/show',       rule:       statement_pointer[:content]) if statement_pointer[:statement_type] == :rule       %>
+    <%= render('invitations/show', invitation: statement_pointer[:content]) if statement_pointer[:statement_type] == :invitation %>
   </td>
 </tr>
 <% end %>

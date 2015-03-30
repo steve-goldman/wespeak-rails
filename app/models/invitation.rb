@@ -20,6 +20,6 @@ class Invitation < ActiveRecord::Base
 
   def invitation_rules
     errors.add(:invitation_rules, ValidationMessages::INVITATIONS_BOUNDS.message) if
-      invitations != Invitations::NOT_REQUIRED && (invitations < 0 || invitations > Invitations::MAX_PER_DAY)
+      !invitations || (invitations != Invitations::NOT_REQUIRED && (invitations < 0 || invitations > Invitations::MAX_PER_DAY))
   end
 end

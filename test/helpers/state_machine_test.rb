@@ -170,6 +170,20 @@ class StateMachineTest < ActiveSupport::TestCase
     accepted_rule_updates(:inactivity_timeout, Timespans::INACTIVITY_TIMEOUT_MIN)
   end
 
+  test "accepted invitations updates" do
+    GroupUserInfo.new(@group.name, nil, @user).make_member_active
+    statement = @group.create_statement(@user, :invitation)
+    invitation= Invitation.create!(statement_id: statement.id, invitations: Invitations::MAX_PER_DAY)
+    statement.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement.reload
+    # voting now
+    statement.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload    
+    assert_equal invitation.invitations, @group.invitations
+  end
+
   private
 
   def make_active_users(n)

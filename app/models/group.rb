@@ -83,9 +83,10 @@ class Group < ActiveRecord::Base
     statement_pointers = []
 
     [
-      [Tagline, :tagline],
-      [Update,  :update ],
-      [Rule,    :rule   ],
+      [Tagline,    :tagline   ],
+      [Update,     :update    ],
+      [Rule,       :rule      ],
+      [Invitation, :invitation],
     ].each do |tuple|
       # this shoves the content records in the appropriate location of the statement pointers array
       tuple[0].where("statement_id IN (#{statement_ids})", group_id: id).each do |record|
@@ -99,9 +100,10 @@ class Group < ActiveRecord::Base
   def get_of_type(statement_type, state, page, per_page, order = "created_at DESC")
     # TODO: where can i move this map that makes sense?
     type_map = {
-      tagline: Tagline,
-      update:  Update,
-      rule:    Rule,
+      tagline:    Tagline,
+      update:     Update,
+      rule:       Rule,
+      invitation: Invitation, 
     }
   
     statement_ids =  "SELECT id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
@@ -124,6 +126,8 @@ class Group < ActiveRecord::Base
   def statement_accepted(statement)
     if statement.statement_type == StatementTypes[:tagline]
       update_attributes(tagline: statement.get_tagline.tagline)
+    elsif statement.statement_type == StatementTypes[:invitation]
+      update_attributes(invitations: statement.get_invitation.invitations)
     elsif statement.statement_type == StatementTypes[:rule]
       rule = statement.get_rule
       if rule.rule_type == RuleTypes[:lifespan]

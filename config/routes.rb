@@ -82,6 +82,10 @@ Rails.application.routes.draw do
   post   'groups/:name/yeses_needed_rules',       to: 'rules#create_yeses_needed_rule',       as: :create_yeses_needed_rule
   post   'groups/:name/inactivity_timeout_rules', to: 'rules#create_inactivity_timeout_rule', as: :create_inactivity_timeout_rule
   
+  # invitations
+  get    'groups/:name/invitations/:state',       to: 'invitations#index',  as: :invitations
+  post   'groups/:name/invitations',              to: 'invitations#create', as: :create_invitation
+
   # proposals (catch-all)
   get    'groups/:name/proposals/:id',         to: 'proposals#show',  as: :proposal
 

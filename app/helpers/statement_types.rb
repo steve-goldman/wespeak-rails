@@ -7,6 +7,7 @@ class StatementTypes
     rem_facebook_filter:     1004,
     add_location_filter:     1005,
     rem_location_filter:     1006,
+    invitation:              1007,
 
     # rules
     rule:                    2001,
