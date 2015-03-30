@@ -14,14 +14,14 @@ class UpdatesController < GroupPagesControllerBase
 
     respond_to do |format|
       format.html { redirect_to updates_path(@info.group.name, :alive) }
-      format.js   { render 'show_tabs' }
+      format.js   { render 'group_pages/show_tabs' }
     end
   end
 
   def index
     respond_to do |format|
       format.html
-      format.js { render 'show_tabs' if params[:page].nil? }
+      format.js { render 'group_pages/show_tabs' if params[:page].nil? }
     end
   end
 
