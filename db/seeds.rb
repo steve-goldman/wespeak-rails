@@ -73,3 +73,15 @@ accepted_statement.update_attributes(created_at:    Time.zone.now - group.votesp
                                      vote_ends_at:  Time.zone.now)
 accepted_statement.cast_vote(user, Votes::YES)
 StateMachine.end_votes(Time.zone.now)
+
+# make an accepted support needed change
+support_statement = group.create_statement(user, :rule)
+rule = Rule.create(statement_id: support_statement.id, rule_type: RuleTypes[:support_needed], rule_value: 1)
+support_statement.add_support(user)
+StateMachine.alive_to_voting(Time.zone.now)
+support_statement.update_attributes(created_at:    Time.zone.now - group.votespan_rule - 1.hour,
+                                    updated_at:    Time.zone.now - group.votespan_rule,
+                                    vote_began_at: Time.zone.now - group.votespan_rule,
+                                    vote_ends_at:  Time.zone.now)
+support_statement.cast_vote(user, Votes::YES)
+StateMachine.end_votes(Time.zone.now)
