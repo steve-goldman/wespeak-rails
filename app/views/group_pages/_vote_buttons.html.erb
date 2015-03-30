@@ -1,0 +1,11 @@
+<% vote = statement.user_vote(@info.user) %>
+
+<%= form_for :vote_no, url: vote_no_path(@info.group.name), remote: true do |f| %>
+  <%= hidden_field_tag :statement_id, statement.id %>
+  <%= f.submit "No.", disabled: !vote.nil? && vote.vote == Votes::NO, class: "btn btn-primary" %>
+<% end %>
+
+<%= form_for :vote_yes, url: vote_yes_path(@info.group.name), remote: true do |f| %>
+  <%= hidden_field_tag :statement_id, statement.id %>
+  <%= f.submit "Yes!", disabled: !vote.nil? && vote.vote == Votes::YES, class: "btn btn-primary" %>
+<% end %>

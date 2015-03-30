@@ -27,6 +27,12 @@ class ProfilesController < GroupPagesControllerBase
     end
   end
 
+  def vote_no
+  end
+
+  def vote_yes
+  end
+
   def unsupport
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }

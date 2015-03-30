@@ -38,6 +38,10 @@ class Statement < ActiveRecord::Base
     supports.find_by(user_id: user.id).destroy
   end
 
+  def user_vote(user)
+    votes.find_by(user_id: user.id)
+  end
+
   def cast_vote(user, vote)
     record = votes.find_by(user_id: user.id)
     if record
@@ -77,9 +81,13 @@ class Statement < ActiveRecord::Base
                       vote_ends_at:    now + group.votespan_rule)
   end
 
+  def yeses_count
+    Vote.yes_count self
+  end
+
   def to_vote_over(now)
-    total = Vote.total self
-    if total < votes_needed || Vote.yes_count(self) < Statement.num_needed(total, yeses_needed)
+    total = votes.count
+    if total < votes_needed || yeses_count < Statement.num_needed(total, yeses_needed)
       update_attributes(state:         StatementStates[:rejected],
                         vote_ended_at: now)
     else

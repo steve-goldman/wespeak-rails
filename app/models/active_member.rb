@@ -15,4 +15,8 @@ class ActiveMember < ActiveRecord::Base
     created_at <= statement.created_at
   end
     
+  def can_vote?(statement)
+    created_at <= statement.vote_began_at
+  end
+    
 end

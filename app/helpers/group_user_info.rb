@@ -77,8 +77,16 @@ class GroupUserInfo
     # can un/support if:
     #  user already supported
     #      OR
-    #  user was active when it was created
+    #  user has been active since before it was created
     statement.user_supports?(@user) || (@active_member && @active_member.can_support?(statement))
+  end
+
+  def vote_eligible?(statement)
+    # can vote if:
+    #  user already voted
+    #      OR
+    # user has been active since before vote began
+    statement.user_vote(@user) || (@active_member && @active_member.can_vote?(statement))
   end
 
   def make_member_active

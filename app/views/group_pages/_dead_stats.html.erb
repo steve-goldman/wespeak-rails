@@ -17,10 +17,10 @@
   </tr>
   <tr>
     <td>
-      Expires
+      Expired
     </td>
     <td>
-      <span class="value"><%= Constants::Timespans::full_time(statement.expires_at) %></span>
+      <span class="value"><%= Constants::Timespans::full_time(statement.expired_at) %></span>
     </td>
   </tr>
   <tr>
@@ -33,7 +33,7 @@
   </tr>
   <tr>
     <td>
-      Needs support
+      Needed support
     </td>
     <td>
       <span class="value"><%= statement.support_needed %>
@@ -41,25 +41,10 @@
   </tr>
   <tr>
     <td>
-      Has support
+      Had support
     </td>
     <td>
       <span id="support-count-<%= statement.id %>" class="value"><%= statement.supports.count %>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <% if @info.support_eligible?(statement) %>
-        <div id="support-button-<%= statement.id %>">
-          <% if statement.user_supports?(@info.user) %>
-            <%= render 'group_pages/unsupport_button', statement: statement %>
-          <% else %>
-            <%= render 'group_pages/support_button', statement: statement %>
-          <% end %>
-        </div>
-      <% else %>
-        Not eligible to support
-      <% end %>
     </td>
   </tr>
 </table>
