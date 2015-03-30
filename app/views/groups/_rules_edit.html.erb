@@ -1,4 +1,4 @@
-<%= form_for(:group, url: update_group_path(@group.id)) do |f| %>
+<%= form_for(:group, url: update_group_path(@group.id), method: :patch) do |f| %>
 <table class="table table-hover table-striped">
   <tbody>
     <tr>
