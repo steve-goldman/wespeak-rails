@@ -20,4 +20,8 @@ class RuleTypes
     @rule_types.value?(value)
   end
 
+  def RuleTypes.values
+    @rule_types.values
+  end
+
 end

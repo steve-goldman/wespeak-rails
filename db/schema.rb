@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328225247) do
+ActiveRecord::Schema.define(version: 20150330152928) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -94,6 +94,16 @@ ActiveRecord::Schema.define(version: 20150328225247) do
   add_index "received_invitations", ["group_id"], name: "index_received_invitations_on_group_id"
   add_index "received_invitations", ["user_id", "group_id"], name: "index_received_invitations_on_user_id_and_group_id", unique: true
   add_index "received_invitations", ["user_id"], name: "index_received_invitations_on_user_id"
+
+  create_table "rules", force: :cascade do |t|
+    t.integer  "statement_id"
+    t.integer  "rule_type"
+    t.integer  "rule_value"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "rules", ["statement_id"], name: "index_rules_on_statement_id"
 
   create_table "sent_invitations", force: :cascade do |t|
     t.integer  "user_id"
