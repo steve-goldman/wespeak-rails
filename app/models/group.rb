@@ -104,7 +104,7 @@ class Group < ActiveRecord::Base
       rule:    Rule,
     }
   
-    statement_ids =  "SELECT statement_id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
+    statement_ids =  "SELECT id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
     statement_ids += " AND state = :state" if !state.nil?
 
     type_map[statement_type].paginate(page: page, per_page: per_page).where("statement_id IN (#{statement_ids})",
