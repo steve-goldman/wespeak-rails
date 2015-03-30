@@ -68,8 +68,8 @@
       Has yeses
     </td>
     <td>
-      <span id="yeses-count-<%= statement.id %>" class="value">
-        <%= statement.votes.count == 0 ? 0 : 100 * statement.yeses_count / statement.votes.count %>%
+      <span id="yeses-percent-<%= statement.id %>" class="value">
+        <%= statement.yeses_percent %>%
     </td>
   </tr>
   <tr>

@@ -55,7 +55,7 @@ Rails.application.routes.draw do
 
   # votes
   post   'groups/:name/vote_no',               to: 'profiles#vote_no',   as: :vote_no
-  delete 'groups/:name/vote_yes',              to: 'profiles#vote_yes',  as: :vote_yes
+  post   'groups/:name/vote_yes',              to: 'profiles#vote_yes',  as: :vote_yes
 
   # extending and discontinuing active membership
   post   'groups/:name/activate_membership',   to: 'profiles#activate_member',   as: :activate_membership

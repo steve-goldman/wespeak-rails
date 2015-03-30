@@ -1,0 +1,4 @@
+$('#left-header').html('<%= j render 'group_pages/left_header' %>')
+$("#vote-buttons-<%= @statement.id %>").html("<%= j render 'group_pages/vote_buttons', statement: @statement %>")
+$("#vote-count-<%= @statement.id %>").html("<%= @statement.votes.count %>")
+$("#yeses-percent-<%= @statement.id %>").html("<%= @statement.yeses_percent %>%")

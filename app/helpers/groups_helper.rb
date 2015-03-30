@@ -20,6 +20,7 @@ module GroupsHelper
     NO_INVITES           = FlashMessage.new(:danger,  "You have no more invites today, try again tomorrow")
     STATE_UNKNOWN        = FlashMessage.new(:danger,  "Something went wrong: invalid state")
     NOT_SUPPORT_ELIGIBLE = FlashMessage.new(:danger,  "Something went wrong: not support eligible")
+    NOT_VOTE_ELIGIBLE    = FlashMessage.new(:danger,  "Something went wrong: not vote eligible")
   end
 
   class ValidationMessages

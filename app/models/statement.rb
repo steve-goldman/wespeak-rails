@@ -47,8 +47,9 @@ class Statement < ActiveRecord::Base
     if record
       record.update_attributes(vote: vote)
     else
-      votes.create(user_id: user.id, vote: vote)
+      record = votes.create(user_id: user.id, vote: vote)
     end
+    record
   end
 
   #
@@ -83,6 +84,10 @@ class Statement < ActiveRecord::Base
 
   def yeses_count
     Vote.yes_count self
+  end
+
+  def yeses_percent
+    votes.count == 0 ? 0 : 100 * yeses_count / votes.count
   end
 
   def to_vote_over(now)
