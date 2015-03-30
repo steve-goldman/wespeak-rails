@@ -124,7 +124,23 @@ class Group < ActiveRecord::Base
   def statement_accepted(statement)
     if statement.statement_type == StatementTypes[:tagline]
       update_attributes(tagline: statement.get_tagline.tagline)
+    elsif statement.statement_type == StatementTypes[:rule]
+      rule = statement.get_rule
+      if rule.rule_type == RuleTypes[:lifespan]
+        update_attributes(lifespan_rule: rule.rule_value)
+      elsif rule.rule_type == RuleTypes[:support_needed]
+        update_attributes(support_needed_rule: rule.rule_value)
+      elsif rule.rule_type == RuleTypes[:votespan]
+        update_attributes(votespan_rule: rule.rule_value)
+      elsif rule.rule_type == RuleTypes[:votes_needed]
+        update_attributes(votes_needed_rule: rule.rule_value)
+      elsif rule.rule_type == RuleTypes[:yeses_needed]
+        update_attributes(yeses_needed_rule: rule.rule_value)
+      elsif rule.rule_type == RuleTypes[:inactivity_timeout]
+        update_attributes(inactivity_timeout_rule: rule.rule_value)
+      end
     end
+    
 
     # TODO:
     #   profile photo

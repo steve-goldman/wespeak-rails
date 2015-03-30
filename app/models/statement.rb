@@ -26,6 +26,10 @@ class Statement < ActiveRecord::Base
     Update.find_by(statement_id: id)
   end
 
+  def get_rule
+    Rule.find_by(statement_id: id)
+  end
+
   def user_supports?(user)
     supports.exists?(user_id: user.id)
   end
