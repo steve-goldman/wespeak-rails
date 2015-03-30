@@ -35,7 +35,7 @@ class TaglinesController < GroupPagesControllerBase
 
   def tagline_creates
     tagline = Tagline.create(statement_id: @statement.id, tagline: params[:tagline][:tagline])
-    @statement.destroy and render_with_validation_flash(tagline, action: :index) if !tagline.valid?
+    @statement.destroy and redirect_with_validation_flash(tagline, request.referer || root_url) if !tagline.valid?
   end
 
 end

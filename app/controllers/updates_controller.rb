@@ -35,7 +35,7 @@ class UpdatesController < GroupPagesControllerBase
 
   def update_creates
     update = Update.create(statement_id: @statement.id, update_text: params[:update][:update])
-    @statement.destroy and render_with_validation_flash(update, action: :index) if !update.valid?
+    @statement.destroy and redirect_with_validation_flash(update, request.referer || root_url) if !update.valid?
   end
 
 end
