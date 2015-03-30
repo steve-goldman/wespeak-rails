@@ -7,7 +7,14 @@
     </tr>
     <tr>
       <td><%= f.label :support_needed_rule, "Support Needed (%)" %></td>
-      <td><%= f.number_field :support_needed_rule, value: @group.support_needed_rule, min: Constants::Needed::SUPPORT_MIN, max: Constants::Needed::SUPPORT_MAX, maxlength: 2, class: "form-control" %>
+      <td>
+        <output name="support_needed" for="group_support_needed_rule"><%= @group.support_needed_rule %>%</output>
+        <%= f.range_field :support_needed_rule,
+            value: @group.support_needed_rule,
+            min: Constants::Needed::SUPPORT_MIN,
+            max: Constants::Needed::SUPPORT_MAX,
+            oninput: "support_needed.value=group_support_needed_rule.value + '%'" %>
+      </td>
     </tr>
     <tr>
       <td><%= f.label :votespan_rule, "Vote Lifespan" %></td>
@@ -15,11 +22,25 @@
     </tr>
     <tr>
       <td><%= f.label :votes_needed_rule, "Votes Needed (%)" %></td>
-      <td><%= f.number_field :votes_needed_rule, value: @group.votes_needed_rule, min: Constants::Needed::VOTES_MIN, max: Constants::Needed::VOTES_MAX, maxlength: 2, class: "form-control" %>
+      <td>
+        <output name="votes_needed" for="group_votes_needed_rule"><%= @group.votes_needed_rule %>%</output>
+        <%= f.range_field :votes_needed_rule,
+            value: @group.votes_needed_rule,
+            min: Constants::Needed::VOTES_MIN,
+            max: Constants::Needed::VOTES_MAX,
+            oninput: "votes_needed.value=group_votes_needed_rule.value + '%'" %>
+      </td>
     </tr>
     <tr>
       <td><%= f.label :yeses_needed_rule, "Yeses Needed (%)" %></td>
-      <td><%= f.number_field :yeses_needed_rule, value: @group.yeses_needed_rule, min: Constants::Needed::YESES_MIN, max: Constants::Needed::YESES_MAX, maxlength: 2, class: "form-control" %>
+      <td>
+        <output name="yeses_needed" for="group_yeses_needed_rule"><%= @group.yeses_needed_rule %>%</output>
+        <%= f.range_field :yeses_needed_rule,
+            value: @group.yeses_needed_rule,
+            min: Constants::Needed::YESES_MIN,
+            max: Constants::Needed::YESES_MAX,
+            oninput: "yeses_needed.value=group_yeses_needed_rule.value + '%'" %>
+      </td>
     </tr>
     <tr>
       <td><%= f.label :inactivity_timeout_rule, "Member Inactivity Timeout" %></td>
