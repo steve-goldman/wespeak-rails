@@ -78,9 +78,9 @@ module Constants
 
     def Timespans.full_time(t)
       if t.year != Time.zone.now.year
-        t.strftime "%b %d %Y at %l:%M:%S %p"
+        t.strftime "%b %e %Y at %l:%M:%S %p"
       else
-        t.strftime "%b %d at %l:%M:%S %p"
+        t.strftime "%b %e at %l:%M:%S %p"
       end
     end
   end
