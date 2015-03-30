@@ -1,29 +1,27 @@
 class StatementTypes
   @statement_types = {
     # participation filters
-    add_email_domain_filter: 1001,
-    rem_email_domain_filter: 1002,
-    add_facebook_filter:     1003,
-    rem_facebook_filter:     1004,
-    add_location_filter:     1005,
-    rem_location_filter:     1006,
-    invitation:              1007,
+    group_email_domain_change: 1001,
+    add_facebook_filter:       1003,
+    rem_facebook_filter:       1004,
+    add_location_filter:       1005,
+    rem_location_filter:       1006,
+    invitation:                1007,
 
     # rules
-    rule:                    2001,
+    rule:                      2001,
 
     # data
-    cover_photo:             3001,
-    profile_photo:           3002,
-    tagline:                 3003,
-    photo:                   3004,
-    update:                  3005,
+    cover_photo:               3001,
+    profile_photo:             3002,
+    tagline:                   3003,
+    photo:                     3004,
+    update:                    3005,
   }
 
   @type_names = {
     # participation filters
-    1001 => "add_email_domain_filter",
-    1002 => "rem_email_domain_filter",
+    1001 => "Email Address Change",
     1003 => "add_facebook_filter",
     1004 => "rem_facebook_filter",
     1005 => "add_location_filter",

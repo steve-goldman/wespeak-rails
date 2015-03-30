@@ -86,6 +86,12 @@ Rails.application.routes.draw do
   get    'groups/:name/invitations/:state',       to: 'invitations#index',  as: :invitations
   post   'groups/:name/invitations',              to: 'invitations#create', as: :create_invitation
 
+  # group email domains
+  get    'groups/:name/email_addresses/:state',   to: 'group_email_domain_changes#index',                  as: :group_email_domain_changes
+  post   'groups/:name/add_email_address',        to: 'group_email_domain_changes#create_add_domain',      as: :add_group_email_domain_change
+  post   'groups/:name/rem_email_address',        to: 'group_email_domain_changes#create_rem_domain',      as: :rem_group_email_domain_change
+  post   'groups/:name/rem_all_email_address',    to: 'group_email_domain_changes#create_rem_all_domains', as: :rem_all_group_email_domains_change
+
   # proposals (catch-all)
   get    'groups/:name/proposals/:id',         to: 'proposals#show',  as: :proposal
 

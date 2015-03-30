@@ -33,5 +33,11 @@
         link_to("Invitations (#{@info.group.get_count(@info.state, :invitation)})",
         invitations_path(@info.group.name, @info.state)),
         class: active_tab == :invitations  ? "active" : "inactive") %>
+
+    <%= content_tag(
+        :li,
+        link_to("Email Addresses (#{@info.group.get_count(@info.state, :group_email_domain_change)})",
+        group_email_domain_changes_path(@info.group.name, @info.state)),
+        class: active_tab == :group_email_domain_changes  ? "active" : "inactive") %>
   </ul>
 </div>

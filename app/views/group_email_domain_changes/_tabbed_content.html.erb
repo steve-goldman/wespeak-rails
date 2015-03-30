@@ -1,0 +1,5 @@
+<%= render 'group_pages/statement_tabs', active_tab: :group_email_domain_changes %>
+<% if @info.state == :alive && @info.change_eligible? %>
+  <%= render 'group_email_domain_changes/new' %>
+<% end %>
+<%= render 'group_email_domain_changes/index' %>

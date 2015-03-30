@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-6 col-xs-12">
+    <%= render('group_pages/statement_stats', statement: group_email_domain_change.statement) %>
+  </div>
+  <div class="col-md-6 col-xs-12">
+    <div class="statement">
+      <p class="group-email-domain-change">
+        <% if group_email_domain_change.change_type == GroupEmailDomainChangeTypes[:add] %>
+          Add email address domain <%= group_email_domain_change.domain %>
+        <% elsif group_email_domain_change.change_type == GroupEmailDomainChangeTypes[:remove] %>
+          Remove email address domain <%= group_email_domain_change.domain %>
+        <% else %>
+          Remove all email address domains.
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>
