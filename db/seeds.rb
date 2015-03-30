@@ -87,13 +87,25 @@ support_statement.cast_vote(user, Votes::YES)
 StateMachine.end_votes(Time.zone.now)
 
 # accept a new email domain
-domain_statement = group.create_statement(user, :group_email_domain_change)
-domain_change = GroupEmailDomainChange.create(statement_id: domain_statement.id, change_type: GroupEmailDomainChangeTypes[:add], domain: "haha.com")
-domain_statement.add_support(user)
+add_domain_statement = group.create_statement(user, :group_email_domain_change)
+add_domain_change = GroupEmailDomainChange.create(statement_id: add_domain_statement.id, change_type: GroupEmailDomainChangeTypes[:add], domain: "haha.com")
+add_domain_statement.add_support(user)
 StateMachine.alive_to_voting(Time.zone.now)
-domain_statement.update_attributes(created_at:    Time.zone.now - group.votespan_rule - 1.hour,
-                                   updated_at:    Time.zone.now - group.votespan_rule,
-                                   vote_began_at: Time.zone.now - group.votespan_rule,
-                                   vote_ends_at:  Time.zone.now)
-domain_statement.cast_vote(user, Votes::YES)
+add_domain_statement.update_attributes(created_at:    Time.zone.now - group.votespan_rule - 1.hour,
+                                       updated_at:    Time.zone.now - group.votespan_rule,
+                                       vote_began_at: Time.zone.now - group.votespan_rule,
+                                       vote_ends_at:  Time.zone.now)
+add_domain_statement.cast_vote(user, Votes::YES)
+StateMachine.end_votes(Time.zone.now)
+
+# accept removing an email domain
+rem_domain_statement = group.create_statement(user, :group_email_domain_change)
+rem_domain_change = GroupEmailDomainChange.create(statement_id: rem_domain_statement.id, change_type: GroupEmailDomainChangeTypes[:remove], domain: "wespeakapp.com")
+rem_domain_statement.add_support(user)
+StateMachine.alive_to_voting(Time.zone.now)
+rem_domain_statement.update_attributes(created_at:    Time.zone.now - group.votespan_rule - 1.hour,
+                                       updated_at:    Time.zone.now - group.votespan_rule,
+                                       vote_began_at: Time.zone.now - group.votespan_rule,
+                                       vote_ends_at:  Time.zone.now)
+rem_domain_statement.cast_vote(user, Votes::YES)
 StateMachine.end_votes(Time.zone.now)
