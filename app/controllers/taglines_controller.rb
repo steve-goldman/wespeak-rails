@@ -2,7 +2,10 @@ class TaglinesController < GroupPagesControllerBase
 
   before_action :enforce_change_eligible, only: [:create]
 
-  before_action :statement_creates,       only: [:create]
+  before_action only: [:create] do
+    statement_creates :tagline
+  end
+  
   before_action :tagline_creates,         only: [:create]
 
   before_action do
@@ -26,12 +29,6 @@ class TaglinesController < GroupPagesControllerBase
   end
 
   private
-
-  def statement_creates
-    @info.make_member_active
-    @statement = @info.group.create_statement(@info.user, :tagline)
-    redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
-  end
 
   def tagline_creates
     tagline = Tagline.create(statement_id: @statement.id, tagline: params[:tagline][:tagline])

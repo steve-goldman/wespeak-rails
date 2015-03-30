@@ -7,13 +7,15 @@ class RulesController < GroupPagesControllerBase
                                                  :create_yeses_needed_rule,
                                                  :create_inactivity_timeout_rule]
 
-  before_action :statement_creates,       only: [:create_lifespan_rule,
-                                                 :create_support_needed_rule,
-                                                 :create_votespan_rule,
-                                                 :create_votes_needed_rule,
-                                                 :create_yeses_needed_rule,
-                                                 :create_inactivity_timeout_rule]
-  
+  before_action only: [:create_lifespan_rule,
+                       :create_support_needed_rule,
+                       :create_votespan_rule,
+                       :create_votes_needed_rule,
+                       :create_yeses_needed_rule,
+                       :create_inactivity_timeout_rule] do
+    statement_creates :rule
+  end
+
   before_action only: [:create_lifespan_rule] do
     rule_creates(:lifespan, params[:lifespan_rule][:rule_value])
   end
@@ -83,12 +85,6 @@ class RulesController < GroupPagesControllerBase
   end
 
   private
-
-  def statement_creates
-    @info.make_member_active
-    @statement = @info.group.create_statement(@info.user, :rule)
-    redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
-  end
 
   def rule_creates(rule_type, rule_value)
     rule = Rule.create(statement_id: @statement.id, rule_type: RuleTypes[rule_type], rule_value: rule_value)

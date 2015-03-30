@@ -2,7 +2,10 @@ class UpdatesController < GroupPagesControllerBase
 
   before_action :enforce_change_eligible, only: [:create]
 
-  before_action :statement_creates,       only: [:create]
+  before_action only: [:create] do
+    statement_creates :update
+  end
+
   before_action :update_creates,          only: [:create]
 
   before_action do
@@ -26,12 +29,6 @@ class UpdatesController < GroupPagesControllerBase
   end
 
   private
-
-  def statement_creates
-    @info.make_member_active
-    @statement = @info.group.create_statement(@info.user, :update)
-    redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
-  end
 
   def update_creates
     update = Update.create(statement_id: @statement.id, update_text: params[:update][:update])
