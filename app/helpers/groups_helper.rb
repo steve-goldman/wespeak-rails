@@ -40,6 +40,8 @@ module GroupsHelper
     INACTIVITY_TIMEOUT_DURATION  = ValidationMessage.new("Member inactivity timeout must be between #{Timespans.in_words(Timespans::INACTIVITY_TIMEOUT_MIN)} and #{Timespans.in_words(Timespans::INACTIVITY_TIMEOUT_MAX)}")
 
     RULE_TYPE_UNKNOWN  = ValidationMessage.new("Something went wrong: rule type unknown")
+    DOMAIN_CHANGE_TYPE_UNKNOWN = ValidationMessage.new("Something went wrong: invalid change type")
+        
 
     SUPPORT_NEEDED_BOUNDS = ValidationMessage.new("Support needed must be between #{Needed::SUPPORT_MIN} and #{Needed::SUPPORT_MAX}")
     VOTES_NEEDED_BOUNDS   = ValidationMessage.new("Votes needed must be between #{Needed::VOTES_MIN} and #{Needed::VOTES_MAX}")

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330203724) do
+ActiveRecord::Schema.define(version: 20150330211852) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -41,9 +41,9 @@ ActiveRecord::Schema.define(version: 20150330203724) do
   create_table "group_email_domain_changes", force: :cascade do |t|
     t.integer  "statement_id"
     t.string   "domain"
-    t.boolean  "included"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "change_type"
   end
 
   add_index "group_email_domain_changes", ["statement_id"], name: "index_group_email_domain_changes_on_statement_id"
