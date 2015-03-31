@@ -26,6 +26,14 @@
           <td>Voting ends in a group you're following.</td>
         </tr>
         <tr>
+          <td><%= f.check_box :about_to_timeout %></td>
+          <td>Your membership in a group is nearing expiration.</td>
+        </tr>
+        <tr>
+          <td><%= f.check_box :timed_out %></td>
+          <td>Your membership in a group expires.</td>
+        </tr>
+        <tr>
           <td><%= f.check_box :my_statement_dies %></td>
           <td>A statement you submitted dies due to not enough support.</td>
         </tr>

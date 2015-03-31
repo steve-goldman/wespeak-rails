@@ -30,7 +30,9 @@ class Settings::NotificationsController < ApplicationController
                                               :vote_ends_following,
                                               :support_receipt,
                                               :vote_receipt,
-                                              :my_statement_dies)
+                                              :my_statement_dies,
+                                              :about_to_timeout,
+                                              :timed_out)
   end
   
 end

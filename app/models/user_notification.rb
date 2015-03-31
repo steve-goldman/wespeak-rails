@@ -13,5 +13,7 @@ class UserNotification < ActiveRecord::Base
     self.support_receipt       = false if support_receipt.nil?
     self.vote_receipt          = false if vote_receipt.nil?
     self.my_statement_dies     = false if my_statement_dies.nil?
+    self.about_to_timeout      = true  if about_to_timeout.nil?
+    self.timed_out             = true  if timed_out.nil?
   end
 end
