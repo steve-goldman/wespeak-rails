@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  vote_begins_active: false
+  vote_ends_active: false
+  vote_begins_following: false
+  vote_ends_following: false
+  support_receipt: false
+  vote_receipt: false
+  my_statement_dies: false
+
+two:
+  user_id: 
+  vote_begins_active: false
+  vote_ends_active: false
+  vote_begins_following: false
+  vote_ends_following: false
+  support_receipt: false
+  vote_receipt: false
+  my_statement_dies: false

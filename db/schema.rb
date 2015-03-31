@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330211852) do
+ActiveRecord::Schema.define(version: 20150331014317) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -188,6 +188,21 @@ ActiveRecord::Schema.define(version: 20150330211852) do
   end
 
   add_index "updates", ["statement_id"], name: "index_updates_on_statement_id"
+
+  create_table "user_notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "vote_begins_active"
+    t.boolean  "vote_ends_active"
+    t.boolean  "vote_begins_following"
+    t.boolean  "vote_ends_following"
+    t.boolean  "support_receipt"
+    t.boolean  "vote_receipt"
+    t.boolean  "my_statement_dies"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "user_notifications", ["user_id"], name: "index_user_notifications_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
