@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   
   def create
     @user.update_attribute(:primary_email_address_id, @email_address.id)
-    UserMailer.email_address_activation(@user, @email_address).deliver_later
+    UserMailer.email_address_activation(@user, @email_address).deliver_now
     redirect_with_flash(FlashMessages::EMAIL_SENT, root_url)
   end
 

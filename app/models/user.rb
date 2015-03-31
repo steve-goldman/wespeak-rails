@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   end
 
   def send_password_reset_email(email)
-    UserMailer.password_reset(self, email).deliver_later
+    UserMailer.password_reset(self, email).deliver_now
   end
 
   def update_password(password, password_confirmation)
