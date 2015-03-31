@@ -93,19 +93,21 @@ class GroupUserInfo
     if @active_member
       @active_member.extend_active
     else
-      @active_member = @group.active_members.create(user_id: @user.id)
+      @active_member = @group.active_members.create!(user_id: @user.id)
     end
 
     MembershipHistory.create(user_id: @user.id, group_id: @group.id, active: true)
   end
 
-  def make_member_inactive
+  def make_member_inactive(send_email = false)
     if @active_member
       @active_member.destroy
       @active_member = nil
     end
 
     MembershipHistory.create(user_id: @user.id, group_id: @group.id, active: false)
+
+    UserMailer.timed_out(@user, @group).deliver_later if send_email && @user.user_notification.timed_out
   end
 
   private

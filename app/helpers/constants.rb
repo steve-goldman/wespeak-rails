@@ -83,6 +83,8 @@ module Constants
         t.strftime "%b %e at %l:%M:%S %p"
       end
     end
+
+    INACTIVITY_WARN_THRESHOLD = 25  # in percent
   end
 
   class Needed

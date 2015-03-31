@@ -18,5 +18,11 @@ class StateMachine
       .where("state = #{StatementStates[:voting]} AND vote_ends_at < :now", now: now)
       .each { |statement| statement.to_vote_over(now) }
   end
+
+  def StateMachine.expired_memberships(now)
+    ActiveMember.where("expires_at < :now", now: now).each do |active_member|
+      GroupUserInfo.new(active_member.group.name, nil, active_member.user).make_member_inactive(true)
+    end
+  end
   
 end

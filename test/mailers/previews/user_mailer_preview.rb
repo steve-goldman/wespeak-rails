@@ -37,4 +37,15 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.dead_statement(user, statement)
   end
 
+  def about_to_timeout
+    active_member = ActiveMember.first
+    UserMailer.about_to_timeout(active_member.user, active_member.group)
+  end
+
+  def timed_out
+    user = User.first
+    group = Group.first
+    UserMailer.timed_out(user, group)
+  end
+
 end

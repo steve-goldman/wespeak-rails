@@ -36,4 +36,19 @@ class UserMailer < ApplicationMailer
 
     mail to: user.primary_email, subject: "WeSpeak: Your submission has died in #{statement.group.name}"
   end
+
+  def about_to_timeout(user, group)
+    @user = user
+    @group = group
+    @expires_at = group.active_members.find_by(user_id: user.id).expires_at
+
+    mail to: user.primary_email, subject: "WeSpeak: Your membership in #{group.name} will expire soon!"
+  end
+
+  def timed_out(user, group)
+    @user = user
+    @group = group
+
+    mail to: user.primary_email, subject: "WeSpeak: Your membership has expired in #{group.name}"
+  end
 end

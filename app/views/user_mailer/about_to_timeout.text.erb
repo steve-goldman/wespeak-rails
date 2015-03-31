@@ -1,0 +1,13 @@
+Dear WeSpeak user,
+
+Your membership in <%= @group.name %> will expire on <%= Constants::Timespans::full_time(@expires_at) %>. You won't be eligible to support or vote on new statements if it expires.
+
+Click the following link to visit the group page, where you can renew your membership by clicking the link on the left hand side.
+
+<%= group_profile_url(@group.name) %>.
+
+You received this email because you are a WeSpeak member interested in knowing when your memberships are nearing expiration.
+
+Click the following link to to manage your email preferences.
+
+<%= edit_settings_notifications_url %>

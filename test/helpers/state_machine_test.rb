@@ -271,6 +271,18 @@ class StateMachineTest < ActiveSupport::TestCase
     assert_equal 0, @group.group_email_domains.count
   end
 
+  #
+  # expired memberships tests
+  #
+
+  test "expired membership should time out" do
+    GroupUserInfo.new(@group.name, nil, @user).make_member_active
+    StateMachine.expired_memberships(Time.zone.now + @group.inactivity_timeout_rule - 1.minute)
+    assert_not_nil GroupUserInfo.new(@group.name, nil, @user).active_member
+    StateMachine.expired_memberships(Time.zone.now + @group.inactivity_timeout_rule)
+    assert_nil     GroupUserInfo.new(@group.name, nil, @user).active_member
+  end
+
   private
 
   def make_active_users(n)

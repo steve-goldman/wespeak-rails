@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331144617) do
+ActiveRecord::Schema.define(version: 20150331151309) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20150331144617) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "expires_at"
+    t.datetime "warn_at"
+    t.boolean  "warned"
   end
 
   add_index "active_members", ["group_id"], name: "index_active_members_on_group_id"
@@ -200,6 +202,8 @@ ActiveRecord::Schema.define(version: 20150331144617) do
     t.boolean  "my_statement_dies"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.boolean  "about_to_timeout"
+    t.boolean  "timed_out"
   end
 
   add_index "user_notifications", ["user_id"], name: "index_user_notifications_on_user_id"
