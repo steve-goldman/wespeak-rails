@@ -9,6 +9,8 @@ class StateMachineTest < ActiveSupport::TestCase
                            votes_needed_rule:   50,
                            yeses_needed_rule:   50)
     @user = User.create!(name: "stu", password: "test123", password_confirmation: "test123")
+    primary = @user.email_addresses.create!(email: "stu@wespeakapp.com")
+    @user.update_attributes(primary_email_address_id: primary.id)
   end
 
   #
@@ -275,6 +277,8 @@ class StateMachineTest < ActiveSupport::TestCase
     users = []
     n.times do |i|
       users[i] = User.create!(name: "#{i}", password: "test123", password_confirmation: "test123")
+      primary = users[i].email_addresses.create!(email: "addr-#{i}@wespeakapp.com")
+      users[i].update_attributes(primary_email_address_id: primary.id)
       GroupUserInfo.new(@group.name, nil, users[i]).make_member_active
     end
     users

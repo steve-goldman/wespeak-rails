@@ -7,6 +7,8 @@ class GroupUserInfoTest < ActiveSupport::TestCase
   def setup
     @group = Group.create!(name: "the_group", active: true)
     @user = User.create!(name: "stu", password: "test123", password_confirmation: "test123")
+    primary = @user.email_addresses.create!(email: "stu@email.addr")
+    @user.update_attributes(primary_email_address_id: primary.id)
 
     @other_user = User.create(name: "mike", password: "test123", password_confirmation: "test123")
   end
