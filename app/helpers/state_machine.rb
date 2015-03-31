@@ -24,5 +24,12 @@ class StateMachine
       GroupUserInfo.new(active_member.group.name, nil, active_member.user).make_member_inactive(true)
     end
   end
+
+  def StateMachine.membership_warnings(now)
+    ActiveMember.where("warned = 'f' AND warn_at < :now", now: now).each do |active_member|
+      UserMailer.about_to_timeout(active_member.user, active_member.group).deliver_later
+      active_member.update_attributes(warned: true)
+    end
+  end
   
 end

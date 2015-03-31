@@ -283,6 +283,16 @@ class StateMachineTest < ActiveSupport::TestCase
     assert_nil     GroupUserInfo.new(@group.name, nil, @user).active_member
   end
 
+  test "nearly expired membership should be warned once" do
+    GroupUserInfo.new(@group.name, nil, @user).make_member_active
+    StateMachine.membership_warnings(Time.zone.now + (100 - Timespans::INACTIVITY_WARN_THRESHOLD) * @group.inactivity_timeout_rule / 100 - 1.minute)
+    assert_not GroupUserInfo.new(@group.name, nil, @user).active_member.warned
+    StateMachine.membership_warnings(Time.zone.now + (100 - Timespans::INACTIVITY_WARN_THRESHOLD) * @group.inactivity_timeout_rule / 100 + 1.minute)
+    assert     GroupUserInfo.new(@group.name, nil, @user).active_member.warned
+
+    # TODO, warn again a minute later and make sure another email doesn't go out
+  end
+    
   private
 
   def make_active_users(n)
