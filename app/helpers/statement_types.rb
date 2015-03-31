@@ -19,6 +19,28 @@ class StatementTypes
     update:                    3005,
   }
 
+  @type_syms = {
+    1001 => :group_email_domain_change,
+    1007 => :invitation,
+    2001 => :rule,
+    3001 => :cover_photo,
+    3002 => :profile_photo,
+    3003 => :tagline,
+    3004 => :photo,
+    3005 => :update
+  }
+
+  @tables = {
+    group_email_domain_change: GroupEmailDomainChange,
+    invitation:                Invitation,
+    rule:                      Rule,
+    cover_photo:               nil,
+    profile_photo:             nil,
+    tagline:                   Tagline,
+    photo:                     nil,
+    update:                    Update,
+  }
+
   @type_names = {
     # participation filters
     1001 => "Email Address Change",
@@ -54,4 +76,15 @@ class StatementTypes
     @type_names[value]
   end
 
+  def StatementTypes.sym(value)
+    @type_syms[value]
+  end
+
+  def StatementTypes.table(key)
+    @tables[key]
+  end
+
+  def StatementTypes.full_table
+    @tables
+  end
 end

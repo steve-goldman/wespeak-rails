@@ -1,0 +1,12 @@
+<% provide(:title, @info.group.name) %>
+<div class="row">
+  <div class="col-md-3 col-xs-12">
+    <%= render 'group_pages/left_header' %>
+  </div>
+  <div class="col-md-9 col-xs-12">
+    <div id="tabbed-content">
+      <p><%= link_to "Back to #{@info.group.name}", group_profile_path(@info.group.name) %>
+      <%= render 'group_pages/statement_pointer', statement_pointer: @statement_pointer %>
+    </div>
+  </div>
+</div>
