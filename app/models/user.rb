@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   has_many :followers, dependent: :destroy
 
+  has_many :active_members, dependent: :destroy
+
   # attr_accessors
 
   attr_accessor :email

@@ -1,0 +1,7 @@
+$('#groups-list').append('<%= j render 'group_rows' %>');
+<% if @following_groups.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @following_groups %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

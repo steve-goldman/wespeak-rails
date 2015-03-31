@@ -34,6 +34,10 @@ Rails.application.routes.draw do
   get    'users/settings/notifications',          to: 'settings/notifications#edit',       as: :edit_settings_notifications
   patch  'users/settings/notifications/update',   to: 'settings/notifications#update',     as: :update_settings_notifications
 
+  # my groups
+  get    'users/my_groups',                       to: 'my_groups#index',             as: :my_groups
+  get    'users/following',                       to: 'following#index',             as: :following
+  
   # group creation
   get    'groups',                               to: 'groups#index',                as: :groups
   get    'groups/:id/configure',                 to: 'groups#edit',                 as: :edit_group
@@ -46,9 +50,6 @@ Rails.application.routes.draw do
   delete 'groups/:id',                           to: 'groups#destroy',              as: :destroy_group
   post   'groups',                               to: 'groups#create',               as: :create_group
 
-  # my groups
-  get    'my_groups',                            to: 'my_groups#index',             as: :my_groups
-  
   # main profile pages
   get    'groups/:name',                       to: 'profiles#show'
   get    'groups/:name/profile',               to: 'profiles#show',   as: :group_profile
