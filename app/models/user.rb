@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
 
   has_many :sent_invitations, dependent: :destroy
 
+  has_one  :user_notification
+
   # attr_accessors
 
   attr_accessor :email
@@ -27,6 +29,10 @@ class User < ActiveRecord::Base
   # password stuff
 
   has_secure_password validations: false
+
+
+  # create the notifications prefs
+  after_save :init_user_notification
 
   
   # validations
@@ -99,5 +105,11 @@ class User < ActiveRecord::Base
 
   def primary_email
     email_addresses.find(primary_email_address_id).email
+  end
+
+  private
+
+  def init_user_notification
+    UserNotification.find_or_create_by(user_id: id)
   end
 end

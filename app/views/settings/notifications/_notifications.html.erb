@@ -1,1 +1,37 @@
-<p>Nothing to see here yet.</p>
+<div class="row">
+  <div class="col-md-8 col-xs-12">
+    <%= form_for @user.user_notification, url: update_settings_notifications_path, method: :patch do |f| %>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= f.check_box :vote_begins_active, class: "form-control" %></td>
+          <td>Voting begins in a group you're active in.</td>
+        </tr>
+        <tr>
+          <td><%= f.check_box :vote_ends_active, class: "form-control" %></td>
+          <td>Voting ends in a group you're active in.</td>
+        </tr>
+        <tr>
+          <td><%= f.check_box :vote_begins_following, class: "form-control" %></td>
+          <td>Voting begins in a group you're following.</td>
+        </tr>
+        <tr>
+          <td><%= f.check_box :vote_ends_following, class: "form-control" %></td>
+          <td>Voting ends in a group you're following.</td>
+        </tr>
+        <tr>
+          <td><%= f.check_box :my_statement_dies, class: "form-control" %></td>
+          <td>A statement you submitted dies due to not enough support.</td>
+        </tr>
+      </tbody>
+    </table>
+    <%= f.submit "Save", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

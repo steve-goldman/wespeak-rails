@@ -31,7 +31,8 @@ Rails.application.routes.draw do
   get    'users/settings/email/:id/make_primary', to: 'settings/email_identities#edit',    as: :edit_settings_email_identity
   delete 'users/settings/email/:id',              to: 'settings/email_identities#destroy', as: :destroy_settings_email_identity
 
-  get    'users/settings/notifications',          to: 'settings/notifications#show',       as: :show_settings_notifications
+  get    'users/settings/notifications',          to: 'settings/notifications#edit',       as: :edit_settings_notifications
+  patch  'users/settings/notifications/update',   to: 'settings/notifications#update',     as: :update_settings_notifications
 
   # group creation
   get    'groups',                               to: 'groups#index',                as: :groups
