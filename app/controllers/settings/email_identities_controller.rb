@@ -15,7 +15,7 @@ module Settings
     end
 
     def create
-      UserMailer.email_address_activation(@user, @email_address).deliver_now
+      UserMailer.email_address_activation(@user, @email_address).deliver_later
       redirect_with_flash(FlashMessages::EMAIL_SENT, settings_email_identities_path)
     end
 
