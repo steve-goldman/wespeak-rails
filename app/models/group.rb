@@ -82,39 +82,24 @@ class Group < ActiveRecord::Base
 
     statement_pointers = []
 
-    [
-      [Tagline,                :tagline                  ],
-      [Update,                 :update                   ],
-      [Rule,                   :rule                     ],
-      [Invitation,             :invitation               ],
-      [GroupEmailDomainChange, :group_email_domain_change],
-    ].each do |tuple|
+    StatementTypes.full_tables.each do |statement_type, table|
       # this shoves the content records in the appropriate location of the statement pointers array
-      tuple[0].where("statement_id IN (#{statement_ids})", group_id: id).each do |record|
-        statement_pointers[statement_ids_map[record.statement_id]] = { statement_type: tuple[1], content: record }
-      end
+      table.where("statement_id IN (#{statement_ids})", group_id: id).each { |record|
+        statement_pointers[statement_ids_map[record.statement_id]] = { statement_type: statement_type, content: record }
+      } if table
     end
 
     statement_pointers
   end
 
   def get_of_type(statement_type, state, page, per_page, order = "created_at DESC")
-    # TODO: where can i move this map that makes sense?
-    type_map = {
-      tagline:                   Tagline,
-      update:                    Update,
-      rule:                      Rule,
-      invitation:                Invitation,
-      group_email_domain_change: GroupEmailDomainChange,
-    }
-  
     statement_ids =  "SELECT id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
     statement_ids += " AND state = :state" if !state.nil?
 
-    type_map[statement_type].paginate(page: page, per_page: per_page).where("statement_id IN (#{statement_ids})",
-                                                                            group_id:       id,
-                                                                            statement_type: StatementTypes[statement_type],
-                                                                            state:          StatementStates[state]).order(order)
+    StatementTypes.table(statement_type).paginate(page: page, per_page: per_page).where("statement_id IN (#{statement_ids})",
+                                                                                        group_id:       id,
+                                                                                        statement_type: StatementTypes[statement_type],
+                                                                                        state:          StatementStates[state]).order(order)
   end
 
   def invitations_required?

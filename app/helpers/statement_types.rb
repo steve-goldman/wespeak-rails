@@ -84,7 +84,7 @@ class StatementTypes
     @tables[key]
   end
 
-  def StatementTypes.full_table
+  def StatementTypes.full_tables
     @tables
   end
 end
