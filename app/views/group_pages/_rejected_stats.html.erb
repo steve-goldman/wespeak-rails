@@ -72,4 +72,9 @@
         <%= statement.votes.count == 0 ? 0 : 100 * statement.yeses_count / statement.votes.count %>%
     </td>
   </tr>
+  <tr>
+    <td colspan="2">
+      <%= link_to "Direct link", proposal_path(@info.group.name, statement.id) %>
+    </td>
+  </tr>
 </table>

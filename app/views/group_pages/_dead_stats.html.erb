@@ -47,4 +47,9 @@
       <span id="support-count-<%= statement.id %>" class="value"><%= statement.supports.count %>
     </td>
   </tr>
+  <tr>
+    <td colspan="2">
+      <%= link_to "Direct link", proposal_path(@info.group.name, statement.id) %>
+    </td>
+  </tr>
 </table>
