@@ -1,6 +1,5 @@
-<tr>
-  <td>
-    <%= render('taglines/show', tagline: statement_pointer[:content]) if statement_pointer[:statement_type] == :tagline %>
-    <%= render('updates/show',  update:  statement_pointer[:content]) if statement_pointer[:statement_type] == :update  %>
-  </td>
-</tr>
+<%= render('taglines/show',                   tagline:                   statement_pointer[:content]) if statement_pointer[:statement_type] == :tagline                   %>
+<%= render('updates/show',                    update:                    statement_pointer[:content]) if statement_pointer[:statement_type] == :update                    %>
+<%= render('rules/show',                      rule:                      statement_pointer[:content]) if statement_pointer[:statement_type] == :rule                      %>
+<%= render('invitations/show',                invitation:                statement_pointer[:content]) if statement_pointer[:statement_type] == :invitation                %>
+<%= render('group_email_domain_changes/show', group_email_domain_change: statement_pointer[:content]) if statement_pointer[:statement_type] == :group_email_domain_change %>
