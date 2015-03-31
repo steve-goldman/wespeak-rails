@@ -8,7 +8,7 @@ class StatementTest < ActiveSupport::TestCase
 
   test "creating from user should work" do
     statement = @user.statements.create(group_id:       @group.id,
-                                        statement_type: StatementTypes[:add_email_domain_filter],
+                                        statement_type: StatementTypes[:group_email_domain_change],
                                         state:          StatementStates[:alive])
     assert statement.valid?, statement.errors.full_messages
     assert_equal @user.id,  statement.user_id
@@ -17,7 +17,7 @@ class StatementTest < ActiveSupport::TestCase
 
   test "creating from group should work" do
     statement = @group.statements.create(user_id:        @user.id,
-                                         statement_type: StatementTypes[:add_email_domain_filter],
+                                         statement_type: StatementTypes[:group_email_domain_change],
                                          state:          StatementStates[:alive])
     assert statement.valid?, statement.errors.full_messages
     assert_equal @user.id,  statement.user_id

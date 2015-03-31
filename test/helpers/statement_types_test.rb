@@ -3,8 +3,7 @@ require 'test_helper'
 class StatementTypesTest < ActiveSupport::TestCase
 
   test "[] works" do
-    assert_equal 1001, StatementTypes[:add_email_domain_filter]
-    assert_equal 1002, StatementTypes[:rem_email_domain_filter]
+    assert_equal 1001, StatementTypes[:group_email_domain_change]
     assert_equal 1003, StatementTypes[:add_facebook_filter]
     assert_equal 1004, StatementTypes[:rem_facebook_filter]
     assert_equal 1005, StatementTypes[:add_location_filter]
@@ -13,8 +12,7 @@ class StatementTypesTest < ActiveSupport::TestCase
   end
 
   test "key? works" do
-    assert     StatementTypes.key?(:add_email_domain_filter)
-    assert     StatementTypes.key?(:rem_email_domain_filter)
+    assert     StatementTypes.key?(:group_email_domain_change)
     assert     StatementTypes.key?(:add_facebook_filter)
     assert     StatementTypes.key?(:rem_facebook_filter)
     assert     StatementTypes.key?(:add_location_filter)
@@ -24,7 +22,6 @@ class StatementTypesTest < ActiveSupport::TestCase
   
   test "value? works" do
     assert     StatementTypes.value?(1001)
-    assert     StatementTypes.value?(1002)
     assert     StatementTypes.value?(1003)
     assert     StatementTypes.value?(1004)
     assert     StatementTypes.value?(1005)
