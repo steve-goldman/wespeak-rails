@@ -1,1 +1,9 @@
-<p>Statement died</p>
+<p>Dear WeSpeak user,</p>
+
+<p>A statement that you created of type <%= StatementTypes.name(@statement.statement_type) %> in the group <%= @statement.group.name %> has died because it did not have enough support.</p>
+
+<p><%= link_to "Click here to view it", proposal_url(@statement.group.name, @statement.id) %>.</p>
+
+<p>You received this email because you are a WeSpeak member interested in this group.
+
+  <%= link_to "Click here to manage your email preferences", edit_settings_notifications_url %>.</p>
