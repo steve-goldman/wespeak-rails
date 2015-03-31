@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331014317) do
+ActiveRecord::Schema.define(version: 20150331144617) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
     t.integer  "user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "active_seconds"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "expires_at"
   end
 
   add_index "active_members", ["group_id"], name: "index_active_members_on_group_id"

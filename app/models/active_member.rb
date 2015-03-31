@@ -2,13 +2,10 @@ class ActiveMember < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
 
-  def active_until
-    updated_at + active_seconds
-  end
+  before_save :set_initial_expires_at
 
-  def extend_active(active_seconds)
-    update_attributes(active_seconds: active_seconds,  # include updated_at or the
-                      updated_at:     Time.zone.now)   # write could be optimized out
+  def extend_active
+    update_attributes(expires_at: Time.zone.now + group.inactivity_timeout_rule)
   end
 
   def can_support?(statement)
@@ -18,5 +15,10 @@ class ActiveMember < ActiveRecord::Base
   def can_vote?(statement)
     created_at <= statement.vote_began_at
   end
-    
+
+  private
+
+  def set_initial_expires_at
+    self.expires_at = Time.zone.now + group.inactivity_timeout_rule if expires_at.nil?
+  end
 end

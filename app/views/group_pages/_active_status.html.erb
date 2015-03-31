@@ -4,7 +4,7 @@
   <% if @info.active_member %>
     <p class="green-light">Yes!</p>
     <p>Since <%= time_ago_in_words(@info.active_member.created_at) %> ago</p>
-    <p>Valid for <%= time_ago_in_words(@info.active_member.active_until) %></p>
+    <p>Valid for <%= time_ago_in_words(@info.active_member.expires_at) %></p>
     <p><%= link_to "Discontinue membership", deactivate_membership_path(@info.group.name), method: :delete %></p>
   <% else %>
     <p class="red-light">No.</p>
