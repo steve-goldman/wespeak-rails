@@ -1,6 +1,14 @@
 <% provide(:title, "My Groups") %>
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
-    <%= render 'list_my_groups' %>
+    <div class="my-groups">
+      <h4>My Groups</h4>
+      <table id="groups-list" class="table">
+        <%= render 'group_rows' %>
+      </table>
+      <div id="infinite-scrolling">
+        <%= will_paginate @my_groups %>
+      </div>
+    </div>
   </div>
 </div>

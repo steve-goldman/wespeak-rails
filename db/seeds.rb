@@ -31,6 +31,13 @@ group2.activate
 
 GroupUserInfo.new(group.name, nil, user).make_member_active
 
+# make a bunch of groups and make user active in them
+(1..30).each do |i|
+  new_group = user.groups_i_created.create!(name: "test-#{i}")
+  new_group.activate
+  GroupUserInfo.new(new_group.name, nil, user).make_member_active
+end
+
 include Constants
 
 # make an alive statement

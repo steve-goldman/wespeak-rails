@@ -111,6 +111,14 @@ class Group < ActiveRecord::Base
     membership_histories.select(:user_id).distinct.count
   end
 
+  def member_since(user)
+    membership_histories.where(user_id: user.id, active: true).first.created_at
+  end
+
+  def active_since(user)
+    active_members.find_by(user_id: user.id).created_at
+  end
+
   def statement_accepted(statement)
     if statement.statement_type == StatementTypes[:tagline]
       update_attributes(tagline: statement.get_tagline.tagline)
