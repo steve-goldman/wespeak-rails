@@ -45,6 +45,9 @@ Rails.application.routes.draw do
   post   'groups/:id/activate',                  to: 'groups#activate',             as: :activate_group
   delete 'groups/:id',                           to: 'groups#destroy',              as: :destroy_group
   post   'groups',                               to: 'groups#create',               as: :create_group
+
+  # my groups
+  get    'my_groups',                            to: 'my_groups#index',             as: :my_groups
   
   # main profile pages
   get    'groups/:name',                       to: 'profiles#show'

@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   include GroupsHelper
 
   before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :destroy, :create, :ready_to_activate, :activate]
-  before_action :can_create_groups,  only: [:edit, :update, :update_invitations, :destroy, :create, :ready_to_activate, :activate]
+  before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :destroy, :create, :ready_to_activate, :activate]
   before_action :group_creates,      only: [:create]
   before_action :group_known,        only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
   before_action :user_matches,       only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]

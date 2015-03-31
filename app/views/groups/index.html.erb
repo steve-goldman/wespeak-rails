@@ -1,10 +1,7 @@
-<% provide(:title, "My Groups") %>
+<% provide(:title, "Create a Group") %>
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
-    <% if @user.can_create_groups %>
-      <%= render 'list_pending_groups' %>
-      <%= render 'create_group' %>
-    <% end %>
-    <%= render 'list_my_groups' %>
+    <%= render 'list_pending_groups' %>
+    <%= render 'create_group' %>
   </div>
 </div>
