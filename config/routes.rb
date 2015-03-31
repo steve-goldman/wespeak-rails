@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   
   # main profile pages
   get    'groups/:name',                       to: 'profiles#show'
-  get    'groups/:name/profile',               to: 'profiles#show'
+  get    'groups/:name/profile',               to: 'profiles#show',   as: :group_profile
   get    'groups/:name/profile/:state',        to: 'profiles#show',   as: :profile
 
   # support
