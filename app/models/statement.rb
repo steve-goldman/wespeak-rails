@@ -83,6 +83,9 @@ class Statement < ActiveRecord::Base
   def to_dead(now)
     update_attributes(state:           StatementStates[:dead],
                       expired_at:      now)
+
+    # email the author
+    UserMailer.dead_statement(user, self).deliver_later if user.user_notification.my_statement_dies
   end
 
   def to_voting(now)
@@ -92,6 +95,14 @@ class Statement < ActiveRecord::Base
                       yeses_needed:    group.yeses_needed_rule,
                       vote_began_at:   now,
                       vote_ends_at:    now + group.votespan_rule)
+
+    # email the active members
+    group.active_members.each do |active_member|
+      UserMailer.vote_begins(active_member.user, self).deliver_later if active_member.user.user_notification.vote_begins_active
+    end
+
+    # email the following users
+    # TODO
   end
 
   def yeses_count
@@ -112,6 +123,14 @@ class Statement < ActiveRecord::Base
                         vote_ended_at: now)
       group.statement_accepted self
     end
+
+    # email the active members
+    group.active_members.each do |active_member|
+      UserMailer.vote_ends(active_member.user, self).deliver_later if active_member.user.user_notification.vote_ends_active
+    end
+
+    # email the following users
+    # TODO
   end
 
   private
