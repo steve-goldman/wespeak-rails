@@ -63,6 +63,10 @@ Rails.application.routes.draw do
   post   'groups/:name/activate_membership',   to: 'profiles#activate_member',   as: :activate_membership
   delete 'groups/:name/deactivate_membership', to: 'profiles#deactivate_member', as: :deactivate_membership
 
+  # un/follow a group
+  post   'groups/:name/follow',                to: 'profiles#follow',    as: :follow
+  post   'groups/:name/unfollow',              to: 'profiles#unfollow',  as: :unfollow
+
   # for sending group invitations
   post   'groups/:name/sent_invitation',       to: 'sent_invitations#create', as: :sent_invitations
 

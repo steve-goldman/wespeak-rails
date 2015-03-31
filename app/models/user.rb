@@ -18,7 +18,9 @@ class User < ActiveRecord::Base
 
   has_many :sent_invitations, dependent: :destroy
 
-  has_one  :user_notification
+  has_one  :user_notification, dependent: :destroy
+
+  has_many :followers, dependent: :destroy
 
   # attr_accessors
 
@@ -105,6 +107,15 @@ class User < ActiveRecord::Base
 
   def primary_email
     email_addresses.find(primary_email_address_id).email
+  end
+
+  def follow(group)
+    followers.find_or_create_by(group_id: group.id)
+  end
+
+  def unfollow(group)
+    follower = followers.find_by(group_id: group.id)
+    follower.destroy if follower
   end
 
   private

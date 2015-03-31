@@ -8,6 +8,7 @@ class Group < ActiveRecord::Base
   has_many :statements, dependent: :destroy
   has_many :active_members, dependent: :destroy
   has_many :membership_histories, dependent: :destroy
+  has_many :followers, dependent: :destroy
 
   # after initialize section
 

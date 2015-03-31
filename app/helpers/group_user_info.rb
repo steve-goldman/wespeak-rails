@@ -97,6 +97,9 @@ class GroupUserInfo
     end
 
     MembershipHistory.create(user_id: @user.id, group_id: @group.id, active: true)
+
+    # automatically follow when user becomes active
+    @user.follow(@group)
   end
 
   def make_member_inactive(send_email = false)
@@ -108,6 +111,8 @@ class GroupUserInfo
     MembershipHistory.create(user_id: @user.id, group_id: @group.id, active: false)
 
     UserMailer.timed_out(@user, @group).deliver_later if send_email && @user.user_notification.timed_out
+
+    # do NOT automatically unfollow when user becomes inactive
   end
 
   private

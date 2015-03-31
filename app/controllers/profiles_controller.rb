@@ -2,6 +2,7 @@ class ProfilesController < GroupPagesControllerBase
 
   before_action :enforce_change_eligible, only: [:activate_member]
 
+  before_action :logged_in,        only: [:support, :unsupport, :vote_no, :vote_yes, :activate_member, :deactivate_member, :follow, :unfollow]
   before_action :statement_valid,  only: [:support, :unsupport, :vote_no, :vote_yes]
   before_action :statement_alive,  only: [:support, :unsupport]
   before_action :statement_voting, only: [:vote_no, :vote_yes]
@@ -70,7 +71,29 @@ class ProfilesController < GroupPagesControllerBase
     redirect_to request.referer
   end
 
+  def follow
+    @info.user.follow(@info.group)
+
+    respond_to do |format|
+      format.html { redirect_to request.referer || root_url }
+      format.js
+    end
+  end
+
+  def unfollow
+    @info.user.unfollow(@info.group)
+
+    respond_to do |format|
+      format.html { redirect_to request.referer || root_url }
+      format.js
+    end
+  end
+
   private
+
+  def logged_in
+    redirect_to root_url if @info.user.nil?
+  end
 
   def statement_valid
     @statement = Statement.find_by(id: params[:statement_id])
