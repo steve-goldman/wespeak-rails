@@ -1,5 +1,5 @@
-<%= form_for :unsupport, url: unsupport_path(@info.group.name), method: :delete, remote: true do |f| %>
-  <%= hidden_field_tag :statement_id, statement.id %>
-  <%= hidden_field_tag :state, @info.state %>
-  <%= f.submit "Unsupport", class: "btn" %>
-<% end %>
+<%= button_to "Unsupport!",
+    unsupport_path(@info.group.name),
+    params: { statement_id: statement.id },
+    class: "btn",
+    remote: true %>

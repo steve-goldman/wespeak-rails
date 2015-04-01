@@ -58,7 +58,7 @@ Rails.application.routes.draw do
 
   # support
   post   'groups/:name/support',               to: 'profiles#support',   as: :support
-  delete 'groups/:name/unsupport',             to: 'profiles#unsupport', as: :unsupport
+  post   'groups/:name/unsupport',             to: 'profiles#unsupport', as: :unsupport
 
   # votes
   post   'groups/:name/vote_no',               to: 'profiles#vote_no',   as: :vote_no
