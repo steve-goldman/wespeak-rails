@@ -9,6 +9,7 @@ class Group < ActiveRecord::Base
   has_many :active_members, dependent: :destroy
   has_many :membership_histories, dependent: :destroy
   has_many :followers, dependent: :destroy
+  has_many :pending_invitations, dependent: :destroy
 
   # after initialize section
 
@@ -165,13 +166,13 @@ class Group < ActiveRecord::Base
   end
 
   def send_invitation(email, send_notification = true)
-    email_address = EmailAddress.find_by(email: @email)
+    email_address = EmailAddress.find_by(email: email)
     if !email_address.nil?
       email_address.user.received_invitations.find_or_create_by(group_id: id)
       UserMailer.invited(email_address.user, self).deliver_later if send_notification && email_address.user.user_notification.when_invited
     else
-      # TODO: put this in the invitations pending signup table
-      UserMailer.invited_signup(@email, self).deliver_later if send_notification
+      pending_invitations.find_or_create_by(email: email)
+      UserMailer.invited_signup(email, self).deliver_later if send_notification
     end
   end
 

@@ -49,6 +49,9 @@ class EmailAddress < ActiveRecord::Base
 
   def activate
     update_attributes(activated: true, activated_at: Time.zone.now)
+    PendingInvitation.where(email: email).each do |pending_invitation|
+      user.received_invitations.find_or_create_by(group_id: pending_invitation.group_id)
+    end
   end
   
   private
