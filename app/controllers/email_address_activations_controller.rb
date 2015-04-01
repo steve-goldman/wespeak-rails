@@ -14,7 +14,7 @@ class EmailAddressActivationsController < ApplicationController
   end
 
   def update
-    @email_address.update_attributes({ activated: true, activated_at: Time.zone.now })
+    @email_address.activate
     log_in @email_address.user
     redirect_with_flash(FlashMessages::SUCCESS, settings_email_identities_path)
   end
