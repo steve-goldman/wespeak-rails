@@ -6,6 +6,7 @@ class SentInvitationsController < GroupPagesControllerBase
   before_action :invitation_creates,      only: [:create]
 
   def create
+    @info.make_member_active
     @info.group.send_invitation(@email)
     redirect_with_flash FlashMessages::INVITATION_SENT, request.referer || root_url
   end
