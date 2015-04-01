@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# no emails during seed
+ActionMailer::Base.delivery_method = :test
+
+
 group = Group.create!(name: "test_group")
 group.group_email_domains.create!(domain: "wespeakapp.com")
 group.group_email_domains.create!(domain: "gmail.com")
