@@ -14,5 +14,7 @@ class PendingInvitationTest < ActiveSupport::TestCase
     email_address.activate
 
     assert     user.new_invitations.exists?(group_id: group.id)
+
+    assert_equal 0, PendingInvitation.where(email: "stu@wespeakapp.com").count
   end
 end
