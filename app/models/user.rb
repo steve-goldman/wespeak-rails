@@ -120,6 +120,16 @@ class User < ActiveRecord::Base
     follower.destroy if follower
   end
 
+  def new_invitations
+    group_ids = "SELECT DISTINCT(group_id) FROM membership_histories WHERE user_id = :id"
+    received_invitations.where("group_id NOT IN (#{group_ids})", id: id)
+  end
+
+  def old_invitations
+    group_ids = "SELECT DISTINCT(group_id) FROM membership_histories WHERE user_id = :id"
+    received_invitations.where("group_id IN (#{group_ids})", id: id)
+  end
+
   private
 
   def init_user_notification

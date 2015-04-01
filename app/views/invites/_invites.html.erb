@@ -1,0 +1,6 @@
+<% invitations.each do |invitation| %>
+<tr>
+  <td><%= link_to invitation.group.name, group_profile_path(invitation.group.name) %></td>
+  <td>invited <%= time_ago_in_words(invitation.created_at) %> ago</td>
+</tr>
+<% end %>

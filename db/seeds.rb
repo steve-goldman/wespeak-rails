@@ -27,7 +27,10 @@ user.received_invitations.create!(group_id: group.id)
 
 group2 = user.groups_i_created.create!(name: "another_group", invitations: 5)
 group2.group_email_domains.create!(domain: "criterion.com")
+group2.group_email_domains.create!(domain: "gmail.com")
 group2.activate
+
+user.received_invitations.create!(group_id: group2.id)
 
 GroupUserInfo.new(group.name, nil, user).make_member_active
 

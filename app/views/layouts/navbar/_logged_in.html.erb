@@ -5,6 +5,13 @@
   <%= link_to "My Groups", my_groups_path %>
 </li>
 <li>
+  <% if current_user.new_invitations.any? %>
+    <%= link_to "Invitations (#{current_user.new_invitations.count})", invites_path %>
+  <% else %>
+    <%= link_to "Invitations", invites_path %>
+  <% end %>
+</li>
+<li>
   <% if current_user.can_create_groups %>
     <%= link_to "Create a Group", groups_path %>
   <% end %>

@@ -1,0 +1,27 @@
+<% provide(:title, "Invitations") %>
+<div class="row">
+  <div class="col-md-offset-3 col-md-6 col-xs-12">
+    <% if current_user.new_invitations.any? || current_user.old_invitations.any? %>
+    <table class="table">
+      <tbody>
+        <% if current_user.new_invitations.any? %>
+        <tr>
+          <td colspan="2">
+            <h4>New Invitations (<%= current_user.new_invitations.count %>)</h4>
+          </td>
+        </tr>
+        <%= render 'invites', invitations: current_user.new_invitations %>
+        <% end %>
+        <% if current_user.old_invitations.any? %>
+        <tr>
+          <td colspan="2">
+            <h4>Invitations (<%= current_user.old_invitations.count %>)</h4>
+          </td>
+        </tr>
+        <%= render 'invites', invitations: current_user.old_invitations %>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+  </div>
+</div>
