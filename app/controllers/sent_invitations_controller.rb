@@ -25,7 +25,7 @@ class SentInvitationsController < GroupPagesControllerBase
   end
 
   def invitation_creates
-    @email = params[:sent_invitations][:email]
+    @email = params[:sent_invitation][:email]
     invitation = @info.user.sent_invitations.create(group_id: @info.group.id, email: @email)
     redirect_with_validation_flash(invitation, request.referer || root_url) if !invitation.valid?
   end
