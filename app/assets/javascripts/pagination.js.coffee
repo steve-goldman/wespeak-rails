@@ -5,7 +5,7 @@ handler = ->
     $.getScript more_posts_url
   return
 
-$ ->
+$(document).on "page:change", ->
   if $('#infinite-scrolling').size() > 0
     $(document).on 'scroll', $(window), handler
   return
