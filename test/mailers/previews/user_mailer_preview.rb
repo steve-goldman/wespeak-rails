@@ -48,4 +48,16 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.timed_out(user, group)
   end
 
+  def invited
+    user = User.first
+    group = Group.first
+    UserMailer.invited(user, group)
+  end
+
+  def invited_signup
+    email = EmailAddress.first.email
+    group = Group.first
+    UserMailer.invited_signup(email, group)
+  end
+
 end

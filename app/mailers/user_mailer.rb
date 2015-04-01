@@ -51,4 +51,18 @@ class UserMailer < ApplicationMailer
 
     mail to: user.primary_email, subject: "WeSpeak: Your membership has expired in #{group.name}"
   end
+
+  def invited(user, group)
+    @user = user
+    @group = group
+
+    mail to: user.primary_email, subject: "WeSpeak: You have been invited to join #{group.name}"
+  end
+
+  def invited_signup(email, group)
+    @email = email
+    @group = group
+
+    mail to: email, subject: "WeSpeak: You have been invited to join #{group.name}"
+  end
 end
