@@ -2,9 +2,11 @@
   <%= @info.group.followers.count %> follower<%= @info.group.followers.count != 1 ? "s" : "" %>
 </div>
 <div>
-  <% if @info.group.followers.find_by(user_id: @info.user.id) %>
-    <%= link_to "Unfollow", unfollow_path(@info.group.name), method: :post, class: "btn btn-warning", remote: true %>
-  <% else %>
-    <%= link_to "Follow", follow_path(@info.group.name), method: :post, class: "btn btn-success", remote: true %>
+  <% if @info.user %>
+    <% if @info.group.followers.find_by(user_id: @info.user.id) %>
+      <%= link_to "Unfollow", unfollow_path(@info.group.name), method: :post, class: "btn btn-warning", remote: true %>
+    <% else %>
+      <%= link_to "Follow", follow_path(@info.group.name), method: :post, class: "btn btn-success", remote: true %>
+    <% end %>
   <% end %>
 </div>
