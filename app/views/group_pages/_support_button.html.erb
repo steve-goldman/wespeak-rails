@@ -1,5 +1,4 @@
-<%= button_to "Support!",
-    support_path(@info.group.name),
+<%= button_to "Support!", support_path(@info.group.name),
     params: { statement_id: statement.id },
     class: "btn btn-primary",
     remote: true %>
