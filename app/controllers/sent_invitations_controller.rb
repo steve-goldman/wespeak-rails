@@ -6,15 +6,7 @@ class SentInvitationsController < GroupPagesControllerBase
   before_action :invitation_creates,      only: [:create]
 
   def create
-    email_address = EmailAddress.find_by(email: @email)
-    if !email_address.nil?
-      email_address.user.received_invitations.find_or_create_by(group_id: @info.group.id)
-      UserMailer.invited(email_address.user, @info.group).deliver_later if email_address.user.user_notification.when_invited
-    else
-      # TODO: put this in the invitations pending signup table
-      UserMailer.invited_signup(@email, @info.group).deliver_later
-    end
-    
+    @info.group.send_invitation(@email)
     redirect_with_flash FlashMessages::INVITATION_SENT, request.referer || root_url
   end
 

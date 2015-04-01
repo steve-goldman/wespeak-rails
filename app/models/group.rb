@@ -164,6 +164,17 @@ class Group < ActiveRecord::Base
     options
   end
 
+  def send_invitation(email, send_notification = true)
+    email_address = EmailAddress.find_by(email: @email)
+    if !email_address.nil?
+      email_address.user.received_invitations.find_or_create_by(group_id: id)
+      UserMailer.invited(email_address.user, self).deliver_later if send_notification && email_address.user.user_notification.when_invited
+    else
+      # TODO: put this in the invitations pending signup table
+      UserMailer.invited_signup(@email, self).deliver_later if send_notification
+    end
+  end
+
   private
 
   def set_rules_to_defaults
