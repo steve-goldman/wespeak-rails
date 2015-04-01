@@ -5,8 +5,8 @@ ActionMailer::Base.delivery_method = :test
 # helper methods
 #
 
-def create_group(name, activate: true, domains: [], invitations: Invitations::NOT_REQUIRED)
-  group = Group.create!(name: name, invitations: invitations)
+def create_group(name, activate: true, domains: [], invitations: Invitations::NOT_REQUIRED, votespan_rule: 15.minutes.to_i)
+  group = Group.create!(name: name, invitations: invitations, votespan_rule: votespan_rule)
   group.activate if activate
   domains.each { |domain| group.group_email_domains.create!(domain: domain) }
   group
