@@ -6,31 +6,29 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+group = Group.create!(name: "test_group")
+group.group_email_domains.create!(domain: "wespeakapp.com")
+group.group_email_domains.create!(domain: "gmail.com")
+group.activate
+group.send_invitation("steve@wespeakapp.com", false)
+
 # steve always has an account
 user = User.create!(name:                  "discgolfstu",
                     password:              "foobar",
                     password_confirmation: "foobar",
                     can_create_groups:     true)
 
-primary_email_address = user.email_addresses.create!(email: "steve.goldman@gmail.com", domain: "gmail.com", activated: true, activated_at: Time.zone.now)
-user.email_addresses.create!(email: "steve@wespeakapp.com", domain: "wespeakapp.com", activated: true, activated_at: Time.zone.now)
-user.email_addresses.create!(email: "stu@wespeakapp.com",   domain: "wespeakapp.com", activated: false)
+primary_email_address = user.email_addresses.create!(email: "steve.goldman@gmail.com", domain: "gmail.com", activated_at: Time.zone.now)
+primary_email_address.activate
+email_address = user.email_addresses.create!(email: "steve@wespeakapp.com", domain: "wespeakapp.com", activated_at: Time.zone.now)
+email_address.activate
 
 user.update_attribute(:primary_email_address_id, primary_email_address.id)
-
-group = user.groups_i_created.create!(name: "test_group")
-group.group_email_domains.create!(domain: "wespeakapp.com")
-group.group_email_domains.create!(domain: "gmail.com")
-group.activate
-
-user.received_invitations.create!(group_id: group.id)
 
 group2 = user.groups_i_created.create!(name: "another_group", invitations: 5)
 group2.group_email_domains.create!(domain: "criterion.com")
 group2.group_email_domains.create!(domain: "gmail.com")
 group2.activate
-
-user.received_invitations.create!(group_id: group2.id)
 
 GroupUserInfo.new(group.name, nil, user).make_member_active
 
