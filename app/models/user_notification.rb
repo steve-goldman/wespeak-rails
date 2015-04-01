@@ -1,7 +1,7 @@
 class UserNotification < ActiveRecord::Base
   belongs_to :user
 
-  after_initialize :set_defaults
+  before_save :set_defaults
 
   private
 
@@ -15,5 +15,7 @@ class UserNotification < ActiveRecord::Base
     self.my_statement_dies     = false if my_statement_dies.nil?
     self.about_to_timeout      = true  if about_to_timeout.nil?
     self.timed_out             = true  if timed_out.nil?
+    self.when_invited          = true  if when_invited.nil?
+    nil
   end
 end

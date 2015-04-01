@@ -32,7 +32,8 @@ class Settings::NotificationsController < ApplicationController
                                               :vote_receipt,
                                               :my_statement_dies,
                                               :about_to_timeout,
-                                              :timed_out)
+                                              :timed_out,
+                                              :when_invited)
   end
   
 end

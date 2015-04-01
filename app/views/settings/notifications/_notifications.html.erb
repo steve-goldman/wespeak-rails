@@ -37,6 +37,10 @@
           <td><%= f.check_box :my_statement_dies %></td>
           <td>A statement you submitted dies due to not enough support.</td>
         </tr>
+        <tr>
+          <td><%= f.check_box :when_invited %></td>
+          <td>You are invited to join a group.</td>
+        </tr>
       </tbody>
     </table>
     <%= f.submit "Save", class: "btn btn-primary" %>
