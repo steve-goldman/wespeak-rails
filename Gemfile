@@ -6,6 +6,7 @@ gem 'bcrypt',               '3.1.7'
 gem 'will_paginate',        '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'whenever',             '0.9.4', :require => false
+gem 'dropzonejs-rails',     '0.7.0'
 gem 'carrierwave',          '0.10.0'
 gem 'sass-rails',           '5.0.1'
 gem 'uglifier',             '2.5.3'
