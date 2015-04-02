@@ -55,6 +55,9 @@ module GroupsHelper
     UPDATE_NOT_PRESENT = ValidationMessage.new("Please write an update")
     UPDATE_TOO_LONG    = ValidationMessage.new("Please limit the length to #{Lengths::UPDATE_MAX} characters")
 
+    IMAGE_NOT_PRESENT = ValidationMessage.new("Please choose an image file")
+    IMAGE_TOO_LARGE   = ValidationMessage.new("Please choose a file smaller than #{Sizes::IMAGE_FILE_MAX} bytes")
+
     STATEMENT_ID_NOT_PRESENT = ValidationMessage.new("Something went wrong: no statement id")
   end
 end

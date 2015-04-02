@@ -11,6 +11,10 @@ module Constants
     UPDATE_MAX       = 1000
   end
 
+  class Sizes
+    IMAGE_FILE_MAX = 5.megabytes
+  end
+
   class Regex
     EMAIL = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
     EMAIL_DOMAIN = /\A[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i

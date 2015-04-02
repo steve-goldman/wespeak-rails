@@ -13,7 +13,7 @@ class StatementTypes
 
     # data
     cover_photo:               3001,
-    profile_photo:             3002,
+    profile_image:             3002,
     tagline:                   3003,
     photo:                     3004,
     update:                    3005,
@@ -24,7 +24,7 @@ class StatementTypes
     1007 => :invitation,
     2001 => :rule,
     3001 => :cover_photo,
-    3002 => :profile_photo,
+    3002 => :profile_image,
     3003 => :tagline,
     3004 => :photo,
     3005 => :update
@@ -35,7 +35,7 @@ class StatementTypes
     invitation:                Invitation,
     rule:                      Rule,
     cover_photo:               nil,
-    profile_photo:             nil,
+    profile_image:             ProfileImage,
     tagline:                   Tagline,
     photo:                     nil,
     update:                    Update,
@@ -54,7 +54,7 @@ class StatementTypes
     
     # data
     3001 => "Cover Photo",
-    3002 => "Profile Photo",
+    3002 => "Profile Image",
     3003 => "Tagline",
     3004 => "Photo",
     3005 => "Update",

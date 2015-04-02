@@ -39,5 +39,11 @@
         link_to("Email Addresses (#{@info.group.get_count(@info.state, :group_email_domain_change)})",
         group_email_domain_changes_path(@info.group.name, @info.state)),
         class: active_tab == :group_email_domain_changes  ? "active" : "inactive") %>
+
+    <%= content_tag(
+        :li,
+        link_to("Profile Images (#{@info.group.get_count(@info.state, :profile_image)})",
+        profile_images_path(@info.group.name, @info.state)),
+        class: active_tab == :profile_images  ? "active" : "inactive") %>
   </ul>
 </div>

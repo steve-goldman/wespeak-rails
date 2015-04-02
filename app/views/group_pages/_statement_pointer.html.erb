@@ -3,3 +3,4 @@
 <%= render('rules/show',                      rule:                      statement_pointer[:content]) if statement_pointer[:statement_type] == :rule                      %>
 <%= render('invitations/show',                invitation:                statement_pointer[:content]) if statement_pointer[:statement_type] == :invitation                %>
 <%= render('group_email_domain_changes/show', group_email_domain_change: statement_pointer[:content]) if statement_pointer[:statement_type] == :group_email_domain_change %>
+<%= render('profile_images/show',             profile_image:             statement_pointer[:content]) if statement_pointer[:statement_type] == :profile_image             %>
