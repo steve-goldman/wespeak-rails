@@ -8,6 +8,8 @@ gem 'bootstrap-will_paginate', '0.0.10'
 gem 'whenever',             '0.9.4', :require => false
 gem 'dropzonejs-rails',     '0.7.0'
 gem 'carrierwave',          '0.10.0'
+gem 'mini_magick',          '3.8.0'
+gem 'fog',                  '1.23.0'
 gem 'sass-rails',           '5.0.1'
 gem 'uglifier',             '2.5.3'
 gem 'coffee-rails',         '4.1.0'
