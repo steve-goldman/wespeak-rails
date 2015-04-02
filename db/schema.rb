@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401212931) do
+ActiveRecord::Schema.define(version: 20150402210103) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20150401212931) do
     t.integer  "initial_invitations"
     t.text     "tagline"
     t.datetime "invitations_required_since"
+    t.string   "profile_image"
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name"

@@ -11,6 +11,11 @@ class Group < ActiveRecord::Base
   has_many :followers, dependent: :destroy
   has_many :pending_invitations, dependent: :destroy
 
+
+  # the profile image
+  mount_uploader :profile_image, ImageUploader
+
+  
   # after initialize section
 
   after_initialize :set_rules_to_defaults
@@ -125,6 +130,8 @@ class Group < ActiveRecord::Base
       update_attributes(tagline: statement.get_tagline.tagline)
     elsif statement.statement_type == StatementTypes[:invitation]
       update_attributes(invitations: statement.get_invitation.invitations)
+    elsif statement.statement_type == StatementTypes[:profile_image]
+      update_attributes(profile_image: statement.get_profile_image.image)
     elsif statement.statement_type == StatementTypes[:rule]
       rule = statement.get_rule
       if rule.rule_type == RuleTypes[:lifespan]
@@ -152,7 +159,6 @@ class Group < ActiveRecord::Base
     end
 
     # TODO:
-    #   profile photo
     #   facebook
     #   locations
   end

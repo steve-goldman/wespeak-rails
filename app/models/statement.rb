@@ -38,6 +38,10 @@ class Statement < ActiveRecord::Base
     GroupEmailDomainChange.find_by(statement_id: id)
   end
 
+  def get_profile_image
+    ProfileImage.find_by(statement_id: id)
+  end
+
   def user_supports?(user)
     supports.exists?(user_id: user.id)
   end
