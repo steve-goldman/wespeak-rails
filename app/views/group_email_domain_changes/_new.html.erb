@@ -1,32 +1,28 @@
 <div class="new-group_email_domain_change">
-  <h4>Email Address Proposal</h4>
-
   <div class="row">
     <div class="col-md-6 col-xs-12">
-      <table class="table">
+      <p>
         <%= form_for(:add_group_email_domain, url: add_group_email_domain_change_path(@info.group.name)) do |f| %>
-        <tr>
-          <td><%= f.label :add_domain, "Add an Email Address Domain" %></td>
-          <td><%= f.text_field :domain, placeholder: "Email Domain", class: "form-control" %></td>
-          <td><%= f.submit "Propose", class: "btn btn-primary" %></td>
-        </tr>
+        <div><%= f.label :add_domain, "Add an Email Address Domain" %></div>
+        <div><%= f.text_field :domain, placeholder: "Email Domain", class: "form-control" %></div>
+        <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
         <% end %>
+      </p>
 
+      <p>
         <%= form_for(:rem_group_email_domain, url: rem_group_email_domain_change_path(@info.group.name)) do |f| %>
-        <tr>
-          <td><%= f.label :remove_domain, "Remove an Email Address Domain" %></td>
-          <td><%= f.select(:domain_id, options_for_select(@info.group.email_domain_input_options), class: "form-control") %></td>
-          <td><%= f.submit "Propose", class: "btn btn-primary" %></td>
-        </tr>
+        <div><%= f.label :remove_domain, "Remove an Email Address Domain" %></div>
+        <div><%= f.select(:domain_id, options_for_select(@info.group.email_domain_input_options), class: "form-control") %></div>
+        <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
         <% end %>
+      </p>
 
+      <p>
         <%= form_for(:rem_all_group_email_domains, url: rem_all_group_email_domains_change_path(@info.group.name)) do |f| %>
-        <tr>
-          <td colspan="2"><%= f.label :remove_all_domains, "Remove all Email Address Domains" %></td>
-          <td><%= f.submit "Propose", class: "btn btn-primary" %></td>
-        </tr>
+        <div><%= f.label :remove_domain, "Remove all Email Address Domains" %></div>
+        <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
         <% end %>
-      </table>
+      </p>
     </div>
   </div>
 </div>

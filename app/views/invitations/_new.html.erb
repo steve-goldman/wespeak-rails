@@ -1,13 +1,11 @@
 <div class="new-invitation">
-  <%= form_for :invitation, url: create_invitation_path(@info.group.name), method: :post, remote: true do |f| %>
-
-  <h4>Invitation Proposal</h4>
   <div class="row">
     <div class="col-md-6 col-xs-12">
-      <%= f.label :invitations, "Invitations" %>
-      <%= f.select(:invitations, options_for_select(Constants::Invitations::INPUT_OPTIONS, @info.group.invitations), class: "form-control") %>
+      <%= form_for :invitation, url: create_invitation_path(@info.group.name), method: :post, remote: true do |f| %>
+      <div><%= f.label :invitations, "Invitations" %></div>
+      <div><%= f.select(:invitations, options_for_select(Constants::Invitations::INPUT_OPTIONS, @info.group.invitations), class: "form-control") %></div>
+      <div><%= f.submit "Propose", class:"btn btn-primary" %></div>
+      <% end %>
     </div>
   </div>
-  <%= f.submit "Propose", class:"btn btn-primary" %>
-  <% end %>
 </div>
