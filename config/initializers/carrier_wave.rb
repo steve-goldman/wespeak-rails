@@ -3,7 +3,7 @@ if Rails.env.production?
     config.storage    = :aws
     config.aws_bucket = ENV['S3_BUCKET']
     config.aws_acl    = :public_read
-    config.asset_host = 'http://example.com'
+    config.asset_host = 'https://s3.amazonaws.com/wespeak'
     config.aws_authenticated_url_expiration = 60 * 60 * 24 * 365
 
     config.aws_credentials = {
