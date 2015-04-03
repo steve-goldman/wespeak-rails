@@ -77,6 +77,10 @@ class StatementTypes
     @type_names[value]
   end
 
+  def StatementTypes.name_from_sym(sym)
+    @type_names[@statement_types[sym]]
+  end
+
   def StatementTypes.sym(value)
     @type_syms[value]
   end

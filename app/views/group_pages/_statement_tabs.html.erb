@@ -10,40 +10,14 @@
         profile_path(@info.group.name, @info.state)),
         class: active_tab == :all ? "active" : "inactive") %>
 
+    <% [:taglines, :updates, :rules, :invitations, :group_email_domain_changes, :profile_images].each do |type_p| %>
+    <% type_s = type_p.to_s.singularize.to_sym %>
     <%= content_tag(
         :li,
-        link_to("Taglines (#{@info.group.get_count(@info.state, :tagline)})",
-        taglines_path(@info.group.name, @info.state)),
-        class: active_tab == :taglines ? "active" : "inactive") %>
-    
-    <%= content_tag(
-        :li,
-        link_to("Updates (#{@info.group.get_count(@info.state, :update)})",
-        updates_path(@info.group.name, @info.state)),
-        class: active_tab == :updates  ? "active" : "inactive") %>
+        link_to("#{StatementTypes.name_from_sym(type_s)} (#{@info.group.get_count(@info.state, type_s)})",
+        send("#{type_p}_path", @info.group.name, @info.state)),
+        class: active_tab == type_p ? "active" : "inactive") %>
+    <% end %>
 
-    <%= content_tag(
-        :li,
-        link_to("Rules (#{@info.group.get_count(@info.state, :rule)})",
-        rules_path(@info.group.name, @info.state)),
-        class: active_tab == :rules  ? "active" : "inactive") %>
-
-    <%= content_tag(
-        :li,
-        link_to("Invitations (#{@info.group.get_count(@info.state, :invitation)})",
-        invitations_path(@info.group.name, @info.state)),
-        class: active_tab == :invitations  ? "active" : "inactive") %>
-
-    <%= content_tag(
-        :li,
-        link_to("Email Addresses (#{@info.group.get_count(@info.state, :group_email_domain_change)})",
-        group_email_domain_changes_path(@info.group.name, @info.state)),
-        class: active_tab == :group_email_domain_changes  ? "active" : "inactive") %>
-
-    <%= content_tag(
-        :li,
-        link_to("Profile Images (#{@info.group.get_count(@info.state, :profile_image)})",
-        profile_images_path(@info.group.name, @info.state)),
-        class: active_tab == :profile_images  ? "active" : "inactive") %>
   </ul>
 </div>
