@@ -1,7 +1,16 @@
 <% @statement_pointers.each do |statement_pointer| %>
 <tr>
   <td>
-    <%= render 'group_pages/statement_pointer', statement_pointer: statement_pointer %>
+    <div class="row">
+      <div class="col-md-6 col-xs-12">
+        <%= render('group_pages/statement_stats', statement: statement_pointer[:content].statement) %>
+      </div>
+      <div class="col-md-6 col-xs-12">
+        <div class="statement">
+          <%= render 'group_pages/statement_pointer', statement_pointer: statement_pointer %>
+        </div>
+      </div>
+    </div>
   </td>
 </tr>
 <% end %>

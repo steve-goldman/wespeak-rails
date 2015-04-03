@@ -1,28 +1,18 @@
-<div class="row">
-  <div class="col-md-6 col-xs-12">
-    <%= render('group_pages/statement_stats', statement: statement.statement) %>
-  </div>
-  <div class="col-md-6 col-xs-12">
-    <div class="statement">
-      <p class="invitations">
-        Change invitations to
-        <% if statement.invitations == Constants::Invitations::NOT_REQUIRED %>
-          not required.
-        <% else %>
-          <%= statement.invitations %> per day.
-        <% end %>
-      </p>
-      <% if @info.state == :alive || @info.state == :voting %>
-      <p class="current-invitations"
-         The current setting is
-        <% if @info.group.invitations == Constants::Invitations::NOT_REQUIRED %>
-          not required.
-        <% else %>
-          <%= @info.group.invitations %> per day.
-        <% end %>
-      </p>
-      <% end %>
-      </span>
-    </div>
-  </div>
-</div>
+<p class="invitations">
+  Change invitations to
+  <% if statement.invitations == Constants::Invitations::NOT_REQUIRED %>
+    not required.
+  <% else %>
+    <%= statement.invitations %> per day.
+  <% end %>
+</p>
+<% if @info.state == :alive || @info.state == :voting %>
+<p class="current-invitations"
+   The current setting is
+   <% if @info.group.invitations == Constants::Invitations::NOT_REQUIRED %>
+     not required.
+   <% else %>
+     <%= @info.group.invitations %> per day.
+   <% end %>
+</p>
+<% end %>

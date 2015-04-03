@@ -1,7 +1,16 @@
 <% @statements.each do |statement| %>
 <tr>
   <td>
-    <%= render "#{statement.statement.statement_tab}/show", statement: statement %>
+    <div class="row">
+      <div class="col-md-6 col-xs-12">
+        <%= render('group_pages/statement_stats', statement: statement.statement) %>
+      </div>
+      <div class="col-md-6 col-xs-12">
+        <div class="statement">
+          <%= render "#{statement.statement.statement_tab}/show", statement: statement %>
+        </div>
+      </div>
+    </div>
   </td>
 </tr>
 <% end %>
