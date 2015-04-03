@@ -24,7 +24,7 @@ class ProfileImagesController < GroupPagesControllerBase
 
   def index
     respond_to do |format|
-      format.html
+      format.html { @statement_tab = :profile_images and render 'group_pages/index' }
       format.js { render 'group_pages/show_tabs' if params[:page].nil? }
     end
   end

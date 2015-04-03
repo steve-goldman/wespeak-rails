@@ -49,7 +49,7 @@ class GroupEmailDomainChangesController < GroupPagesControllerBase
 
   def index
     respond_to do |format|
-      format.html
+      format.html { @statement_tab = :group_email_domain_changes and render 'group_pages/index' }
       format.js { render 'group_pages/show_tabs' if params[:page].nil? }
     end
   end
