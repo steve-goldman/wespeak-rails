@@ -1,0 +1,19 @@
+<% if @info.support_eligible?(statement) %>
+<div id="support-button-<%= statement.id %>">
+  <% if statement.user_supports?(@info.user) %>
+    <%= render 'group_pages/unsupport_button', statement: statement %>
+  <% else %>
+    <%= render 'group_pages/support_button', statement: statement %>
+  <% end %>
+</div>
+<% else %>
+<ul align="center">
+  <li>
+    <% if @info.user %>
+      Not eligible to support
+    <% else %>
+      Log in to support this statement
+    <% end %>
+  </li>
+</ul>
+<% end %>

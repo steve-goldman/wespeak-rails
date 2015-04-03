@@ -1,0 +1,15 @@
+<% if @info.vote_eligible?(statement) %>
+<div id="vote-buttons-<%= statement.id %>">
+  <%= render 'group_pages/vote_buttons', statement: statement %>
+</div>
+<% else %>
+<ul align="center">
+  <li>
+    <% if @info.user %>
+      Not eligible to vote
+    <% else %>
+      Log in to vote for this statement
+    <% end %>
+  </li>
+</ul>
+<% end %>
