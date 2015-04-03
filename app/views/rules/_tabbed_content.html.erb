@@ -1,5 +1,0 @@
-<%= render 'group_pages/statement_tabs', active_tab: :rules %>
-<% if @info.state == :alive && @info.change_eligible? %>
-  <%= render 'rules/new' %>
-<% end %>
-<%= render 'rules/index' %>

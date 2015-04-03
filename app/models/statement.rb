@@ -137,6 +137,10 @@ class Statement < ActiveRecord::Base
     # TODO
   end
 
+  def statement_tab
+    StatementTypes.sym(statement_type).to_s.pluralize
+  end
+
   private
 
   def valid_statement_type
