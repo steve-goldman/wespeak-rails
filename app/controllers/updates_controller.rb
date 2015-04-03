@@ -24,7 +24,7 @@ class UpdatesController < GroupPagesControllerBase
   def index
     respond_to do |format|
       format.html { @statement_tab = :updates and render 'group_pages/index' }
-      format.js { render 'group_pages/show_tabs' if params[:page].nil? }
+      format.js   { render params[:page].nil? ? 'group_pages/show_tabs' : 'group_pages/show_next_page' }
     end
   end
 

@@ -1,6 +1,6 @@
-<%= render('taglines/show',                   tagline:                   statement_pointer[:content]) if statement_pointer[:statement_type] == :tagline                   %>
-<%= render('updates/show',                    update:                    statement_pointer[:content]) if statement_pointer[:statement_type] == :update                    %>
-<%= render('rules/show',                      rule:                      statement_pointer[:content]) if statement_pointer[:statement_type] == :rule                      %>
-<%= render('invitations/show',                invitation:                statement_pointer[:content]) if statement_pointer[:statement_type] == :invitation                %>
-<%= render('group_email_domain_changes/show', group_email_domain_change: statement_pointer[:content]) if statement_pointer[:statement_type] == :group_email_domain_change %>
-<%= render('profile_images/show',             profile_image:             statement_pointer[:content]) if statement_pointer[:statement_type] == :profile_image             %>
+<%= render('taglines/show',                   statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :tagline                   %>
+<%= render('updates/show',                    statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :update                    %>
+<%= render('rules/show',                      statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :rule                      %>
+<%= render('invitations/show',                statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :invitation                %>
+<%= render('group_email_domain_changes/show', statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :group_email_domain_change %>
+<%= render('profile_images/show',             statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :profile_image             %>
