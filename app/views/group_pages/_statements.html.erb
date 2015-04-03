@@ -1,0 +1,7 @@
+<% @statements.each do |statement| %>
+<tr>
+  <td>
+    <%= render "#{statement.statement.statement_tab}/show", statement: statement %>
+  </td>
+</tr>
+<% end %>

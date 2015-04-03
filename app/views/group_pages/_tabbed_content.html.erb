@@ -2,4 +2,4 @@
 <% if @info.state == :alive && @info.change_eligible? %>
   <%= render "#{@statement_tab}/new" %>
 <% end %>
-<%= render "#{@statement_tab}/index" %>
+<%= render "group_pages/statements_list" %>
