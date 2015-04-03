@@ -2,13 +2,6 @@
 
 <div class="group-tabs">
   <ul class="nav nav-pills">
-    <% [:accepted, :rejected, :voting, :alive, :dead].each do |state| %>
-    <%= content_tag(:li,
-        link_to("#{state.to_s.capitalize} (#{@info.group.state_count(state)})",
-        profile_path(@info.group.name, state)),
-        class: @info.state == state ? "active" : "inactive") %>
-    <% end %>
-
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
         <%= active_tab == :all ? "All" : StatementTypes.name_from_sym(active_tab.to_s.singularize.to_sym).pluralize %>
@@ -28,12 +21,21 @@
         <li>
           <%= content_tag(
               :li,
-              link_to("#{StatementTypes.name_from_sym(type_s).pluralize} (#{@info.group.get_count(@info.state, type_s)})",
+              link_to("#{StatementTypes.name_from_sym(type_s).pluralize}",
               send("#{type_p}_path", @info.group.name, @info.state)),
               class: active_tab == type_p ? "active" : "inactive") %>
         </li>
         <% end %>
       </ul>
     </li>
+
+    <% [:accepted, :rejected, :voting, :alive, :dead].each do |state| %>
+    <% count = @info.group.get_count(state, active_tab == :all ? nil : active_tab.to_s.singularize.to_sym) %>
+    <%= content_tag(:li,
+        link_to("#{state.to_s.capitalize} (#{count})",
+        active_tab == :all ? profile_path(@info.group.name, state) : send("#{active_tab}_path", @info.group.name, state)),
+        class: @info.state == state ? "active" : "inactive") %>
+    <% end %>
+
   </ul>
 </div>

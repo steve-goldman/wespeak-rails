@@ -141,10 +141,6 @@ class Statement < ActiveRecord::Base
     StatementTypes.sym(statement_type).to_s.pluralize
   end
 
-  def Statement.state_count(group, state)
-    Statement.where(group_id: group.id, state: StatementStates[state]).count
-  end
-
   private
 
   def valid_statement_type
