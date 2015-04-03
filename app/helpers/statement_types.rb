@@ -48,7 +48,8 @@ class StatementTypes
     1004 => "rem_facebook_filter",
     1005 => "add_location_filter",
     1006 => "rem_location_filter",
-
+    1007 => "Invitation Change",
+    
     # rules
     2001 => "Rule Change",
     
