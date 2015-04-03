@@ -2,7 +2,16 @@
   <ul class="nav nav-tabs">
     <%= render 'group_pages/profile_header' %>
 
-    <%= render 'group_pages/group_tabs' %>
+    <div class="group-tabs">
+      <ul class="nav nav-pills">
+        <% [:accepted, :rejected, :voting, :alive, :dead].each do |state| %>
+        <%= content_tag(:li,
+            link_to("#{state.to_s.capitalize} (#{@info.group.state_count(state)})",
+            profile_path(@info.group.name, state)),
+            class: @info.state == state ? "active" : "inactive") %>
+        <% end %>
+      </ul>
+    </div>
 
     <%= content_tag(
         :li,
