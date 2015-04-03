@@ -1,7 +1,5 @@
-<div class="statement-stats">
-  <%= render('group_pages/alive_stats',    statement: statement) if statement.state == StatementStates[:alive]    %>
-  <%= render('group_pages/dead_stats',     statement: statement) if statement.state == StatementStates[:dead]     %>
-  <%= render('group_pages/voting_stats',   statement: statement) if statement.state == StatementStates[:voting]   %>
-  <%= render('group_pages/rejected_stats', statement: statement) if statement.state == StatementStates[:rejected] %>
-  <%= render('group_pages/accepted_stats', statement: statement) if statement.state == StatementStates[:accepted] %>
-</div>
+<%= render("group_pages/alive_stats_#{section}",    statement: statement) if statement.state == StatementStates[:alive]    %>
+<%= render("group_pages/dead_stats_#{section}",     statement: statement) if statement.state == StatementStates[:dead]     %>
+<%= render("group_pages/voting_stats_#{section}",   statement: statement) if statement.state == StatementStates[:voting]   %>
+<%= render("group_pages/rejected_stats_#{section}", statement: statement) if statement.state == StatementStates[:rejected] %>
+<%= render("group_pages/rejected_stats_#{section}", statement: statement) if statement.state == StatementStates[:accepted] %>

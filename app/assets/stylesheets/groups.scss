@@ -92,26 +92,48 @@
     font-style: italic;
 }
 
-.statement-stats {
-    form {
-        border: 0px;
-    }
+.statement {
+    margin-top: 10px;
+    margin-bottom: 10px;
     
-    table {
+    .tagline, .update, .rule, .current-rule, .group-email-domain-change, .invitations {
+        display: block;
         text-align: center;
+        font-size: large;
+        font-style: italic;
     }
 
-    font-weight: bold;
-
-    .value {
-        font-family: monospace;
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
-.statement {
-    .tagline, .update, .rule, .current-rule, .group-email-domain-change {
-        font-size: large;
-        font-style: italic;
+.statement-header, .statement-footer, .statement-stats {
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #dddddd;
+    }
+    
+    li {
+        display: inline;
+        font-size: small;
+        font-weight: bold;
+        text-align: center;
+        font-family: monospace;
+        margin: 2%;
+    }
+
+    form {
+        border: 0px;
+        padding: 0px;
+        margin: 0px auto;
+        width: 250px;
+        text-align: center;
     }
 }
 

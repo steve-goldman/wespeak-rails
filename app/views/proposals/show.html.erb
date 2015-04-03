@@ -4,9 +4,16 @@
     <%= render 'group_pages/left_header' %>
   </div>
   <div class="col-md-9 col-xs-12">
-    <div id="tabbed-content">
-      <p><%= link_to "Back to #{@info.group.name}", group_profile_path(@info.group.name) %>
+    <p><%= link_to "Back to #{@info.group.name}", group_profile_path(@info.group.name) %>
+    <% statement = @statement_pointer[:content].statement %>
+    <div class="statement-header">
+      <%= render('group_pages/statement_stats', section: :header, statement: statement) %>
+    </div>
+    <div class="statement">
       <%= render 'group_pages/statement_pointer', statement_pointer: @statement_pointer %>
+    </div>
+    <div class="statement-footer">
+      <%= render('group_pages/statement_stats', section: :footer, statement: statement) %>
     </div>
   </div>
 </div>
