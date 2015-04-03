@@ -109,6 +109,10 @@ class Group < ActiveRecord::Base
                                                                                         state:          StatementStates[state]).order(order)
   end
 
+  def state_count(state)
+    Statement.state_count(self, state)
+  end
+
   def invitations_required?
     invitations != Invitations::NOT_REQUIRED
   end
