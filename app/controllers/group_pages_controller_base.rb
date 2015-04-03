@@ -23,6 +23,7 @@ class GroupPagesControllerBase < ApplicationController
 
   def get_of_type(type, state)
     @statements = @info.group.get_of_type(type, state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+    @statement_tab = type.to_s.pluralize.to_sym
   end
 
   def statement_creates(statement_type)
