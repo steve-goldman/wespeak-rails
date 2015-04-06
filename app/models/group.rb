@@ -189,7 +189,11 @@ class Group < ActiveRecord::Base
   end
 
   def map_zoom
-    zoom = [12, (15 - Math.log2(radius / 100)).to_i].min
+    if radius < 1
+      12
+    else
+      [12, (13 - Math.log2(radius)).to_i].min
+    end
   end
 
   def static_map_url

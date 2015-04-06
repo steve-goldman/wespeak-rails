@@ -49,6 +49,21 @@ module Constants
     ]
   end
 
+  class Locations
+    INPUT_OPTIONS = [
+      ["1 mile",     1],
+      ["5 miles",    5],
+      ["10 miles",   10],
+      ["50 miles",   50],
+      ["100 miles",  100],
+      ["200 miles",  200],
+      ["500 miles",  500],
+      ["1000 miles", 1000],
+      ["2000 miles", 2000],
+      ["5000 miles", 5000],
+    ]
+  end
+
   class Timespans
     INPUT_OPTIONS = [
       ["15 minutes", 15.minutes.to_i],

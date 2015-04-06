@@ -8,8 +8,8 @@
 <%= f.label :latitude, "Longitude" %>
 <%= f.text_field :longitude, placeholder: "Longitude", class: "form-control" %>
 
-<%= f.label :radius, "Radius (meters)" %>
-<%= f.text_field :radius, placeholder: "Radius", class: "form-control" %>
+<%= f.label :radius, "Radius (miles)" %>
+<%= f.select(:radius, options_for_select(Constants::Locations::INPUT_OPTIONS, @group.radius), class: "form-control") %>
 
 <%= f.submit "Save", class: "btn btn-primary" %>
 <% end %>
