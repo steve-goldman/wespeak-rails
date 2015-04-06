@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402210103) do
+ActiveRecord::Schema.define(version: 20150406002013) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -92,6 +92,9 @@ ActiveRecord::Schema.define(version: 20150402210103) do
     t.text     "tagline"
     t.datetime "invitations_required_since"
     t.string   "profile_image"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "radius"
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name"

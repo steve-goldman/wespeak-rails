@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   delete 'groups/:group_id/configure/email/:id', to: 'group_email_domains#destroy', as: :destroy_group_email_domain
   patch  'groups/:id',                           to: 'groups#update',               as: :update_group
   patch  'groups/:id/update_invitations',        to: 'groups#update_invitations',   as: :update_invitations_group
+  patch  'groups/:id/update_locations',          to: 'groups#update_locations',     as: :update_locations_group
   get    'groups/:id/ready_to_activate',         to: 'groups#ready_to_activate',    as: :ready_to_activate_group
   post   'groups/:id/activate',                  to: 'groups#activate',             as: :activate_group
   delete 'groups/:id',                           to: 'groups#destroy',              as: :destroy_group

@@ -2,14 +2,15 @@ class GroupsController < ApplicationController
 
   include GroupsHelper
 
-  before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :destroy, :create, :ready_to_activate, :activate]
-  before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :destroy, :create, :ready_to_activate, :activate]
+  before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :update_locations, :destroy, :create, :ready_to_activate, :activate]
+  before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :update_locations, :destroy, :create, :ready_to_activate, :activate]
   before_action :group_creates,      only: [:create]
-  before_action :group_known,        only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
-  before_action :user_matches,       only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
-  before_action :group_not_active,   only: [:edit, :update, :update_invitations, :destroy, :ready_to_activate, :activate]
+  before_action :group_known,        only: [:edit, :update, :update_invitations, :update_locations, :destroy, :ready_to_activate, :activate]
+  before_action :user_matches,       only: [:edit, :update, :update_invitations, :update_locations, :destroy, :ready_to_activate, :activate]
+  before_action :group_not_active,   only: [:edit, :update, :update_invitations, :update_locations, :destroy, :ready_to_activate, :activate]
   before_action :rules_update,       only: [:update]
   before_action :invitations_update, only: [:update_invitations]
+  before_action :locations_update,   only: [:update_locations]
 
   def index
     @groups_pending = Group.where(user_id: @user.id, active: false)
@@ -35,6 +36,10 @@ class GroupsController < ApplicationController
 
   def update_invitations
     redirect_with_flash(FlashMessages::UPDATE_INVITATIONS_SUCCESS, edit_group_path(id: @group.id))
+  end
+
+  def update_locations
+    redirect_with_flash(FlashMessages::UPDATE_LOCATIONS_SUCCESS, edit_group_path(id: @group.id))
   end
 
   def destroy
@@ -88,6 +93,13 @@ class GroupsController < ApplicationController
   def invitations_update
     render_with_validation_flash(@group, action: :edit) if
       !@group.update_attributes(invitations: params[:invitations][:per_day])
+  end
+
+  def locations_update
+    render_with_validation_flash(@group, action: :edit) if
+      !@group.update_attributes(latitude:  params[:group][:latitude],
+                                longitude: params[:group][:longitude],
+                                radius:    params[:group][:radius])
   end
 
 end

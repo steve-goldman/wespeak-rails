@@ -82,6 +82,25 @@ class GroupTest < ActiveSupport::TestCase
     end
   end
 
+  test "locations should be in bounds" do
+    assert_not Group.new(name: "group", latitude: -91, longitude: 50, radius: 50).valid?
+    assert_not Group.new(name: "group", latitude:  91, longitude: 50, radius: 50).valid?
+
+    assert_not Group.new(name: "group", latitude: 50,  longitude: -181, radius: 50).valid?
+    assert_not Group.new(name: "group", latitude: 50,  longitude:  181, radius: 50).valid?
+
+    assert_not Group.new(name: "group", latitude: 50,  longitude: 50, radius: -1).valid?
+
+    assert     Group.new(name: "group", latitude: 50,  longitude: 50, radius: 50).valid?
+  end
+
+  test "locations should have all fields" do
+    assert_not Group.new(name: "group",                longitude: 50, radius: 50).valid?
+    assert_not Group.new(name: "group", latitude: 50,                 radius: 50).valid?
+    assert_not Group.new(name: "group", latitude: 50,  longitude: 50            ).valid?
+    assert     Group.new(name: "group", latitude: 50,  longitude: 50, radius: 50).valid?
+  end
+
   test "initial settings should get overwritten when locked in" do
     group = Group.create!(name: "group",
                           initial_lifespan_rule:           Timespans::LIFESPAN_MAX,

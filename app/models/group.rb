@@ -28,7 +28,7 @@ class Group < ActiveRecord::Base
   
   
   def validation_keys
-    [:name, :rules, :invitation_rules]
+    [:name, :rules, :invitation_rules, :latitude, :longitude, :radius, :locations]
   end
 
   validates :name, { presence:   { message: ValidationMessages::NAME_NOT_PRESENT.message },
@@ -39,9 +39,15 @@ class Group < ActiveRecord::Base
                      format:     { message: ValidationMessages::NAME_FORMATTING.message,
                                    with: Regex::GROUP } }
 
+  validates :latitude , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:    90, allow_nil: true }
+  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to:   180, allow_nil: true }
+  validates :radius,    numericality: { greater_than_or_equal_to:    1, less_than_or_equal_to: 2500000, allow_nil: true }
+
   validate :rules
 
   validate :invitation_rules
+
+  validate :locations
 
   def activate
     update_attributes(active:                          true,
@@ -182,6 +188,11 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def static_map_url
+    zoom = [12, (15 - Math.log2(radius / 100)).to_i].min
+    "https://maps.googleapis.com/maps/api/staticmap?markers=#{latitude},#{longitude}&zoom=#{zoom}&size=200x200"
+  end
+
   private
 
   def set_rules_to_defaults
@@ -225,4 +236,9 @@ class Group < ActiveRecord::Base
       invitations != Invitations::NOT_REQUIRED && (invitations < 0 || invitations > Invitations::MAX_PER_DAY)
   end
 
+  def locations
+    errors.add(:locations, ValidationMessages::LOCATION_FIELDS.message) if
+      (latitude || longitude || radius) && !(latitude && longitude && radius)
+  end
+  
 end

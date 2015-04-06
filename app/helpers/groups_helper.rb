@@ -6,6 +6,7 @@ module GroupsHelper
     ACTIVATED_SUCCESS    = FlashMessage.new(:success, "Group created!")
     UPDATE_SUCCESS       = FlashMessage.new(:success, "Group rules updated!")
     UPDATE_INVITATIONS_SUCCESS = FlashMessage.new(:success, "Invitations settings updated!")
+    UPDATE_LOCATIONS_SUCCESS   = FlashMessage.new(:success, "Locations settings updated!")
     INVITATION_SENT      = FlashMessage.new(:success, "Invitation sent!")
     
     NOT_LOGGED_IN        = FlashMessage.new(:danger,  "Must be logged in to access this page")
@@ -48,6 +49,7 @@ module GroupsHelper
     YESES_NEEDED_BOUNDS   = ValidationMessage.new("Yeses needed must be between #{Needed::YESES_MIN} and #{Needed::YESES_MAX}")
 
     INVITATIONS_BOUNDS = ValidationMessage.new("Invitations must be between 0 and #{Invitations::MAX_PER_DAY}")
+    LOCATION_FIELDS    = ValidationMessage.new("Latitude, longitude, and radius must all be specified")
 
     TAGLINE_NOT_PRESENT = ValidationMessage.new("Please write a tagline")
     TAGLINE_TOO_LONG    = ValidationMessage.new("Please limit the length to #{Lengths::TAGLINE_MAX} characters")
