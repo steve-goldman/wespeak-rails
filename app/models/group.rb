@@ -133,17 +133,17 @@ class Group < ActiveRecord::Base
 
   def statement_accepted(statement)
     if statement.statement_type == StatementTypes[:tagline]
-      update_attributes(tagline: statement.get_tagline.tagline)
+      update_attributes(tagline: statement.get_content.tagline)
     elsif statement.statement_type == StatementTypes[:invitation]
-      update_attributes(invitations: statement.get_invitation.invitations)
+      update_attributes(invitations: statement.get_content.invitations)
     elsif statement.statement_type == StatementTypes[:profile_image]
-      update_attributes(profile_image: statement.get_profile_image.image)
+      update_attributes(profile_image: statement.get_content.image)
     elsif statement.statement_type == StatementTypes[:location]
-      update_attributes(latitude:  statement.get_location.latitude,
-                        longitude: statement.get_location.longitude,
-                        radius:    statement.get_location.radius)
+      update_attributes(latitude:  statement.get_content.latitude,
+                        longitude: statement.get_content.longitude,
+                        radius:    statement.get_content.radius)
     elsif statement.statement_type == StatementTypes[:rule]
-      rule = statement.get_rule
+      rule = statement.get_content
       if rule.rule_type == RuleTypes[:lifespan]
         update_attributes(lifespan_rule: rule.rule_value)
       elsif rule.rule_type == RuleTypes[:support_needed]
@@ -158,7 +158,7 @@ class Group < ActiveRecord::Base
         update_attributes(inactivity_timeout_rule: rule.rule_value)
       end
     elsif statement.statement_type == StatementTypes[:group_email_domain_change]
-      domain_change = statement.get_domain_change
+      domain_change = statement.get_content
       if domain_change.change_type == GroupEmailDomainChangeTypes[:add]
         group_email_domains.create(domain: domain_change.domain) if !group_email_domains.exists?(domain: domain_change.domain)
       elsif domain_change.change_type == GroupEmailDomainChangeTypes[:remove]

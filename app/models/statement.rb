@@ -18,32 +18,8 @@ class Statement < ActiveRecord::Base
   validate :valid_statement_type
   validate :valid_statement_state
 
-  def get_tagline
-    Tagline.find_by(statement_id: id)
-  end
-
-  def get_update
-    Update.find_by(statement_id: id)
-  end
-
-  def get_rule
-    Rule.find_by(statement_id: id)
-  end
-
-  def get_invitation
-    Invitation.find_by(statement_id: id)
-  end
-
-  def get_domain_change
-    GroupEmailDomainChange.find_by(statement_id: id)
-  end
-
-  def get_profile_image
-    ProfileImage.find_by(statement_id: id)
-  end
-
-  def get_location
-    Location.find_by(statement_id: id)
+  def get_content
+    StatementTypes.table(StatementTypes.sym(statement_type)).find_by(statement_id: id)
   end
 
   def user_supports?(user)
