@@ -14,7 +14,6 @@ class ProfileImagesController < GroupPagesControllerBase
   
   def create
     @info.set_state_alive
-    @info.group.profile_image = ProfileImage.find_by(statement_id: @statement.id)
 
     respond_to do |format|
       format.html { redirect_to profile_images_path(@info.group.name, :alive) }
