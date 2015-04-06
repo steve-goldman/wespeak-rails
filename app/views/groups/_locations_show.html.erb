@@ -1,0 +1,16 @@
+<span class="locations">
+  <% if !group.radius %>
+    Location is not required for participation in this group
+  <% else %>
+  <p>
+    <div><%= link_to group.google_map_link, target: '_blank' do %>
+      <%= image_tag(group.static_map_url) %>
+      <% end %></div>
+    <div>Must be within <%= group.radius %> meters.</div>
+  </p>
+  <% end %>
+</span>
+<% if change_link %>
+  <div class="change-link"><%= link_to "Propose change", "#" %></div>
+<% end %>
+
