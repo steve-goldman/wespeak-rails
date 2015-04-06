@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406002013) do
+ActiveRecord::Schema.define(version: 20150406030552) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -107,6 +107,17 @@ ActiveRecord::Schema.define(version: 20150406002013) do
   end
 
   add_index "invitations", ["statement_id"], name: "index_invitations_on_statement_id"
+
+  create_table "locations", force: :cascade do |t|
+    t.integer  "statement_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "radius"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "locations", ["statement_id"], name: "index_locations_on_statement_id"
 
   create_table "membership_histories", force: :cascade do |t|
     t.integer  "user_id"

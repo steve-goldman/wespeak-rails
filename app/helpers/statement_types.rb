@@ -4,7 +4,7 @@ class StatementTypes
     group_email_domain_change: 1001,
     add_facebook_filter:       1003,
     rem_facebook_filter:       1004,
-    add_location_filter:       1005,
+    location:                  1005,
     rem_location_filter:       1006,
     invitation:                1007,
 
@@ -21,6 +21,7 @@ class StatementTypes
 
   @type_syms = {
     1001 => :group_email_domain_change,
+    1005 => :location,
     1007 => :invitation,
     2001 => :rule,
     3001 => :cover_photo,
@@ -32,6 +33,7 @@ class StatementTypes
 
   @tables = {
     group_email_domain_change: GroupEmailDomainChange,
+    location:                  Location,
     invitation:                Invitation,
     rule:                      Rule,
     cover_photo:               nil,
@@ -46,7 +48,7 @@ class StatementTypes
     1001 => "Email Address Change",
     1003 => "add_facebook_filter",
     1004 => "rem_facebook_filter",
-    1005 => "add_location_filter",
+    1005 => "Location",
     1006 => "rem_location_filter",
     1007 => "Invitation Change",
     

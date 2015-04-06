@@ -1,12 +1,12 @@
 <span class="locations">
-  <% if !group.radius %>
-    Location is not required for participation in this group
+  <% if !radius %>
+    No location restrictions.
   <% else %>
   <p>
-    <div><%= link_to group.google_map_link, target: '_blank' do %>
-      <%= image_tag(group.static_map_url) %>
+    <div><%= link_to Location.map_link(latitude, longitude), target: '_blank' do %>
+      <%= image_tag(Location.static_map_url(latitude, longitude, radius)) %>
       <% end %></div>
-    <div>Must be within <%= group.radius %> miles.</div>
+    <div>Must be within <%= radius %> miles.</div>
   </p>
   <% end %>
 </span>

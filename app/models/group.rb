@@ -41,7 +41,7 @@ class Group < ActiveRecord::Base
 
   validates :latitude , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:    90, allow_nil: true }
   validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to:   180, allow_nil: true }
-  validates :radius,    numericality: { greater_than_or_equal_to:    1, less_than_or_equal_to: 2500000, allow_nil: true }
+  validates :radius,    numericality: { greater_than_or_equal_to:    1, less_than_or_equal_to: 10000, allow_nil: true }
 
   validate :rules
 
@@ -186,22 +186,6 @@ class Group < ActiveRecord::Base
       pending_invitations.find_or_create_by(email: email)
       UserMailer.invited_signup(email, self).deliver_later if send_notification
     end
-  end
-
-  def map_zoom
-    if radius < 1
-      12
-    else
-      [12, (13 - Math.log2(radius)).to_i].min
-    end
-  end
-
-  def static_map_url
-    "https://maps.googleapis.com/maps/api/staticmap?markers=#{latitude},#{longitude}&zoom=#{map_zoom}&size=200x200"
-  end
-
-  def google_map_link
-    "https://www.google.com/maps?q=#{latitude},#{longitude}"
   end
 
   private

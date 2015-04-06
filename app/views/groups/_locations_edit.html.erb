@@ -1,15 +1,7 @@
-<%= render 'groups/locations_show', group: @group, change_link: false %>
+<%= render 'groups/locations_show', latitude: @group.latitude, longitude: @group.longitude, radius: @group.radius, change_link: false %>
 
 <%= form_for @group, url: update_locations_group_path(@group.id), method: :patch do |f| %>
 
-<%= f.label :latitude, "Latitude" %>
-<%= f.text_field :latitude, placeholder: "Latitude", class: "form-control" %>
+<%= render 'groups/locations_fields', f: f, button_text: "Save" %>
 
-<%= f.label :latitude, "Longitude" %>
-<%= f.text_field :longitude, placeholder: "Longitude", class: "form-control" %>
-
-<%= f.label :radius, "Radius (miles)" %>
-<%= f.select(:radius, options_for_select(Constants::Locations::INPUT_OPTIONS, @group.radius), class: "form-control") %>
-
-<%= f.submit "Save", class: "btn btn-primary" %>
 <% end %>

@@ -84,9 +84,13 @@ Rails.application.routes.draw do
   get    'groups/:name/updates/:state',        to: 'updates#index',  as: :updates
   post   'groups/:name/updates',               to: 'updates#create', as: :create_update
   
-  # taglines
+  # profile images
   get    'groups/:name/profile_images/:state', to: 'profile_images#index',  as: :profile_images
   post   'groups/:name/profile_images',        to: 'profile_images#create', as: :create_profile_image
+
+  # location changes
+  get    'groups/:name/locations/:state',      to: 'locations#index',  as: :locations
+  post   'groups/:name/locations',             to: 'locations#create', as: :create_locations
 
   # rules
   get    'groups/:name/rules/:state',             to: 'rules#index',                          as: :rules

@@ -1,4 +1,4 @@
 <div class="settings-group">
   <h4>Locations</h4>
-  <%= render 'groups/locations_show', group: @info.group, change_link: @info.change_eligible? %>
+  <%= render 'groups/locations_show', latitude: @info.group.latitude, longitude: @info.group.longitude, radius: @info.group.radius, change_link: @info.change_eligible? %>
 </div>

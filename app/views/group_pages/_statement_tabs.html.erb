@@ -16,7 +16,7 @@
               class: active_tab == :all ? "active" : "inactive") %>
         </li>
         
-        <% [:taglines, :updates, :rules, :invitations, :group_email_domain_changes, :profile_images].each do |type_p| %>
+        <% [:taglines, :updates, :rules, :invitations, :group_email_domain_changes, :profile_images, :locations].each do |type_p| %>
         <% type_s = type_p.to_s.singularize.to_sym %>
         <li>
           <%= content_tag(
