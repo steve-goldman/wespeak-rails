@@ -11,6 +11,6 @@
   <% end %>
 </span>
 <% if change_link %>
-  <div class="change-link"><%= link_to "Propose change", locations_path %></div>
+  <div class="change-link"><%= link_to "Propose change", locations_path(state: :alive) %></div>
 <% end %>
 
