@@ -32,7 +32,7 @@
     <% [:accepted, :rejected, :voting, :alive, :dead].each do |state| %>
     <% count = @info.group.get_count(state, active_tab == :all ? nil : active_tab.to_s.singularize.to_sym) %>
     <%= content_tag(:li,
-        link_to("#{state.to_s.capitalize} (#{count})",
+        link_to("#{state.to_s.capitalize}",
         active_tab == :all ? profile_path(@info.group.name, state) : send("#{active_tab}_path", @info.group.name, state)),
         class: @info.state == state ? "active" : "inactive") %>
     <% end %>
