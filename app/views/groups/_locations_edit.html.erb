@@ -1,4 +1,4 @@
-<%= render 'locations_show', group: @group, change_link: false %>
+<%= render 'groups/locations_show', group: @group, change_link: false %>
 
 <%= form_for @group, url: update_locations_group_path(@group.id), method: :patch do |f| %>
 
