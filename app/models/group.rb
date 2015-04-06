@@ -188,9 +188,16 @@ class Group < ActiveRecord::Base
     end
   end
 
-  def static_map_url
+  def map_zoom
     zoom = [12, (15 - Math.log2(radius / 100)).to_i].min
-    "https://maps.googleapis.com/maps/api/staticmap?markers=#{latitude},#{longitude}&zoom=#{zoom}&size=200x200"
+  end
+
+  def static_map_url
+    "https://maps.googleapis.com/maps/api/staticmap?markers=#{latitude},#{longitude}&zoom=#{map_zoom}&size=200x200"
+  end
+
+  def google_map_link
+    "https://www.google.com/maps?q=#{latitude},#{longitude}"
   end
 
   private

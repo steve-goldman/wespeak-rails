@@ -1,9 +1,4 @@
-<% if @group.radius %>
-<p>
-  <div><%= image_tag(@group.static_map_url) %></div>
-  <div>Radius: <%= @group.radius %> meters</div>
-</p>
-<% end %>
+<%= render 'locations_show', group: @group, change_link: false %>
 
 <%= form_for @group, url: update_locations_group_path(@group.id), method: :patch do |f| %>
 
