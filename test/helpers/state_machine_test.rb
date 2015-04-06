@@ -186,6 +186,22 @@ class StateMachineTest < ActiveSupport::TestCase
     assert_equal invitation.invitations, @group.invitations
   end
 
+  test "accepted location updates" do
+    GroupUserInfo.new(@group.name, nil, @user).make_member_active
+    statement = @group.create_statement(@user, :location)
+    location = Location.create!(statement_id: statement.id, latitude: 40, longitude: 40, radius: 500)
+    statement.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement.reload
+    # voting now
+    statement.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload
+    assert_equal 40,  @group.latitude
+    assert_equal 40,  @group.longitude
+    assert_equal 500, @group.radius
+  end
+
   test "add group email domain updates" do
     GroupUserInfo.new(@group.name, nil, @user).make_member_active
     statement = @group.create_statement(@user, :group_email_domain_change)

@@ -138,6 +138,10 @@ class Group < ActiveRecord::Base
       update_attributes(invitations: statement.get_invitation.invitations)
     elsif statement.statement_type == StatementTypes[:profile_image]
       update_attributes(profile_image: statement.get_profile_image.image)
+    elsif statement.statement_type == StatementTypes[:location]
+      update_attributes(latitude:  statement.get_location.latitude,
+                        longitude: statement.get_location.longitude,
+                        radius:    statement.get_location.radius)
     elsif statement.statement_type == StatementTypes[:rule]
       rule = statement.get_rule
       if rule.rule_type == RuleTypes[:lifespan]

@@ -42,6 +42,10 @@ class Statement < ActiveRecord::Base
     ProfileImage.find_by(statement_id: id)
   end
 
+  def get_location
+    Location.find_by(statement_id: id)
+  end
+
   def user_supports?(user)
     supports.exists?(user_id: user.id)
   end
