@@ -9,20 +9,23 @@
         <% end %>
       </p>
 
-      <p>
-        <%= form_for(:rem_group_email_domain, url: rem_group_email_domain_change_path(@info.group.name)) do |f| %>
-        <div><%= f.label :remove_domain, "Remove an Email Address Domain" %></div>
-        <div><%= f.select(:domain_id, options_for_select(@info.group.email_domain_input_options), class: "form-control") %></div>
-        <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
-        <% end %>
-      </p>
+      <% options = @info.group.email_domain_input_options %>
+      <% if options.any? %>
+        <p>
+          <%= form_for(:rem_group_email_domain, url: rem_group_email_domain_change_path(@info.group.name)) do |f| %>
+          <div><%= f.label :remove_domain, "Remove an Email Address Domain" %></div>
+          <div><%= f.select(:domain_id, options_for_select(options), class: "form-control") %></div>
+          <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
+          <% end %>
+        </p>
 
-      <p>
-        <%= form_for(:rem_all_group_email_domains, url: rem_all_group_email_domains_change_path(@info.group.name)) do |f| %>
-        <div><%= f.label :remove_domain, "Remove all Email Address Domains" %></div>
-        <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
-        <% end %>
-      </p>
+        <p>
+          <%= form_for(:rem_all_group_email_domains, url: rem_all_group_email_domains_change_path(@info.group.name)) do |f| %>
+          <div><%= f.label :remove_domain, "Remove all Email Address Domains" %></div>
+          <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
+          <% end %>
+        </p>
+      <% end %>
     </div>
   </div>
 </div>
