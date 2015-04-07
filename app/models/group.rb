@@ -11,6 +11,7 @@ class Group < ActiveRecord::Base
   has_many :followers, dependent: :destroy
   has_many :pending_invitations, dependent: :destroy
 
+  belongs_to :user
 
   # the profile image
   mount_uploader :profile_image, ImageUploader
@@ -58,6 +59,7 @@ class Group < ActiveRecord::Base
                       initial_yeses_needed_rule:       yeses_needed_rule,
                       initial_inactivity_timeout_rule: inactivity_timeout_rule,
                       initial_invitations:             invitations)
+    user.received_invitations.create(group_id: id) if invitations != Invitations::NOT_REQUIRED
   end
 
   def create_statement(user, statement_type)
