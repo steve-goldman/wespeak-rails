@@ -119,9 +119,9 @@ Rails.application.routes.draw do
   post   'groups/:name/rem_all_email_address',    to: 'group_email_domain_changes#create_rem_all_domains', as: :rem_all_group_email_domains_change
 
   # proposals (catch-all)
-  get    'groups/:name/proposals/:id',            to: 'proposals#show',      as: :proposal
-  get    'groups/:name/proposals/:id/confirm',    to: 'proposals#confirm',   as: :confirm_tagline
-  post   'groups/:name/proposals/confirmed',      to: 'proposals#confirmed', as: :confirm_proposal
-  post   'groups/:name/proposals/discarded',      to: 'proposals#discarded', as: :discard_proposal
+  get    'groups/:name/statements/:id',            to: 'proposals#show',      as: :proposal
+  get    'groups/:name/statements/:id/confirm',    to: 'proposals#confirm',   as: :confirm_tagline
+  post   'groups/:name/statements/confirmed',      to: 'proposals#confirmed', as: :confirm_proposal
+  post   'groups/:name/statements/discarded',      to: 'proposals#discarded', as: :discard_proposal
 
 end
