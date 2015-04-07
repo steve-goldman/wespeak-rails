@@ -2,7 +2,6 @@
 
 <div class="group-tabs">
   <ul class="nav nav-pills">
-
     <%= content_tag(
         :li,
         link_to("Profile", group_profile_path(@info.group.name)),
@@ -33,3 +32,13 @@
     </li>
   </ul>
 </div>
+
+<p>
+  <div class="page-desc">
+    <%= StatementStates.desc(@info.state) %>
+  </div>
+  <div class="statement-counts">
+    <% count = @info.group.get_count(@info.state) %>
+    <%= "#{count} #{'statement'.pluralize(count)}" %>
+  </div>
+</p>
