@@ -44,10 +44,6 @@ class RulesController < GroupPagesControllerBase
     get_of_type(:rule, (params[:state] || :alive.to_s).to_sym)
   end
 
-  def new
-    render 'group_pages/new'
-  end
-
   def create_lifespan_rule
     create
   end
@@ -70,22 +66,6 @@ class RulesController < GroupPagesControllerBase
 
   def create_inactivity_timeout_rule
     create
-  end
-
-  def create
-    @info.set_state_alive
-
-    respond_to do |format|
-      format.html { redirect_to rules_path(@info.group.name, :alive) }
-      format.js   { render 'group_pages/show_tabs' }
-    end
-  end
-
-  def index
-    respond_to do |format|
-      format.html { render 'group_pages/index' }
-      format.js   { render params[:page].nil? ? 'group_pages/show_tabs' : 'group_pages/show_next_page' }
-    end
   end
 
   private
