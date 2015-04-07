@@ -26,6 +26,10 @@ class GroupEmailDomainChangesController < GroupPagesControllerBase
     get_of_type(:group_email_domain_change, (params[:state] || :alive.to_s).to_sym)
   end
 
+  def new
+    render 'group_pages/new'
+  end
+
   def create_add_domain
     create
   end

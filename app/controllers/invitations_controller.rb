@@ -12,6 +12,10 @@ class InvitationsController < GroupPagesControllerBase
     get_of_type(:invitation, (params[:state] || :alive.to_s).to_sym)
   end
 
+  def new
+    render 'group_pages/new'
+  end
+
   def create
     @info.set_state_alive
 

@@ -77,22 +77,27 @@ Rails.application.routes.draw do
   post   'groups/:name/sent_invitation',       to: 'sent_invitations#create', as: :sent_invitations
 
   # taglines
+  get    'groups/:name/taglines/new',          to: 'taglines#new',    as: :new_tagline
   get    'groups/:name/taglines/:state',       to: 'taglines#index',  as: :taglines
   post   'groups/:name/taglines',              to: 'taglines#create', as: :create_tagline
   
   # updates
+  get    'groups/:name/updates/new',           to: 'updates#new',    as: :new_update
   get    'groups/:name/updates/:state',        to: 'updates#index',  as: :updates
   post   'groups/:name/updates',               to: 'updates#create', as: :create_update
   
   # profile images
+  get    'groups/:name/profile_images/new',    to: 'profile_images#new',    as: :new_profile_image
   get    'groups/:name/profile_images/:state', to: 'profile_images#index',  as: :profile_images
   post   'groups/:name/profile_images',        to: 'profile_images#create', as: :create_profile_image
 
   # location changes
+  get    'groups/:name/locations/new',         to: 'locations#new',    as: :new_location
   get    'groups/:name/locations/:state',      to: 'locations#index',  as: :locations
   post   'groups/:name/locations',             to: 'locations#create', as: :create_locations
 
   # rules
+  get    'groups/:name/rules/new',                to: 'rules#new',    as: :new_rule
   get    'groups/:name/rules/:state',             to: 'rules#index',                          as: :rules
   post   'groups/:name/lifespan_rules',           to: 'rules#create_lifespan_rule',           as: :create_lifespan_rule
   post   'groups/:name/support_needed_rules',     to: 'rules#create_support_needed_rule',     as: :create_support_needed_rule
@@ -102,10 +107,12 @@ Rails.application.routes.draw do
   post   'groups/:name/inactivity_timeout_rules', to: 'rules#create_inactivity_timeout_rule', as: :create_inactivity_timeout_rule
   
   # invitations
+  get    'groups/:name/invitations/new',          to: 'invitations#new',    as: :new_invitation
   get    'groups/:name/invitations/:state',       to: 'invitations#index',  as: :invitations
   post   'groups/:name/invitations',              to: 'invitations#create', as: :create_invitation
 
   # group email domains
+  get    'groups/:name/email_addresses/new',      to: 'group_email_domain_changes#new',                    as: :new_group_email_domain_change
   get    'groups/:name/email_addresses/:state',   to: 'group_email_domain_changes#index',                  as: :group_email_domain_changes
   post   'groups/:name/add_email_address',        to: 'group_email_domain_changes#create_add_domain',      as: :add_group_email_domain_change
   post   'groups/:name/rem_email_address',        to: 'group_email_domain_changes#create_rem_domain',      as: :rem_group_email_domain_change

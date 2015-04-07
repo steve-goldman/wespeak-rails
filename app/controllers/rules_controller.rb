@@ -44,6 +44,10 @@ class RulesController < GroupPagesControllerBase
     get_of_type(:rule, (params[:state] || :alive.to_s).to_sym)
   end
 
+  def new
+    render 'group_pages/new'
+  end
+
   def create_lifespan_rule
     create
   end

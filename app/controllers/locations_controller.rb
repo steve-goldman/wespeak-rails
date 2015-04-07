@@ -12,6 +12,10 @@ class LocationsController < GroupPagesControllerBase
     get_of_type(:location, (params[:state] || :alive.to_sym).to_sym)
   end
   
+  def new
+    render 'group_pages/new'
+  end
+
   def create
     @info.set_state_alive
 
