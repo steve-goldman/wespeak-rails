@@ -195,6 +195,17 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def num_voting_statements
+    Statement.where(group_id: id, state: StatementStates[:voting]).count
+  end
+
+  def num_voted_statements(user)
+    Vote
+      .where(user_id: user.id)
+      .where("statement_id IN (SELECT id FROM Statements WHERE group_id = :group_id AND state = :voting)", group_id: id, voting: StatementStates[:voting])
+      .count
+  end
+
   private
 
   def set_rules_to_defaults

@@ -2,40 +2,34 @@
 
 <div class="group-tabs">
   <ul class="nav nav-pills">
-    <li class="dropdown">
-      <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
-        <%= active_tab == :all ? "All" : StatementTypes.name_from_sym(active_tab.to_s.singularize.to_sym).pluralize %>
+
+    <%= content_tag(
+        :li,
+        link_to("Profile", group_profile_path(@info.group.name)),
+        class: @info.state == :accepted ? "active" : "inactive") %>
+
+    <% new_vote_count = @info.group.num_voting_statements - @info.group.num_voted_statements(@info.user) %>
+
+    <%= content_tag(
+        :li,
+        link_to(new_vote_count == 0 ? "Voting" : "Voting (#{new_vote_count})", profile_path(@info.group.name, :voting)),
+        class: @info.state == :voting ? "active" : "inactive") %>
+
+    <%= content_tag(
+        :li,
+        link_to("Alive", profile_path(@info.group.name, :alive)),
+        class: @info.state == :alive ? "active" : "inactive") %>
+
+    <% dropdown_active = @info.state == :rejected || @info.state == :dead %>
+    <li class="dropdown <%= dropdown_active ? "active" : "inactive" %>">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <%= @info.state == :rejected ? "Rejected" : @info.state == :dead ? "Dead" : "More" %>
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu">
-        <li>
-          <%= content_tag(
-              :li,
-              link_to("All",
-              profile_path(@info.group.name, @info.state)),
-              class: active_tab == :all ? "active" : "inactive") %>
-        </li>
-        
-        <% [:taglines, :updates, :rules, :invitations, :group_email_domain_changes, :profile_images, :locations].each do |type_p| %>
-        <% type_s = type_p.to_s.singularize.to_sym %>
-        <li>
-          <%= content_tag(
-              :li,
-              link_to("#{StatementTypes.name_from_sym(type_s).pluralize}",
-              send("#{type_p}_path", @info.group.name, @info.state)),
-              class: active_tab == type_p ? "active" : "inactive") %>
-        </li>
-        <% end %>
+        <%= content_tag(:li, link_to("Rejected", profile_path(@info.group.name, :rejected))) if @info.state != :rejected %>
+        <%= content_tag(:li, link_to("Dead",     profile_path(@info.group.name, :dead)))     if @info.state != :dead     %>
       </ul>
     </li>
-
-    <% [:accepted, :rejected, :voting, :alive, :dead].each do |state| %>
-    <% count = @info.group.get_count(state, active_tab == :all ? nil : active_tab.to_s.singularize.to_sym) %>
-    <%= content_tag(:li,
-        link_to("#{state.to_s.capitalize}",
-        active_tab == :all ? profile_path(@info.group.name, state) : send("#{active_tab}_path", @info.group.name, state)),
-        class: @info.state == state ? "active" : "inactive") %>
-    <% end %>
-
   </ul>
 </div>
