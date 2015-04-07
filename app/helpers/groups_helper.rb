@@ -8,6 +8,8 @@ module GroupsHelper
     UPDATE_INVITATIONS_SUCCESS = FlashMessage.new(:success, "Invitations settings updated!")
     UPDATE_LOCATIONS_SUCCESS   = FlashMessage.new(:success, "Locations settings updated!")
     INVITATION_SENT      = FlashMessage.new(:success, "Invitation sent!")
+    PROPOSAL_SUCCESS     = FlashMessage.new(:success, "Proposal created!")
+    PROPOSAL_DISCARDED   = FlashMessage.new(:success, "Proposal discarded")
     
     NOT_LOGGED_IN        = FlashMessage.new(:danger,  "Must be logged in to access this page")
     CANNOT_CREATE_GROUPS = FlashMessage.new(:danger,  "You don't have permission to create groups right now")
@@ -22,6 +24,8 @@ module GroupsHelper
     STATE_UNKNOWN        = FlashMessage.new(:danger,  "Something went wrong: invalid state")
     NOT_SUPPORT_ELIGIBLE = FlashMessage.new(:danger,  "Something went wrong: not support eligible")
     NOT_VOTE_ELIGIBLE    = FlashMessage.new(:danger,  "Something went wrong: not vote eligible")
+    COULD_NOT_CONFIRM    = FlashMessage.new(:danger,  "Something went wrong: could not confirm")
+    COULD_NOT_DISCARD    = FlashMessage.new(:danger,  "Something went wrong: could not discard")
   end
 
   class ValidationMessages

@@ -76,9 +76,9 @@ class Group < ActiveRecord::Base
 
   def get_all_statements(statement_state, page, per_page, order = "created_at DESC")
     if statement_state.nil?
-      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id).order(order)
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id, confirmed: true).order(order)
     else
-      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id, state: StatementStates[statement_state]).order(order)
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id, confirmed: true, state: StatementStates[statement_state]).order(order)
     end
   end
 
@@ -108,7 +108,7 @@ class Group < ActiveRecord::Base
   end
 
   def get_of_type(statement_type, state, page, per_page, order = "created_at DESC")
-    statement_ids =  "SELECT id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
+    statement_ids =  "SELECT id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type AND confirmed = 't'"
     statement_ids += " AND state = :state" if !state.nil?
 
     StatementTypes.table(statement_type).paginate(page: page, per_page: per_page).where("statement_id IN (#{statement_ids})",

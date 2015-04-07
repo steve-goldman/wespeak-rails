@@ -61,7 +61,8 @@ class Statement < ActiveRecord::Base
                      state:               StatementStates[:alive],
                      expires_at:          now + group.lifespan_rule,
                      support_needed:      Statement.num_needed(group.active_members.count, group.support_needed_rule),
-                     eligible_supporters: group.active_members.count)
+                     eligible_supporters: group.active_members.count,
+                     confirmed:           false)
   end
 
   def to_dead(now)
@@ -119,6 +120,15 @@ class Statement < ActiveRecord::Base
 
   def statement_tab
     StatementTypes.sym(statement_type).to_s.pluralize
+  end
+
+  def confirm
+    update_attributes(confirmed: true)
+  end
+
+  def discard
+    get_content.destroy
+    self.destroy
   end
 
   private

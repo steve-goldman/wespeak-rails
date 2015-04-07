@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406030552) do
+ActiveRecord::Schema.define(version: 20150407174516) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20150406030552) do
     t.integer  "votes_needed"
     t.integer  "eligible_voters"
     t.integer  "yeses_needed"
+    t.boolean  "confirmed"
   end
 
   add_index "statements", ["group_id", "created_at"], name: "index_statements_on_group_id_and_created_at"

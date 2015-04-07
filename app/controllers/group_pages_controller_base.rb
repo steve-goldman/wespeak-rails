@@ -16,12 +16,7 @@ class GroupPagesControllerBase < ApplicationController
   end
 
   def create
-    @info.set_state_alive
-
-    respond_to do |format|
-      format.html { redirect_to taglines_path(@info.group.name, :alive) }
-      format.js   { render 'group_pages/show_tabs' }
-    end
+    redirect_to confirm_tagline_path(@info.group.name, @statement.id)
   end
 
   protected
@@ -47,7 +42,6 @@ class GroupPagesControllerBase < ApplicationController
   end
 
   def statement_creates(statement_type)
-    @info.make_member_active
     @statement = @info.group.create_statement(@info.user, statement_type)
     redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
   end

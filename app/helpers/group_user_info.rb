@@ -45,10 +45,6 @@ class GroupUserInfo
     @state
   end
 
-  def set_state_alive
-    @state = :alive
-  end
-
   def member_history
     @member_history
   end
