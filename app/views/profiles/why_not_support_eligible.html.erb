@@ -1,0 +1,18 @@
+<% provide(:title, @info.group.name) %>
+<div class="row">
+  <div class="col-md-3 col-xs-12">
+    <%= render 'group_pages/left_header' %>
+  </div>
+  <div class="col-md-9 col-xs-12">
+    <p><%= link_to "Back to #{@info.group.name}", group_profile_path(@info.group.name) %></p>
+    <div class="why-not-eligible">
+      <% if @info.active_member.nil? %>
+        You are not active in the group.  Only active members may support statements.
+      <% else %>
+        The statement was created on <%= Constants::Timespans::full_time(@statement.created_at) %>
+        but you last became active in the group on <%= Constants::Timespans::full_time(@info.active_member.created_at) %>.
+        Only members active when a statement is created may support it.
+      <% end %>
+    </div>
+  </div>
+</div>

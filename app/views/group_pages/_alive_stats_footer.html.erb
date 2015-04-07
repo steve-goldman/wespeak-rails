@@ -11,6 +11,9 @@
   <li>
     <% if @info.user %>
       Not eligible to support
+      <span class="why-not">
+        <%= link_to "Why not?", why_not_support_eligible_path(@info.group.name, statement.id) %>
+      </span>
     <% else %>
       Log in to support this statement
     <% end %>
