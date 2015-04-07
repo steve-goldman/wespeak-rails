@@ -8,6 +8,10 @@ task :state_transitions => :environment do
   count = StateMachine.alive_to_voting(now)
   puts "        #{count} to voting"
   now = Time.zone.now
+  puts "#{now}: new => discarded..."
+  count = StateMachine.new_to_discarded(now)
+  puts "        #{count} to discarded"
+  now = Time.zone.now
   puts "#{now}: end votes..."
   count = StateMachine.end_votes(now)
   puts "        #{count} ended"

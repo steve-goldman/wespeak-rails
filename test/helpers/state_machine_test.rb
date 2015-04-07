@@ -34,6 +34,26 @@ class StateMachineTest < ActiveSupport::TestCase
   end
 
   #
+  # new to discarded tests
+  #
+
+  test "expired new should be killed" do
+    statement = @group.create_statement(@user, :tagline)
+    Tagline.create!(statement_id: statement.id, tagline: "all of western thought")
+    StateMachine.new_to_discarded(statement.expires_at + 1)
+    assert_nil Statement.find_by(id: statement.id)
+    assert_nil Tagline.find_by(statement_id: statement.id)
+  end
+
+  test "unexpired new should not be killed" do
+    statement = @group.create_statement(@user, :tagline)
+    Tagline.create!(statement_id: statement.id, tagline: "all of western thought")
+    StateMachine.new_to_discarded(statement.expires_at)
+    assert_not_nil Statement.find_by(id: statement.id)
+    assert_not_nil Tagline.find_by(statement_id: statement.id)
+  end
+
+  #
   # alive to voting tests
   #
 

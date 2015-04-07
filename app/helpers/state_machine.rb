@@ -16,6 +16,13 @@ class StateMachine
     count
   end
 
+  def StateMachine.new_to_discarded(now)
+    statements = Statement.where("state = #{StatementStates[:new]} AND expires_at < :now", now: now)
+    count = statements.count
+    statements.each { |statement| statement.discard }
+    count
+  end
+
   def StateMachine.end_votes(now)
     statements = Statement.where("state = #{StatementStates[:voting]} AND vote_ends_at < :now", now: now)
     count = statements.count
