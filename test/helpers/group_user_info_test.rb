@@ -143,6 +143,7 @@ class GroupUserInfoTest < ActiveSupport::TestCase
 
   def make_voting_statement
     voting_statement = @group.create_statement(@other_user, :tagline)
+    voting_statement.confirm
     voting_statement.add_support(@other_user)
     StateMachine.alive_to_voting(Time.zone.now)
     voting_statement.reload

@@ -58,11 +58,10 @@ class Statement < ActiveRecord::Base
                      group_id:            group.id,
                      user_id:             user.id,
                      statement_type:      StatementTypes[statement_type],
-                     state:               StatementStates[:alive],
+                     state:               StatementStates[:new],
                      expires_at:          now + group.lifespan_rule,
                      support_needed:      Statement.num_needed(group.active_members.count, group.support_needed_rule),
-                     eligible_supporters: group.active_members.count,
-                     confirmed:           false)
+                     eligible_supporters: group.active_members.count)
   end
 
   def to_dead(now)
@@ -123,7 +122,7 @@ class Statement < ActiveRecord::Base
   end
 
   def confirm
-    update_attributes(confirmed: true)
+    update_attributes(state: StatementStates[:alive])
   end
 
   def discard

@@ -1,5 +1,6 @@
 class StatementStates
   @statement_states = {
+    new:      0,
     alive:    1,
     dead:     2,
     voting:   3,

@@ -30,7 +30,7 @@ class ProposalsController < GroupPagesControllerBase
   private
 
   def statement_valid
-    @statement = Statement.find_by(id: params[:id], confirmed: true)
+    @statement = Statement.where(id: params[:id]).where.not(state: StatementStates[:new]).first
     redirect_with_flash(FlashMessages::STATEMENT_UNKNOWN, request.referer || root_url) if !@statement
   end
 
@@ -46,7 +46,7 @@ class ProposalsController < GroupPagesControllerBase
   end
 
   def user_matches
-    @statement = Statement.find_by(id: params[:id], confirmed: false)
+    @statement = Statement.find_by(id: params[:id], state: StatementStates[:new])
     if @statement.nil?
       redirect_with_flash(FlashMessages::STATEMENT_UNKNOWN, request.referer || root_url)
     elsif @statement.user_id != @info.user.id

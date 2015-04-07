@@ -19,6 +19,7 @@ class StateMachineTest < ActiveSupport::TestCase
 
   test "expired should be killed" do
     statement = @group.create_statement(@user, :tagline)
+    statement.confirm
     StateMachine.alive_to_dead(statement.expires_at + 1)
     statement.reload
     assert_equal StatementStates[:dead], statement.state
@@ -26,6 +27,7 @@ class StateMachineTest < ActiveSupport::TestCase
 
   test "unexpired should not be killed" do
     statement = @group.create_statement(@user, :tagline)
+    statement.confirm
     StateMachine.alive_to_dead(statement.expires_at)
     statement.reload
     assert_equal StatementStates[:alive], statement.state
@@ -38,6 +40,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "not enough support should not be voting" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    statement.confirm
     (Statement.num_needed(@group.active_members.count, @group.support_needed_rule) - 1).times do |i|
       statement.add_support(users[i])
     end
@@ -49,6 +52,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "enough support should be voting" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    statement.confirm
     Statement.num_needed(@group.active_members.count, @group.support_needed_rule).times do |i|
       statement.add_support(users[i])
     end
@@ -60,6 +64,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "more than enough support should be voting" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    statement.confirm
     (Statement.num_needed(@group.active_members.count, @group.support_needed_rule) + 1).times do |i|
       statement.add_support(users[i])
     end
@@ -75,6 +80,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "not enough votes should be rejected" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    statement.confirm
     Statement.num_needed(@group.active_members.count, @group.support_needed_rule).times do |i|
       statement.add_support(users[i])
     end
@@ -92,6 +98,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "not enough yeses should be rejected" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    statement.confirm
     Statement.num_needed(@group.active_members.count, @group.support_needed_rule).times do |i|
       statement.add_support(users[i])
     end
@@ -114,6 +121,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "enough votes and yeses should be accepted" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    statement.confirm
     Tagline.create!(statement_id: statement.id, tagline: "All of western thought")
     Statement.num_needed(@group.active_members.count, @group.support_needed_rule).times do |i|
       statement.add_support(users[i])
@@ -137,6 +145,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "accepted tagline updates" do
     GroupUserInfo.new(@group.name, nil, @user).make_member_active
     statement = @group.create_statement(@user, :tagline)
+    statement.confirm
     tagline   = Tagline.create!(statement_id: statement.id, tagline: "All of western thought")
     statement.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
@@ -175,6 +184,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "accepted invitations updates" do
     GroupUserInfo.new(@group.name, nil, @user).make_member_active
     statement = @group.create_statement(@user, :invitation)
+    statement.confirm
     invitation= Invitation.create!(statement_id: statement.id, invitations: Invitations::MAX_PER_DAY)
     statement.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
@@ -189,6 +199,8 @@ class StateMachineTest < ActiveSupport::TestCase
   test "accepted location updates" do
     GroupUserInfo.new(@group.name, nil, @user).make_member_active
     statement = @group.create_statement(@user, :location)
+    statement.confirm
+    statement.confirm
     location = Location.create!(statement_id: statement.id, latitude: 40, longitude: 40, radius: 500)
     statement.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
@@ -205,6 +217,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "add group email domain updates" do
     GroupUserInfo.new(@group.name, nil, @user).make_member_active
     statement = @group.create_statement(@user, :group_email_domain_change)
+    statement.confirm
     GroupEmailDomainChange.create!(statement_id: statement.id, change_type: GroupEmailDomainChangeTypes[:add], domain: "wespeakapp.com")
     statement.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
@@ -217,6 +230,7 @@ class StateMachineTest < ActiveSupport::TestCase
 
     # another accepted statement wouldn't add the same domain again
     statement2 = @group.create_statement(@user, :group_email_domain_change)
+    statement2.confirm
     GroupEmailDomainChange.create!(statement_id: statement2.id, change_type: GroupEmailDomainChangeTypes[:add], domain: "wespeakapp.com")
     statement2.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
@@ -234,6 +248,7 @@ class StateMachineTest < ActiveSupport::TestCase
     assert @group.group_email_domains.exists?(domain: "wespeakapp.com")
     
     statement = @group.create_statement(@user, :group_email_domain_change)
+    statement.confirm
     GroupEmailDomainChange.create!(statement_id: statement.id, change_type: GroupEmailDomainChangeTypes[:remove], domain: "wespeakapp.com")
     statement.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
@@ -246,6 +261,7 @@ class StateMachineTest < ActiveSupport::TestCase
 
     # another accepted statement for the same domain wouldn't cause a problem
     statement2 = @group.create_statement(@user, :group_email_domain_change)
+    statement2.confirm
     GroupEmailDomainChange.create!(statement_id: statement2.id, change_type: GroupEmailDomainChangeTypes[:remove], domain: "wespeakapp.com")
     statement2.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
@@ -264,6 +280,7 @@ class StateMachineTest < ActiveSupport::TestCase
     assert_equal 2, @group.group_email_domains.count
     
     statement = @group.create_statement(@user, :group_email_domain_change)
+    statement.confirm
     GroupEmailDomainChange.create!(statement_id: statement.id, change_type: GroupEmailDomainChangeTypes[:remove_all], domain: "bogus.com")
     statement.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
@@ -276,6 +293,7 @@ class StateMachineTest < ActiveSupport::TestCase
 
     # another accepted statement when list is empty wouldn't cause a problem
     statement2 = @group.create_statement(@user, :group_email_domain_change)
+    statement2.confirm
     GroupEmailDomainChange.create!(statement_id: statement2.id, change_type: GroupEmailDomainChangeTypes[:remove_all], domain: "bogus.com")
     statement2.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
@@ -325,6 +343,7 @@ class StateMachineTest < ActiveSupport::TestCase
   def accepted_rule_updates(rule_type_key, value)
     GroupUserInfo.new(@group.name, nil, @user).make_member_active
     statement = @group.create_statement(@user, :rule)
+    statement.confirm
     rule      = Rule.create!(statement_id: statement.id, rule_type: RuleTypes[rule_type_key], rule_value: value)
     statement.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)

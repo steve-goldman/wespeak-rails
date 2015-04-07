@@ -96,7 +96,7 @@ class ProfilesController < GroupPagesControllerBase
   end
 
   def statement_valid
-    @statement = Statement.find_by(id: params[:statement_id], confirmed: true)
+    @statement = Statement.where(id: params[:statement_id]).where.not(state: StatementStates[:new]).first
     redirect_with_flash(FlashMessages::STATEMENT_UNKNOWN, request.referer || root_url) if @statement.nil?
   end
 
