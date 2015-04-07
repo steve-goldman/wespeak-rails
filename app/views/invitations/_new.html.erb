@@ -1,7 +1,7 @@
 <div class="new-invitation">
   <div class="row">
     <div class="col-md-6 col-xs-12">
-      <%= form_for :invitation, url: create_invitation_path(@info.group.name), method: :post, remote: true do |f| %>
+      <%= form_for :invitation, url: create_invitation_path(@info.group.name), method: :post do |f| %>
       <div><%= f.label :invitations, "Invitations" %></div>
       <div><%= f.select(:invitations, options_for_select(Constants::Invitations::INPUT_OPTIONS, @info.group.invitations), class: "form-control") %></div>
       <div><%= f.submit "Propose", class:"btn btn-primary" %></div>
