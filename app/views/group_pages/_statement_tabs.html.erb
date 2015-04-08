@@ -7,7 +7,7 @@
         link_to("Profile", group_profile_path(@info.group.name)),
         class: @info.state == :accepted ? "active" : "inactive") %>
 
-    <% new_vote_count = @info.group.num_voting_statements - @info.group.num_voted_statements(@info.user) %>
+    <% new_vote_count = @info.user ? @info.group.num_voting_statements - @info.group.num_voted_statements(@info.user) : 0 %>
 
     <%= content_tag(
         :li,
