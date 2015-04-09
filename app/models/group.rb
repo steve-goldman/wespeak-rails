@@ -142,9 +142,16 @@ class Group < ActiveRecord::Base
     elsif statement.statement_type == StatementTypes[:profile_image]
       update_attributes(profile_image: statement.get_content.image)
     elsif statement.statement_type == StatementTypes[:location]
-      update_attributes(latitude:  statement.get_content.latitude,
-                        longitude: statement.get_content.longitude,
-                        radius:    statement.get_content.radius)
+      location = statement.get_content
+      if location.change_type == LocationChangeTypes[:add]
+        update_attributes(latitude:  statement.get_content.latitude,
+                          longitude: statement.get_content.longitude,
+                          radius:    statement.get_content.radius)
+      elsif location.change_type == LocationChangeTypes[:remove_all]
+        update_attributes(latitude:  nil,
+                          longitude: nil,
+                          radius:    nil)
+      end
     elsif statement.statement_type == StatementTypes[:rule]
       rule = statement.get_content
       if rule.rule_type == RuleTypes[:lifespan]

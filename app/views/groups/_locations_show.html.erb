@@ -1,14 +1,14 @@
 <span class="locations">
+  <p>
   <% if !radius %>
     No location restrictions.
   <% else %>
-  <p>
     <div><%= link_to Location.map_link(latitude, longitude), target: '_blank' do %>
       <%= image_tag(Location.static_map_url(latitude, longitude, radius)) %>
       <% end %></div>
     <div>Must be within <%= radius %> miles.</div>
-  </p>
   <% end %>
+  </p>
 </span>
 <% if change_link %>
   <div class="change-link"><%= link_to "Propose change", new_location_path(@info.group.name) %></div>

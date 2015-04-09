@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407193314) do
+ActiveRecord::Schema.define(version: 20150409025309) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20150407193314) do
     t.integer  "radius"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "change_type"
   end
 
   add_index "locations", ["statement_id"], name: "index_locations_on_statement_id"

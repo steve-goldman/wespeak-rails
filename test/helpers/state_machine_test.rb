@@ -220,8 +220,7 @@ class StateMachineTest < ActiveSupport::TestCase
     GroupUserInfo.new(@group.name, nil, @user).make_member_active
     statement = @group.create_statement(@user, :location)
     statement.confirm
-    statement.confirm
-    location = Location.create!(statement_id: statement.id, latitude: 40, longitude: 40, radius: 500)
+    Location.create!(statement_id: statement.id, change_type: LocationChangeTypes[:add], latitude: 40, longitude: 40, radius: 500)
     statement.add_support(@user)
     StateMachine.alive_to_voting(Time.zone.now)
     statement.reload
@@ -232,6 +231,20 @@ class StateMachineTest < ActiveSupport::TestCase
     assert_equal 40,  @group.latitude
     assert_equal 40,  @group.longitude
     assert_equal 500, @group.radius
+    # now undo it
+    statement2 = @group.create_statement(@user, :location)
+    statement2.confirm
+    Location.create!(statement_id: statement2.id, change_type: LocationChangeTypes[:remove_all])
+    statement2.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement2.reload
+    # voting now
+    statement2.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement2.vote_ends_at + 1)
+    @group.reload
+    assert_nil @group.latitude
+    assert_nil @group.longitude
+    assert_nil @group.radius
   end
 
   test "add group email domain updates" do

@@ -92,9 +92,10 @@ Rails.application.routes.draw do
   post   'groups/:name/profile_images',        to: 'profile_images#create', as: :create_profile_image
 
   # location changes
-  get    'groups/:name/locations/new',         to: 'locations#new',    as: :new_location
-  get    'groups/:name/locations/:state',      to: 'locations#index',  as: :locations
-  post   'groups/:name/locations',             to: 'locations#create', as: :create_locations
+  get    'groups/:name/locations/new',         to: 'locations#new',                  as: :new_location
+  get    'groups/:name/locations/:state',      to: 'locations#index',                as: :locations
+  post   'groups/:name/locations',             to: 'locations#create',               as: :create_locations
+  post   'groups/:name/rem_locations',         to: 'locations#create_rem_locations', as: :rem_locations
 
   # rules
   get    'groups/:name/rules/new',                to: 'rules#new',    as: :new_rule
