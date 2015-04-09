@@ -2,7 +2,7 @@
   <ul class="list-group rules">
     <li class="list-group-item">
       <p>
-        <span class="header">Statement Lifespan</span>
+        <span class="header"><%= RuleTypes.display_name(:lifespan) %></span>
       </p>
       <%= form_for :lifespan_rule, url: create_lifespan_rule_path(@info.group.name), method: :post do |f| %>
       <div><%= f.select(:rule_value, options_for_select(Constants::Timespans::INPUT_OPTIONS, @info.group.lifespan_rule), class: "form-control") %></div>
@@ -12,7 +12,7 @@
 
     <li class="list-group-item">
       <p>
-        <span class="header">Support Needed</span>
+        <span class="header"><%= RuleTypes.display_name(:support_needed) %></span>
       </p>
       <%= form_for :support_needed_rule, url: create_support_needed_rule_path(@info.group.name), method: :post do |f| %>
       <output name="support_needed" for="support_needed_rule_rule_value"><%= @info.group.support_needed_rule %>%</output>
@@ -27,7 +27,7 @@
 
     <li class="list-group-item">
       <p>
-        <span class="header">Vote Lifespan</span>
+        <span class="header"><%= RuleTypes.display_name(:votespan) %></span>
       </p>
       <%= form_for :votespan_rule, url: create_votespan_rule_path(@info.group.name), method: :post do |f| %>
       <div><%= f.select(:rule_value, options_for_select(Constants::Timespans::INPUT_OPTIONS, @info.group.votespan_rule), class: "form-control") %></div>
@@ -37,7 +37,7 @@
 
     <li class="list-group-item">
       <p>
-        <span class="header">Votes Needed</span>
+        <span class="header"><%= RuleTypes.display_name(:votes_needed) %></span>
       </p>
       <%= form_for :votes_needed_rule, url: create_votes_needed_rule_path(@info.group.name), method: :post do |f| %>
       <output name="votes_needed" for="votes_needed_rule_rule_value"><%= @info.group.votes_needed_rule %>%</output>
@@ -52,7 +52,7 @@
 
     <li class="list-group-item">
       <p>
-        <span class="header">Yeses Needed</span>
+        <span class="header"><%= RuleTypes.display_name(:yeses_needed) %></span>
       </p>
       <%= form_for :yeses_needed_rule, url: create_yeses_needed_rule_path(@info.group.name), method: :post do |f| %>
       <output name="yeses_needed" for="yeses_needed_rule_rule_value"><%= @info.group.yeses_needed_rule %>%</output>
@@ -68,7 +68,7 @@
 
     <li class="list-group-item">
       <p>
-        <span class="header">Member Inactivity Timeout</span>
+        <span class="header"><%= RuleTypes.display_name(:inactivity_timeout) %></span>
       </p>
       <%= form_for :inactivity_timeout_rule, url: create_inactivity_timeout_rule_path(@info.group.name), method: :post do |f| %>
       <div><%= f.select(:rule_value, options_for_select(Constants::Timespans::INPUT_OPTIONS, @info.group.inactivity_timeout_rule), class: "form-control") %></div>

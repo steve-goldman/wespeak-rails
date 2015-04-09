@@ -8,6 +8,15 @@ class RuleTypes
     inactivity_timeout: 1006,
   }
 
+  @display_names = {
+    lifespan:           "Statement Lifespan",
+    support_needed:     "Support Needed",
+    votespan:           "Vote Lifespan",
+    votes_needed:       "Votes Needed",
+    yeses_needed:       "Yeses Needed",
+    inactivity_timeout: "Inactivity Timeout",
+  }
+
   def RuleTypes.[](key)
     @rule_types[key]
   end
@@ -22,6 +31,10 @@ class RuleTypes
 
   def RuleTypes.values
     @rule_types.values
+  end
+
+  def RuleTypes.display_name(key)
+    @display_names[key]
   end
 
 end

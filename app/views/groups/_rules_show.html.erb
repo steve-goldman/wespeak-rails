@@ -1,7 +1,7 @@
 <ul class="list-group rules">
   <li class="list-group-item">
     <p>
-      <span class="header">Statement Lifespan</span>
+      <span class="header"><%= RuleTypes.display_name(:lifespan) %></span>
     </p>
     <%= Constants::Timespans::in_words(group.lifespan_rule) %>
     <% if change_links %>
@@ -10,7 +10,7 @@
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Support Needed</span>
+      <span class="header"><%= RuleTypes.display_name(:support_needed) %></span>
     </p>
     <%= group.support_needed_rule %>%
     <% if change_links %>
@@ -19,7 +19,7 @@
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Vote Lifespan</span>
+      <span class="header"><%= RuleTypes.display_name(:votespan) %></span>
     </p>
     <%= Constants::Timespans::in_words(group.votespan_rule) %>
     <% if change_links %>
@@ -28,7 +28,7 @@
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Votes Needed</span>
+      <span class="header"><%= RuleTypes.display_name(:votes_needed) %></span>
     </p>
     <%= group.votes_needed_rule %>%
     <% if change_links %>
@@ -37,7 +37,7 @@
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Yeses Needed</span>
+      <span class="header"><%= RuleTypes.display_name(:yeses_needed) %></span>
     </p>
     <%= group.yeses_needed_rule %>%
     <% if change_links %>
@@ -46,7 +46,7 @@
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Member Inactivity Timeout</span>
+      <span class="header"><%= RuleTypes.display_name(:inactivity_timeout) %></span>
     </p>
     <%= Constants::Timespans::in_words(group.inactivity_timeout_rule) %>
     <% if change_links %>

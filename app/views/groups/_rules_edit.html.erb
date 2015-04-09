@@ -2,13 +2,13 @@
 <ul class="list-group rules">
   <li class="list-group-item">
     <p>
-      <span class="header">Statement Lifespan</span>
+      <span class="header"><%= RuleTypes.display_name(:lifespan) %></span>
     </p>
     <%= f.select(:lifespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.lifespan_rule), class: "form-control") %>
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Support Needed</span>
+      <span class="header"><%= RuleTypes.display_name(:support_needed) %></span>
     </p>
     
     <output name="support_needed" for="group_support_needed_rule"><%= @group.support_needed_rule %>%</output>
@@ -21,14 +21,14 @@
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Vote Lifespan</span>
+      <span class="header"><%= RuleTypes.display_name(:votespan) %></span>
     </p>
 
     <%= f.select(:votespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.votespan_rule), class: "form-control") %>
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Votes Needed</span>
+      <span class="header"><%= RuleTypes.display_name(:votes_needed) %></span>
     </p>
     
     <output name="votes_needed" for="group_votes_needed_rule"><%= @group.votes_needed_rule %>%</output>
@@ -41,7 +41,7 @@
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Yeses Needed</span>
+      <span class="header"><%= RuleTypes.display_name(:yeses_needed) %></span>
     </p>
     
     <output name="yeses_needed" for="group_yeses_needed_rule"><%= @group.yeses_needed_rule %>%</output>
@@ -54,7 +54,7 @@
   </li>
   <li class="list-group-item">
     <p>
-      <span class="header">Member Inactivity Timeout</span>
+      <span class="header"><%= RuleTypes.display_name(:inactivity_timeout) %></span>
     </p>
 
     <%= f.select(:inactivity_timeout_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.inactivity_timeout_rule), class: "form-control") %>
