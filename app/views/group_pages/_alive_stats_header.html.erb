@@ -2,5 +2,5 @@
   <li><%= StatementTypes.name(statement.statement_type) %></li>
   <li><span id="support-count-<%= statement.id %>"><%= statement.supports.count %></span>/<%= statement.support_needed %> from <%= statement.eligible_supporters %> active</li>
   <li>Expires in <%= time_ago_in_words(statement.expires_at) %></li>
-  <li><%= link_to "Direct Link", proposal_path(@info.group.name, statement.id) %></li>
+  <li><%= link_to "Direct Link", statement_path(@info.group.name, statement.id) %></li>
 </ul>

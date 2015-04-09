@@ -20,7 +20,7 @@ class GroupUserInfo
       # TODO: location eligible
 
       @change_eligible = @email_eligible && @invitation_eligible
-      # TODO: && @invitation_eligible && @facebook_eligible && @location_eligible
+      # TODO: && @facebook_eligible && @location_eligible
 
       @invitations_remaining = @group.invitations - SentInvitation.num_sent_today(@user, @group) if
         @change_eligible && @group.invitations_required?

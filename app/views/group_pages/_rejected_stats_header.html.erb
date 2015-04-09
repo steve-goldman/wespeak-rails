@@ -3,5 +3,5 @@
   <li><%= statement.votes.count %>/<%= statement.votes_needed %> from <%= statement.eligible_voters %> active</li>
   <li><%= statement.yeses_percent %>%/<%= statement.yeses_needed %>%</li>
   <li>Vote ended on <%= Constants::Timespans::full_time(statement.vote_ended_at) %></li>
-  <li><%= link_to "Direct Link", proposal_path(@info.group.name, statement.id) %></li>
+  <li><%= link_to "Direct Link", statement_path(@info.group.name, statement.id) %></li>
 </ul>

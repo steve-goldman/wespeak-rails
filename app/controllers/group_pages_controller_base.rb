@@ -16,7 +16,7 @@ class GroupPagesControllerBase < ApplicationController
   end
 
   def create
-    redirect_to confirm_tagline_path(@info.group.name, @statement.id)
+    redirect_to confirm_statement_path(@info.group.name, @statement.id)
   end
 
   protected

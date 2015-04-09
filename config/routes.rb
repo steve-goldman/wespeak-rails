@@ -54,8 +54,10 @@ Rails.application.routes.draw do
 
   # main profile pages
   get    'groups/:name',                       to: 'profiles#show'
-  get    'groups/:name/profile',               to: 'profiles#show',   as: :group_profile
-  get    'groups/:name/profile/:state',        to: 'profiles#show',   as: :profile
+  get    'groups/:name/profile',               to: 'profiles#show',               as: :group_profile
+  get    'groups/:name/profile/:state',        to: 'profiles#show',               as: :profile
+  get    'groups/:name/participation',         to: 'profiles#show_participation', as: :group_participation
+  get    'groups/:name/rules',                 to: 'profiles#show_rules',         as: :group_rules
 
   # support
   post   'groups/:name/support',               to: 'profiles#support',   as: :support
@@ -78,28 +80,28 @@ Rails.application.routes.draw do
 
   # taglines
   get    'groups/:name/taglines/new',          to: 'taglines#new',     as: :new_tagline
-  get    'groups/:name/taglines/:state',       to: 'taglines#index',   as: :taglines
+  #get    'groups/:name/taglines/:state',       to: 'taglines#index',   as: :taglines
   post   'groups/:name/taglines',              to: 'taglines#create',  as: :create_tagline
   
   # updates
   get    'groups/:name/updates/new',           to: 'updates#new',    as: :new_update
-  get    'groups/:name/updates/:state',        to: 'updates#index',  as: :updates
+  #get    'groups/:name/updates/:state',        to: 'updates#index',  as: :updates
   post   'groups/:name/updates',               to: 'updates#create', as: :create_update
   
   # profile images
   get    'groups/:name/profile_images/new',    to: 'profile_images#new',    as: :new_profile_image
-  get    'groups/:name/profile_images/:state', to: 'profile_images#index',  as: :profile_images
+  #get    'groups/:name/profile_images/:state', to: 'profile_images#index',  as: :profile_images
   post   'groups/:name/profile_images',        to: 'profile_images#create', as: :create_profile_image
 
   # location changes
   get    'groups/:name/locations/new',         to: 'locations#new',                  as: :new_location
-  get    'groups/:name/locations/:state',      to: 'locations#index',                as: :locations
+  #get    'groups/:name/locations/:state',      to: 'locations#index',                as: :locations
   post   'groups/:name/locations',             to: 'locations#create',               as: :create_locations
   post   'groups/:name/rem_locations',         to: 'locations#create_rem_locations', as: :rem_locations
 
   # rules
   get    'groups/:name/rules/new',                to: 'rules#new',    as: :new_rule
-  get    'groups/:name/rules/:state',             to: 'rules#index',                          as: :rules
+  #get    'groups/:name/rules/:state',             to: 'rules#index',                          as: :rules
   post   'groups/:name/lifespan_rules',           to: 'rules#create_lifespan_rule',           as: :create_lifespan_rule
   post   'groups/:name/support_needed_rules',     to: 'rules#create_support_needed_rule',     as: :create_support_needed_rule
   post   'groups/:name/votespan_rules',           to: 'rules#create_votespan_rule',           as: :create_votespan_rule
@@ -109,21 +111,21 @@ Rails.application.routes.draw do
   
   # invitations
   get    'groups/:name/invitations/new',          to: 'invitations#new',    as: :new_invitation
-  get    'groups/:name/invitations/:state',       to: 'invitations#index',  as: :invitations
+  #get    'groups/:name/invitations/:state',       to: 'invitations#index',  as: :invitations
   post   'groups/:name/invitations',              to: 'invitations#create', as: :create_invitation
 
   # group email domains
   get    'groups/:name/email_addresses/new',      to: 'group_email_domain_changes#new',                    as: :new_group_email_domain_change
-  get    'groups/:name/email_addresses/:state',   to: 'group_email_domain_changes#index',                  as: :group_email_domain_changes
+  #get    'groups/:name/email_addresses/:state',   to: 'group_email_domain_changes#index',                  as: :group_email_domain_changes
   post   'groups/:name/add_email_address',        to: 'group_email_domain_changes#create_add_domain',      as: :add_group_email_domain_change
   post   'groups/:name/rem_email_address',        to: 'group_email_domain_changes#create_rem_domain',      as: :rem_group_email_domain_change
   post   'groups/:name/rem_all_email_address',    to: 'group_email_domain_changes#create_rem_all_domains', as: :rem_all_group_email_domains_change
 
   # proposals (catch-all)
-  get    'groups/:name/statements/:id',            to: 'proposals#show',      as: :proposal
-  get    'groups/:name/statements/:id/confirm',    to: 'proposals#confirm',   as: :confirm_tagline
-  post   'groups/:name/statements/confirmed',      to: 'proposals#confirmed', as: :confirm_proposal
-  post   'groups/:name/statements/discarded',      to: 'proposals#discarded', as: :discard_proposal
+  get    'groups/:name/statements/:id',            to: 'proposals#show',      as: :statement
+  get    'groups/:name/statements/:id/confirm',    to: 'proposals#confirm',   as: :confirm_statement
+  post   'groups/:name/statements/confirmed',      to: 'proposals#confirmed', as: :confirmed_statement
+  post   'groups/:name/statements/discarded',      to: 'proposals#discarded', as: :discarded_statement
 
   get    'groups/:name/why_not_support_eligible/:statement_id', to: 'profiles#why_not_support_eligible', as: :why_not_support_eligible
   get    'groups/:name/why_not_vote_eligible/:statement_id',    to: 'profiles#why_not_vote_eligible',    as: :why_not_vote_eligible

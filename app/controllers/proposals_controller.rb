@@ -20,7 +20,7 @@ class ProposalsController < GroupPagesControllerBase
 
   def confirmed
     @info.make_member_active
-    redirect_with_flash(FlashMessages::PROPOSAL_SUCCESS, proposal_path(@info.group.name, @statement.id))
+    redirect_with_flash(FlashMessages::PROPOSAL_SUCCESS, statement_path(@info.group.name, @statement.id))
   end
 
   def discarded

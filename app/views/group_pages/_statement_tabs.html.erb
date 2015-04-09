@@ -1,10 +1,8 @@
-<%= render 'group_pages/profile_header' %>
-
 <div class="group-tabs">
-  <ul class="nav nav-pills">
+  <ul class="nav nav-pills nav-justified">
     <%= content_tag(
         :li,
-        link_to("Profile", group_profile_path(@info.group.name)),
+        link_to("Passed", group_profile_path(@info.group.name)),
         class: @info.state == :accepted ? "active" : "inactive") %>
 
     <% new_vote_count = @info.user ? @info.group.num_voting_statements - @info.group.num_voted_statements(@info.user) : 0 %>

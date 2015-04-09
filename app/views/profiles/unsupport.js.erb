@@ -1,3 +1,2 @@
-$('#left-header').html('<%= j render 'group_pages/left_header' %>')
 $("#support-button-<%= @statement.id %>").html("<%= j render 'group_pages/support_button', statement: @statement %>")
 $("#support-count-<%= @statement.id %>").html("<%= @statement.supports.count %>")

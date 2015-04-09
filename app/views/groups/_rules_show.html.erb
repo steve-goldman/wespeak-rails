@@ -1,58 +1,56 @@
-<table class="table table-hover table-striped">
-  <tbody>
-    <tr>
-      <td>Statement Lifespan</td>
-      <td>
-        <%= Constants::Timespans::in_words(group.lifespan_rule) %>
-        <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td>Support Needed</td>
-      <td>
-        <%= group.support_needed_rule %>%
-        <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td>Vote Lifespan</td>
-      <td>
-        <%= Constants::Timespans::in_words(group.votespan_rule) %>
-        <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td>Votes Needed</td>
-      <td>
-        <%= group.votes_needed_rule %>%
-        <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td>Yeses Needed</td>
-      <td>
-        <%= group.yeses_needed_rule %>%
-        <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td>Member Inactivity Timeout</td>
-      <td>
-        <%= Constants::Timespans::in_words(group.inactivity_timeout_rule) %>
-        <% if change_links %>
-        <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<ul class="list-group rules">
+  <li class="list-group-item">
+    <p>
+      <span class="header">Statement Lifespan</span>
+    </p>
+    <%= Constants::Timespans::in_words(group.lifespan_rule) %>
+    <% if change_links %>
+      <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
+    <% end %>
+  </li>
+  <li class="list-group-item">
+    <p>
+      <span class="header">Support Needed</span>
+    </p>
+    <%= group.support_needed_rule %>%
+    <% if change_links %>
+      <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
+    <% end %>
+  </li>
+  <li class="list-group-item">
+    <p>
+      <span class="header">Vote Lifespan</span>
+    </p>
+    <%= Constants::Timespans::in_words(group.votespan_rule) %>
+    <% if change_links %>
+      <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
+    <% end %>
+  </li>
+  <li class="list-group-item">
+    <p>
+      <span class="header">Votes Needed</span>
+    </p>
+    <%= group.votes_needed_rule %>%
+    <% if change_links %>
+      <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
+    <% end %>
+  </li>
+  <li class="list-group-item">
+    <p>
+      <span class="header">Yeses Needed</span>
+    </p>
+    <%= group.yeses_needed_rule %>%
+    <% if change_links %>
+      <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
+    <% end %>
+  </li>
+  <li class="list-group-item">
+    <p>
+      <span class="header">Member Inactivity Timeout</span>
+    </p>
+    <%= Constants::Timespans::in_words(group.inactivity_timeout_rule) %>
+    <% if change_links %>
+      <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
+    <% end %>
+  </li>
+</ul>

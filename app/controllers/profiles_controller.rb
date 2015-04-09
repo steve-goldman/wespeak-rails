@@ -33,6 +33,12 @@ class ProfilesController < GroupPagesControllerBase
     end
   end
 
+  def show_participation
+  end
+
+  def show_rules
+  end
+
   def support
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }

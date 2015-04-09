@@ -1,31 +1,29 @@
 <div class="profile-header">
-  <table>
-    <col width="33%">
-    <col width="67%">
-    <tr>
-      <td class="left-side">
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="profile-image">
         <%= render 'group_pages/profile_photo' %>
-      </td>
-      <td class="right-side">
-        <div class="group-name">
-          <%= @info.group.name %>
-        </div>
-        <div class="tagline">
-          <%= render 'group_pages/tagline' %>
-        </div>
-        <div class="membership">
-          <%= @info.group.membership_count %> member<%= @info.group.membership_count != 1 ? "s" : "" %>,
-          <%= @info.group.active_members.count %> active
-        </div>
-        <div class="following" id="following">
-          <%= render 'group_pages/following' %>
-        </div>
-        <% if @info.change_eligible? %>
-        <p>
-          <%= link_to "Propose an update", new_update_path(@info.group.name) %>
-        </p>
-        <% end %>
-      </td>
-    </tr>
-  </table>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="group-name">
+        <%= @info.group.name %>
+      </div>
+      <div class="tagline">
+        <%= render 'group_pages/tagline' %>
+      </div>
+      <div class="membership">
+        <%= @info.group.membership_count %> member<%= @info.group.membership_count != 1 ? "s" : "" %>,
+        <%= @info.group.active_members.count %> active
+      </div>
+      <div class="following" id="following">
+        <%= render 'group_pages/following' %>
+      </div>
+      <% if @info.change_eligible? %>
+      <p>
+        <%= link_to "Propose an update", new_update_path(@info.group.name) %>
+      </p>
+      <% end %>
+    </div>
+  </div>
 </div>

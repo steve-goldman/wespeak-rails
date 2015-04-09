@@ -1,4 +1,4 @@
-<%= image_tag(@info.group.profile_image.url || "no-image.png", alt: "Profile photo", title: "Profile photo") %>
+<%= image_tag(@info.group.profile_image.url || "no-image.png", alt: "Profile image", title: "Profile image") %>
 <% if @info.change_eligible? %>
   <div class="change-link"><%= link_to "Propose change", new_profile_image_path(@info.group.name) %></div>
 <% end %>
