@@ -1,0 +1,20 @@
+<ul class="nav nav-tabs nav-justified page-tabs" role="tablist">
+  <li class="<%= active_tab == :profile ? 'active' : 'inactive' %>">
+    <%= link_to "Profile", group_profile_path(@info.group.name) %>
+  </li>
+  <li class="<%= active_tab == :participation ? 'active' : 'inactive' %>">
+    <%= link_to group_participation_path(@info.group.name) do %>
+      Participation
+      <% if logged_in? %>
+        <% if @info.change_eligible? %>
+        <span class="glyphicon glyphicon-ok"></span>
+        <% else %>
+        <span class="glyphicon glyphicon-remove"></span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </li>
+  <li class="<%= active_tab == :rules ? 'active' : 'inactive' %>">
+    <%= link_to "Rules", group_rules_path(@info.group.name) %>
+  </li>
+</ul>

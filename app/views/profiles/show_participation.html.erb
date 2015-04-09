@@ -1,0 +1,127 @@
+<% provide(:title, @info.group.name) %>
+<div class="row">
+  <div class="col-md-offset-3 col-md-6 col-xs-12">
+    <%= render 'group_pages/page_tabs', active_tab: :participation %>
+    <%= render 'group_pages/profile_header' %>
+
+    <ul class="list-group participation">
+      <% if logged_in? %>
+        <li class="list-group-item">
+          <p>
+            <span class="header">Membership</span>
+            <span class="explain"><%=link_to "what is this?", '#' %></span>
+          </p>
+          <% if @info.member_history %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Member since <%= time_ago_in_words(@info.member_history.created_at) %> ago.
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+            You are not a member.
+            <% if @info.change_eligible? %>
+              <%= button_to "Join!", activate_membership_path(@info.group.name), class: "btn btn-success" %>
+            <% end %>
+          <% end %>
+        </li>
+        <% if @info.member_history %>
+          <li class="list-group-item">
+            <p>
+              <span class="header">Active Status</span>
+              <span class="explain"><%=link_to "what is this?", '#' %></span>
+            </p>
+            <% if @info.active_member %>
+              <span class="glyphicon glyphicon-ok"></span>
+              Active since <%= time_ago_in_words(@info.active_member.created_at) %> ago, valid for <%= time_ago_in_words(@info.active_member.expires_at) %>
+              <%= button_to "Deactivate",
+                  deactivate_membership_path(@info.group.name),
+                  method: :delete,
+                  data: { confirm: "Are you sure? You won't be able to support or vote on statements that are currently in the group." },
+                  class: "btn btn-danger" %>
+            <% else %>
+              <span class="glyphicon glyphicon-remove"></span>
+              You are not active.
+              <% if @info.change_eligible? %>
+                <%= button_to "Activate!", activate_membership_path(@info.group.name), class: "btn btn-success" %>
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+        <li class="list-group-item">
+          <p>
+            <span class="header">Can I participate?</span>
+          </p>
+          <% if @info.change_eligible? %>
+            <span class="glyphicon glyphicon-ok"></span>
+            You may participate!
+          <% else %>
+            <% if !@info.email_eligible? %>
+              <span class="glyphicon glyphicon-remove"></span>
+              See below for email address requirements.
+              <%= link_to "Add an address", settings_email_identities_path %>
+              to your account.
+            <% end %>
+            <% if !@info.invitation_eligible? %>
+              <span class="glyphicon glyphicon-remove"></span>
+              Invitations are required.
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+      <li class="list-group-item">
+        <p>
+          <span class="header">Email Addresses</span>
+          <span class="explain"><%=link_to "what is this?", '#' %></span>
+        </p>
+        <% if @info.group.group_email_domains.any? %>
+        <ul class="list-group">
+          <% @info.group.group_email_domains.each do |domain| %>
+            <li class="list-group-item"><%= domain.domain %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          There are no email address restrictions.
+        <% end %>
+        <% if @info.change_eligible? %>
+          <div class="change-link"><%= link_to "Propose change", new_group_email_domain_change_path(@info.group.name) %></div>
+        <% end %>
+      </li>
+      <li class="list-group-item">
+        <p>
+          <span class="header">Invitations</span>
+          <span class="explain"><%=link_to "what is this?", '#' %></span>
+        </p>
+        <% if !@info.group.invitations_required? %>
+          Invitations are not required.
+        <% else %>
+          Invitations are required. Members may send <%= @info.group.invitations %> per day.
+          <% if @info.change_eligible? %>
+            <div class="change-link"><%= link_to "Propose change", new_invitation_path(@info.group.name) %></div>
+            <p>
+              <%= render 'sent_invitations/new' %>
+            </p>
+          <% end %>
+        <% end %>
+      </li>
+      <li class="list-group-item">
+        <p>
+          <span class="header">Locations</span>
+          <span class="explain"><%=link_to "what is this?", '#' %></span>
+        </p>
+        <% if !@info.group.radius %>
+          Location does not restrict participation.
+        <% else %>
+          <div>
+            <%= link_to Location.map_link(@info.group.latitude, @info.group.longitude), target: '_blank' do %>
+              <%= image_tag(Location.static_map_url(@info.group.latitude, @info.group.longitude, @info.group.radius)) %>
+            <% end %>
+          </div>
+          <div>
+            Must be within <%= @info.group.radius %> miles.
+          </div>
+        <% end %>
+        <% if @info.change_eligible? %>
+          <div class="change-link"><%= link_to "Propose change", new_location_path(@info.group.name) %></div>
+        <% end %>
+      </li>      
+    </ul>
+  </div>
+</div>
