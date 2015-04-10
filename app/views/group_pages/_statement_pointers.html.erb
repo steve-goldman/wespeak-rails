@@ -1,16 +1,14 @@
 <% @statement_pointers.each do |statement_pointer| %>
 <% statement = statement_pointer[:content].statement %>
-<tr>
-  <td>
-    <div class="statement-header">
-      <%= render('group_pages/statement_stats', section: :header, statement: statement) %>
-    </div>
-    <div class="statement">
-      <%= render 'group_pages/statement_pointer', statement_pointer: statement_pointer %>
-    </div>
-    <div class="statement-footer">
-      <%= render('group_pages/statement_stats', section: :footer, statement: statement) %>
-    </div>
-  </td>
-</tr>
+<li class="list-group-item">
+  <div class="statement-header">
+    <%= render('group_pages/statement_stats', section: :header, statement: statement) %>
+  </div>
+  <div class="statement">
+    <%= render 'group_pages/statement_pointer', statement_pointer: statement_pointer %>
+  </div>
+  <div class="statement-footer">
+    <%= render('group_pages/statement_stats', section: :footer, statement: statement) %>
+  </div>
+</li>
 <% end %>

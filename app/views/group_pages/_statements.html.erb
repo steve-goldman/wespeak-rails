@@ -1,15 +1,13 @@
 <% @statements.each do |statement| %>
-<tr>
-  <td>
-    <div class="statement-header">
-      <%= render('group_pages/statement_stats', section: :header, statement: statement.statement) %>
-    </div>
-    <div class="statement">
-      <%= render "#{statement.statement.statement_tab}/show", statement: statement %>
-    </div>
-    <div class="statement-footer">
-      <%= render('group_pages/statement_stats', section: :footer, statement: statement.statement) %>
-    </div>
-  </td>
-</tr>
+<li class="list-group-item">
+  <div class="statement-header">
+    <%= render('group_pages/statement_stats', section: :header, statement: statement.statement) %>
+  </div>
+  <div class="statement">
+    <%= render "#{statement.statement.statement_tab}/show", statement: statement %>
+  </div>
+  <div class="statement-footer">
+    <%= render('group_pages/statement_stats', section: :footer, statement: statement.statement) %>
+  </div>
+</li>
 <% end %>
