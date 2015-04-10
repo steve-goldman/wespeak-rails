@@ -1,19 +1,39 @@
 <% @following_groups.each do |group| %>
-<tr>
-  <td>
-    <div class="left-side">
-      <%= link_to group.name, group_profile_path(group.name) %>
+<li class="list-group-item">
+  <div class="row">
+    <div class="col-xs-2">
+      <% if group.profile_image.url %>
+        <%= link_to group_profile_path(group.name) do %>
+          <%= image_tag(group.profile_image.thumb.url) if group.profile_image.url %>
+        <% end %>
+      <% end %>
     </div>
-  </td>
-  <td>
-    <div class="right-side">
-      <div>
-        <%= group.membership_count %> member<%= group.membership_count != 1 ? "s" : "" %>, <%= group.active_members.count %> active
+    <div class="col-xs-5">
+      <div class="group-name">
+        <%= link_to group.name, group_profile_path(group.name) %>
       </div>
       <div>
-        <%= group.followers.count %> follower<%= group.followers.count != 1 ? "s" : "" %>
+        <%= pluralize(group.membership_count, "member") %>, <%= group.active_members.count %> active
+      </div>
+      <div>
+        <%= pluralize(group.followers.count, "follower") %>
       </div>
     </div>
-  </td>
-</tr>
+    <div class="col-xs-5">
+      <div class="group-name">
+        Statements
+      </div>
+      <div>
+        <%= link_to profile_path(group.name, :voting) do %>
+          <%= group.get_count(:voting) %> voting
+        <% end %>
+      </div>
+      <div>
+        <%= link_to profile_path(group.name, :alive) do %>
+          <%= group.get_count(:alive) %> alive
+        <% end %>
+      </div>
+    </div>
+  </div>
+</li>
 <% end %>

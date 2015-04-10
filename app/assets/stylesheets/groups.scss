@@ -31,7 +31,7 @@
     
     .following {
         font-size: small;
-        
+
         form {
             border: 0px;
             padding: 0px;
@@ -163,5 +163,15 @@
 .new-group-email-domain-change, .new-location {
     form {
         border: 0px;
+    }
+}
+
+.following-list {
+    font-size: small;
+    .group-name {
+        font-size: large;
+    }
+    img {
+        margin-top: 5px;
     }
 }
