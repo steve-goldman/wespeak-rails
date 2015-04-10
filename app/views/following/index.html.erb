@@ -1,14 +1,12 @@
 <% provide(:title, "Following") %>
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
-    <div class="following-list">
-      <h4>Following (<%= current_user.followers.count %>)</h4>
-      <ul id="groups-list" class="list-group">
-        <%= render 'group_rows' %>
-      </ul>
-      <div id="infinite-scrolling">
-        <%= will_paginate @following_groups %>
-      </div>
+    <h4>Following (<%= current_user.followers.count %>)</h4>
+    <ul id="groups-list" class="list-group groups-list">
+      <%= render 'group_pages/group_rows', groups: @following_groups %>
+    </ul>
+    <div id="infinite-scrolling">
+      <%= will_paginate @following_groups %>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-$('#groups-list').append('<%= j render 'group_rows' %>');
+$('#groups-list').append('<%= j render 'group_pages/group_rows', groups: @my_groups %>');
 <% if @my_groups.next_page %>
   $('.pagination').replaceWith('<%= j will_paginate @my_groups %>');
 <% else %>
