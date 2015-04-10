@@ -1,7 +1,7 @@
 <% groups.each do |group| %>
 <li class="list-group-item">
   <div class="row">
-    <div class="col-xs-2">
+    <div class="col-xs-3">
       <% if group.profile_image.url %>
         <%= link_to group_profile_path(group.name) do %>
           <%= image_tag(group.profile_image.thumb.url) if group.profile_image.url %>
@@ -19,7 +19,7 @@
         <%= pluralize(group.followers.count, "follower") %>
       </div>
     </div>
-    <div class="col-xs-5">
+    <div class="col-xs-4">
       <div class="group-name">
         Statements
       </div>
