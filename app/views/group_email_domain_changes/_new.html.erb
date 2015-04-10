@@ -1,31 +1,29 @@
-<div class="new-group_email_domain_change">
-  <div class="row">
-    <div class="col-md-6 col-xs-12">
-      <p>
-        <%= form_for(:add_group_email_domain, url: add_group_email_domain_change_path(@info.group.name)) do |f| %>
-        <div><%= f.label :add_domain, "Add an Email Address Domain" %></div>
-        <div><%= f.text_field :domain, placeholder: "Email Domain", class: "form-control" %></div>
+<div class="new-group-email-domain-change">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%= form_for(:add_group_email_domain, url: add_group_email_domain_change_path(@info.group.name)) do |f| %>
+      <div><%= f.label :add_domain, "Add an Email Address Domain" %></div>
+      <div><%= f.text_field :domain, placeholder: "Email Domain", class: "form-control" %></div>
+      <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
+      <% end %>
+    </li>
+
+    <% options = @info.group.email_domain_input_options %>
+    <% if options.any? %>
+      <li class="list-group-item">
+        <%= form_for(:rem_group_email_domain, url: rem_group_email_domain_change_path(@info.group.name)) do |f| %>
+        <div><%= f.label :remove_domain, "Remove an Email Address Domain" %></div>
+        <div><%= f.select(:domain_id, options_for_select(options), class: "form-control") %></div>
         <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
         <% end %>
-      </p>
+      </li>
 
-      <% options = @info.group.email_domain_input_options %>
-      <% if options.any? %>
-        <p>
-          <%= form_for(:rem_group_email_domain, url: rem_group_email_domain_change_path(@info.group.name)) do |f| %>
-          <div><%= f.label :remove_domain, "Remove an Email Address Domain" %></div>
-          <div><%= f.select(:domain_id, options_for_select(options), class: "form-control") %></div>
-          <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
-          <% end %>
-        </p>
-
-        <p>
-          <%= form_for(:rem_all_group_email_domains, url: rem_all_group_email_domains_change_path(@info.group.name)) do |f| %>
-          <div><%= f.label :remove_domain, "Remove all Email Address Domains" %></div>
-          <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
-          <% end %>
-        </p>
-      <% end %>
-    </div>
-  </div>
+      <li class="list-group-item">
+        <%= form_for(:rem_all_group_email_domains, url: rem_all_group_email_domains_change_path(@info.group.name)) do |f| %>
+        <div><%= f.label :remove_domain, "Remove all Email Address Domains" %></div>
+        <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </div>

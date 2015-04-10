@@ -1,20 +1,18 @@
 <div class="new-location">
-  <div class="row">
-    <div class="col-md-6 col-xs-12">
-      <p>
-        <%= form_for(:location, url: create_locations_path(@info.group.name)) do |f| %>
-        <%= render 'groups/locations_fields', f: f, button_text: "Propose" %>
-        <% end %>
-      </p>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%= form_for(:location, url: create_locations_path(@info.group.name)) do |f| %>
+      <%= render 'groups/locations_fields', f: f, button_text: "Propose" %>
+      <% end %>
+    </li>
 
-      <% if @info.group.radius %>
-      <p>
+    <% if @info.group.radius %>
+      <li class="list-group-item">
         <%= form_for(:rem_location, url: rem_locations_path(@info.group.name)) do |f| %>
         <div><%= f.label :remove_location, "Remove Location Restriction" %></div>
         <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
         <% end %>
-      </p>
-      <% end %>
-    </div>
-  </div>
+      </li>
+    <% end %>
+  </ul>
 </div>
