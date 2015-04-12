@@ -1,10 +1,10 @@
 <div class="signup">
   <%= form_for(:user, url: create_user_path) do |f| %>
 
-  <%= f.label :name, "User Name" %>
+  <%= f.label :name, "User Name (other users will see this)" %>
   <%= f.text_field :name, placeholder: "User Name", class: "form-control" %>
   
-  <%= f.label :email, "Email Address" %>
+  <%= f.label :email, "Email Address (no one will see this)" %>
   <%= f.email_field :email, placeholder: "Email Address", class: "form-control" %>
   
   <%= f.label :password %>
