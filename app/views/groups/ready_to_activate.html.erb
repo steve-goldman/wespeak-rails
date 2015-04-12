@@ -33,7 +33,7 @@
     
     <div class="settings-group">
       <h4>Location Restrictions</h4>
-      <%= render 'groups/locations_edit' %>
+      <%= render 'groups/locations_show', latitude: @group.latitude, longitude: @group.longitude, radius: @group.radius, change_link: false %>
     </div>
 
     <div class="ready-to-activate">
