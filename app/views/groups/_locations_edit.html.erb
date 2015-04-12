@@ -2,6 +2,6 @@
 
 <%= form_for @group, url: update_locations_group_path(@group.id), method: :patch do |f| %>
 
-<%= render 'groups/locations_fields', f: f, button_text: "Save" %>
+<%= render 'groups/locations_fields', f: f, radius: @group.radius, button_text: "Save" %>
 
 <% end %>
