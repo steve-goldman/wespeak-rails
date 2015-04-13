@@ -86,7 +86,7 @@
     }
 }
 
-.statement-header, .statement-footer, .statement-stats {
+.statement-header, .statement-footer {
     ul {
         list-style-type: none;
         margin: 0;
@@ -103,7 +103,13 @@
         font-family: monospace;
         margin: 2%;
     }
+}
 
+.statement-stats {
+    background-color: #dddddd;
+    padding: 10px;
+    border-radius: 10px;
+    
     form {
         border: 0px;
         padding: 0px;
