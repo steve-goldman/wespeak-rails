@@ -4,13 +4,18 @@
     <p>
       <span class="header"><%= RuleTypes.display_name(:lifespan) %></span>
     </p>
+    <p>
+      <%= RuleTypes.description(:lifespan) %>
+    </p>
     <%= f.select(:lifespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.lifespan_rule), class: "form-control") %>
   </li>
   <li class="list-group-item">
     <p>
       <span class="header"><%= RuleTypes.display_name(:support_needed) %></span>
     </p>
-    
+    <p>
+      <%= RuleTypes.description(:support_needed) %>
+    </p>
     <output name="support_needed" for="group_support_needed_rule"><%= @group.support_needed_rule %>%</output>
     <%= f.range_field :support_needed_rule,
         value: @group.support_needed_rule,
@@ -23,14 +28,18 @@
     <p>
       <span class="header"><%= RuleTypes.display_name(:votespan) %></span>
     </p>
-
+    <p>
+      <%= RuleTypes.description(:votespan) %>
+    </p>
     <%= f.select(:votespan_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.votespan_rule), class: "form-control") %>
   </li>
   <li class="list-group-item">
     <p>
       <span class="header"><%= RuleTypes.display_name(:votes_needed) %></span>
     </p>
-    
+    <p>
+      <%= RuleTypes.description(:votes_needed) %>
+    </p>
     <output name="votes_needed" for="group_votes_needed_rule"><%= @group.votes_needed_rule %>%</output>
     <%= f.range_field :votes_needed_rule,
         value: @group.votes_needed_rule,
@@ -43,7 +52,9 @@
     <p>
       <span class="header"><%= RuleTypes.display_name(:yeses_needed) %></span>
     </p>
-    
+    <p>
+      <%= RuleTypes.description(:yeses_needed) %>
+    </p>
     <output name="yeses_needed" for="group_yeses_needed_rule"><%= @group.yeses_needed_rule %>%</output>
     <%= f.range_field :yeses_needed_rule,
         value: @group.yeses_needed_rule,
@@ -56,7 +67,9 @@
     <p>
       <span class="header"><%= RuleTypes.display_name(:inactivity_timeout) %></span>
     </p>
-
+    <p>
+      <%= RuleTypes.description(:inactivity_timeout) %>
+    </p>
     <%= f.select(:inactivity_timeout_rule, options_for_select(Constants::Timespans::INPUT_OPTIONS, @group.inactivity_timeout_rule), class: "form-control") %>
   </li>
 </ul>
