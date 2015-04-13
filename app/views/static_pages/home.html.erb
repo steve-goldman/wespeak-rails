@@ -1,15 +1,15 @@
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
-    <h1>Welcome to WeSpeak</h1>
-    <h2>A Social Network for Groups</h2>
-    <div id="tabbed-content">
-      <%= render 'tabbed_content' %>
-    </div>
-  </div>
-  <% if !logged_in? %>
-    <div class="col-md-offset-4 col-md-4 col-xs-12">
+    <% if !logged_in? %>
+      <h1>Welcome to WeSpeak</h1>
+      <h2>A Social Network for Groups</h2>
       <%= render 'sessions/login' %>
       <%= render 'users/signup' %>
-    </div>
-  <% end %>
+    <% else %>
+      <div id="tabbed-content">
+      <h2>Your Feed</h2>
+        <%= render 'tabbed_content' %>
+      </div>
+    <% end %>
+  </div>
 </div>
