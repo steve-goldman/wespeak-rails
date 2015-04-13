@@ -42,6 +42,7 @@ class GroupPagesControllerBase < ApplicationController
   end
 
   def statement_creates(statement_type)
+    @info.make_member_active
     @statement = @info.group.create_statement(@info.user, statement_type)
     redirect_with_validation_flash(@statement, request.referer || root_url) if !@statement.valid?
   end
