@@ -4,9 +4,8 @@
   <%= render 'group_pages/vote_buttons', statement: statement %>
 </div>
 <% else %>
-<ul align="center">
-  <li>
-    <% if current_user %>
+  <p class="your-vote">
+    <% if logged_in? %>
       Not eligible to vote
       <span class="why-not">
         <%= link_to "Why not?", why_not_vote_eligible_path(statement.group.name, statement.id) %>
@@ -14,6 +13,5 @@
     <% else %>
       Log in to vote for this statement
     <% end %>
-  </li>
-</ul>
+  </p>
 <% end %>

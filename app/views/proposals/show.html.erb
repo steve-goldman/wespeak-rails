@@ -16,10 +16,19 @@
           <%= render('group_pages/statement_stats', section: :header, statement: statement, group: @info.group) %>
         </div>
         <div class="statement">
-          <%= render 'group_pages/statement_pointer', statement_pointer: @statement_pointer, group: @info.group %>
-        </div>
-        <div class="statement-footer">
-          <%= render('group_pages/statement_stats', section: :footer, statement: statement, group: @info.group) %>
+          <div class="row">
+            <div class="col-xs-3">
+              <%= render 'group_pages/group_thumb', statement: statement %>
+            </div>
+            
+            <div class="col-xs-9">
+              <%= render 'group_pages/statement_pointer', statement_pointer: @statement_pointer, group: @info.group %>
+
+              <div class="statement-footer">
+                <%= render('group_pages/statement_stats', section: :footer, statement: statement, group: @info.group) %>
+              </div>
+            </div>
+          </div>
         </div>
       </li>
     </ul>

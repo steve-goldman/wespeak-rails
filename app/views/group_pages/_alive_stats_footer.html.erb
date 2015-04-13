@@ -4,8 +4,7 @@
   <%= render 'group_pages/support_button', statement: statement %>
 </div>
 <% else %>
-<ul align="center">
-  <li>
+  <p class="your-support">
     <% if logged_in? %>
       Not eligible to support
       <span class="why-not">
@@ -14,6 +13,5 @@
     <% else %>
       Log in to support this statement
     <% end %>
-  </li>
-</ul>
+  </p>
 <% end %>
