@@ -1,6 +1,9 @@
 <ul align="center">
   <li><%= StatementTypes.name(statement.statement_type) %></li>
-  <li><span id="support-count-<%= statement.id %>"><%= statement.supports.count %></span>/<%= statement.support_needed %> from <%= statement.eligible_supporters %> active</li>
+  <li>
+    <span id="support-count-<%= statement.id %>"><%= number_with_delimiter(statement.supports.count, delimiter: ",") %>
+    </span>/<%= number_with_delimiter(statement.support_needed, delimiter: ",") %> from <%= number_with_delimiter(statement.eligible_supporters, delimiter: ",") %> active
+  </li>
   <li>Expires <%= statement.expires_at < Time.zone.now ? "shortly" : " in #{time_ago_in_words(statement.expires_at)}" %></li>
   <li><%= link_to "Direct Link", statement_path(@info.group.name, statement.id) %></li>
 </ul>

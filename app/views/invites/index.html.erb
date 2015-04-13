@@ -7,7 +7,7 @@
         <% if current_user.new_invitations.any? %>
         <tr>
           <td colspan="2">
-            <h4>New Invitations (<%= current_user.new_invitations.count %>)</h4>
+            <h4>New Invitations (<%= number_with_delimiter(current_user.new_invitations.count, delimiter: ",") %>)</h4>
           </td>
         </tr>
         <%= render 'invites', invitations: current_user.new_invitations %>
@@ -15,7 +15,7 @@
         <% if current_user.old_invitations.any? %>
         <tr>
           <td colspan="2">
-            <h4>Invitations (<%= current_user.old_invitations.count %>)</h4>
+            <h4>Invitations (<%= number_with_delimiter(current_user.old_invitations.count, delimiter: ",") %>)</h4>
           </td>
         </tr>
         <%= render 'invites', invitations: current_user.old_invitations %>

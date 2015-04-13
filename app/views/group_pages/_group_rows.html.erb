@@ -13,10 +13,11 @@
         <%= link_to group.name, group_profile_path(group.name) %>
       </div>
       <div>
-        <%= pluralize(group.membership_count, "member") %>, <%= group.active_members.count %> active
+        <%= number_with_delimiter(group.membership_count, delimiter: ",") %> <%= 'member'.pluralize(group.membership_count) %>,
+        <%= number_with_delimiter(group.active_members.count, delimiter: ",") %> active
       </div>
       <div>
-        <%= pluralize(group.followers.count, "follower") %>
+        <%= number_with_delimiter(group.followers.count, delimiter: ",") %> <%= 'follower'.pluralize(group.followers.count) %>
       </div>
     </div>
     <div class="col-xs-4">
@@ -25,12 +26,12 @@
       </div>
       <div>
         <%= link_to profile_path(group.name, :voting) do %>
-          <%= group.get_count(:voting) %> voting
+          <%= number_with_delimiter(group.get_count(:voting), delimiter: ",") %> voting
         <% end %>
       </div>
       <div>
         <%= link_to profile_path(group.name, :alive) do %>
-          <%= group.get_count(:alive) %> alive
+          <%= number_with_delimiter(group.get_count(:alive), delimiter: ",") %> alive
         <% end %>
       </div>
     </div>

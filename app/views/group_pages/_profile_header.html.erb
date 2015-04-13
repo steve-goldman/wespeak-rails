@@ -13,7 +13,7 @@
         <%= render 'group_pages/tagline' %>
       </div>
       <div class="membership">
-        <%= @info.group.membership_count %> member<%= @info.group.membership_count != 1 ? "s" : "" %>,
+        <%= number_with_delimiter(@info.group.membership_count, delimiter: ",") %> <%= 'member'.pluralize(@info.group.membership_count) %>,
         <%= @info.group.active_members.count %> active
       </div>
       <div class="following" id="following">

@@ -1,5 +1,5 @@
 <div>
-  <%= @info.group.followers.count %> follower<%= @info.group.followers.count != 1 ? "s" : "" %>
+  <%= number_with_delimiter(@info.group.followers.count, delimiter: ",") %> <%= 'follower'.pluralize(@info.group.followers.count) %>
 </div>
 <div>
   <% if @info.user %>

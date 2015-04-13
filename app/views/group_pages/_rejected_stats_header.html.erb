@@ -1,6 +1,8 @@
 <ul align="center">
   <li><%= StatementTypes.name(statement.statement_type) %></li>
-  <li><%= statement.votes.count %>/<%= statement.votes_needed %> from <%= statement.eligible_voters %> active</li>
+  <li>
+    <%= number_with_delimiter(statement.votes.count, delimiter: ",") %>/<%= number_with_delimiter(statement.votes_needed, delimiter: ",") %> from <%= number_with_delimiter(statement.eligible_voters, delimiter: ",") %> active
+  </li>
   <li><%= statement.yeses_percent %>%/<%= statement.yeses_needed %>%</li>
   <li>Vote ended on <%= Constants::Timespans::full_time(statement.vote_ended_at) %></li>
   <li><%= link_to "Direct Link", statement_path(@info.group.name, statement.id) %></li>
