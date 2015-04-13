@@ -1,21 +1,32 @@
 <% vote = statement.user_vote(@info.user) %>
 
+<% if vote %>
+<p class="your-vote">
+  You voted:
+  <% if vote.vote == Constants::Votes::NO %>
+    <span class="no">NO</span>
+  <% else %>
+    <span class="yes">YES</span>
+  <% end %>
+</p>
+<% else %>
 <table>
   <tr>
     <td>
-<%= button_to "No.", vote_no_path(@info.group.name),
-    params: { statement_id: statement.id },
-    class: "btn btn-danger",
-    disabled: !vote.nil? && vote.vote == Constants::Votes::NO,
-    remote: true %>
+      <%= button_to "No.", vote_no_path(@info.group.name),
+          params: { statement_id: statement.id },
+          class: "btn btn-danger",
+          disabled: !vote.nil? && vote.vote == Constants::Votes::NO,
+          remote: true %>
     </td>
 
     <td>
-<%= button_to "Yes!", vote_yes_path(@info.group.name),
-    params: { statement_id: statement.id },
-    class: "btn btn-success",
-    disabled: !vote.nil? && vote.vote == Constants::Votes::YES,
-    remote: true %>
+      <%= button_to "Yes!", vote_yes_path(@info.group.name),
+          params: { statement_id: statement.id },
+          class: "btn btn-success",
+          disabled: !vote.nil? && vote.vote == Constants::Votes::YES,
+          remote: true %>
     </td>
   </tr>
 </table>
+<% end %>

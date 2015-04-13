@@ -175,3 +175,16 @@
         margin-top: 5px;
     }
 }
+
+.your-vote {
+    text-align: center;
+    font-size: large;
+
+    .no {
+        color: red;
+    }
+
+    .yes {
+        color: green;
+    }
+}
