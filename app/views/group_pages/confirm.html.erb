@@ -8,14 +8,20 @@
     <div class="statement">
       <%= render "#{@statement_tab}/show", statement: @statement.get_content %>
     </div>
-    <div class="confirm-buttons">
-      <%= button_to "Confirm!", confirmed_statement_path(@info.group.name),
-          params: { id: @statement.id },
-          class: "btn btn-primary" %>
-
-      <%= button_to "Discard", discarded_statement_path(@info.group.name),
-          params: { id: @statement.id },
-          class: "btn btn-primary" %>
-    </div>
+    <table class="confirm-buttons">
+      <tr>
+        <td>
+          <%= button_to "Discard", discarded_statement_path(@info.group.name),
+              params: { id: @statement.id },
+              class: "btn btn-danger" %>
+        </td>
+        
+        <td>
+          <%= button_to "Confirm!", confirmed_statement_path(@info.group.name),
+              params: { id: @statement.id },
+              class: "btn btn-success" %>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>
