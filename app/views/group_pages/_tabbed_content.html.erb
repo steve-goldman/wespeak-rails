@@ -1,5 +1,5 @@
 <%= render 'group_pages/statement_tabs',
-    group:         nil,
+    group:         @info.group,
     state:         @info.state,
     accepted_path: group_profile_path(@info.group.name),
     voting_path:   profile_path(@info.group.name, :voting),
