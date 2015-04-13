@@ -2,30 +2,30 @@
   <ul class="nav nav-pills">
     <%= content_tag(
         :li,
-        link_to("Passed", group_profile_path(@info.group.name)),
-        class: @info.state == :accepted ? "active" : "inactive") %>
+        link_to("Passed", accepted_path),
+        class: state == :accepted ? "active" : "inactive") %>
 
-    <% new_vote_count = @info.user ? @info.group.num_voting_statements - @info.group.num_voted_statements(@info.user) : 0 %>
-
-    <%= content_tag(
-        :li,
-        link_to(new_vote_count == 0 ? "Voting" : "Voting (#{new_vote_count})", profile_path(@info.group.name, :voting)),
-        class: @info.state == :voting ? "active" : "inactive") %>
+    <% new_vote_count = (group && current_user) ? group.num_voting_statements - group.num_voted_statements(current_user) : 0 %>
 
     <%= content_tag(
         :li,
-        link_to("Alive", profile_path(@info.group.name, :alive)),
-        class: @info.state == :alive ? "active" : "inactive") %>
+        link_to(new_vote_count == 0 ? "Voting" : "Voting (#{new_vote_count})", voting_path),
+        class: state == :voting ? "active" : "inactive") %>
 
-    <% dropdown_active = @info.state == :rejected || @info.state == :dead %>
+    <%= content_tag(
+        :li,
+        link_to("Alive", alive_path),
+        class: state == :alive ? "active" : "inactive") %>
+
+    <% dropdown_active = state == :rejected || state == :dead %>
     <li class="dropdown <%= dropdown_active ? "active" : "inactive" %>">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        <%= @info.state == :rejected ? "Rejected" : @info.state == :dead ? "Dead" : "More" %>
+        <%= state == :rejected ? "Rejected" : state == :dead ? "Dead" : "More" %>
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu">
-        <%= content_tag(:li, link_to("Rejected", profile_path(@info.group.name, :rejected))) if @info.state != :rejected %>
-        <%= content_tag(:li, link_to("Dead",     profile_path(@info.group.name, :dead)))     if @info.state != :dead     %>
+        <%= content_tag(:li, link_to("Rejected", rejected_path)) if state != :rejected %>
+        <%= content_tag(:li, link_to("Dead",     dead_path))     if state != :dead     %>
       </ul>
     </li>
   </ul>
@@ -33,10 +33,12 @@
 
 <p>
   <div class="page-desc">
-    <%= StatementStates.desc(@info.state) %>
+    <%= StatementStates.desc(state) %>
   </div>
-  <div class="statement-counts">
-    <% count = @info.group.get_count(@info.state) %>
-    <%= "#{count} #{'statement'.pluralize(count)}" %>
-  </div>
+  <% if group %>
+    <div class="statement-counts">
+      <% count = group.get_count(state) %>
+      <%= "#{count} #{'statement'.pluralize(count)}" %>
+    </div>
+  <% end %>
 </p>

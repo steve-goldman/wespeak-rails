@@ -5,5 +5,5 @@
   </li>
   <li><%= statement.yeses_percent %>%/<%= statement.yeses_needed %>%</li>
   <li>Vote ended on <%= Constants::Timespans::full_time(statement.vote_ended_at) %></li>
-  <li><%= link_to "Direct Link", statement_path(@info.group.name, statement.id) %></li>
+  <li><%= link_to "Direct Link", statement_path(statement.group.name, statement.id, feed: group.nil?) %></li>
 </ul>

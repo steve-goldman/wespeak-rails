@@ -130,4 +130,7 @@ Rails.application.routes.draw do
   get    'groups/:name/why_not_support_eligible/:statement_id', to: 'profiles#why_not_support_eligible', as: :why_not_support_eligible
   get    'groups/:name/why_not_vote_eligible/:statement_id',    to: 'profiles#why_not_vote_eligible',    as: :why_not_vote_eligible
 
+  # main feed page
+  get    ':state',         to: 'static_pages#home',      as: :feed
+
 end

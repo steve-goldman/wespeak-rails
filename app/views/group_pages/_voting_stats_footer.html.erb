@@ -1,14 +1,15 @@
-<% if @info.vote_eligible?(statement) %>
+<% active_member = group ? @info.active_member : current_user.active_members.find_by(group_id: statement.group.id) %>
+<% if GroupUserInfo.vote_eligible?(current_user, active_member, statement) %>
 <div id="vote-buttons-<%= statement.id %>">
   <%= render 'group_pages/vote_buttons', statement: statement %>
 </div>
 <% else %>
 <ul align="center">
   <li>
-    <% if @info.user %>
+    <% if current_user %>
       Not eligible to vote
       <span class="why-not">
-        <%= link_to "Why not?", why_not_vote_eligible_path(@info.group.name, statement.id) %>
+        <%= link_to "Why not?", why_not_vote_eligible_path(statement.group.name, statement.id) %>
       </span>
     <% else %>
       Log in to vote for this statement

@@ -1,4 +1,4 @@
-<% vote = statement.user_vote(@info.user) %>
+<% vote = statement.user_vote(current_user) %>
 
 <% if vote %>
   <%= render 'group_pages/your_vote', vote: vote %>
@@ -6,7 +6,7 @@
 <table class="vote-buttons">
   <tr>
     <td>
-      <%= button_to "No.", vote_no_path(@info.group.name),
+      <%= button_to "No.", vote_no_path(statement.group.name),
           params: { statement_id: statement.id },
           class: "btn btn-danger",
           disabled: !vote.nil? && vote.vote == Constants::Votes::NO,
@@ -15,7 +15,7 @@
     </td>
 
     <td>
-      <%= button_to "Yes!", vote_yes_path(@info.group.name),
+      <%= button_to "Yes!", vote_yes_path(statement.group.name),
           params: { statement_id: statement.id },
           class: "btn btn-success",
           disabled: !vote.nil? && vote.vote == Constants::Votes::YES,

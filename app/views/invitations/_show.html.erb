@@ -6,13 +6,13 @@
     <%= statement.invitations %> per day.
   <% end %>
 </p>
-<% if @info.state == :alive || @info.state == :voting %>
+<% if statement.statement.state == :alive || statement.statement.state == :voting %>
 <p class="current-invitations"
    The current setting is
-   <% if @info.group.invitations == Constants::Invitations::NOT_REQUIRED %>
+   <% if statement.statement.group.invitations == Constants::Invitations::NOT_REQUIRED %>
      not required.
    <% else %>
-     <%= @info.group.invitations %> per day.
+     <%= statement.statement.group.invitations %> per day.
    <% end %>
 </p>
 <% end %>

@@ -12,6 +12,7 @@ class ProposalsController < GroupPagesControllerBase
 
   def show
     @statement_pointer = { statement_type: @key, content: @content }
+    @feed = params[:feed] == "true"
   end
 
   def confirm

@@ -1,4 +1,4 @@
-$('#statements-list').append('<%= j render 'group_pages/statement_pointers', group: @info.group %>');
+$('#statements-list').append('<%= j render 'group_pages/statement_pointers', group: nil %>');
 <% if @all_statements.next_page %>
   $('.pagination').replaceWith('<%= j will_paginate @all_statements %>');
 <% else %>

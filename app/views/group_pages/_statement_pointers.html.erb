@@ -2,13 +2,13 @@
 <% statement = statement_pointer[:content].statement %>
 <li class="statement-item list-group-item">
   <div class="statement-header">
-    <%= render('group_pages/statement_stats', section: :header, statement: statement) %>
+    <%= render('group_pages/statement_stats', section: :header, statement: statement, group: group) %>
   </div>
   <div class="statement">
-    <%= render 'group_pages/statement_pointer', statement_pointer: statement_pointer %>
+    <%= render 'group_pages/statement_pointer', statement_pointer: statement_pointer, group: group %>
   </div>
   <div class="statement-footer">
-    <%= render('group_pages/statement_stats', section: :footer, statement: statement) %>
+    <%= render('group_pages/statement_stats', section: :footer, statement: statement, group: group) %>
   </div>
 </li>
 <% end %>

@@ -1,0 +1,10 @@
+<%= render 'group_pages/statement_tabs',
+    group:         nil,
+    state:         @state,
+    accepted_path: root_path,
+    voting_path:   feed_path(:voting),
+    alive_path:    feed_path(:alive),
+    rejected_path: feed_path(:rejected),
+    dead_path:     feed_path(:dead) %>
+
+<%= render 'group_pages/proposals_list', group: nil %>

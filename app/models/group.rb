@@ -75,36 +75,11 @@ class Group < ActiveRecord::Base
   end
 
   def get_all_statements(statement_state, page, per_page, order = "created_at DESC")
-    if statement_state.nil?
-      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id).where.not(state: StatementStates[:new]).order(order)
-    else
-      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: id, state: StatementStates[statement_state]).order(order)
-    end
+    Group.get_all_statements [id], statement_state, page, per_page, order
   end
 
   def get_statement_pointers
-    return [] if @all_statements.empty?
-
-    statement_ids_map = {}
-    i = 0
-    statement_ids = ""
-    @all_statements.each do |statement|
-      statement_ids_map[statement.id] = i
-      statement_ids += ", " if i != 0
-      statement_ids += statement.id.to_s
-      i += 1
-    end
-
-    statement_pointers = []
-
-    StatementTypes.full_tables.each do |statement_type, table|
-      # this shoves the content records in the appropriate location of the statement pointers array
-      table.where("statement_id IN (#{statement_ids})", group_id: id).each { |record|
-        statement_pointers[statement_ids_map[record.statement_id]] = { statement_type: statement_type, content: record }
-      } if table
-    end
-
-    statement_pointers
+    Group.get_statement_pointers [id]
   end
 
   def get_of_type(statement_type, state, page, per_page, order = "created_at DESC")
@@ -211,6 +186,39 @@ class Group < ActiveRecord::Base
       .where(user_id: user.id)
       .where("statement_id IN (SELECT id FROM Statements WHERE group_id = :group_id AND state = :voting)", group_id: id, voting: StatementStates[:voting])
       .count
+  end
+
+  def Group.get_all_statements(group_ids, statement_state, page, per_page, order = "created_at DESC")
+    if statement_state.nil?
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: group_ids).where.not(state: StatementStates[:new]).order(order)
+    else
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: group_ids, state: StatementStates[statement_state]).order(order)
+    end
+  end
+
+  def Group.get_statement_pointers(group_ids)
+    return [] if @all_statements.empty?
+
+    statement_ids_map = {}
+    i = 0
+    statement_ids = ""
+    @all_statements.each do |statement|
+      statement_ids_map[statement.id] = i
+      statement_ids += ", " if i != 0
+      statement_ids += statement.id.to_s
+      i += 1
+    end
+
+    statement_pointers = []
+
+    StatementTypes.full_tables.each do |statement_type, table|
+      # this shoves the content records in the appropriate location of the statement pointers array
+      table.where("statement_id IN (#{statement_ids})", group_id: group_ids).each { |record|
+        statement_pointers[statement_ids_map[record.statement_id]] = { statement_type: statement_type, content: record }
+      } if table
+    end
+
+    statement_pointers
   end
 
   private
