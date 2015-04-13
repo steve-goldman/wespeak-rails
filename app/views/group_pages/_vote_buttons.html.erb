@@ -3,7 +3,7 @@
 <% if vote %>
   <%= render 'group_pages/your_vote', vote: vote %>
 <% else %>
-<table>
+<table class="vote-buttons">
   <tr>
     <td>
       <%= button_to "No.", vote_no_path(@info.group.name),
