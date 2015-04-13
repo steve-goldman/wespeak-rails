@@ -4,5 +4,5 @@
     <%= number_with_delimiter(statement.supports.count, delimiter: ",") %>/<%= number_with_delimiter(statement.support_needed, delimiter: ",") %> from <%= number_with_delimiter(statement.eligible_supporters, delimiter: ",") %> active
   </li>
   <li>Expired on <%= Constants::Timespans::full_time(statement.expires_at) %></li>
-  <li><%= link_to "Direct Link", statement_path(statement.group.name, feed: group.nil?) %></li>
+  <li><%= link_to "Direct Link", statement_path(statement.group.name, statement.id, feed: group.nil?) %></li>
 </ul>
