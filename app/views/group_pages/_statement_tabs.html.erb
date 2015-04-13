@@ -2,7 +2,7 @@
   <ul class="nav nav-pills">
     <%= content_tag(
         :li,
-        link_to("Passed", accepted_path),
+        link_to(StatementStates.name(:accepted), accepted_path),
         class: state == :accepted ? "active" : "inactive") %>
 
     <% if group %>
@@ -11,9 +11,10 @@
       <% new_vote_count = Statement.num_voting_statements(@group_ids) - Vote.num_voted_statements(@group_ids, current_user) %>
     <% end %>
 
+    <% voting_name = "Voting" + (new_vote_count == 0 ? "" : " (#{new_vote_count})") %>
     <%= content_tag(
         :li,
-        link_to(new_vote_count == 0 ? "Voting" : "Voting (#{new_vote_count})", voting_path),
+        link_to(voting_name, voting_path),
         class: state == :voting ? "active" : "inactive") %>
 
     <%= content_tag(

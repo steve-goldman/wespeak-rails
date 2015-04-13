@@ -1,0 +1,35 @@
+<ul align="center">
+  <li>
+    <span class="statement-type"><%= StatementTypes.name(statement.statement_type) %></span>
+  </li>
+
+  <% if statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>
+  <li>
+    <span class="statement-state"><%= StatementStates.name_from_value(statement.state) %></span>
+  </li>
+  <li>
+    <span class="time">Ended <%= time_ago_in_words(statement.vote_ended_at) %> ago</span>
+  </li>
+  <% elsif statement.state == StatementStates[:dead] %>
+  <li>
+    <span class="statement-state"><%= StatementStates.name(:dead) %></span>
+  </li>
+  <li>
+    <span class="time">Expired <%= time_ago_in_words(statement.expired_at) %> ago</span>
+  </li>
+  <% elsif statement.state == StatementStates[:voting] %>
+  <li>
+    <span class="statement-state"><%= StatementStates.name(:voting) %></span>
+  </li>
+  <li>
+    <span class="time">Ends in <%= time_ago_in_words(statement.vote_ends_at) %></span>
+  </li>
+  <% elsif statement.state == StatementStates[:alive] %>
+  <li>
+    <span class="statement-state"><%= StatementStates.name(:alive) %></span>
+  </li>
+  <li>
+    <span class="time">Expires in <%= time_ago_in_words(statement.expires_at) %></span>
+  </li>
+  <% end %>
+</ul>

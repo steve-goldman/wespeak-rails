@@ -1,5 +1,88 @@
-<%= render("group_pages/alive_stats_#{section}",    statement: statement, group: group) if statement.state == StatementStates[:alive]    %>
-<%= render("group_pages/dead_stats_#{section}",     statement: statement, group: group) if statement.state == StatementStates[:dead]     %>
-<%= render("group_pages/voting_stats_#{section}",   statement: statement, group: group) if statement.state == StatementStates[:voting]   %>
-<%= render("group_pages/rejected_stats_#{section}", statement: statement, group: group) if statement.state == StatementStates[:rejected] %>
-<%= render("group_pages/rejected_stats_#{section}", statement: statement, group: group) if statement.state == StatementStates[:accepted] %>
+<% if statement.state == StatementStates[:alive] %>
+  <% active_member = group ? @info.active_member : current_user.active_members.find_by(group_id: statement.group.id) %>
+  <% if GroupUserInfo.support_eligible?(current_user, active_member, statement) %>
+    <% if !statement.user_supports?(current_user) %>
+      <div id="support-button-<%= statement.id %>" class="support-button">
+        <%= render 'group_pages/support_button', statement: statement %>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="your-support">
+      <% if logged_in? %>
+        Not eligible to support
+        <span class="why-not">
+          <%= link_to "Why not?", why_not_support_eligible_path(statement.group.name, statement.id) %>
+        </span>
+      <% else %>
+        Log in to support this statement
+      <% end %>
+    </p>
+  <% end %>
+<% elsif statement.state == StatementStates[:voting] %>
+  <% active_member = group ? @info.active_member : current_user.active_members.find_by(group_id: statement.group.id) %>
+  <% if GroupUserInfo.vote_eligible?(current_user, active_member, statement) %>
+    <% if !statement.user_vote(current_user) %>
+      <div id="vote-buttons-<%= statement.id %>">
+        <%= render 'group_pages/vote_buttons', statement: statement %>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="your-vote">
+      <% if logged_in? %>
+        Not eligible to vote
+        <span class="why-not">
+          <%= link_to "Why not?", why_not_vote_eligible_path(statement.group.name, statement.id) %>
+        </span>
+      <% else %>
+        Log in to vote for this statement
+      <% end %>
+    </p>
+  <% end %>
+<% end %>
+
+<% if logged_in? %>
+  <span id="your-support-<%= statement.id %>">
+    <%= render 'group_pages/you_supported' if statement.user_supports? current_user%>
+  </span>
+  <% vote = statement.user_vote(current_user) %>
+  <span id="your-vote-<%= statement.id %>">
+    <%= render('group_pages/your_vote', vote: vote) if vote %>
+  </span>
+<% end %>
+
+<% if statement.state == StatementStates[:voting] || statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>
+<p class="eligible-voters">
+  <%= number_with_delimiter(statement.eligible_voters, delimiter: ",") %> eligible <%= 'voter'.pluralize(statement.eligible_voters) %>
+</p>
+<p class="votes-needed">
+  <%= number_with_delimiter(statement.votes_needed, delimiter: ",") %> total <%= 'vote'.pluralize(statement.votes_needed) %> needed
+</p>
+<p class="votes-cast">
+  <span id="vote-count-<%= statement.id %>">
+    <%= number_with_delimiter(statement.votes.count, delimiter: ",") %>
+  </span>
+  <%= 'vote'.pluralize(statement.votes.count) %> cast
+</p>
+<p class="yeses-needed">
+  <%= statement.yeses_needed %>% must be YES
+</p>
+<p class="yeses-cast">
+  <span id="yeses-percent-<%= statement.id %>">
+    <%= statement.yeses_percent %>%
+  </span>
+  are YES
+</p>
+<% elsif statement.state == StatementStates[:alive] || statement.state == StatementStates[:dead] %>
+<p class="eligible-supporters">
+  <%= number_with_delimiter(statement.eligible_supporters, delimiter: ",") %> eligible <%= 'supporter'.pluralize(statement.eligible_supporters) %>
+</p>
+<p class="support-needed">
+  <%= number_with_delimiter(statement.support_needed, delimiter: ",") %> total <%= 'support'.pluralize(statement.support_needed) %> needed
+</p>
+<p class="support-given">
+  <span id="support-count-<%= statement.id %>">
+    <%= number_with_delimiter(statement.supports.count, delimiter: ",") %>
+  </span>
+  support given
+</p>
+<% end %>

@@ -108,7 +108,6 @@
         border: 0px;
         padding: 0px;
         margin: 0px auto;
-        width: 250px;
         text-align: center;
     }
 }
@@ -124,20 +123,17 @@
     font-weight: bold;
 }
 
-.confirm-buttons {
-    margin-left: auto;
-    margin-right: auto;
-    form {
-        border: 0px;
-    }
-}
-
-.vote-buttons {
+.confirm-buttons, .vote-buttons, .support-button {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
     form {
         border: 0px;
+        input {
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 5px;
+        }
     }
 }
 
@@ -190,7 +186,7 @@
     }
 }
 
-.your-vote {
+.your-vote, .your-support, .eligible-voters, .votes-cast, .votes-needed, .yeses-needed, .yeses-cast, .eligible-supporters, .support-needed, .support-given {
     text-align: center;
     font-family: monospace;
 
@@ -203,11 +199,6 @@
         font-weight: bold;
         color: green;
     }
-}
-
-.your-support {
-    text-align: center;
-    font-family: monospace;
 }
 
 .flash-section {

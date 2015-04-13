@@ -1,8 +1,5 @@
-<% if statement.user_supports?(current_user) %>
-  <%= render 'group_pages/you_supported' %>
-<% else %>
-  <%= button_to "Support!", support_path(statement.group.name),
-      params: { statement_id: statement.id },
-      class: "btn btn-primary",
-      remote: true %>
-<% end %>
+<%= button_to("Support!", support_path(statement.group.name),
+    params: { statement_id: statement.id },
+    class: "btn btn-primary",
+    remote: true) if !statement.user_supports?(current_user)  %>
+  

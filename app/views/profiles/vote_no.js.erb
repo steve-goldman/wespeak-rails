@@ -1,3 +1,4 @@
 $("#vote-buttons-<%= @statement.id %>").html("<%= j render 'group_pages/vote_buttons', statement: @statement %>")
-$("#vote-count-<%= @statement.id %>").html("<%= @statement.votes.count %>")
+$("#vote-count-<%= @statement.id %>").html("<%= number_with_delimiter(@statement.votes.count, delimiter: ",") %>")
 $("#yeses-percent-<%= @statement.id %>").html("<%= @statement.yeses_percent %>%")
+$("#your-vote-<%= @statement.id %>").html("<%= j render 'group_pages/your_vote', vote: @statement.user_vote(current_user) %>")
