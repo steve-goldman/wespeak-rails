@@ -73,7 +73,7 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
     submit_update @email_address.activation_token, @email_address.email, @user.password
     assert @email_address.reload.activated?, "email address should be activated"
     assert_logged_in_as @user
-    assert_redirected_with_flash [FlashMessages::SUCCESS], settings_email_identities_path
+    assert_redirected_with_flash [FlashMessages::SUCCESS], root_url
   end
   
   private

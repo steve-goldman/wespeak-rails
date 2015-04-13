@@ -16,7 +16,7 @@ class EmailAddressActivationsController < ApplicationController
   def update
     @email_address.activate
     log_in @email_address.user
-    redirect_with_flash(FlashMessages::SUCCESS, settings_email_identities_path)
+    redirect_with_flash(FlashMessages::SUCCESS, root_url)
   end
 
   private
