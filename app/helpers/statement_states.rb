@@ -9,8 +9,8 @@ class StatementStates
   }
 
   @descriptions = {
-    alive:    "These statements do not yet have enough support for a vote.  Support the statements you like!",
-    dead:     "These statements died because they did not get enough support for a vote in the alotted time.",
+    alive:    "These statements need more support to have a vote.  Support the statements you like!",
+    dead:     "These statements died because they did not get enough support in the alotted time to have a vote.",
     voting:   "These statements are open for voting.  Cast your votes!",
     accepted: "These statements were voted in by the group.  They are the official group profile.",
     rejected: "These statements were voted down by the group.",
