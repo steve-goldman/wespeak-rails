@@ -31,7 +31,10 @@
             <% if @info.active_member %>
               <span class="glyphicon glyphicon-ok"></span>
               Active since <%= time_ago_in_words(@info.active_member.created_at) %> ago, valid for <%= time_ago_in_words(@info.active_member.expires_at) %>
-              <%= button_to "Deactivate",
+              <%= button_to "Extend Membership",
+                  activate_membership_path(@info.group.name),
+                  class: "btn btn-success" %>
+              <%= button_to "Deactivate Membership",
                   deactivate_membership_path(@info.group.name),
                   method: :delete,
                   data: { confirm: "Are you sure? You won't be able to support or vote on statements that are currently in the group." },
