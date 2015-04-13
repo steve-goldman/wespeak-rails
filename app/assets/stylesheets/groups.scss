@@ -5,15 +5,15 @@
     }
 }
 
+.profile-image {
+    img {
+        display: block;
+        width: 100%;
+    }
+}
+
 .profile-header {
     margin-bottom: 15px;
-
-    .profile-image {
-        img {
-            display: block;
-            width: 100%;
-        }
-    }
 
     .tagline {
         font-style: italic;
@@ -69,6 +69,8 @@
 .statement {
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
     
     .tagline, .update, .rule, .current-rule, .group-email-domain-change, .invitations {
         display: block;
@@ -213,5 +215,6 @@
 }
 
 .statement-group-link {
+    font-size: small;
     text-align: center;
 }
