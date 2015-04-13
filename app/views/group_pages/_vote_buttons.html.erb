@@ -17,6 +17,7 @@
           params: { statement_id: statement.id },
           class: "btn btn-danger",
           disabled: !vote.nil? && vote.vote == Constants::Votes::NO,
+          data: { confirm: "Are you sure? You cannot change your vote later." },
           remote: true %>
     </td>
 
@@ -25,6 +26,7 @@
           params: { statement_id: statement.id },
           class: "btn btn-success",
           disabled: !vote.nil? && vote.vote == Constants::Votes::YES,
+          data: { confirm: "Are you sure?  You cannot change your vote later." },
           remote: true %>
     </td>
   </tr>
