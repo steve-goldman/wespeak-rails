@@ -2,6 +2,6 @@
   <li><%= StatementTypes.name(statement.statement_type) %></li>
   <li><span id="vote-count-<%= statement.id %>"><%= statement.votes.count %></span>/<%= statement.votes_needed %> from <%= statement.eligible_voters %> active</li>
   <li><span id="yeses-percent-<%= statement.id %>"><%= statement.yeses_percent %>%</span>/<%= statement.yeses_needed %>%</li>
-  <li>Vote ends in <%= time_ago_in_words(statement.vote_ends_at) %></li>
+  <li>Vote ends <%= statement.vote_ends_at < Time.zone.now ? "shortly" : "in #{time_ago_in_words(statement.vote_ends_at)}" %></li>
   <li><%= link_to "Direct Link", statement_path(@info.group.name, statement.id) %></li>
 </ul>
