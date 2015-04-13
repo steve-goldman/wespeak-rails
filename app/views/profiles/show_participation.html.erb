@@ -9,7 +9,11 @@
         <li class="list-group-item">
           <p>
             <span class="header">Membership</span>
-            <span class="explain"><%=link_to "what is this?", '#' %></span>
+          </p>
+          <p>
+            You are a member if you have ever been active in the
+            group.  Members are not subject to invitation
+            requirements.
           </p>
           <% if @info.member_history %>
             <span class="glyphicon glyphicon-ok"></span>
@@ -26,7 +30,13 @@
           <li class="list-group-item">
             <p>
               <span class="header">Active Status</span>
-              <span class="explain"><%=link_to "what is this?", '#' %></span>
+            </p>
+            <p>
+              Active members are eligible to create, support and vote
+              on statements, if they satisfy the location requirement
+              below.  To stay active, members must participate in the
+              group by creating, supporting, or voting on a statement,
+              or by clicking the "Extend Membership" button.
             </p>
             <% if @info.active_member %>
               <span class="glyphicon glyphicon-ok"></span>
@@ -52,6 +62,10 @@
           <p>
             <span class="header">Can I participate?</span>
           </p>
+          <p>
+            You may participate if you satisfy the email address,
+            invitation, and location requirements below.
+          </p>
           <% if @info.change_eligible? %>
             <span class="glyphicon glyphicon-ok"></span>
             You may participate!
@@ -72,7 +86,11 @@
       <li class="list-group-item">
         <p>
           <span class="header">Email Addresses</span>
-          <span class="explain"><%=link_to "what is this?", '#' %></span>
+        </p>
+        <p>
+          To participate in a group that restricts based on email
+          domains, a user must have an email address associated with
+          his or her account that matches one of the email domains.
         </p>
         <% if @info.group.group_email_domains.any? %>
         <ul class="list-group">
@@ -81,7 +99,7 @@
           <% end %>
         </ul>
         <% else %>
-          There are no email address restrictions.
+          There are no email address restrictions for this group.
         <% end %>
         <% if @info.change_eligible? %>
           <div class="change-link"><%= link_to "Propose change", new_group_email_domain_change_path(@info.group.name) %></div>
@@ -90,10 +108,15 @@
       <li class="list-group-item">
         <p>
           <span class="header">Invitations</span>
-          <span class="explain"><%=link_to "what is this?", '#' %></span>
+        </p>
+        <p>
+          To participate in a group that requires invitations, a user
+          must be invited by a member of the group.  This does not
+          apply to users who were members of the group before
+          invitations were required.
         </p>
         <% if !@info.group.invitations_required? %>
-          Invitations are not required.
+          Invitations are not required for this group.
         <% else %>
           Invitations are required. Members may send <%= @info.group.invitations %> per day.
           <% if @info.change_eligible? %>
@@ -107,10 +130,14 @@
       <li class="list-group-item">
         <p>
           <span class="header">Locations</span>
-          <span class="explain"><%=link_to "what is this?", '#' %></span>
+        </p>
+        <p>
+          To participate in a group that restricts based on location,
+          a user must be physically located in the geographical region
+          required by the group.
         </p>
         <% if !@info.group.radius %>
-          Location does not restrict participation.
+          Location does not restrict participation for this group.
         <% else %>
           <div>
             <%= link_to Location.map_link(@info.group.latitude, @info.group.longitude), target: '_blank' do %>
