@@ -1,4 +1,10 @@
-<%= button_to "Support!", support_path(@info.group.name),
-    params: { statement_id: statement.id },
-    class: "btn btn-primary",
-    remote: true %>
+<% if statement.user_supports?(@info.user) %>
+<p class="your-support">
+  You supported this statement
+</p>
+<% else %>
+  <%= button_to "Support!", support_path(@info.group.name),
+      params: { statement_id: statement.id },
+      class: "btn btn-primary",
+      remote: true %>
+<% end %>
