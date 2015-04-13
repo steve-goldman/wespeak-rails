@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-md-offset-4 col-md-4 col-xs-12">
             <% if !flash.empty? %>
-              <div id="flash-section">
+              <div class="flash-section">
                 <% flash.keys.each do |message_type| %>
                   <% flash[message_type].each do |message| %>
                     <div class="alert alert-<%= message_type %>"><%= message %></div>
