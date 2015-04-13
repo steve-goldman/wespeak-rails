@@ -5,7 +5,11 @@
         link_to("Passed", accepted_path),
         class: state == :accepted ? "active" : "inactive") %>
 
-    <% new_vote_count = (group && current_user) ? group.num_voting_statements - group.num_voted_statements(current_user) : 0 %>
+    <% if group %>
+      <% new_vote_count = current_user ? group.num_voting_statements - group.num_voted_statements(current_user) : 0 %>
+    <% else %>
+      <% new_vote_count = Statement.num_voting_statements(@group_ids) - Vote.num_voted_statements(@group_ids, current_user) %>
+    <% end %>
 
     <%= content_tag(
         :li,

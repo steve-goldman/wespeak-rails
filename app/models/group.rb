@@ -178,14 +178,11 @@ class Group < ActiveRecord::Base
   end
 
   def num_voting_statements
-    Statement.where(group_id: id, state: StatementStates[:voting]).count
+    Statement.num_voting_statements [id]
   end
 
   def num_voted_statements(user)
-    Vote
-      .where(user_id: user.id)
-      .where("statement_id IN (SELECT id FROM Statements WHERE group_id = :group_id AND state = :voting)", group_id: id, voting: StatementStates[:voting])
-      .count
+    Vote.num_voted_statements [id], user
   end
 
   def Group.get_all_statements(group_ids, statement_state, page, per_page, order = "created_at DESC")

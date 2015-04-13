@@ -130,6 +130,10 @@ class Statement < ActiveRecord::Base
     self.destroy
   end
 
+  def Statement.num_voting_statements(group_ids)
+    Statement.where(group_id: group_ids, state: StatementStates[:voting]).count
+  end
+
   private
 
   def valid_statement_type
