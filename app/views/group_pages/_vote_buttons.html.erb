@@ -1,17 +1,21 @@
 <% vote = statement.user_vote(@info.user) %>
 
-<p>
+<table>
+  <tr>
+    <td>
 <%= button_to "No.", vote_no_path(@info.group.name),
     params: { statement_id: statement.id },
-    class: "btn btn-primary",
+    class: "btn btn-danger",
     disabled: !vote.nil? && vote.vote == Constants::Votes::NO,
     remote: true %>
-</p>
+    </td>
 
-<p>
+    <td>
 <%= button_to "Yes!", vote_yes_path(@info.group.name),
     params: { statement_id: statement.id },
-    class: "btn btn-primary",
+    class: "btn btn-success",
     disabled: !vote.nil? && vote.vote == Constants::Votes::YES,
     remote: true %>
-</p>
+    </td>
+  </tr>
+</table>
