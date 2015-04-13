@@ -1,0 +1,9 @@
+<% if @info.user %>
+
+  <%= render 'group_pages/you_supported' if statement.user_supports? @info.user %>
+
+  <% vote = statement.user_vote(@info.user) %>
+  <% if vote %>
+    <%= render 'group_pages/your_vote', vote: vote %>
+  <% end %>
+<% end %>

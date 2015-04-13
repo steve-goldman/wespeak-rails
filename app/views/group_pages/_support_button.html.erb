@@ -1,7 +1,5 @@
 <% if statement.user_supports?(@info.user) %>
-<p class="your-support">
-  You supported this statement
-</p>
+  <%= render 'group_pages/you_supported' %>
 <% else %>
   <%= button_to "Support!", support_path(@info.group.name),
       params: { statement_id: statement.id },

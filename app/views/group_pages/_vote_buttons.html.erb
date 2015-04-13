@@ -1,14 +1,7 @@
 <% vote = statement.user_vote(@info.user) %>
 
 <% if vote %>
-<p class="your-vote">
-  You voted:
-  <% if vote.vote == Constants::Votes::NO %>
-    <span class="no">NO</span>
-  <% else %>
-    <span class="yes">YES</span>
-  <% end %>
-</p>
+  <%= render 'group_pages/your_vote', vote: vote %>
 <% else %>
 <table>
   <tr>
