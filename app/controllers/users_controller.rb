@@ -18,8 +18,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    group_ids = "SELECT DISTINCT group_id FROM membership_histories WHERE user_id = :user_id"
-    @groups = Group.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE).where("id IN (#{group_ids})", user_id: @user.id)
+    @groups = Group.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+              .joins(:membership_histories).where(membership_histories: { user_id: @user.id })
+              .order("membership_histories.updated_at DESC")
+              .distinct
     respond_to do |format|
       format.html
       format.js

@@ -13,13 +13,9 @@
         <%= link_to group.name, group_profile_path(group.name) %>
       </div>
       <div>
-        Member since <%= time_ago_in_words(group.membership_histories.find_by(user_id: @user.id).created_at) %> ago,
-        <% active_member = group.active_members.find_by(user_id: @user.id) %>
-        <% if active_member %>
-          active since <%= time_ago_in_words(active_member.created_at) %> ago
-        <% else %>
-          not active
-        <% end %>
+        <% membership_history = group.membership_histories.find_by(user_id: @user.id) %>
+        Member since <%= time_ago_in_words(membership_history.created_at) %> ago,
+        last activity <%= time_ago_in_words(membership_history.updated_at) %> ago
       </div>
       <div>
         <%= number_with_delimiter(@user.statement_count(group), delimiter: ",") %> authored

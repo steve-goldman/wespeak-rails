@@ -100,7 +100,11 @@ class GroupUserInfo
       @active_member = @group.active_members.create!(user_id: @user.id)
     end
 
-    @member_history ||= MembershipHistory.create(user_id: @user.id, group_id: @group.id, active: true)
+    if @member_history
+      @member_history.update_attributes(updated_at: Time.zone.now)
+    else
+      @member_history = MembershipHistory.create(user_id: @user.id, group_id: @group.id, active: true)
+    end
 
     # automatically follow when user becomes active
     @user.follow(@group)
