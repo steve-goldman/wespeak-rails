@@ -48,6 +48,13 @@ class Group < ActiveRecord::Base
 
   def activate
     update_attributes(active:                          true)
+#                      initial_lifespan_rule:           lifespan_rule,
+#                      initial_support_needed_rule:     support_needed_rule,
+#                      initial_votespan_rule:           votespan_rule,
+#                      initial_votes_needed_rule:       votes_needed_rule,
+#                      initial_yeses_needed_rule:       yeses_needed_rule,
+#                      initial_inactivity_timeout_rule: inactivity_timeout_rule,
+#                      initial_invitations:             invitations)
     user.received_invitations.create(group_id: id) if invitations != Invitations::NOT_REQUIRED
   end
 
@@ -205,6 +212,28 @@ class Group < ActiveRecord::Base
     end
 
     statement_pointers
+  end
+
+  def create_initial_group_config(statement)
+    return nil if active
+
+    initial_group = InitialGroup.create(statement_id:            statement.id,
+                                         lifespan_rule:           lifespan_rule,
+                                         support_needed_rule:     support_needed_rule,
+                                         votespan_rule:           votespan_rule,
+                                         votes_needed_rule:       votes_needed_rule,
+                                         yeses_needed_rule:       yeses_needed_rule,
+                                         inactivity_timeout_rule: inactivity_timeout_rule,
+                                         invitations:             invitations,
+                                         latitude:                latitude,
+                                         longitude:               longitude,
+                                         radius:                  radius)
+    {
+      initial_group:               initial_group,
+      initial_group_email_domains:
+        group_email_domains.map { |group_email_domain| InitialGroupEmailDomain.create(initial_group_id:      initial_group.id,
+                                                                                      group_email_domain_id: group_email_domain.id) }
+    }
   end
 
   private

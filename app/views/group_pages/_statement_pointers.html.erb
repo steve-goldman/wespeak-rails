@@ -13,9 +13,11 @@
       <div class="col-xs-9">
         <%= render 'group_pages/statement_pointer', statement_pointer: statement_pointer, group: group %>
         
+        <% if statement.statement_type != StatementTypes[:initial_statement] %>
         <div class="statement-stats">
           <%= render('group_pages/statement_stats', section: :footer, statement: statement, group: group) %>
         </div>
+        <% end %>
       </div>
     </div>
   </div>

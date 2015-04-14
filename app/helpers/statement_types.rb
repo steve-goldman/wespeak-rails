@@ -1,5 +1,8 @@
 class StatementTypes
   @statement_types = {
+    # initial group state
+    initial_statement:         1,
+
     # participation filters
     group_email_domain_change: 1001,
     add_facebook_filter:       1003,
@@ -20,6 +23,7 @@ class StatementTypes
   }
 
   @type_syms = {
+    1    => :initial_statement,
     1001 => :group_email_domain_change,
     1005 => :location,
     1007 => :invitation,
@@ -32,6 +36,7 @@ class StatementTypes
   }
 
   @tables = {
+    initial_statement:         InitialGroup,
     group_email_domain_change: GroupEmailDomainChange,
     location:                  Location,
     invitation:                Invitation,
@@ -44,6 +49,8 @@ class StatementTypes
   }
 
   @type_names = {
+    1    => "First Statement",
+    
     # participation filters
     1001 => "Email Address Change",
     1003 => "add_facebook_filter",

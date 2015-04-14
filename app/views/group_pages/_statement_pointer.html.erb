@@ -1,3 +1,4 @@
+<%= render('initial_group/show',              statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :initial_statement         %>
 <%= render('taglines/show',                   statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :tagline                   %>
 <%= render('updates/show',                    statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :update                    %>
 <%= render('rules/show',                      statement: statement_pointer[:content]) if statement_pointer[:statement_type] == :rule                      %>

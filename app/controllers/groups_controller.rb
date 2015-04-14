@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
   before_action :group_known,        only: [:edit, :update, :update_invitations, :update_locations, :destroy, :ready_to_activate, :activate]
   before_action :user_matches,       only: [:edit, :update, :update_invitations, :update_locations, :destroy, :ready_to_activate, :activate]
   before_action :group_not_active,   only: [:edit, :update, :update_invitations, :update_locations, :destroy, :ready_to_activate, :activate]
+  before_action :initial_statement_creates, only: [:activate]
   before_action :rules_update,       only: [:update]
   before_action :invitations_update, only: [:update_invitations]
   before_action :locations_update,   only: [:update_locations]
@@ -100,6 +101,20 @@ class GroupsController < ApplicationController
       !@group.update_attributes(latitude:  params[:group][:latitude],
                                 longitude: params[:group][:longitude],
                                 radius:    params[:group][:radius])
+  end
+
+  def initial_statement_creates
+    statement = Statement.new_statement(Time.zone.now, @group, @group.user, :initial_statement)
+    statement.update_attributes(state:         StatementStates[:accepted],
+                                vote_ended_at: Time.zone.now)
+    redirect_with_validation_flash(statement, request.referer || root_url) if !statement.valid?
+    
+    initial_stuff = @group.create_initial_group_config(statement)
+    redirect_with_validation_flash(initial_stuff[:initial_group], request.referer || root_url) and return if !initial_stuff[:initial_group].valid?
+    initial_stuff[:initial_group_email_domains].each do |group_email_domain|
+      redirect_with_validation_flash(group_email_domain, request.referer || root_url) and return if !group_email_domain.valid?
+    end
+    
   end
 
 end

@@ -1,8 +1,8 @@
+<% if outer_list %>
 <ul class="list-group rules">
+<% end %>
   <li class="list-group-item">
-    <p>
-      <span class="header"><%= RuleTypes.display_name(:lifespan) %></span>
-    </p>
+    <h4><%= RuleTypes.display_name(:lifespan) %></h4>
     <p>
       <%= RuleTypes.description(:lifespan) %>
     </p>
@@ -12,9 +12,7 @@
     <% end %>
   </li>
   <li class="list-group-item">
-    <p>
-      <span class="header"><%= RuleTypes.display_name(:support_needed) %></span>
-    </p>
+    <h4><%= RuleTypes.display_name(:support_needed) %></h4>
     <p>
       <%= RuleTypes.description(:support_needed) %>
     </p>
@@ -24,9 +22,7 @@
     <% end %>
   </li>
   <li class="list-group-item">
-    <p>
-      <span class="header"><%= RuleTypes.display_name(:votespan) %></span>
-    </p>
+    <h4><%= RuleTypes.display_name(:votespan) %></h4>
     <p>
       <%= RuleTypes.description(:votespan) %>
     </p>
@@ -36,9 +32,7 @@
     <% end %>
   </li>
   <li class="list-group-item">
-    <p>
-      <span class="header"><%= RuleTypes.display_name(:votes_needed) %></span>
-    </p>
+    <h4><%= RuleTypes.display_name(:votes_needed) %></h4>
     <p>
       <%= RuleTypes.description(:votes_needed) %>
     </p>
@@ -48,9 +42,7 @@
     <% end %>
   </li>
   <li class="list-group-item">
-    <p>
-      <span class="header"><%= RuleTypes.display_name(:yeses_needed) %></span>
-    </p>
+    <h4><%= RuleTypes.display_name(:yeses_needed) %></h4>
     <p>
       <%= RuleTypes.description(:yeses_needed) %>
     </p>
@@ -60,9 +52,7 @@
     <% end %>
   </li>
   <li class="list-group-item">
-    <p>
-      <span class="header"><%= RuleTypes.display_name(:inactivity_timeout) %></span>
-    </p>
+    <h4><%= RuleTypes.display_name(:inactivity_timeout) %></h4>
     <p>
       <%= RuleTypes.description(:inactivity_timeout) %>
     </p>
@@ -71,4 +61,6 @@
       <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
     <% end %>
   </li>
+<% if outer_list %>  
 </ul>
+<% end %>
