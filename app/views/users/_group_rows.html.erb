@@ -12,10 +12,12 @@
       <div class="group-name">
         <%= link_to group.name, group_profile_path(group.name) %>
       </div>
+      <% membership_history = group.membership_histories.find_by(user_id: @user.id) %>
       <div>
-        <% membership_history = group.membership_histories.find_by(user_id: @user.id) %>
-        Member since <%= Constants::Timespans::time_ago(membership_history.created_at) %>,
-        last activity <%= Constants::Timespans::time_ago(membership_history.updated_at) %>
+        Member since <%= Constants::Timespans::time_ago(membership_history.created_at) %>
+      </div>
+      <div>
+        Last activity <%= Constants::Timespans::time_ago(membership_history.updated_at) %>
       </div>
       <div>
         <%= number_with_delimiter(@user.statement_count(group), delimiter: ",") %> authored
