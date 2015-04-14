@@ -4,4 +4,8 @@
     <%= link_to "Direct Link", statement_path(statement.group.name, statement.id, feed: group.nil?) %>
   </li>
 
+  <li>
+    <%= link_to "#{statement.comments.count} #{'comment'.pluralize(statement.comments.count)}", statement_path(statement.group.name, statement.id, feed: group.nil?) %>
+  </li>
+
 </ul>

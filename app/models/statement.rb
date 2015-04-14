@@ -10,6 +10,8 @@ class Statement < ActiveRecord::Base
 
   has_many :votes
 
+  has_many :comments
+
   def validation_keys
     [:valid_statement_type,
      :valid_statement_state]
