@@ -55,35 +55,35 @@
   <li class="eligible-voters">
     <%= number_with_delimiter(statement.eligible_voters, delimiter: ",") %>
     eligible <%= 'voter'.pluralize(statement.eligible_voters) %>
-  </li>
-  <li class="votes-needed">
-    <%= number_with_delimiter(statement.votes_needed, delimiter: ",") %>
-    total <%= 'vote'.pluralize(statement.votes_needed) %> needed
+    (<%= number_with_delimiter(statement.votes_needed, delimiter: ",") %> needed)
   </li>
   <li class="votes-cast">
-    <%= number_with_delimiter(statement.votes.count, delimiter: ",") %>
+    <span id="vote-count-<%= statement.id %>">
+      <%= number_with_delimiter(statement.votes.count, delimiter: ",") %>
+    </span>
     <%= 'vote'.pluralize(statement.votes.count) %> cast
   </li>
-  <li class="yeses-needed">
-    <%= statement.yeses_needed %>%
-    must be YES
-  </li>
   <li class="yeses-cast">
-    <%= statement.yeses_percent %>%
+    <span id="yeses-percent-<%= statement.id %>">
+      <%= statement.yeses_percent %>%
+    </span>
     are YES
+    (needs <%= statement.yeses_needed %>%)
   </li>
   <% elsif statement.state == StatementStates[:alive] || statement.state == StatementStates[:dead] %>
   <li class="eligible-supporters">
     <%= number_with_delimiter(statement.eligible_supporters, delimiter: ",") %>
     eligible <%= 'supporter'.pluralize(statement.eligible_supporters) %>
-  </li>
-  <li class="support-needed">
-    <%= number_with_delimiter(statement.support_needed, delimiter: ",") %>
-    Total <%= 'supporter'.pluralize(statement.support_needed) %> needed
+    (<%= number_with_delimiter(statement.support_needed, delimiter: ",") %> needed)
   </li>
   <li class="support-given">
-    <%= number_with_delimiter(statement.supports.count, delimiter: ",") %>
+    <span id="support-count-<%= statement.id %>">
+      <%= number_with_delimiter(statement.supports.count, delimiter: ",") %>
+    </span>
     <%= 'supporter'.pluralize(statement.supports.count) %>
+  </li>
+  <li id="voting-will-begin-<%= statement.id %>" class="voting-will-begin">
+    <%= render 'group_pages/voting_will_begin', statement: statement %>
   </li>
   <% end %>
 </ul>
