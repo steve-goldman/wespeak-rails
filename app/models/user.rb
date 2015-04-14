@@ -9,22 +9,16 @@ class User < ActiveRecord::Base
   # foreign key relationships
 
   has_many :email_addresses, dependent: :destroy
-
   has_many :statements
-
   has_many :groups_i_created, class_name: "Group"
-
   has_many :received_invitations, dependent: :destroy
-
-  has_many :sent_invitations, dependent: :destroy
-
-  has_one  :user_notification, dependent: :destroy
-
-  has_many :followers, dependent: :destroy
-
-  has_many :active_members, dependent: :destroy
-
+  has_many :sent_invitations    , dependent: :destroy
+  has_one  :user_notification   , dependent: :destroy
+  has_many :followers           , dependent: :destroy
+  has_many :active_members      , dependent: :destroy
   has_many :membership_histories, dependent: :destroy
+  has_many :supports            , dependent: :destroy
+  has_many :votes               , dependent: :destroy
 
   # attr_accessors
 
@@ -139,11 +133,11 @@ class User < ActiveRecord::Base
   end
 
   def support_count(group)
-    Support.joins(statement: :group).where(groups: { id: group.id }).count
+    supports.joins(statement: :group).where(groups: { id: group.id }).count
   end
 
   def vote_count(group)
-    Vote.joins(statement: :group).where(groups: { id: group.id }).count
+    votes.joins(statement: :group).where(groups: { id: group.id }).count
   end
   
   private
