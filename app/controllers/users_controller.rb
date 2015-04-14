@@ -21,6 +21,8 @@ class UsersController < ApplicationController
     @groups = Group.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
               .joins(:membership_histories).where(membership_histories: { user_id: @user.id })
               .order("membership_histories.updated_at DESC")
+              .select(:id, :name, :profile_image)
+              .distinct
     respond_to do |format|
       format.html
       format.js
