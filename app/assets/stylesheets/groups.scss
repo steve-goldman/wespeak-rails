@@ -116,6 +116,24 @@
         margin: 0px auto;
         text-align: center;
     }
+
+    ul {
+        padding: 0;
+        list-style-type: none;
+        text-align: center;
+        font-family: monospace;
+
+        .no {
+            font-weight: bold;
+            color: red;
+        }
+
+        .yes {
+            font-weight: bold;
+            color: green;
+        }
+
+    }
 }
 
 .statement-item {
@@ -189,22 +207,11 @@
     }
     img {
         margin-top: 5px;
+        border-radius: 5px;
     }
 }
 
 .your-vote, .your-support, .eligible-voters, .votes-cast, .votes-needed, .yeses-needed, .yeses-cast, .eligible-supporters, .support-needed, .support-given {
-    text-align: center;
-    font-family: monospace;
-
-    .no {
-        font-weight: bold;
-        color: red;
-    }
-
-    .yes {
-        font-weight: bold;
-        color: green;
-    }
 }
 
 .flash-section {
@@ -216,5 +223,6 @@
     text-align: center;
     img {
         width: 100%;
+        border-radius: 5px;
     }
 }
