@@ -7,6 +7,7 @@ module GroupsHelper
     UPDATE_SUCCESS       = FlashMessage.new(:success, "Group rules updated!")
     UPDATE_INVITATIONS_SUCCESS = FlashMessage.new(:success, "Invitations settings updated!")
     UPDATE_LOCATIONS_SUCCESS   = FlashMessage.new(:success, "Locations settings updated!")
+    UPDATE_TAGLINE_SUCCESS     = FlashMessage.new(:success, "Tagline updated!")
     INVITATION_SENT      = FlashMessage.new(:success, "Invitation sent!")
     PROPOSAL_SUCCESS     = FlashMessage.new(:success, "Statement created!")
     PROPOSAL_DISCARDED   = FlashMessage.new(:success, "Statement discarded")

@@ -1,0 +1,4 @@
+<%= form_for :tagline, url: update_tagline_group_path(@group.id), method: :patch do |f| %>
+<%= f.text_area(:tagline, maxlength: Constants::Lengths::TAGLINE_MAX, rows: 4, value: (@group.tagline ? @group.tagline : ""), class: "form-control") %>
+<%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

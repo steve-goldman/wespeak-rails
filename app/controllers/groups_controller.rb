@@ -2,16 +2,17 @@ class GroupsController < ApplicationController
 
   include GroupsHelper
 
-  before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :update_locations, :destroy, :create, :ready_to_activate, :activate]
-  before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :update_locations, :destroy, :create, :ready_to_activate, :activate]
+  before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :create, :ready_to_activate, :activate]
+  before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :create, :ready_to_activate, :activate]
   before_action :group_creates,      only: [:create]
-  before_action :group_known,        only: [:edit, :update, :update_invitations, :update_locations, :destroy, :ready_to_activate, :activate]
-  before_action :user_matches,       only: [:edit, :update, :update_invitations, :update_locations, :destroy, :ready_to_activate, :activate]
-  before_action :group_not_active,   only: [:edit, :update, :update_invitations, :update_locations, :destroy, :ready_to_activate, :activate]
+  before_action :group_known,        only: [:edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :ready_to_activate, :activate]
+  before_action :user_matches,       only: [:edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :ready_to_activate, :activate]
+  before_action :group_not_active,   only: [:edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :ready_to_activate, :activate]
   before_action :initial_statement_creates, only: [:activate]
   before_action :rules_update,       only: [:update]
   before_action :invitations_update, only: [:update_invitations]
   before_action :locations_update,   only: [:update_locations]
+  before_action :tagline_updates,    only: [:update_tagline]
 
   def index
     @groups_pending = Group.where(user_id: @user.id, active: false)
@@ -41,6 +42,10 @@ class GroupsController < ApplicationController
 
   def update_locations
     redirect_with_flash(FlashMessages::UPDATE_LOCATIONS_SUCCESS, edit_group_path(id: @group.id))
+  end
+
+  def update_tagline
+    redirect_with_flash(FlashMessages::UPDATE_TAGLINE_SUCCESS, edit_group_path(id: @group.id))
   end
 
   def destroy
@@ -101,6 +106,11 @@ class GroupsController < ApplicationController
       !@group.update_attributes(latitude:  params[:group][:latitude],
                                 longitude: params[:group][:longitude],
                                 radius:    params[:group][:radius])
+  end
+
+  def tagline_updates
+    render_with_validation_flash(@group, action: :edit) if
+      !@group.update_attributes(tagline: params[:tagline][:tagline])
   end
 
   def initial_statement_creates

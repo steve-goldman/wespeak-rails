@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414212802) do
+ActiveRecord::Schema.define(version: 20150414233614) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20150414212802) do
     t.integer  "radius"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.text     "tagline"
   end
 
   add_index "initial_groups", ["statement_id"], name: "index_initial_groups_on_statement_id"

@@ -12,6 +12,14 @@
     </p>
 
     <div class="settings-group">
+      <h4>Tagline</h4>
+      <% if @group.tagline %>
+      "<%= @group.tagline %>"
+      <% else %>
+      None
+      <% end %>
+    </div>
+    <div class="settings-group">
       <h4>Email Address Restrictions</h4>
       <%= render 'group_email_domains/index', group: @group, allow_deletes: false, change_link: false %>
     </div>

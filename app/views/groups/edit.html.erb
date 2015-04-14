@@ -10,6 +10,13 @@
       the group will be able to change these settings.
     </p>
     <div class="settings-group">
+      <h4>Tagline</h4>
+      <p>
+        Please enter a brief tagline for the group. Please limit to <%= Constants::Lengths::TAGLINE_MAX %> characters.
+      </p>
+      <%= render 'groups/tagline_edit' %>
+    </div>
+    <div class="settings-group">
       <h4>Email Address Restrictions Settings</h4>
       <p>
         Restrict users based on email addresses?  Leaving this empty

@@ -25,7 +25,7 @@ class Group < ActiveRecord::Base
   
   
   def validation_keys
-    [:name, :rules, :invitation_rules, :latitude, :longitude, :radius, :locations]
+    [:name, :rules, :invitation_rules, :latitude, :longitude, :radius, :locations, :tagline]
   end
 
   validates :name, { presence:   { message: ValidationMessages::NAME_NOT_PRESENT.message },
@@ -39,6 +39,10 @@ class Group < ActiveRecord::Base
   validates :latitude , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:    90, allow_nil: true }
   validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to:   180, allow_nil: true }
   validates :radius,    numericality: { greater_than_or_equal_to:    1, less_than_or_equal_to: 10000, allow_nil: true }
+
+  validates :tagline, { presence: { message: ValidationMessages::TAGLINE_NOT_PRESENT.message },
+                        length:   { message: ValidationMessages::TAGLINE_TOO_LONG.message,
+                                    maximum: Lengths::TAGLINE_MAX } }
 
   validate :rules
 
@@ -218,16 +222,17 @@ class Group < ActiveRecord::Base
     return nil if active
 
     initial_group = InitialGroup.create(statement_id:            statement.id,
-                                         lifespan_rule:           lifespan_rule,
-                                         support_needed_rule:     support_needed_rule,
-                                         votespan_rule:           votespan_rule,
-                                         votes_needed_rule:       votes_needed_rule,
-                                         yeses_needed_rule:       yeses_needed_rule,
-                                         inactivity_timeout_rule: inactivity_timeout_rule,
-                                         invitations:             invitations,
-                                         latitude:                latitude,
-                                         longitude:               longitude,
-                                         radius:                  radius)
+                                        tagline:                 tagline,
+                                        lifespan_rule:           lifespan_rule,
+                                        support_needed_rule:     support_needed_rule,
+                                        votespan_rule:           votespan_rule,
+                                        votes_needed_rule:       votes_needed_rule,
+                                        yeses_needed_rule:       yeses_needed_rule,
+                                        inactivity_timeout_rule: inactivity_timeout_rule,
+                                        invitations:             invitations,
+                                        latitude:                latitude,
+                                        longitude:               longitude,
+                                        radius:                  radius)
     {
       initial_group:               initial_group,
       initial_group_email_domains:
