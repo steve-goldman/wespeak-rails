@@ -35,5 +35,14 @@
         </div>
       </li>
     </ul>
+    <ul id="comments-list" class="list-group">
+      <li class="list-group-item new-comment">
+        <%= render 'new_comment', statement: statement %>
+      </li>
+      <%= render 'show_comments' %>
+    </ul>
+    <div id="infinite-scrolling">
+      <%= will_paginate @comments %>
+    </div>
   </div>
 </div>

@@ -133,6 +133,9 @@ Rails.application.routes.draw do
   get    'groups/:name/why_not_support_eligible/:statement_id', to: 'profiles#why_not_support_eligible', as: :why_not_support_eligible
   get    'groups/:name/why_not_vote_eligible/:statement_id',    to: 'profiles#why_not_vote_eligible',    as: :why_not_vote_eligible
 
+  post   'groups/:name/comment/:statement_id/:user_id', to: 'proposals#create_comment',  as: :create_comment
+  delete 'groups/:name/comment/:id',                    to: 'proposals#destroy_comment', as: :destroy_comment
+
   # main feed page
   get    ':state',         to: 'static_pages#home',      as: :feed
 

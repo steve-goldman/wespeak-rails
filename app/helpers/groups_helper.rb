@@ -10,10 +10,13 @@ module GroupsHelper
     INVITATION_SENT      = FlashMessage.new(:success, "Invitation sent!")
     PROPOSAL_SUCCESS     = FlashMessage.new(:success, "Statement created!")
     PROPOSAL_DISCARDED   = FlashMessage.new(:success, "Statement discarded")
+    COMMENT_SUCCESS      = FlashMessage.new(:success, "Comment created!")
+    COMMENT_DELETE_SUCCESS = FlashMessage.new(:info, "Comment deleted")
     
     NOT_LOGGED_IN        = FlashMessage.new(:danger,  "Must be logged in to access this page")
     CANNOT_CREATE_GROUPS = FlashMessage.new(:danger,  "You don't have permission to create groups right now")
     USER_MISMATCH        = FlashMessage.new(:danger,  "Something went wrong: user mismatch")
+    GROUP_MISMATCH       = FlashMessage.new(:danger,  "Something went wrong: group mismatch")
     GROUP_UNKNOWN        = FlashMessage.new(:danger,  "Something went wrong: group unknown")
     GROUP_ACTIVE         = FlashMessage.new(:danger,  "Active groups cannot be configured")
     GROUP_NOT_ACTIVE     = FlashMessage.new(:danger,  "This group has not been configured")
@@ -26,6 +29,8 @@ module GroupsHelper
     NOT_VOTE_ELIGIBLE    = FlashMessage.new(:danger,  "Something went wrong: not vote eligible")
     COULD_NOT_CONFIRM    = FlashMessage.new(:danger,  "Something went wrong: could not confirm")
     COULD_NOT_DISCARD    = FlashMessage.new(:danger,  "Something went wrong: could not discard")
+    COMMENT_UNKNOWN      = FlashMessage.new(:danger,  "Something went wrong: comment unknown")
+    ALREADY_DELETED      = FlashMessage.new(:danger,  "Something went wrong: comment already deleted")
   end
 
   class ValidationMessages

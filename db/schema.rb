@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414162617) do
+ActiveRecord::Schema.define(version: 20150414181434) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20150414162617) do
     t.text     "payload"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.boolean  "deleted"
   end
 
   add_index "comments", ["statement_id"], name: "index_comments_on_statement_id"
