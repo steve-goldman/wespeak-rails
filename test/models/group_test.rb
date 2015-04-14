@@ -101,29 +101,6 @@ class GroupTest < ActiveSupport::TestCase
     assert     Group.new(name: "group", latitude: 50,  longitude: 50, radius: 50).valid?
   end
 
-  test "initial settings should get overwritten when locked in" do
-    group = Group.create!(name: "group",
-                          initial_lifespan_rule:           Timespans::LIFESPAN_MAX,
-                          initial_support_needed_rule:     Needed::SUPPORT_MAX,
-                          initial_votespan_rule:           Timespans::VOTESPAN_MAX,
-                          initial_votes_needed_rule:       Needed::VOTES_MAX,
-                          initial_yeses_needed_rule:       Needed::YESES_MAX,
-                          initial_inactivity_timeout_rule: Timespans::INACTIVITY_TIMEOUT_MAX,
-                          initial_invitations:             Invitations::MAX_PER_DAY)
-
-    group.activate
-
-    group.reload
-
-    assert_equal RuleDefaults[:lifespan],           group.initial_lifespan_rule
-    assert_equal RuleDefaults[:support_needed],     group.initial_support_needed_rule
-    assert_equal RuleDefaults[:votespan],           group.initial_votespan_rule
-    assert_equal RuleDefaults[:votes_needed],       group.initial_votes_needed_rule
-    assert_equal RuleDefaults[:yeses_needed],       group.initial_yeses_needed_rule
-    assert_equal RuleDefaults[:inactivity_timeout], group.initial_inactivity_timeout_rule
-    assert_equal Invitations::DEFAULT,              group.initial_invitations
-  end
-
   test "invitations required since stuff" do
     group = Group.create!(name: "group", invitations: 1)
     assert_not_nil group.reload.invitations_required_since
