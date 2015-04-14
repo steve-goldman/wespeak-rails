@@ -17,14 +17,10 @@ class Group < ActiveRecord::Base
   mount_uploader :profile_image, ImageUploader
 
   
-  # after initialize section
-
-  after_initialize :set_rules_to_defaults
-  after_initialize :set_invitations_to_defaults
-
-
   # before save section
 
+  before_save :set_rules_to_defaults
+  before_save :set_invitations_to_defaults
   before_save :set_invitations_required_since
   
   
