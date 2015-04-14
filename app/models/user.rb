@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
 
   has_many :active_members, dependent: :destroy
 
+  has_many :membership_histories, dependent: :destroy
+
   # attr_accessors
 
   attr_accessor :email
@@ -132,6 +134,18 @@ class User < ActiveRecord::Base
     received_invitations.where("group_id IN (#{group_ids})", id: id)
   end
 
+  def statement_count(group)
+    Statement.where(user_id: id, group_id: group.id).count
+  end
+
+  def support_count(group)
+    Support.joins(statement: :group).where(groups: { id: group.id }).count
+  end
+
+  def vote_count(group)
+    Vote.joins(statement: :group).where(groups: { id: group.id }).count
+  end
+  
   private
 
   def init_user_notification

@@ -1,0 +1,36 @@
+<% @groups.each do |group| %>
+<li class="list-group-item">
+  <div class="row">
+    <div class="col-xs-3">
+      <% if group.profile_image.url %>
+        <%= link_to group_profile_path(group.name) do %>
+          <%= image_tag(group.profile_image.thumb.url) if group.profile_image.url %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-xs-9">
+      <div class="group-name">
+        <%= link_to group.name, group_profile_path(group.name) %>
+      </div>
+      <div>
+        Member since <%= time_ago_in_words(group.membership_histories.find_by(user_id: @user.id).created_at) %> ago,
+        <% active_member = group.active_members.find_by(user_id: @user.id) %>
+        <% if active_member %>
+          active since <%= time_ago_in_words(active_member.created_at) %> ago
+        <% else %>
+          not active
+        <% end %>
+      </div>
+      <div>
+        <%= number_with_delimiter(@user.statement_count(group), delimiter: ",") %> authored
+      </div>
+      <div>
+        <%= number_with_delimiter(@user.support_count(group), delimiter: ",") %> supported
+      </div>
+      <div>
+        <%= number_with_delimiter(@user.vote_count(group), delimiter: ",") %> voted
+      </div>
+    </div>
+  </div>
+</li>
+<% end %>

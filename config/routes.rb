@@ -38,6 +38,9 @@ Rails.application.routes.draw do
   get    'users/my_groups',                       to: 'my_groups#index',             as: :my_groups
   get    'users/following',                       to: 'following#index',             as: :following
   get    'users/invitations',                     to: 'invites#index',               as: :invites
+
+  # user stats page
+  get    'users/:name',                           to: 'users#show',                  as: :show_user
   
   # group creation
   get    'groups',                               to: 'groups#index',                as: :groups

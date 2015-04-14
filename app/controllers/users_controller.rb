@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :not_logged_in, only: [:new, :create]
   before_action :user_valid,    only: [:create]
   before_action :email_valid,   only: [:create]
+  before_action :valid_user,    only: [:show]
   
   def new
     @user = User.new
@@ -14,6 +15,15 @@ class UsersController < ApplicationController
     @user.update_attribute(:primary_email_address_id, @email_address.id)
     UserMailer.email_address_activation(@user, @email_address).deliver_now
     redirect_with_flash(FlashMessages::EMAIL_SENT, root_url)
+  end
+
+  def show
+    group_ids = "SELECT DISTINCT group_id FROM membership_histories WHERE user_id = :user_id"
+    @groups = Group.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE).where("id IN (#{group_ids})", user_id: @user.id)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # private section
@@ -36,5 +46,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def valid_user
+    @user = User.find_by(name: params[:name])
+    redirect_with_flash(FlashMessages::NAME_UNKNOWN, request.referer || root_url) if !@user
   end
 end

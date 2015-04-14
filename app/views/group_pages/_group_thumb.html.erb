@@ -8,6 +8,9 @@
     <% end %>
   <% end %>
   <div class="byline">
-    by <span class="username"><%= statement.user.name %></span>
+    by
+    <%= link_to show_user_path(statement.user.name) do %>
+      <span class="username"><%= statement.user.name %></span>
+    <% end %>
   </div>
 </div>

@@ -5,6 +5,7 @@ module UsersHelper
   class FlashMessages
     EMAIL_SENT = FlashMessage.new(:info, "Check your email for the email address activation link")
     LOGGED_IN  = FlashMessage.new(:info, "You must be logged out to reset your password")
+    NAME_UNKNOWN = ValidationMessage.new("Something went wrong: unknown user")
   end
 
   class ValidationMessages
@@ -27,6 +28,7 @@ module UsersHelper
     EMAIL_MISSING_GROUP_ID= ValidationMessage.new("Something went wrong: no group for invitation")
 
     NAME_FORMATTING  = ValidationMessage.new("User names may only contain letters, numbers, underscores, and dashes")
+    
   end
 
 end
