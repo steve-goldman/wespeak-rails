@@ -40,7 +40,7 @@
             </p>
             <% if @info.active_member %>
               <span class="glyphicon glyphicon-ok"></span>
-              Active since <%= time_ago_in_words(@info.active_member.created_at) %> ago, valid for <%= time_ago_in_words(@info.active_member.expires_at) %>
+              Active since <%= time_ago_in_words(@info.active_member.created_at) %> ago, valid for the next <%= time_ago_in_words(@info.active_member.expires_at) %>
               <%= button_to "Extend Membership",
                   activate_membership_path(@info.group.name),
                   class: "btn btn-success" %>
