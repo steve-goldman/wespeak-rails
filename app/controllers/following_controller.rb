@@ -3,8 +3,10 @@ class FollowingController < ApplicationController
   before_action :logged_in, only: [:index]
 
   def index
-    group_ids = "SELECT group_id FROM followers WHERE user_id = :user_id"
-    @following_groups = Group.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE).where("id IN (#{group_ids})", user_id: @user.id)
+    @following_groups = Group.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+                        .joins(:followers)
+                        .where(followers: { user_id: @user.id })
+                        .order("followers.created_at DESC")
     respond_to do |format|
       format.html
       format.js

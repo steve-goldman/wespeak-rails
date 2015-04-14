@@ -3,8 +3,10 @@ class MyGroupsController < ApplicationController
   before_action :logged_in, only: [:index]
 
   def index
-    group_ids = "SELECT group_id FROM active_members WHERE user_id = :user_id"
-    @my_groups = Group.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE).where("id IN (#{group_ids})", user_id: @user.id)
+    @my_groups = Group.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+                 .joins(:active_members)
+                 .where(active_members: { user_id: @user.id })
+                 .order("active_members.updated_at DESC")
     respond_to do |format|
       format.html
       format.js
