@@ -1,10 +1,16 @@
 <div class="statement-group-link">
   <%= link_to group_profile_path(statement.group.name) do %>
+    <%= statement.group.name %>
     <% if statement.group.profile_image.url %>
       <div>
         <%= image_tag(statement.group.profile_image.thumb.url) %>
       </div>
     <% end %>
-    <%= statement.group.name %>
   <% end %>
+  <div>
+    by
+  </div>
+  <div class="byline">
+    <%= statement.user.name %>
+  </div>
 </div>
