@@ -66,6 +66,7 @@ module Constants
   end
 
   class Timespans
+
     INPUT_OPTIONS = [
       ["15 minutes", 15.minutes.to_i],
       ["30 minutes", 30.minutes.to_i],
@@ -105,6 +106,16 @@ module Constants
     end
 
     INACTIVITY_WARN_THRESHOLD = 25  # in percent
+
+    def Timespans.time_ago(t, present: false)
+      if (Time.zone.now - t).abs < 7.days
+        (present ? "in " : "") + ActionController::Base.helpers.time_ago_in_words(t) + (present ? "" : " ago")
+      elsif t.year != Time.zone.now.year
+        (present ? "on " : "") + t.strftime("%b %e, %Y")
+      else
+        (present ? "on " : "") + t.strftime("%b %e")
+      end
+    end
   end
 
   class Needed

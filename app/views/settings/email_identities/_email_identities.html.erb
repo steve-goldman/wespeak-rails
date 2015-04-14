@@ -14,7 +14,7 @@
         <td><%= email_address.email %></td>
         <td>
           <% if email_address.activated? %>
-            <%= time_ago_in_words(email_address.activated_at.to_time) + " ago"%>
+            <%= Constants::Timespans::time_ago(email_address.activated_at.to_time) %>
           <% else %>
             Not Activated
           <% end %>

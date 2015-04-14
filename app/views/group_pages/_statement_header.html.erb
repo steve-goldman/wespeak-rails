@@ -8,28 +8,28 @@
     <span class="statement-state"><%= StatementStates.name_from_value(statement.state) %></span>
   </li>
   <li>
-    <span class="time">Ended <%= time_ago_in_words(statement.vote_ended_at) %> ago</span>
+    <span class="time">Ended <%= Constants::Timespans::time_ago(statement.vote_ended_at) %></span>
   </li>
   <% elsif statement.state == StatementStates[:dead] %>
   <li>
     <span class="statement-state"><%= StatementStates.name(:dead) %></span>
   </li>
   <li>
-    <span class="time">Expired <%= time_ago_in_words(statement.expired_at) %> ago</span>
+    <span class="time">Expired <%= Constants::Timespans::time_ago(statement.expired_at) %></span>
   </li>
   <% elsif statement.state == StatementStates[:voting] %>
   <li>
     <span class="statement-state"><%= StatementStates.name(:voting) %></span>
   </li>
   <li>
-    <span class="time">Ends in <%= time_ago_in_words(statement.vote_ends_at) %></span>
+    <span class="time">Ends <%= Constants::Timespans::time_ago(statement.vote_ends_at, present: true) %></span>
   </li>
   <% elsif statement.state == StatementStates[:alive] %>
   <li>
     <span class="statement-state"><%= StatementStates.name(:alive) %></span>
   </li>
   <li>
-    <span class="time">Expires in <%= time_ago_in_words(statement.expires_at) %></span>
+    <span class="time">Expires <%= Constants::Timespans::time_ago(statement.expires_at, present: true) %></span>
   </li>
   <% end %>
 </ul>

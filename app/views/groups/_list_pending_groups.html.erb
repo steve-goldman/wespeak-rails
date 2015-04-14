@@ -6,7 +6,7 @@
       <% @groups_pending.each do |group| %>
       <tr>
         <td><%= link_to group.name, edit_group_path(group.id) %></td>
-        <td>Created <%= time_ago_in_words(group.created_at) + " ago" %></td>
+        <td>Created <%= Constants::Timespans::time_ago(group.created_at) %></td>
         <td>
           <% warning = "Are you sure you want to delete " + group.name + "?" %>
           <%= link_to destroy_group_path(group.id), method: :delete, data: { confirm: warning } do %>

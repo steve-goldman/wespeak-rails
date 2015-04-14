@@ -17,7 +17,7 @@
           </p>
           <% if @info.member_history %>
             <span class="glyphicon glyphicon-ok"></span>
-            Member since <%= time_ago_in_words(@info.member_history.created_at) %> ago.
+            Member since <%= Constants::Timespans::time_ago(@info.member_history.created_at) %>.
           <% else %>
             <span class="glyphicon glyphicon-remove"></span>
             You are not a member.
@@ -40,7 +40,7 @@
             </p>
             <% if @info.active_member %>
               <span class="glyphicon glyphicon-ok"></span>
-              Active since <%= time_ago_in_words(@info.active_member.created_at) %> ago, valid for the next <%= time_ago_in_words(@info.active_member.expires_at) %>
+              Active since <%= Constants::Timespans::time_ago(@info.active_member.created_at) %>, expires <%= Constants::Timespans::time_ago(@info.active_member.expires_at, present: true) %>
               <%= button_to "Extend Membership",
                   activate_membership_path(@info.group.name),
                   class: "btn btn-success" %>

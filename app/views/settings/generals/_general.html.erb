@@ -10,7 +10,7 @@
     </tr>
     <tr>
       <td class="general-setting-key">Member Since</td>
-      <td class="general-setting-value"><%= time_ago_in_words(@user.created_at) + " ago"%></td>
+      <td class="general-setting-value"><%= Constants::Timespans::time_ago(@user.created_at) %></td>
     </tr>
   </tbody>
 </table>
