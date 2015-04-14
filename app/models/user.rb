@@ -49,7 +49,9 @@ class User < ActiveRecord::Base
                      length:     { message: ValidationMessages::NAME_TOO_LONG.message,
                                    maximum: Lengths::USER_NAME_MAX },
                      uniqueness: { message: ValidationMessages::NAME_TAKEN.message,
-                                   case_sensitive: false } }
+                                   case_sensitive: false },
+                     format:     { message: ValidationMessages::NAME_FORMATTING.message,
+                                   with: Regex::GROUP } }
 
   validates :password, { presence:     { message: ValidationMessages::PASSWORD_NOT_PRESENT.message },
                          length:       { message: ValidationMessages::PASSWORD_LENGTH.message,
