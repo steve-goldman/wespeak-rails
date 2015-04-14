@@ -65,5 +65,10 @@ module GroupsHelper
     IMAGE_TOO_LARGE   = ValidationMessage.new("Please choose a file smaller than #{Sizes::IMAGE_FILE_MAX} bytes")
 
     STATEMENT_ID_NOT_PRESENT = ValidationMessage.new("Something went wrong: no statement id")
+    USER_ID_NOT_PRESENT      = ValidationMessage.new("Something went wrong: no user id")
+
+    COMMENT_NOT_PRESENT = ValidationMessage.new("Please write a comment")
+    COMMENT_TOO_LONG    = ValidationMessage.new("Please limit the length to #{Lengths::COMMENT_MAX} characters")
+
   end
 end
