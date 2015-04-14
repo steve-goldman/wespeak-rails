@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :membership_histories, dependent: :destroy
   has_many :supports            , dependent: :destroy
   has_many :votes               , dependent: :destroy
+  has_many :comments            , dependent: :destroy
 
   # attr_accessors
 
@@ -138,6 +139,10 @@ class User < ActiveRecord::Base
 
   def vote_count(group)
     votes.joins(statement: :group).where(groups: { id: group.id }).count
+  end
+
+  def comment_count(group)
+    comments.joins(statement: :group).where(groups: { id: group.id }).count
   end
   
   private

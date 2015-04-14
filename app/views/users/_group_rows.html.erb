@@ -28,6 +28,9 @@
       <div>
         <%= number_with_delimiter(@user.vote_count(group), delimiter: ",") %> voted
       </div>
+      <div>
+        <%= number_with_delimiter(@user.comment_count(group), delimiter: ",") %> <%= 'comment'.pluralize(@user.comment_count(group)) %>
+      </div>
     </div>
   </div>
 </li>
