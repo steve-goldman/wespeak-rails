@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414181434) do
+ActiveRecord::Schema.define(version: 20150414212548) do
 
   create_table "active_members", force: :cascade do |t|
     t.integer  "group_id"
@@ -110,6 +110,34 @@ ActiveRecord::Schema.define(version: 20150414181434) do
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name"
+
+  create_table "initial_group_email_domains", force: :cascade do |t|
+    t.integer  "initial_group_id"
+    t.integer  "group_email_domain_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "initial_group_email_domains", ["group_email_domain_id"], name: "index_initial_group_email_domains_on_group_email_domain_id"
+  add_index "initial_group_email_domains", ["initial_group_id"], name: "index_initial_group_email_domains_on_initial_group_id"
+
+  create_table "initial_groups", force: :cascade do |t|
+    t.integer  "statement_id"
+    t.integer  "lifespan_rule"
+    t.integer  "support_needed_rule"
+    t.integer  "votespan_rule"
+    t.integer  "votes_needed_rule"
+    t.integer  "yeses_needed_rule"
+    t.integer  "inactivity_timeout_rule"
+    t.integer  "invitations"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "radius"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "initial_groups", ["statement_id"], name: "index_initial_groups_on_statement_id"
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "statement_id"

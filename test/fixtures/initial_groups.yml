@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  statement_id: 
+  lifespan_rule: 1
+  support_needed_rule: 1
+  votespan_rule: 1
+  votes_needed_rule: 1
+  yeses_needed_rule: 1
+  inactivity_timeout_rule: 1
+  invitations: 1
+  latitude: 1.5
+  longitude: 1.5
+  radius: 1
+
+two:
+  statement_id: 
+  lifespan_rule: 1
+  support_needed_rule: 1
+  votespan_rule: 1
+  votes_needed_rule: 1
+  yeses_needed_rule: 1
+  inactivity_timeout_rule: 1
+  invitations: 1
+  latitude: 1.5
+  longitude: 1.5
+  radius: 1
