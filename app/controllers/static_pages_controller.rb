@@ -21,8 +21,12 @@ class StaticPagesController < ApplicationController
     following =  current_user.followers.map      { |follower|           follower.group_id }
     active    =  current_user.active_members.map { |active_member| active_member.group_id }
     @group_ids = following + active
-    
-    @all_statements = Group.get_all_statements(@group_ids, @state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
-    @statement_pointers = Group.get_statement_pointers(@group_ids)
+
+    if @group_ids.any?
+      @all_statements = Group.get_all_statements(@group_ids, @state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+      @statement_pointers = Group.get_statement_pointers(@group_ids)
+    else
+      @all_statements = nil
+    end
   end
 end

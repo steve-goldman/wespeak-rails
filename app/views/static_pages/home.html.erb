@@ -7,8 +7,12 @@
       <%= render 'users/signup' %>
     <% else %>
       <div id="tabbed-content">
-      <h2>Your Feed</h2>
+        <h2>Your Feed</h2>
+        <% if @all_statements %>
         <%= render 'tabbed_content' %>
+        <% else %>
+        <h4 align="center">You're not following any groups!</h4>
+        <% end %>
       </div>
     <% end %>
   </div>
