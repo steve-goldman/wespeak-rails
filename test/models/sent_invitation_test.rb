@@ -48,7 +48,7 @@ class SentInvitationTest < ActiveSupport::TestCase
   end
 
   test "num sent test" do
-    user = User.create!(name: "Stu G.", password: "test123", password_confirmation: "test123")
+    user = User.create!(name: "StuG", password: "test123", password_confirmation: "test123")
     group = Group.create!(name: "group")
     
     SentInvitation.create!(user_id: user.id, group_id: group.id, email: "stu@stu1.com", created_at: Time.zone.parse("20150323"))

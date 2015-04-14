@@ -5,10 +5,10 @@ class UserTest < ActiveSupport::TestCase
   include Constants
   
   test "name, password, and confirmation should be present" do
-    assert_not User.new(                password: "test123", password_confirmation: "test123").valid?
-    assert_not User.new(name: "Stu G.",                      password_confirmation: "test123").valid?
-    assert_not User.new(name: "Stu G.", password: "test123").valid?
-    assert     User.new(name: "Stu G.", password: "test123", password_confirmation: "test123").valid?
+    assert_not User.new(              password: "test123", password_confirmation: "test123").valid?
+    assert_not User.new(name: "StuG",                      password_confirmation: "test123").valid?
+    assert_not User.new(name: "StuG", password: "test123").valid?
+    assert     User.new(name: "StuG", password: "test123", password_confirmation: "test123").valid?
   end
 
   test "name should not be blank" do
