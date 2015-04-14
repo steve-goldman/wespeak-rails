@@ -5,7 +5,8 @@
   </li>
 
   <li>
-    <%= link_to "#{statement.comments.count} #{'comment'.pluralize(statement.comments.count)}", statement_path(statement.group.name, statement.id, feed: group.nil?) %>
+    <%= link_to "#{number_with_delimiter(statement.comments.count, delimiter: ',')} #{'comment'.pluralize(statement.comments.count)}",
+        statement_path(statement.group.name, statement.id, feed: group.nil?) %>
   </li>
 
 </ul>
