@@ -239,22 +239,22 @@ class Group < ActiveRecord::Base
 
   def rules
     errors.add(:rules, ValidationMessages::LIFESPAN_DURATION.message) if
-      lifespan_rule < Timespans::LIFESPAN_MIN || lifespan_rule > Timespans::LIFESPAN_MAX
+      lifespan_rule && (lifespan_rule < Timespans::LIFESPAN_MIN || lifespan_rule > Timespans::LIFESPAN_MAX)
     errors.add(:rules, ValidationMessages::SUPPORT_NEEDED_BOUNDS.message) if
-      support_needed_rule < Needed::SUPPORT_MIN || support_needed_rule > Needed::SUPPORT_MAX
+      support_needed_rule && (support_needed_rule < Needed::SUPPORT_MIN || support_needed_rule > Needed::SUPPORT_MAX)
     errors.add(:rules, ValidationMessages::VOTESPAN_DURATION.message) if
-      votespan_rule < Timespans::VOTESPAN_MIN || votespan_rule > Timespans::VOTESPAN_MAX
+      votespan_rule && (votespan_rule < Timespans::VOTESPAN_MIN || votespan_rule > Timespans::VOTESPAN_MAX)
     errors.add(:rules, ValidationMessages::VOTES_NEEDED_BOUNDS.message) if
-      votes_needed_rule < Needed::VOTES_MIN || votes_needed_rule > Needed::VOTES_MAX
+      votes_needed_rule && (votes_needed_rule < Needed::VOTES_MIN || votes_needed_rule > Needed::VOTES_MAX)
     errors.add(:rules, ValidationMessages::YESES_NEEDED_BOUNDS.message) if
-      yeses_needed_rule < Needed::YESES_MIN || yeses_needed_rule > Needed::YESES_MAX
+      yeses_needed_rule && (yeses_needed_rule < Needed::YESES_MIN || yeses_needed_rule > Needed::YESES_MAX)
     errors.add(:rules, ValidationMessages::INACTIVITY_TIMEOUT_DURATION.message) if
-      inactivity_timeout_rule < Timespans::INACTIVITY_TIMEOUT_MIN || inactivity_timeout_rule > Timespans::INACTIVITY_TIMEOUT_MAX
+      inactivity_timeout_rule && (inactivity_timeout_rule < Timespans::INACTIVITY_TIMEOUT_MIN || inactivity_timeout_rule > Timespans::INACTIVITY_TIMEOUT_MAX)
   end
-
+  
   def invitation_rules
     errors.add(:invitation_rules, ValidationMessages::INVITATIONS_BOUNDS.message) if
-      invitations != Invitations::NOT_REQUIRED && (invitations < 0 || invitations > Invitations::MAX_PER_DAY)
+      invitations && (invitations != Invitations::NOT_REQUIRED && (invitations < 0 || invitations > Invitations::MAX_PER_DAY))
   end
 
   def locations
