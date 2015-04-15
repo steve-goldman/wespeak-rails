@@ -1,8 +1,10 @@
 <div class="row">
-  <div class="profile-image col-xs-offset-2 col-xs-8">
-    <% if @group.profile_image.url %>
-      <%= image_tag @group.profile_image.url %>
-    <% end %>
+  <div class="col-xs-offset-2 col-xs-8">
+    <p class="profile-image">
+      <% if @group.profile_image.url %>
+        <%= image_tag @group.profile_image.url %>
+      <% end %>
+    </p>
   </div>
 </div>
 
