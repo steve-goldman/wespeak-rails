@@ -1,9 +1,13 @@
+<%= tinymce_assets %>
+
 <% if statement.state == StatementStates[:alive] || statement.state == StatementStates[:voting] %>
   <% if logged_in? %>
     <% if @info.change_eligible? %>
       <%= form_for :comment, url: create_comment_path(@info.group.name, statement.id, @info.user.id) do |f| %>
-        <%= f.label :payload, "Leave a comment (please limit to #{Constants::Lengths::COMMENT_MAX} characters)" %>
-        <%= f.text_area :payload, maxlength: Constants::Lengths::COMMENT_MAX, rows: 4, class: "form-control" %>
+        <%= f.label :payload, "Leave a comment" %>
+        <div class="rich-text">
+          <%= f.text_area :payload, class: "tinymce" %>
+        </div>
         <%= f.submit "Submit", class:"btn btn-primary" %>
       <% end %>
     <% else %>
@@ -15,3 +19,5 @@
 <% else %>
   The comment period is over.
 <% end %>
+
+<%= tinymce %>

@@ -69,7 +69,7 @@
     margin-left: 10px;
     margin-right: 10px;
     
-    .display-name, .tagline, .update, .rule, .group-email-domain-change, .invitations, .comment, .deleted-comment {
+    .display-name, .tagline, .update, .rule, .group-email-domain-change, .invitations, .deleted-comment {
         display: block;
         text-align: center;
         font-size: large;
@@ -218,4 +218,8 @@
         max-width: 100%;
         border-radius: 5px;
     }
+}
+
+.rich-text {
+    margin: 10px;
 }
