@@ -22,7 +22,7 @@
     <% if comment.deleted %>
       <span class="deleted-comment">This comment was deleted by its author <%= Constants::Timespans::time_ago(comment.updated_at) %>.</span>
     <% else %>
-      <span class="comment"><%= comment.payload.html_safe %></span>
+      <span class="comment"><%= comment.payload %></span>
     <% end %>
   </div>
 </li>
