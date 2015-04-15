@@ -13,7 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
-body.mce-content-body {
-    font-size: 12pt;
-}
