@@ -2,7 +2,8 @@ require 'test_helper'
 
 class PendingInvitationTest < ActiveSupport::TestCase
   test "invitation should be waiting" do
-    group = Group.create!(name: "the_group")
+    creator = User.create!(name: "Steve", password: "foobar", password_confirmation: "foobar")
+    group = creator.groups_i_created.create!(name: "the_group")
     group.activate
     group.send_invitation("stu@wespeakapp.com", false)
 
