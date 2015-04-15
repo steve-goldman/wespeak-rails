@@ -44,7 +44,8 @@ module GroupsHelper
     NAME_TAKEN       = ValidationMessage.new("That name is already in use")
     NAME_FORMATTING  = ValidationMessage.new("Group names may only contain letters, numbers, underscores, and dashes")
 
-    DISPLAY_NAME_TOO_LONG    = ValidationMessage.new("Display name must be less than #{Lengths::GROUP_DISPLAY_NAME_MAX} characters")
+    DISPLAY_NAME_NOT_PRESENT = ValidationMessage.new("Please choose a name")
+    DISPLAY_NAME_TOO_LONG    = ValidationMessage.new("Name must be less than #{Lengths::GROUP_DISPLAY_NAME_MAX} characters")
 
     DOMAIN_NOT_PRESENT = ValidationMessage.new("Please choose a domain")
     DOMAIN_TOO_LONG    = ValidationMessage.new("Domain must be less than #{Lengths::EMAIL_DOMAIN_MAX} characters")
