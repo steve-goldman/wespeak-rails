@@ -1,0 +1,7 @@
+toolbar:
+  - bold italic underline | alignleft aligncenter alignright | image | link
+plugins:
+  - image
+  - link
+menubar: false
+statusbar: false
