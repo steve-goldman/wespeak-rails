@@ -29,11 +29,6 @@
     
     .following {
         font-size: small;
-
-        form {
-            border: 0px;
-            padding: 0px;
-        }
     }
 }
 
@@ -61,12 +56,6 @@
     font-style: normal;
     font-size: xx-small;
     line-height: 100%;
-}
-
-.ready-to-activate {
-    form {
-        border: 0px;
-    }
 }
 
 .invitations, .locations {
@@ -124,13 +113,6 @@
     border-radius: 5px;
     font-size: small;
         
-    form {
-        border: 0px;
-        padding: 0px;
-        margin: 0px auto;
-        text-align: center;
-    }
-
     ul {
         padding: 0;
         list-style-type: none;
@@ -153,10 +135,6 @@
 .new-comment {
     text-align: center;
     font-size: large;
-
-    form {
-        border: 0;
-    }
 }
 
 .statement-item {
@@ -174,14 +152,6 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
-    form {
-        border: 0px;
-        input {
-            margin-left: 10px;
-            margin-right: 10px;
-            margin-bottom: 5px;
-        }
-    }
 }
 
 .page-desc {
@@ -210,16 +180,6 @@
 
     .explain {
         font-size: x-small;
-    }
-    
-    form {
-        border: 0px;
-    }
-}
-
-.new-group-email-domain-change, .new-location {
-    form {
-        border: 0px;
     }
 }
 

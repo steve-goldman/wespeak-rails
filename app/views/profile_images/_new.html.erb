@@ -1,6 +1,10 @@
 <div class="new-profile_image">
-  <%= form_for(:profile_image, url: create_profile_image_path(@info.group.name), html: { multipart: true }) do |f| %>
-  <div><%= file_field_tag :image, accept: 'image/jpeg,image/gif,image/png' %></div>
-  <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
-  <% end %>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%= form_for(:profile_image, url: create_profile_image_path(@info.group.name), html: { multipart: true }) do |f| %>
+      <div><%= file_field_tag :image, accept: 'image/jpeg,image/gif,image/png' %></div>
+      <div><%= f.submit "Propose", class: "btn btn-primary" %></div>
+      <% end %>
+    </li>
+  </ul>
 </div>

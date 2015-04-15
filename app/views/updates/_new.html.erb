@@ -1,12 +1,16 @@
 <div class="new-update">
-  <%= form_for :update, url: create_update_path(@info.group.name), method: :post do |f| %>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%= form_for :update, url: create_update_path(@info.group.name), method: :post do |f| %>
 
-  <h4>Update Proposal</h4>
-  <p>
-    Please limit to <%= Constants::Lengths::UPDATE_MAX %> characters.
-  </p>
-
-  <%= f.text_area :update, maxlength: Constants::Lengths::UPDATE_MAX, rows: 4, class: "form-control" %>
-  <%= f.submit "Propose", class:"btn btn-primary" %>
-  <% end %>
+      <h4>Update Proposal</h4>
+      <p>
+        Please limit to <%= Constants::Lengths::UPDATE_MAX %> characters.
+      </p>
+      
+      <%= f.text_area :update, maxlength: Constants::Lengths::UPDATE_MAX, rows: 4, class: "form-control" %>
+      <%= f.submit "Propose", class:"btn btn-primary" %>
+      <% end %>
+    </li>
+  </ul>
 </div>

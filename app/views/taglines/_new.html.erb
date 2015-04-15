@@ -1,12 +1,16 @@
 <div class="new-tagline">
-  <%= form_for :tagline, url: create_tagline_path(@info.group.name), method: :post do |f| %>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%= form_for :tagline, url: create_tagline_path(@info.group.name), method: :post do |f| %>
 
-  <h4>Tagline Proposal</h4>
-  <p>
-    Please limit to <%= Constants::Lengths::TAGLINE_MAX %> characters.
-  </p>
+      <h4>Tagline Proposal</h4>
+      <p>
+        Please limit to <%= Constants::Lengths::TAGLINE_MAX %> characters.
+      </p>
 
-  <%= f.text_area :tagline, maxlength: Constants::Lengths::TAGLINE_MAX, rows: 4, class: "form-control" %>
-  <%= f.submit "Propose", class:"btn btn-primary" %>
-  <% end %>
+      <%= f.text_area :tagline, maxlength: Constants::Lengths::TAGLINE_MAX, rows: 4, class: "form-control" %>
+      <%= f.submit "Propose", class:"btn btn-primary" %>
+      <% end %>
+    </li>
+  </ul>
 </div>

@@ -1,8 +1,12 @@
 <div class="new-display_name">
-  <%= form_for :display_name, url: create_display_name_path(@info.group.name), method: :post do |f| %>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%= form_for :display_name, url: create_display_name_path(@info.group.name), method: :post do |f| %>
 
-  <h4>Name</h4>
-  <%= f.text_field :display_name, maxlength: Constants::Lengths::GROUP_DISPLAY_NAME_MAX, class: "form-control" %>
-  <%= f.submit "Propose", class:"btn btn-primary" %>
-  <% end %>
+      <h4>Name</h4>
+      <%= f.text_field :display_name, maxlength: Constants::Lengths::GROUP_DISPLAY_NAME_MAX, class: "form-control" %>
+      <%= f.submit "Propose", class:"btn btn-primary" %>
+      <% end %>
+    </li>
+  </ul>
 </div>
