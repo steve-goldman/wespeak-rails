@@ -89,6 +89,11 @@ Rails.application.routes.draw do
   #get    'groups/:name/taglines/:state',       to: 'taglines#index',   as: :taglines
   post   'groups/:name/taglines',              to: 'taglines#create',  as: :create_tagline
   
+  # display names
+  get    'groups/:name/names/new',             to: 'display_names#new',     as: :new_display_name
+  #get    'groups/:name/names/:state',         to: 'display_names#index',   as: :display_names
+  post   'groups/:name/names',                 to: 'display_names#create',  as: :create_display_name
+  
   # updates
   get    'groups/:name/updates/new',           to: 'updates#new',    as: :new_update
   #get    'groups/:name/updates/:state',        to: 'updates#index',  as: :updates

@@ -14,7 +14,7 @@
         <% end %>
       </div>
       <% if @info.change_eligible? %>
-        <div class="change-link"><%= link_to "Propose change", "#" %></div>
+        <div class="change-link"><%= link_to "Propose change", new_display_name_path(@info.group.name) %></div>
       <% end %>
       <div class="group-name">
         @<%= @info.group.name %>

@@ -162,6 +162,21 @@ class StateMachineTest < ActiveSupport::TestCase
     assert_equal StatementStates[:accepted], statement.state
   end
 
+  test "accepted display name updates" do
+    GroupUserInfo.new(@group.name, nil, @user).make_member_active
+    statement = @group.create_statement(@user, :display_name)
+    statement.confirm
+    display_name   = DisplayName.create!(statement_id: statement.id, display_name: "My New Name!")
+    statement.add_support(@user)
+    StateMachine.alive_to_voting(Time.zone.now)
+    statement.reload
+    # voting now
+    statement.cast_vote(@user, Votes::YES)
+    StateMachine.end_votes(statement.vote_ends_at + 1)
+    @group.reload    
+    assert_equal display_name.display_name, @group.display_name
+  end
+
   test "accepted tagline updates" do
     GroupUserInfo.new(@group.name, nil, @user).make_member_active
     statement = @group.create_statement(@user, :tagline)

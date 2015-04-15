@@ -20,6 +20,7 @@ class StatementTypes
     tagline:                   3003,
     photo:                     3004,
     update:                    3005,
+    display_name:              3006,
   }
 
   @type_syms = {
@@ -32,7 +33,8 @@ class StatementTypes
     3002 => :profile_image,
     3003 => :tagline,
     3004 => :photo,
-    3005 => :update
+    3005 => :update,
+    3006 => :display_name,
   }
 
   @tables = {
@@ -46,6 +48,7 @@ class StatementTypes
     tagline:                   Tagline,
     photo:                     nil,
     update:                    Update,
+    display_name:              DisplayName,
   }
 
   @type_names = {
@@ -68,6 +71,7 @@ class StatementTypes
     3003 => "Tagline",
     3004 => "Photo",
     3005 => "Update",
+    3006 => "Name", 
   }
 
   def StatementTypes.[](key)

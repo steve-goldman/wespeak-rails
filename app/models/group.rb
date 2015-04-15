@@ -108,7 +108,9 @@ class Group < ActiveRecord::Base
   end
 
   def statement_accepted(statement)
-    if statement.statement_type == StatementTypes[:tagline]
+    if statement.statement_type == StatementTypes[:display_name]
+      update_attributes(display_name: statement.get_content.display_name)
+    elsif statement.statement_type == StatementTypes[:tagline]
       update_attributes(tagline: statement.get_content.tagline)
     elsif statement.statement_type == StatementTypes[:invitation]
       update_attributes(invitations: statement.get_content.invitations)

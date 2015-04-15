@@ -80,11 +80,16 @@
     margin-left: 10px;
     margin-right: 10px;
     
-    .tagline, .update, .rule, .current-rule, .group-email-domain-change, .invitations, .comment, .deleted-comment {
+    .display-name, .tagline, .update, .rule, .group-email-domain-change, .invitations, .comment, .deleted-comment {
         display: block;
         text-align: center;
         font-size: large;
         font-style: italic;
+    }
+
+    .will-change-profile {
+        text-align: center;
+        font-size: large;
     }
 
     img {

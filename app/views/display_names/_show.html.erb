@@ -1,0 +1,7 @@
+<p class="display-name"><%= statement.display_name %></p>
+
+<p class="will-change-profile">
+  <% if statement.statement.state == StatementStates[:alive] || statement.statement.state == StatementStates[:voting] %>
+    This statement will change the name of the group if it passes.
+  <% end %>
+</p>
