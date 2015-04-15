@@ -6,7 +6,7 @@ module Constants
     PASSWORD_MAX     = ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED 
     EMAIL_ADDR_MAX   = 255
     EMAIL_DOMAIN_MAX = 255
-    GROUP_NAME_MAX   = 64
+    GROUP_NAME_MAX   = 16
     TAGLINE_MAX      = 250
     UPDATE_MAX       = 1000
     COMMENT_MAX      = 1000
