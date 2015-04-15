@@ -1,1 +1,7 @@
 <%= render 'groups/locations_show', latitude: statement.latitude, longitude: statement.longitude, radius: statement.radius, change_link: false %>
+
+<% if statement.statement.state == StatementStates[:alive] || statement.statement.state == StatementStates[:voting] %>
+<p class="will-change-profile">
+  The group's location requirements will change if this statement passes.
+</p>
+<% end %>

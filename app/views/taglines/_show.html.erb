@@ -1,1 +1,7 @@
 <p class="tagline"><%= statement.tagline %></p>
+
+<% if statement.statement.state == StatementStates[:alive] || statement.statement.state == StatementStates[:voting] %>
+<p class="will-change-profile">
+  The group's tagline will change if this statement passes.
+</p>
+<% end %>

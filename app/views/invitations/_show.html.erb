@@ -6,13 +6,15 @@
     <%= statement.invitations %> per day.
   <% end %>
 </p>
-<% if statement.statement.state == :alive || statement.statement.state == :voting %>
-<p class="current-invitations"
-   The current setting is
-   <% if statement.statement.group.invitations == Constants::Invitations::NOT_REQUIRED %>
-     not required.
-   <% else %>
-     <%= statement.statement.group.invitations %> per day.
-   <% end %>
+
+<% if statement.statement.state == StatementStates[:alive] || statement.statement.state == StatementStates[:voting] %>
+<p class="will-change-profile">
+  The group's invitations requirements will change if this statement passes.
+  The current setting is:
+  <% if statement.statement.group.invitations == Constants::Invitations::NOT_REQUIRED %>
+    not required.
+  <% else %>
+    <%= statement.statement.group.invitations %> per day.
+  <% end %>
 </p>
 <% end %>

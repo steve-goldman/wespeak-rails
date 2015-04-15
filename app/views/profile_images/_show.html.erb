@@ -1,1 +1,7 @@
 <p class="profile-image"><%= image_tag statement.image.url %></p>
+
+<% if statement.statement.state == StatementStates[:alive] || statement.statement.state == StatementStates[:voting] %>
+<p class="will-change-profile">
+  The group's profile image will change if this statement passes.
+</p>
+<% end %>

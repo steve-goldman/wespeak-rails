@@ -7,3 +7,9 @@
     Remove all email address domains.
   <% end %>
 </p>
+
+<% if statement.statement.state == StatementStates[:alive] || statement.statement.state == StatementStates[:voting] %>
+<p class="will-change-profile">
+  The group's email address requirements will change if this statement passes.
+</p>
+<% end %>

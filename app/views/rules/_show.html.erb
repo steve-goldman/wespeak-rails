@@ -1,37 +1,31 @@
 <% state = statement.statement.state %>
 <% if statement.rule_type == RuleTypes[:lifespan] %>
   <p class="rule">Change <%= RuleTypes.display_name(:lifespan).downcase %> to <%= Constants::Timespans::in_words(statement.rule_value) %>.</p>
-  <% if state == StatementStates[:alive] || state == StatementStates[:voting] %>
-    <p class="current-rule">The current lifespan is <%= Constants::Timespans::in_words(statement.statement.group.lifespan_rule) %>.</p>
-  <% end %>
+  <% current_setting = Constants::Timespans::in_words(statement.statement.group.lifespan_rule) %>
 <% end %>
 <% if statement.rule_type == RuleTypes[:support_needed] %>
   <p class="rule">Change <%= RuleTypes.display_name(:support_needed).downcase %> to <%= statement.rule_value %>%.</p>
-  <% if state == StatementStates[:alive] || state == StatementStates[:voting] %>
-    <p class="current-rule">The current support needed is <%= statement.statement.group.support_needed_rule %>%.</p>
-  <% end %>
+  <% current_setting = "#{statement.statement.group.support_needed_rule}%" %>
 <% end %>
 <% if statement.rule_type == RuleTypes[:votespan] %>
   <p class="rule">Change <%= RuleTypes.display_name(:votespan).downcase %> to <%= Constants::Timespans::in_words(statement.rule_value) %>.</p>
-  <% if state == StatementStates[:alive] || state == StatementStates[:voting] %>
-    <p class="current-rule">The current votespan is <%= Constants::Timespans::in_words(statement.statement.group.votespan_rule) %>.</p>
-  <% end %>
+  <% current_setting = Constants::Timespans::in_words(statement.statement.group.votespan_rule) %>
 <% end %>
 <% if statement.rule_type == RuleTypes[:votes_needed] %>
   <p class="rule">Change <%= RuleTypes.display_name(:votes_needed).downcase %> to <%= statement.rule_value %>%.</p>
-  <% if state == StatementStates[:alive] || state == StatementStates[:voting] %>
-    <p class="current-rule">The current votes needed is <%= statement.statement.group.votes_needed_rule %>%.</p>
-  <% end %>
+  <% current_setting = "#{statement.statement.group.votes_needed_rule}%" %>
 <% end %>
 <% if statement.rule_type == RuleTypes[:yeses_needed] %>
   <p class="rule">Change <%= RuleTypes.display_name(:yeses_needed).downcase %> to <%= statement.rule_value %>%.</p>
-  <% if state == StatementStates[:alive] || state == StatementStates[:voting] %>
-    <p class="current-rule">The current yeses needed is <%= statement.statement.group.yeses_needed_rule %>%.</p>
-  <% end %>
+  <% current_setting = "#{statement.statement.group.yeses_needed_rule}%" %>
 <% end %>
 <% if statement.rule_type == RuleTypes[:inactivity_timeout] %>
   <p class="rule">Change <%= RuleTypes.display_name(:inactivity_timeout).downcase %> to <%= Constants::Timespans::in_words(statement.rule_value) %>.</p>
-  <% if state == StatementStates[:alive] || state == StatementStates[:voting] %>
-    <p class="current-rule">The current member inactivity timeout is <%= Constants::Timespans::in_words(statement.statement.group.inactivity_timeout_rule) %>.</p>
-  <% end %>
+  <% current_setting = Constants::Timespans::in_words(statement.statement.group.inactivity_timeout_rule) %>
+<% end %>
+
+<% if statement.statement.state == StatementStates[:alive] || statement.statement.state == StatementStates[:voting] %>
+<p class="will-change-profile">
+  The group's rule will change if this statement passes.  The current setting is: <%= current_setting %>.
+</p>
 <% end %>
