@@ -54,6 +54,7 @@ class Group < ActiveRecord::Base
   def activate
     update_attributes(active: true)
     user.received_invitations.create(group_id: id) if invitations != Invitations::NOT_REQUIRED
+    user.follow(self)
   end
 
   def create_statement(user, statement_type)
