@@ -25,7 +25,7 @@ class Group < ActiveRecord::Base
   
   
   def validation_keys
-    [:name, :rules, :invitation_rules, :latitude, :longitude, :radius, :locations, :tagline]
+    [:name, :display_name, :rules, :invitation_rules, :latitude, :longitude, :radius, :locations, :tagline]
   end
 
   validates :name, { presence:   { message: ValidationMessages::NAME_NOT_PRESENT.message },
@@ -35,6 +35,9 @@ class Group < ActiveRecord::Base
                                    case_sensitive: false },
                      format:     { message: ValidationMessages::NAME_FORMATTING.message,
                                    with: Regex::GROUP } }
+
+  validates :display_name, { length: { message: ValidationMessages::DISPLAY_NAME_TOO_LONG.message,
+                                       maximum: Lengths::GROUP_DISPLAY_NAME_MAX } }
 
   validates :latitude , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:    90, allow_nil: true }
   validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to:   180, allow_nil: true }

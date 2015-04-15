@@ -30,6 +30,11 @@ class GroupTest < ActiveSupport::TestCase
     assert     Group.new(name: "a" * Lengths::GROUP_NAME_MAX).valid?
   end
 
+  test "display name should not be too long" do
+    assert_not Group.new(name: "test", display_name: "a" * (Lengths::GROUP_DISPLAY_NAME_MAX + 1)).valid?
+    assert     Group.new(name: "test", display_name: "a" * Lengths::GROUP_DISPLAY_NAME_MAX).valid?
+  end
+
   test "lifespan should be in bounds" do
     assert_not Group.new(name: "group", lifespan_rule: Timespans::LIFESPAN_MIN - 1).valid?
     assert     Group.new(name: "group", lifespan_rule: Timespans::LIFESPAN_MIN).valid?
