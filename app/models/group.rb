@@ -52,14 +52,7 @@ class Group < ActiveRecord::Base
   validate :locations
 
   def activate
-    update_attributes(active:                          true)
-#                      initial_lifespan_rule:           lifespan_rule,
-#                      initial_support_needed_rule:     support_needed_rule,
-#                      initial_votespan_rule:           votespan_rule,
-#                      initial_votes_needed_rule:       votes_needed_rule,
-#                      initial_yeses_needed_rule:       yeses_needed_rule,
-#                      initial_inactivity_timeout_rule: inactivity_timeout_rule,
-#                      initial_invitations:             invitations)
+    update_attributes(active: true)
     user.received_invitations.create(group_id: id) if invitations != Invitations::NOT_REQUIRED
   end
 
