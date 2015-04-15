@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="profile-image col-xs-offset-2 col-xs-8">
+    <% if @group.profile_image.url %>
+      <%= image_tag @group.profile_image.url %>
+    <% end %>
+  </div>
+</div>
+
+<%= form_for(:profile_image, url: update_profile_image_group_path(@group.id), html: { multipart: true }) do |f| %>
+<div><%= file_field_tag :image, accept: 'image/jpeg,image/gif,image/png' %></div>
+<div><%= f.submit "Save", class: "btn btn-primary" %></div>
+<% end %>

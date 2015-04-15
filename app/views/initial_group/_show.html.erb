@@ -17,7 +17,15 @@
   </li>
   <li class="list-group-item">
     <h4>Profile Image</h4>
-    __IMAGE_HERE__.
+    <% if statement.profile_image.url %>
+      <div class="row">
+        <div class="profile-image col-xs-offset-2 col-xs-8">
+          <%= image_tag(statement.profile_image.url) %>
+        </div>
+      </div>
+    <% else %>
+      None
+    <% end %>
   </li>
   <li class="list-group-item">
     <h4>Email Addresses</h4>

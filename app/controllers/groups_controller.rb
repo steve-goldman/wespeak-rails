@@ -2,17 +2,18 @@ class GroupsController < ApplicationController
 
   include GroupsHelper
 
-  before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :create, :ready_to_activate, :activate]
-  before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :create, :ready_to_activate, :activate]
+  before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :update_locations, :update_tagline, :update_profile_image, :destroy, :create, :ready_to_activate, :activate]
+  before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :update_locations, :update_tagline, :update_profile_image, :destroy, :create, :ready_to_activate, :activate]
   before_action :group_creates,      only: [:create]
-  before_action :group_known,        only: [:edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :ready_to_activate, :activate]
-  before_action :user_matches,       only: [:edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :ready_to_activate, :activate]
-  before_action :group_not_active,   only: [:edit, :update, :update_invitations, :update_locations, :update_tagline, :destroy, :ready_to_activate, :activate]
+  before_action :group_known,        only: [:edit, :update, :update_invitations, :update_locations, :update_tagline, :update_profile_image, :destroy, :ready_to_activate, :activate]
+  before_action :user_matches,       only: [:edit, :update, :update_invitations, :update_locations, :update_tagline, :update_profile_image, :destroy, :ready_to_activate, :activate]
+  before_action :group_not_active,   only: [:edit, :update, :update_invitations, :update_locations, :update_tagline, :update_profile_image, :destroy, :ready_to_activate, :activate]
   before_action :initial_statement_creates, only: [:activate]
   before_action :rules_update,       only: [:update]
   before_action :invitations_update, only: [:update_invitations]
   before_action :locations_update,   only: [:update_locations]
   before_action :tagline_updates,    only: [:update_tagline]
+  before_action :profile_image_updates, only: [:update_profile_image]
 
   def index
     @groups_pending = Group.where(user_id: @user.id, active: false)
@@ -46,6 +47,11 @@ class GroupsController < ApplicationController
 
   def update_tagline
     redirect_with_flash(FlashMessages::UPDATE_TAGLINE_SUCCESS, edit_group_path(id: @group.id))
+  end
+
+  def update_profile_image
+    # delete the old image here?
+    redirect_with_flash(FlashMessages::UPDATE_PROFILE_IMAGE_SUCCESS, edit_group_path(id: @group.id))
   end
 
   def destroy
@@ -113,6 +119,11 @@ class GroupsController < ApplicationController
       !@group.update_attributes(tagline: params[:tagline][:tagline])
   end
 
+  def profile_image_updates
+    render_with_validation_flash(@group, action: :edit) if
+      !@group.update_attributes(profile_image: params[:image])
+  end
+
   def initial_statement_creates
     statement = Statement.new_statement(Time.zone.now, @group, @group.user, :initial_statement)
     statement.update_attributes(state:         StatementStates[:accepted],
@@ -124,7 +135,6 @@ class GroupsController < ApplicationController
     initial_stuff[:initial_group_email_domains].each do |group_email_domain|
       redirect_with_validation_flash(group_email_domain, request.referer || root_url) and return if !group_email_domain.valid?
     end
-    
   end
 
 end

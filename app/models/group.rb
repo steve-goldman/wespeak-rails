@@ -40,9 +40,10 @@ class Group < ActiveRecord::Base
   validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to:   180, allow_nil: true }
   validates :radius,    numericality: { greater_than_or_equal_to:    1, less_than_or_equal_to: 10000, allow_nil: true }
 
-  validates :tagline, { presence: { message: ValidationMessages::TAGLINE_NOT_PRESENT.message },
-                        length:   { message: ValidationMessages::TAGLINE_TOO_LONG.message,
+  validates :tagline, { length:   { message: ValidationMessages::TAGLINE_TOO_LONG.message,
                                     maximum: Lengths::TAGLINE_MAX } }
+
+  validate  :profile_image_size
 
   validate :rules
 
@@ -223,6 +224,7 @@ class Group < ActiveRecord::Base
 
     initial_group = InitialGroup.create(statement_id:            statement.id,
                                         tagline:                 tagline,
+                                        profile_image:           profile_image,
                                         lifespan_rule:           lifespan_rule,
                                         support_needed_rule:     support_needed_rule,
                                         votespan_rule:           votespan_rule,
@@ -287,6 +289,11 @@ class Group < ActiveRecord::Base
   def locations
     errors.add(:locations, ValidationMessages::LOCATION_FIELDS.message) if
       (latitude || longitude || radius) && !(latitude && longitude && radius)
+  end
+
+  def profile_image_size
+    errors.add(:image_size, ValidationMessages::IMAGE_TOO_LARGE.message) if
+      profile_image && profile_image.size > Sizes::IMAGE_FILE_MAX
   end
   
 end
