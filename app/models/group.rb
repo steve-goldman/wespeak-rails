@@ -69,8 +69,8 @@ class Group < ActiveRecord::Base
     set.count
   end
 
-  def get_all_statements(statement_state, page, per_page, order = "created_at DESC")
-    Group.get_all_statements [id], statement_state, page, per_page, order
+  def get_all_statements(statement_state, page, per_page, support_order: false)
+    Group.get_all_statements [id], statement_state, page, per_page, support_order: support_order
   end
 
   def get_statement_pointers
@@ -180,12 +180,23 @@ class Group < ActiveRecord::Base
     Vote.num_voted_statements [id], user
   end
 
-  def Group.get_all_statements(group_ids, statement_state, page, per_page, order = "created_at DESC")
+  def Group.get_all_statements(group_ids, statement_state, page, per_page, support_order: false)
     if statement_state.nil?
-      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: group_ids).where.not(state: StatementStates[:new]).order(order)
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: group_ids).where.not(state: StatementStates[:new])
+
     else
-      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: group_ids, state: StatementStates[statement_state]).order(order)
+      @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: group_ids, state: StatementStates[statement_state])
     end
+
+    if support_order
+      @all_statements = @all_statements
+                        .joins("LEFT OUTER JOIN (SELECT statement_id, COUNT(*) AS c FROM supports GROUP BY statement_id) AS counts ON statements.id = counts.statement_id")
+                        .order("counts.c DESC, updated_at DESC")
+    else
+      @all_statements = @all_statements.order(created_at: :desc)
+    end
+
+    @all_statements
   end
 
   def Group.get_statement_pointers(group_ids)

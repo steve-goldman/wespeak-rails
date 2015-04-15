@@ -1,3 +1,14 @@
+<% if state == :alive || state == :dead %>
+  <div class="support-order">
+  Sort by:
+  <% if @support_order %>
+    <%= link_to "newest", group ? profile_path(group.name, state) : feed_path(state) %> | most supported
+  <% else %>
+    newest | <%= link_to "most supported", group ? profile_path(group.name, state, support_order: true) : feed_path(state, support_order: true) %>
+  <% end %>
+  </div>
+<% end %>
+
 <ul id="statements-list" class="list-group">
   <%= render 'group_pages/statement_pointers', group: group %>
 </ul>

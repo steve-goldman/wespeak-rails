@@ -24,7 +24,8 @@ class ProfilesController < GroupPagesControllerBase
   end
   
   def show
-    @all_statements     = @info.group.get_all_statements(@info.state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+    @support_order      = params[:support_order] ? true : false
+    @all_statements     = @info.group.get_all_statements(@info.state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE, support_order: @support_order)
     @statement_pointers = @info.group.get_statement_pointers
 
     respond_to do |format|
