@@ -1,5 +1,5 @@
 toolbar:
-  - bold italic underline | alignleft aligncenter alignright | image | link
+  - bold italic underline | alignleft aligncenter alignright | image | link | fontsizeselect fontselect
 plugins:
   - image
   - link
