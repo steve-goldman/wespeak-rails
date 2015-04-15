@@ -231,6 +231,7 @@ class Group < ActiveRecord::Base
     return nil if active
 
     initial_group = InitialGroup.create(statement_id:            statement.id,
+                                        display_name:            display_name,
                                         tagline:                 tagline,
                                         profile_image:           profile_image,
                                         lifespan_rule:           lifespan_rule,

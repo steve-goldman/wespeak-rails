@@ -10,6 +10,15 @@
       the group will be able to change these settings.
     </p>
     <div class="settings-group">
+      <h4>Display Name</h4>
+      <p>
+        The name <%= @group.name %> cannot be changed.  The display
+        name may be longer, contain spaces and other special
+        characters, and be changed later by the group.
+      </p>
+      <%= render 'groups/display_name_edit' %>
+    </div>
+    <div class="settings-group">
       <h4>Tagline</h4>
       <p>
         Please enter a brief tagline for the group. Please limit to <%= Constants::Lengths::TAGLINE_MAX %> characters.

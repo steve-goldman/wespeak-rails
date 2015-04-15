@@ -12,6 +12,14 @@
     </p>
 
     <div class="settings-group">
+      <h4>Display Name</h4>
+      <% if @group.display_name %>
+      "<%= @group.display_name %>"
+      <% else %>
+      None
+      <% end %>
+    </div>
+    <div class="settings-group">
       <h4>Tagline</h4>
       <% if @group.tagline %>
       "<%= @group.tagline %>"

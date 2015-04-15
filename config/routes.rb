@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   patch  'groups/:id/update_invitations',        to: 'groups#update_invitations',   as: :update_invitations_group
   patch  'groups/:id/update_locations',          to: 'groups#update_locations',     as: :update_locations_group
   patch  'groups/:id/update_tagline',            to: 'groups#update_tagline',       as: :update_tagline_group
+  patch  'groups/:id/update_display_name',       to: 'groups#update_display_name',  as: :update_display_name_group
   post   'groups/:id/update_profile_image',      to: 'groups#update_profile_image', as: :update_profile_image_group
   get    'groups/:id/ready_to_activate',         to: 'groups#ready_to_activate',    as: :ready_to_activate_group
   post   'groups/:id/activate',                  to: 'groups#activate',             as: :activate_group

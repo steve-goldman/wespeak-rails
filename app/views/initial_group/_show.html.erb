@@ -4,8 +4,12 @@
 
 <ul class="list-group">
   <li class="list-group-item">
-    <h4>Group Name</h4>
-     __NAME_HERE___
+    <h4>Name</h4>
+    <% if statement.display_name %>
+    "<%= statement.display_name %>"
+    <% else %>
+    None
+    <% end %>
   </li>
   <li class="list-group-item">
     <h4>Tagline</h4>
