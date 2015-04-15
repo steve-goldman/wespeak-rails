@@ -25,7 +25,7 @@ class ProposalsController < GroupPagesControllerBase
     @statement_pointer = { statement_type: @key, content: @content }
     @feed = params[:feed] == "true"
     @comments = @content.statement.comments.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
-                .order(id: :desc)
+                .order(:id)
 
     respond_to do |format|
       format.html
