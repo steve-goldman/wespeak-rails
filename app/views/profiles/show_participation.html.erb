@@ -119,14 +119,16 @@
           Invitations are not required for this group.
         <% else %>
           Invitations are required. Members may send <%= @info.group.invitations %> per day.
-          <% if @info.change_eligible? %>
-            <div class="change-link"><%= link_to "Propose change", new_invitation_path(@info.group.name) %></div>
-            <p>
-              <%= render 'sent_invitations/new' %>
-            </p>
-          <% end %>
         <% end %>
-      </li>
+        <% if @info.change_eligible? %>
+          <div class="change-link"><%= link_to "Propose change", new_invitation_path(@info.group.name) %></div>
+        <% end %>
+        <% if @info.group.invitations_required? %>
+          <p>
+            <%= render 'sent_invitations/new' %>
+          </p>
+        <% end %>
+        </li>
       <li class="list-group-item">
         <p>
           <span class="header">Locations</span>
