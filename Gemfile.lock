@@ -66,9 +66,13 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chronic (0.10.2)
-    ckeditor (4.0.4)
-      mime-types
-      orm_adapter
+    ckeditor (4.1.1)
+      cocaine
+      orm_adapter (~> 0.5.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.7)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -246,7 +250,7 @@ DEPENDENCIES
   byebug (= 3.4.0)
   carrierwave (= 0.10.0)
   carrierwave-aws (= 0.5.0)
-  ckeditor (= 4.0.4)
+  ckeditor (= 4.1.1)
   coffee-rails (= 4.1.0)
   dropzonejs-rails (= 0.7.0)
   geocoder (= 1.2.8)

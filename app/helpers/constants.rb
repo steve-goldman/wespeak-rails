@@ -9,8 +9,8 @@ module Constants
     GROUP_NAME_MAX   = 16
     GROUP_DISPLAY_NAME_MAX = 20
     TAGLINE_MAX      = 250
-    UPDATE_MAX       = 1000
-    COMMENT_MAX      = 1000
+    UPDATE_MAX       = 10000
+    COMMENT_MAX      = 10000
   end
 
   class Sizes
