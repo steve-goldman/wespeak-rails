@@ -18,15 +18,12 @@
     .tagline {
         font-style: italic;
         font-size: large;
+        margin-top: 15px;
     }
     
     .membership {
         margin-top: 10px;
         font-size: small;
-    }
-    
-    .group-name {
-        font-size: xx-large;
     }
     
     .following {
@@ -39,6 +36,15 @@
     }
 }
 
+.group-display-name {
+    font-size: xx-large;
+    line-height: 100%;
+}
+
+.group-name {
+    color: gray;
+}
+    
 .settings-group {
     margin-bottom: 20px;
     border: 1px solid;
@@ -213,9 +219,19 @@
 
 .groups-list {
     font-size: small;
+
+    .name {
+        margin-bottom: 10px;
+    }
+    
     .group-name {
+        font-size: medium;
+    }
+
+    .group-display-name {
         font-size: large;
     }
+
     img {
         margin-top: 5px;
         border-radius: 5px;

@@ -6,8 +6,18 @@
       </div>
     </div>
     <div class="col-xs-6">
+      <div class="group-display-name">
+        <% if @info.group.display_name %>
+          <%= @info.group.display_name %>
+        <% else %>
+          No Name
+        <% end %>
+      </div>
+      <% if @info.change_eligible? %>
+        <div class="change-link"><%= link_to "Propose change", "#" %></div>
+      <% end %>
       <div class="group-name">
-        <%= @info.group.name %>
+        @<%= @info.group.name %>
       </div>
       <div class="tagline">
         <%= render 'group_pages/tagline' %>

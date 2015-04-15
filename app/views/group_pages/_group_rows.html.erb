@@ -8,31 +8,41 @@
         <% end %>
       <% end %>
     </div>
-    <div class="col-xs-5">
-      <div class="group-name">
-        <%= link_to group.name, group_profile_path(group.name) %>
-      </div>
-      <div>
-        <%= number_with_delimiter(group.membership_count, delimiter: ",") %> <%= 'member'.pluralize(group.membership_count) %>,
-        <%= number_with_delimiter(group.active_members.count, delimiter: ",") %> active
-      </div>
-      <div>
-        <%= number_with_delimiter(group.followers.count, delimiter: ",") %> <%= 'follower'.pluralize(group.followers.count) %>
-      </div>
-    </div>
-    <div class="col-xs-4">
-      <div class="group-name">
-        Statements
-      </div>
-      <div>
-        <%= link_to profile_path(group.name, :voting) do %>
-          <%= number_with_delimiter(group.get_count(:voting), delimiter: ",") %> voting
+    <div class="col-xs-9">
+      <div class="name">
+        <% if group.display_name %>
+          <%= link_to group_profile_path(group.name) do %>
+            <span class="group-display-name"><%= group.display_name %></span>
+          <% end %>
+        <% end %>
+        <%= link_to group_profile_path(group.name) do %>
+        <span class="group-name">
+          @<%= group.name %>
+        </span>
         <% end %>
       </div>
-      <div>
-        <%= link_to profile_path(group.name, :alive) do %>
-          <%= number_with_delimiter(group.get_count(:alive), delimiter: ",") %> alive
-        <% end %>
+      <div class="row">
+        <div class="col-xs-6">
+          <div>
+            <%= number_with_delimiter(group.membership_count, delimiter: ",") %> <%= 'member'.pluralize(group.membership_count) %>,
+            <%= number_with_delimiter(group.active_members.count, delimiter: ",") %> active
+          </div>
+          <div>
+            <%= number_with_delimiter(group.followers.count, delimiter: ",") %> <%= 'follower'.pluralize(group.followers.count) %>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div>
+            <%= link_to profile_path(group.name, :voting) do %>
+            <%= number_with_delimiter(group.get_count(:voting), delimiter: ",") %> voting
+            <% end %>
+          </div>
+          <div>
+            <%= link_to profile_path(group.name, :alive) do %>
+            <%= number_with_delimiter(group.get_count(:alive), delimiter: ",") %> alive
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
