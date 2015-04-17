@@ -147,4 +147,5 @@ Rails.application.routes.draw do
   # main feed page
   get    ':state',         to: 'static_pages#home',      as: :feed
 
+  resources :geolocations, only: :create
 end
