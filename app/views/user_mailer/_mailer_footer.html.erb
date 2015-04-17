@@ -1,0 +1,28 @@
+<p>
+  <div>
+    Sincerely,
+  </div>
+  <div>
+    The WeSpeak Team
+  </div>
+</p>
+
+<p>
+WeSpeak is a social network for groups.
+</p>
+
+<% if @user %>
+<p>
+  <%= link_to "Manage email notification preferences", edit_settings_notifications_url %>
+</p>
+<% end %>
+
+<% if @email %>
+<p>
+  <%= link_to "Unsubscribe from all email notifications to this address", "#" %>
+</p>
+<% end %>
+
+<div class="copyright">
+  &copy; <%= Date.today.year %> WeSpeak, Inc.
+</div>

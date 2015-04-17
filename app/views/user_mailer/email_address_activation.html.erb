@@ -6,3 +6,5 @@ you did not request this activation, please ignore this message.
 </p>
 
 <%= link_to "Activate", edit_email_address_activation_url(@email_address.activation_token, email: @email_address.email) %>
+
+<%= render 'mailer_footer' %>
