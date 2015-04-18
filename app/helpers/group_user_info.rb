@@ -1,4 +1,7 @@
 class GroupUserInfo
+
+  include Constants
+  
   def initialize(group_name, state, user)
     @user = user
 
@@ -125,8 +128,9 @@ class GroupUserInfo
   end
 
   def distance
-    Geocoder::Calculations.distance_between([@group.latitude, @group.longitude],
-                                            [@user.get_location.latitude, @user.get_location.longitude])
+    miles = Geocoder::Calculations.distance_between([@group.latitude, @group.longitude],
+                                                    [@user.get_location.latitude, @user.get_location.longitude])
+    miles * Locations::METERS_PER_MILE
   end
 
   private

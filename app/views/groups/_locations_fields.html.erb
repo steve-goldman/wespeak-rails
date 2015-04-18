@@ -6,7 +6,7 @@
 <%= f.text_field :longitude, placeholder: "Longitude", class: "form-control" %>
 
 <%= f.label :radius, "Radius (miles)" %>
-<%= f.select :radius, options_for_select(Constants::Locations::INPUT_OPTIONS, radius), class: "form-control" %>
+<%= f.select :radius, options_for_select(Constants::Locations::INPUT_OPTIONS), class: "form-control" %>
 </p>
 
 <%= f.submit button_text, class: "btn btn-primary" %>

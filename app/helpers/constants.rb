@@ -53,17 +53,19 @@ module Constants
   end
 
   class Locations
+    METERS_PER_MILE = 1000 * Geocoder::Calculations::to_kilometers(1)
+    
     INPUT_OPTIONS = [
-      ["1 mile",     1],
-      ["5 miles",    5],
-      ["10 miles",   10],
-      ["50 miles",   50],
-      ["100 miles",  100],
-      ["200 miles",  200],
-      ["500 miles",  500],
-      ["1000 miles", 1000],
-      ["2000 miles", 2000],
-      ["5000 miles", 5000],
+      ["1 mile",     (METERS_PER_MILE * 1 + 0.5).to_i],
+      ["5 miles",    (METERS_PER_MILE * 5 + 0.5).to_i],
+      ["10 miles",   (METERS_PER_MILE * 10 + 0.5).to_i],
+      ["50 miles",   (METERS_PER_MILE * 50 + 0.5).to_i],
+      ["100 miles",  (METERS_PER_MILE * 100 + 0.5).to_i],
+      ["200 miles",  (METERS_PER_MILE * 200 + 0.5).to_i],
+      ["500 miles",  (METERS_PER_MILE * 500 + 0.5).to_i],
+      ["1000 miles", (METERS_PER_MILE * 1000 + 0.5).to_i],
+      ["2000 miles", (METERS_PER_MILE * 2000 + 0.5).to_i],
+      ["5000 miles", (METERS_PER_MILE * 5000 + 0.5).to_i],
     ]
   end
 

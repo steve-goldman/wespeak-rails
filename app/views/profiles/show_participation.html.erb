@@ -155,13 +155,15 @@
             <% end %>
           </div>
           <div>
-            Must be within <%= number_with_delimiter(@info.group.radius, delimiter: ",") %> miles.
+            <% miles = (@info.group.radius / Constants::Locations::METERS_PER_MILE + 0.5).to_i %>
+            Must be within <%= number_with_delimiter(miles, delimiter: ",") %> <%= 'mile'.pluralize(miles) %>.
           </div>
           <% if @info.user %>
           <div>
             <% location = @info.user.get_location %>
             <% if location %>
-              You are <%= number_with_delimiter(@info.distance.to_i, delimiter: ",") %> miles away.
+            <% miles = (@info.distance / Constants::Locations::METERS_PER_MILE + 0.5).to_i %>
+              You are <%= number_with_delimiter(miles, delimiter: ",") %> <%= 'mile'.pluralize(miles) %> away.
             <% else %>
               We don't have your location.
             <% end %>

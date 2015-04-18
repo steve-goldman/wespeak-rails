@@ -2,7 +2,7 @@
   <ul class="list-group">
     <li class="list-group-item">
       <%= form_for(:location, url: create_locations_path(@info.group.name)) do |f| %>
-      <%= render 'groups/locations_fields', f: f, radius: 1, button_text: "Propose" %>
+      <%= render 'groups/locations_fields', f: f, button_text: "Propose" %>
       <% end %>
     </li>
 

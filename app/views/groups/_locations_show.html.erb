@@ -6,7 +6,10 @@
     <div><%= link_to Location.map_link(latitude, longitude), target: '_blank' do %>
       <%= image_tag(Location.static_map_url(latitude, longitude, radius)) %>
       <% end %></div>
-    <div>Must be within <%= radius %> miles.</div>
+    <div>
+      <% miles = (radius / Constants::Locations::METERS_PER_MILE + 0.5).to_i %>
+      Must be within <%= number_with_delimiter(miles, delimiter: ",") %> <%= 'mile'.pluralize(miles) %>.
+    </div>
   <% end %>
   </p>
 </span>

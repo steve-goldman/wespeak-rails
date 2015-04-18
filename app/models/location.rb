@@ -4,9 +4,13 @@ class Location < ActiveRecord::Base
 
   belongs_to :statement
 
-  validates :latitude , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:    90, allow_nil: true }
-  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to:   180, allow_nil: true }
-  validates :radius,    numericality: { greater_than_or_equal_to:    1, less_than_or_equal_to: 10000, allow_nil: true }
+  def validation_keys
+    [:latitude, :longitude, :radius, :locations]
+  end
+
+  validates :latitude , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:       90, allow_nil: true }
+  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to:      180, allow_nil: true }
+  validates :radius,    numericality: { greater_than_or_equal_to:    1, less_than_or_equal_to: 10000000, allow_nil: true }
 
   validate :locations
 
@@ -21,10 +25,10 @@ class Location < ActiveRecord::Base
   private
 
   def Location.map_zoom(radius)
-    if radius < 1
+    if radius < Locations::METERS_PER_MILE
       12
     else
-      [12, (13 - Math.log2(radius)).to_i].min
+      [12, (13 - Math.log2(radius / Locations::METERS_PER_MILE)).to_i].min
     end
   end
 
