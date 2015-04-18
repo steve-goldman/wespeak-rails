@@ -91,6 +91,7 @@ module Constants
     VOTESPAN_MAX           = 7.days.to_i
     INACTIVITY_TIMEOUT_MIN = 15.minutes.to_i
     INACTIVITY_TIMEOUT_MAX = 7.days.to_i
+    USER_LOCATION_VALID    = 5.minutes
 
     def Timespans.in_words(seconds)
       [[60, "second"], [60, "minute"], [24, "hour"], [100000, "day"]].map { |count, name|

@@ -39,6 +39,9 @@ Rails.application.routes.draw do
   get    'users/following',                       to: 'following#index',             as: :following
   get    'users/invitations',                     to: 'invites#index',               as: :invites
 
+  # locations
+  post   'users/location',                        to: 'user_locations#create',       as: :create_user_location
+
   # user stats page
   get    'users/:name',                           to: 'users#show',                  as: :show_user
   

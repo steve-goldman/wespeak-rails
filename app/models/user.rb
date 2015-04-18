@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :supports            , dependent: :destroy
   has_many :votes               , dependent: :destroy
   has_many :comments            , dependent: :destroy
+  has_many :user_locations      , dependent: :destroy
 
   # attr_accessors
 
@@ -143,6 +144,16 @@ class User < ActiveRecord::Base
 
   def comment_count(group)
     comments.joins(statement: :group).where(groups: { id: group.id }).count
+  end
+
+  def get_location
+    user_locations.last
+  end
+
+  def location_valid_until
+    user_locations.any? ?
+      [Constants::Timespans::USER_LOCATION_VALID - (Time.zone.now - user_locations.last.created_at), 0].max :
+      0
   end
   
   private
