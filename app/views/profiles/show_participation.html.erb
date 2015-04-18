@@ -80,6 +80,14 @@
               <span class="glyphicon glyphicon-remove"></span>
               Invitations are required.
             <% end %>
+            <% if !@info.location_eligible? %>
+              <span class="glyphicon glyphicon-remove"></span>
+              <% if @info.user.get_location %>
+                You are not in group's geographical region.
+              <% else %>
+                We don't have your location.
+              <% end %>
+            <% end %>
           <% end %>
         </li>
       <% end %>
@@ -147,8 +155,18 @@
             <% end %>
           </div>
           <div>
-            Must be within <%= @info.group.radius %> miles.
+            Must be within <%= number_with_delimiter(@info.group.radius, delimiter: ",") %> miles.
           </div>
+          <% if @info.user %>
+          <div>
+            <% location = @info.user.get_location %>
+            <% if location %>
+              You are <%= number_with_delimiter(@info.distance.to_i, delimiter: ",") %> miles away.
+            <% else %>
+              We don't have your location.
+            <% end %>
+          </div>
+          <% end %>
         <% end %>
         <% if @info.change_eligible? %>
           <div class="change-link"><%= link_to "Propose change", new_location_path(@info.group.name) %></div>

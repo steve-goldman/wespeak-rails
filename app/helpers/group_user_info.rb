@@ -13,14 +13,11 @@ class GroupUserInfo
       @active_member  = @group.active_members.find_by(user_id: @user.id)
       @member_history = @group.membership_histories.where(user_id: @user.id, active: true).first
 
-      @email_eligible = get_email_eligible
+      @email_eligible      = get_email_eligible
       @invitation_eligible = get_invitation_eligible
+      @location_eligible   = get_location_eligible
 
-      # TODO: facebook eligible
-      # TODO: location eligible
-
-      @change_eligible = @email_eligible && @invitation_eligible
-      # TODO: && @facebook_eligible && @location_eligible
+      @change_eligible = @email_eligible && @invitation_eligible && @location_eligible
 
       @invitations_remaining = @group.invitations - SentInvitation.num_sent_today(@user, @group) if
         @change_eligible && @group.invitations_required?
@@ -59,6 +56,10 @@ class GroupUserInfo
 
   def invitation_eligible?
     not_nilfalse @invitation_eligible
+  end
+  
+  def location_eligible?
+    not_nilfalse @location_eligible
   end
   
   def change_eligible?
@@ -123,6 +124,11 @@ class GroupUserInfo
     # do NOT automatically unfollow when user becomes inactive
   end
 
+  def distance
+    Geocoder::Calculations.distance_between([@group.latitude, @group.longitude],
+                                            [@user.get_location.latitude, @user.get_location.longitude])
+  end
+
   private
 
   def not_nilfalse(var)
@@ -142,5 +148,9 @@ class GroupUserInfo
     return true if @member_history
     return true if !@user.received_invitations.find_by(group_id: @group.id).nil?
     false
+  end
+
+  def get_location_eligible
+    @group.radius.nil? || (@user.get_location && distance <= @group.radius)
   end
 end
