@@ -8,7 +8,7 @@ getLocation = ->
 
 handler = ->
   starts_at = 1000 * (parseInt $('#user-location-valid-until').html())
-  interval  = 1000 * (parseInt $('#user-location-valid-for').html())
+  interval  = 1000 * (parseInt $('#user-location-valid-for').html() / 2)
   
   setTimeout (->
     getLocation()
