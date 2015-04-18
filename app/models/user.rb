@@ -147,7 +147,7 @@ class User < ActiveRecord::Base
   end
 
   def get_location
-    user_locations.last
+    location_valid_until > 0 ? user_locations.last : nil
   end
 
   def location_valid_until
