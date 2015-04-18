@@ -4,14 +4,12 @@ class ProfilesController < GroupPagesControllerBase
 
   before_action :logged_in,        only: [:support, :unsupport, :vote_no, :vote_yes, :activate_member, :deactivate_member, :follow, :unfollow]
   before_action :statement_valid,  only: [:support, :unsupport, :vote_no, :vote_yes, :why_not_support_eligible, :why_not_vote_eligible]
-  before_action :statement_alive,  only: [:unsupport, :why_not_support_eligible]
+  before_action :statement_alive,  only: [:why_not_support_eligible]
   before_action :statement_voting, only: [:vote_no, :vote_yes,  :why_not_vote_eligibe]
-  before_action :does_support,     only: [:unsupport]
   before_action :does_not_vote_no, only: [:vote_no]
   before_action :does_not_vote_yes,only: [:vote_yes]
   before_action :support_eligible, only: [:support, :unsupport]
   before_action :vote_eligible,    only: [:vote_no, :vote_yes]
-  before_action :support_destroys, only: [:unsupport]
 
   before_action only: [:vote_no] do
     vote_creates_or_updates(Votes::NO)
@@ -39,19 +37,34 @@ class ProfilesController < GroupPagesControllerBase
   end
 
   def support
-    ok = @statement.state == StatementStates[:alive] &&
-         !@statement.user_supports?(@info.user) &&
-         @info.support_eligible?(@statement)
+    ok = @info.change_eligible? &&
+         @statement.state == StatementStates[:alive] &&
+         !@statement.user_supports?(@info.user)
     
     if ok
       @info.make_member_active
       support = @statement.add_support(@info.user)
-    else
     end
     
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }
       format.js { render 'could_not_support' if !ok }
+    end
+  end
+
+  def unsupport
+    ok = @info.change_eligible? &&
+         @statement.state == StatementStates[:alive] &&
+         @statement.user_supports?(@info.user)
+    
+    if ok
+      @info.make_member_active
+      @statement.remove_support(@info.user)
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to request.referer || root_url }
+      format.js { render 'could_not_unsupport' if !ok }
     end
   end
 
@@ -63,13 +76,6 @@ class ProfilesController < GroupPagesControllerBase
   end
 
   def vote_yes
-    respond_to do |format|
-      format.html { redirect_to request.referer || root_url }
-      format.js
-    end
-  end
-
-  def unsupport
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }
       format.js
@@ -130,14 +136,6 @@ class ProfilesController < GroupPagesControllerBase
     @vote = @statement.user_vote(@info.user)
   end
 
-  def does_not_support
-    redirect_to request.referer || root_url if @statement.user_supports?(@info.user)
-  end
-
-  def does_support
-    redirect_to request.referer || root_url if !@statement.user_supports?(@info.user)
-  end
-
   def does_not_vote_no
     redirect_to request.referer || root_url if @vote && @vote.vote == Votes::NO
   end
@@ -154,17 +152,6 @@ class ProfilesController < GroupPagesControllerBase
   def vote_eligible
     redirect_with_flash(FlashMessages::NOT_VOTE_ELIGIBLE, request.referer || root_url) if
       !@info.vote_eligible?(@statement)
-  end
-
-  def support_creates
-    @info.make_member_active
-    support = @statement.add_support(@info.user)
-    redirect_with_validation_flash(support, request.referer || root_url) if !support.valid?
-  end
-
-  def support_destroys
-    @info.make_member_active
-    @statement.remove_support(@info.user)
   end
 
   def vote_creates_or_updates(vote)
