@@ -39,9 +39,9 @@ class Group < ActiveRecord::Base
   validates :display_name, { length: { message: ValidationMessages::DISPLAY_NAME_TOO_LONG.message,
                                        maximum: Lengths::GROUP_DISPLAY_NAME_MAX } }
 
-  validates :latitude , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:    90, allow_nil: true }
-  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to:   180, allow_nil: true }
-  validates :radius,    numericality: { greater_than_or_equal_to:    1, less_than_or_equal_to: 10000, allow_nil: true }
+  validates :latitude , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:       90, allow_nil: true }
+  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to:      180, allow_nil: true }
+  validates :radius,    numericality: { greater_than_or_equal_to:    1, less_than_or_equal_to: 10000000, allow_nil: true }
 
   validates :tagline, { length:   { message: ValidationMessages::TAGLINE_TOO_LONG.message,
                                     maximum: Lengths::TAGLINE_MAX } }
