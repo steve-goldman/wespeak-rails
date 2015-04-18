@@ -5,8 +5,6 @@ class UserLocationsController < ApplicationController
                         longitude: params[:coords][:longitude],
                         accuracy:  params[:coords][:accuracy])
 
-    logger.info "********* valid: #{location.valid?}"
-    
     head :ok
   end
 end
