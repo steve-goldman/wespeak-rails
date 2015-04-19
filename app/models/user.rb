@@ -155,6 +155,19 @@ class User < ActiveRecord::Base
       [Constants::Timespans::USER_LOCATION_VALID - (Time.zone.now - user_locations.last.created_at), 0].max :
       0
   end
+
+  def push_location(latitude, longitude, accuracy)
+    location = get_location
+    if location && Locations::METERS_PER_MILE * Geocoder::Calculations.distance_between([location.latitude, location.longitude],
+                                                                                        [latitude, longitude]) < Locations::NO_UPDATE_WITHIN
+      location.update_attributes(updated_at: Time.zone.now,
+                                 accuracy:   [location.accuracy, accuracy.to_i].max)
+    else
+      user_locations.create(latitude:  latitude,
+                            longitude: longitude,
+                            accuracy:  accuracy)
+    end
+  end
   
   private
 

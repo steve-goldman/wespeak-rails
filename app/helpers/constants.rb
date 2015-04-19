@@ -54,6 +54,7 @@ module Constants
 
   class Locations
     METERS_PER_MILE = 1000 * Geocoder::Calculations::to_kilometers(1)
+    NO_UPDATE_WITHIN = 100
     
     INPUT_OPTIONS = [
       ["1 mile",     (METERS_PER_MILE * 1 + 0.5).to_i],
