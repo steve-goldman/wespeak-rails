@@ -41,9 +41,11 @@
             <% if @info.active_member %>
               <span class="glyphicon glyphicon-ok"></span>
               Active since <%= Constants::Timespans::time_ago(@info.active_member.created_at) %>, expires <%= Constants::Timespans::time_ago(@info.active_member.expires_at, present: true) %>
-              <%= button_to "Extend Membership",
-                  activate_membership_path(@info.group.name),
-                  class: "btn btn-success" %>
+              <% if @info.change_eligible? %>
+                <%= button_to "Extend Membership",
+                    activate_membership_path(@info.group.name),
+                    class: "btn btn-success" %>
+              <% end %>
               <%= button_to "Deactivate Membership",
                   deactivate_membership_path(@info.group.name),
                   method: :delete,
