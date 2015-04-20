@@ -51,7 +51,8 @@ class EmailAddress < ActiveRecord::Base
     update_attributes(activated: true, activated_at: Time.zone.now)
     pending_invitations = PendingInvitation.where(email: email)
     pending_invitations.each do |pending_invitation|
-      user.received_invitations.find_or_create_by(group_id: pending_invitation.group_id)
+      user.received_invitations.find_or_create_by(created_at: pending_invitation.created_at,
+                                                  group_id:   pending_invitation.group_id)
     end
     pending_invitations.destroy_all
   end
