@@ -4,8 +4,7 @@ class PasswordResetsController < ApplicationController
 
   before_action :not_logged_in,        only: [:new, :create, :edit, :update]
   before_action :email_present,        only: [:create, :edit, :update]
-  before_action :email_valid,          only: [:create, :edit, :update]
-  before_action :email_active,         only: [:create, :edit, :update]
+  before_action :email_valid,          only: [:edit, :update]
   before_action :token_present,        only: [:edit, :update]
   before_action :token_not_expired,    only: [:edit, :update]
   before_action :password_present,     only: [:update]
@@ -18,8 +17,11 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    @email_address.user.create_password_reset_digest
-    @email_address.user.send_password_reset_email(@email_address.email)
+    email_address = EmailAddress.find_by(email: params[:password_reset][:email])
+    if email_address
+      email_address.user.create_password_reset_digest
+      email_address.user.send_password_reset_email(email_address.email)
+    end
     redirect_with_flash(FlashMessages::EMAIL_SENT, root_url)
   end
 
@@ -47,10 +49,6 @@ class PasswordResetsController < ApplicationController
   def email_valid
     @email_address = EmailAddress.find_by(email: params[:password_reset][:email])
     render_with_flash(FlashMessages::EMAIL_UNKNOWN, action: :new) if @email_address.nil?
-  end
-
-  def email_active
-    render_with_flash(FlashMessages::EMAIL_NOT_ACTIVE, action: :new) if !@email_address.activated?
   end
 
   def email_authenticated
