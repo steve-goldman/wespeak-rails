@@ -37,13 +37,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
 
   test "unknown email in create should render new" do
     post_create "unknown@email.addr"
-    assert_rendered_with_flash [FlashMessages::EMAIL_UNKNOWN], :new
-  end
-
-  test "inactive email in create should render new" do
-    @email_address.update_attribute(:activated, false)
-    post_create @email_address.email
-    assert_rendered_with_flash [FlashMessages::EMAIL_NOT_ACTIVE], :new
+    assert_redirected_with_flash [FlashMessages::EMAIL_SENT], root_url
   end
 
   test "valid submission in create should redirect to root" do
@@ -69,12 +63,6 @@ class PasswordResetsControllerTest < ActionController::TestCase
   test "unknown email in edit should render new" do
     get_edit @user.password_reset_token, "unknown@email.addr"
     assert_rendered_with_flash [FlashMessages::EMAIL_UNKNOWN], :new
-  end
-
-  test "inactive email in edit should render new" do
-    @email_address.update_attribute(:activated, false)
-    get_edit @user.password_reset_token, @email_address.email
-    assert_rendered_with_flash [FlashMessages::EMAIL_NOT_ACTIVE], :new
   end
 
   test "expired token in edit should render new" do
@@ -106,12 +94,6 @@ class PasswordResetsControllerTest < ActionController::TestCase
   test "unknown email in update should render new" do
     patch_update @user.password_reset_token, "unknown@email.addr", nil, nil
     assert_rendered_with_flash [FlashMessages::EMAIL_UNKNOWN], :new
-  end
-
-  test "inactive email in update should render new" do
-    @email_address.update_attribute(:activated, false)
-    patch_update @user.password_reset_token, @email_address.email, nil, nil
-    assert_rendered_with_flash [FlashMessages::EMAIL_NOT_ACTIVE], :new
   end
 
   test "expired token in update should render new" do
