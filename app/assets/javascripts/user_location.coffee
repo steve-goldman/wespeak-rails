@@ -2,7 +2,7 @@ handleLocation = (position) ->
   location_path = $('#create-user-location-path').html()
   $.post location_path, position
   # re-set the timer
-  console.log 'setting next timer'
+  #console.log 'setting next timer'
   setTimeout getLocation, 1000 * (parseInt $('#user-location-valid-for').html()) / 2
 
 getLocation = ->
@@ -11,16 +11,16 @@ getLocation = ->
     $('#user-location-timer-set').html 'true'
     # defer if the page is not visible
     if document.hidden
-      console.log 'timer went off but page not visible'
+      #console.log 'timer went off but page not visible'
       $('#user-location-timer-set').html 'false'
     # otherwise do the request
     else
-      console.log 'getting position'
+      #console.log 'getting position'
       navigator.geolocation.getCurrentPosition handleLocation
 
 visibilityChanged = ->
   if !document.hidden && $('#user-location-timer-set').html() == 'false'
-    console.log 'calling getLocation because page visible and no timer'
+    #console.log 'calling getLocation because page visible and no timer'
     getLocation()
     
 
@@ -31,7 +31,7 @@ handler = ->
     # we can decide if we need to immediately get the position
     document.addEventListener 'visibilitychange', visibilityChanged
     # prime the loop
-    console.log 'setting initial timer'
+    #console.log 'setting initial timer'
     setTimeout getLocation, 1000 * (parseInt $('#user-location-valid-until').html())
 
 $(document).on "ready page:load", handler
