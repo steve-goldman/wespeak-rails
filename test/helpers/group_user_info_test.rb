@@ -7,7 +7,7 @@ class GroupUserInfoTest < ActiveSupport::TestCase
   def setup
     @group = Group.create!(name: "the_group", active: true)
     @user = User.create!(name: "stu", password: "test123", password_confirmation: "test123")
-    primary = @user.email_addresses.create!(email: "stu@email.addr")
+    primary = @user.email_addresses.create!(email: "stu@email.addr", activated: true)
     @user.update_attributes(primary_email_address_id: primary.id)
 
     @other_user = User.create(name: "mike", password: "test123", password_confirmation: "test123")
@@ -74,6 +74,12 @@ class GroupUserInfoTest < ActiveSupport::TestCase
   test "invitations required and not invited should not be eligible" do
     @group.update_attributes(invitations: 1)
     assert_not GroupUserInfo.new(@group.name, nil, @user).invitation_eligible?
+    assert_not GroupUserInfo.new(@group.name, nil, @user).change_eligible?
+  end
+
+  test "no activated email address should not be eligible" do
+    @user.email_addresses.update_all(activated: false)
+    assert_not GroupUserInfo.new(@group.name, nil, @user).email_activated?
     assert_not GroupUserInfo.new(@group.name, nil, @user).change_eligible?
   end
 

@@ -6,7 +6,13 @@
     </tr>
     <tr>
       <td class="general-setting-key">Primary Email Address</td>
-      <td class="general-setting-value"><%= EmailAddress.find(@user.primary_email_address_id).email %></td>
+      <td class="general-setting-value">
+        <% if @user.primary_email_address_id %>
+          <%= EmailAddress.find(@user.primary_email_address_id).email %>
+        <% else %>
+          None
+        <% end %>
+      </td>
     </tr>
     <tr>
       <td class="general-setting-key">Member Since</td>

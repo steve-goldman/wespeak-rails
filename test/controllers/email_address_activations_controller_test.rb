@@ -7,6 +7,7 @@ class EmailAddressActivationsControllerTest < ActionController::TestCase
   def setup
     @user = User.create!(name: "Stu", password: "test123", password_confirmation: "test123")
     @email_address = @user.email_addresses.create!(email: "hello@world.com")
+    @email_address.send_activation_email
   end
 
   #

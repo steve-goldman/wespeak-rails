@@ -72,23 +72,35 @@
             <span class="glyphicon glyphicon-ok"></span>
             You may participate!
           <% else %>
+            <% if !@info.email_activated? %>
+              <p>
+                <span class="glyphicon glyphicon-remove"></span>
+                <%= link_to "Add and activate an email address", settings_email_identities_path %>
+                for your account.
+              </p>
+            <% end %>
             <% if !@info.email_eligible? %>
-              <span class="glyphicon glyphicon-remove"></span>
-              See below for email address requirements.
-              <%= link_to "Add an address", settings_email_identities_path %>
-              to your account.
+              <p>
+                <span class="glyphicon glyphicon-remove"></span>
+                <%= link_to "Add and activate an email address", settings_email_identities_path %>
+                for your account that matches a requirement below.
+              </p>
             <% end %>
             <% if !@info.invitation_eligible? %>
-              <span class="glyphicon glyphicon-remove"></span>
-              Invitations are required.
+              <p>
+                <span class="glyphicon glyphicon-remove"></span>
+                Invitations are required.
+              </p>
             <% end %>
             <% if !@info.location_eligible? %>
-              <span class="glyphicon glyphicon-remove"></span>
-              <% if @info.user.get_location %>
-                You are not in group's geographical region.
-              <% else %>
-                We don't have your location.
-              <% end %>
+              <p>
+                <span class="glyphicon glyphicon-remove"></span>
+                <% if @info.user.get_location %>
+                  You are not in group's geographical region.
+                <% else %>
+                  We don't have your location.
+                <% end %>
+              </p>
             <% end %>
           <% end %>
         </li>

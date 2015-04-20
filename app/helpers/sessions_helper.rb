@@ -51,7 +51,7 @@ module SessionsHelper
 
     EMAIL_NOT_ACTIVATED       = FlashMessage.new(:warning,  "Email address not activated (check email for the activation link)")
 
-    INVALID_EMAIL_OR_PASSWORD = FlashMessage.new(:danger,   "Invalid email address or password")
+    INVALID_LOGIN_OR_PASSWORD = FlashMessage.new(:danger,   "Invalid login or password")
   end
 
 end

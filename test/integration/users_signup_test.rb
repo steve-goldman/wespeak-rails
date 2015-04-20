@@ -4,57 +4,23 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test "valid info should be able to sign up" do
     assert_difference 'User.count', 1 do
       post_via_redirect create_user_path, user: { name:  "discgolfstu",
-                                                  email: "hello@world.org",
-                                                  password: "test123",
-                                                  password_confirmation: "test123" }
+                                                  password: "test123" }
     end
     assert_template 'static_pages/home'
   end
 
   test "missing user should not be able to sign up" do
     assert_no_difference 'User.count' do
-      post_via_redirect create_user_path, user: { email: "hello@world.org",
-                                                  password: "test123",
-                                                  password_confirmation: "test123" }
-    end
-    assert_template 'static_pages/home'
-  end
-    
-  test "missing email should not be able to sign up" do
-    assert_no_difference 'User.count' do
-      post_via_redirect create_user_path, user: { name:  "disgolfstu",
-                                                  password: "test123",
-                                                  password_confirmation: "test123" }
-    end
-    assert_template 'static_pages/home'
-  end
-    
-  test "invalid email should not be able to sign up" do
-    assert_no_difference 'User.count' do
-      post_via_redirect create_user_path, user: { name:  "disgolfstu",
-                                                  email: "bogus@",
-                                                  password: "test123",
-                                                  password_confirmation: "test123" }
+      post_via_redirect create_user_path, user: { password: "test123" }
     end
     assert_template 'static_pages/home'
   end
     
   test "missing password should not be able to sign up" do
     assert_no_difference 'User.count' do
-      post_via_redirect create_user_path, user: { name:  "disgolfstu",
-                                                  email: "hello@world.org",
-                                                  password_confirmation: "test123" }
+      post_via_redirect create_user_path, user: { name:  "disgolfstu" }
     end
     assert_template 'static_pages/home'
   end
     
-  test "missing confirmation should not be able to sign up" do
-    assert_no_difference 'User.count' do
-      post_via_redirect create_user_path, user: { name:  "disgolfstu",
-                                                  email: "hello@world.org",
-                                                  password: "test123" }
-    end
-    assert_template 'static_pages/home'
-  end
-  
 end

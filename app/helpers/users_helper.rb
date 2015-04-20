@@ -3,7 +3,7 @@ module UsersHelper
   include ApplicationHelper
 
   class FlashMessages
-    EMAIL_SENT = FlashMessage.new(:info, "Check your email for the email address activation link")
+    USER_CREATED = FlashMessage.new(:success, "Welcome!")
     LOGGED_IN  = FlashMessage.new(:info, "You must be logged out to reset your password")
     NAME_UNKNOWN = ValidationMessage.new("Something went wrong: unknown user")
   end

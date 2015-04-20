@@ -27,121 +27,64 @@ class UsersControllerTest < ActionController::TestCase
   # create tests
   #
 
-  test "missing email in create alerts" do
-    post_create "Stu", nil, "test123", "test123"
-    assert_redirected_with_flash [ValidationMessages::EMAIL_NOT_PRESENT], root_url
-    assert_user_not_exists "Stu"
-
-    post_create "Stu", "    ", "test123", "test123"
-    assert_redirected_with_flash [ValidationMessages::EMAIL_NOT_PRESENT], root_url
-    assert_user_not_exists "Stu"
-  end
-  
-  test "email too long in create alerts" do
-    email = "a" * (Lengths::EMAIL_ADDR_MAX + 1 - "@world.org".length) + "@world.org"
-    post_create "Stu", email, "test123", "test123"
-    assert_redirected_with_flash [ValidationMessages::EMAIL_TOO_LONG], root_url
-    assert_user_not_exists "Stu"
-
-    email = "a" * (Lengths::EMAIL_ADDR_MAX - "@world.org".length) + "@world.org"
-    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
-      post_create "Stu", email, "test123", "test123"
-    end
-    assert_redirected_with_flash [FlashMessages::EMAIL_SENT], root_url
-    assert_user_exists "Stu"
-  end
-
-  test "bad email formatting in create alerts" do
-    post_create "Stu", "hello@", "test123", "test123"
-    assert_redirected_with_flash [ValidationMessages::EMAIL_FORMATTING], root_url
-    assert_user_not_exists "Stu"
-  end
-
-  test "email taken in create alerts" do
-    assert @user.email_addresses.create(email: "hello@world.org").valid?
-    post_create "Stu", "hello@world.org", "test123", "test123"
-    assert_redirected_with_flash [ValidationMessages::EMAIL_TAKEN], root_url
-    assert_user_not_exists "Stu"
-  end
-
   test "missing name in create alerts" do
-    post_create "  ", "hello@world.org", "test123", "test123"
+    post_create "  ", "test123"
     assert_redirected_with_flash [ValidationMessages::NAME_NOT_PRESENT], root_url
     assert_user_not_exists "Stu"
   end
 
   test "too long name in create alerts" do
     name = "a" * (Lengths::USER_NAME_MAX + 1)
-    post_create name, "hello@world.org", "test123", "test123"
+    post_create name, "test123"
     assert_redirected_with_flash [ValidationMessages::NAME_TOO_LONG], root_url
     assert_user_not_exists name
 
     name = "a" * Lengths::USER_NAME_MAX
-    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
-      post_create name, "hello@world.org", "test123", "test123"
-    end
-    assert_redirected_with_flash [FlashMessages::EMAIL_SENT], root_url
+    post_create name, "test123"
+    assert_redirected_with_flash [FlashMessages::USER_CREATED], root_url
     assert_user_exists name
   end
 
   test "name taken in create alerts" do
-    post_create "user", "hello@world.org", "test123", "test123"
+    post_create "user", "test123"
     assert_redirected_with_flash [ValidationMessages::NAME_TAKEN], root_url
   end
 
   test "too short password in create alerts" do
     new_password = "a" * (Lengths::PASSWORD_MIN - 1)
-    post_create "Stu", "hello@world.org", new_password, new_password
+    post_create "Stu", new_password
     assert_redirected_with_flash [ValidationMessages::PASSWORD_LENGTH], root_url
     assert_user_not_exists "Stu"
   end
 
   test "too long password in create alerts" do
     new_password = "a" * (Lengths::PASSWORD_MAX + 1)
-    post_create "Stu", "hello@world.org", new_password, new_password
+    post_create "Stu", new_password
     assert_redirected_with_flash [ValidationMessages::PASSWORD_LENGTH], root_url
     assert_user_not_exists "Stu"
   end
 
   test "password missing in create alerts" do
-    post_create "Stu", "hello@world.org", nil, nil
+    post_create "Stu", nil
     assert_redirected_with_flash [ValidationMessages::PASSWORD_NOT_PRESENT, ValidationMessages::CONFIRMATION_NOT_PRESENT], root_url
     assert_user_not_exists "Stu"
   end
 
   test "password blank in create alerts" do
-    post_create "Stu", "hello@world.org", "        ", "        "
+    post_create "Stu", "        "
     assert_redirected_with_flash [ValidationMessages::PASSWORD_NOT_PRESENT, ValidationMessages::CONFIRMATION_NOT_PRESENT], root_url
     assert_user_not_exists "Stu"
   end
 
-  test "confirmation missing in create alerts" do
-    post_create "Stu", "hello@world.org", "test123", nil
-    assert_redirected_with_flash [ValidationMessages::CONFIRMATION_NOT_PRESENT], root_url
-    assert_user_not_exists "Stu"
-
-    post_create "Stu", "hello@world.org", "test123", "    "
-    assert_redirected_with_flash [ValidationMessages::CONFIRMATION_NOT_PRESENT], root_url
-    assert_user_not_exists "Stu"
-end
-
-  test "confirmation mismatch in create alerts" do
-    post_create "Stu", "hello@world.org", "test123", "test321"
-    assert_redirected_with_flash [ValidationMessages::CONFIRMATION_MISMATCH], root_url
-    assert_user_not_exists "Stu"
-  end
-  
   test "create with valid params should send email and redirect to root" do
-    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
-      post_create "Stu", "hello@world.org", "test123", "test123"
-    end
-    assert_redirected_with_flash [FlashMessages::EMAIL_SENT], root_url
+    post_create "Stu", "test123"
+    assert_redirected_with_flash [FlashMessages::USER_CREATED], root_url
     assert_user_exists "Stu"
   end
 
   test "create when logged in should redirect to root" do
     log_in @user
-    post_create "Stu", "hello@world.org", "test123", "test123"
+    post_create "Stu", "test123"
     assert_redirected_with_flash [FlashMessages::LOGGED_IN], root_url
     assert_user_not_exists "Stu"
   end
@@ -152,8 +95,8 @@ end
     get :new
   end
 
-  def post_create(name, email, password, password_confirmation)
-    post :create, user: { name: name, email: email, password: password, password_confirmation: password_confirmation }
+  def post_create(name, password)
+    post :create, user: { name: name, password: password }
   end
 
   def assert_user_exists(name)

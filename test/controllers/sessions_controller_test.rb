@@ -31,34 +31,28 @@ class SessionsControllerTest < ActionController::TestCase
   # create tests
   #
 
-  test "create with inactive email address should not log in" do
-    post_create @email_address3.email, @user.password
-    assert !logged_in?
-    assert_rendered_with_flash [FlashMessages::EMAIL_NOT_ACTIVATED], :new
-  end
-  
   test "create with unknown email address should not log in" do
     post_create "unknown@email.addr", @user.password
     assert !logged_in?
-    assert_rendered_with_flash [FlashMessages::INVALID_EMAIL_OR_PASSWORD], :new
+    assert_rendered_with_flash [FlashMessages::INVALID_LOGIN_OR_PASSWORD], :new
 
     post_create "     ", @user.password
     assert !logged_in?
-    assert_rendered_with_flash [FlashMessages::INVALID_EMAIL_OR_PASSWORD], :new
+    assert_rendered_with_flash [FlashMessages::INVALID_LOGIN_OR_PASSWORD], :new
   end
 
   test "create with incorrect password should not log in" do
     post_create @email_address1.email, "wrong-password"
     assert !logged_in?
-    assert_rendered_with_flash [FlashMessages::INVALID_EMAIL_OR_PASSWORD], :new
+    assert_rendered_with_flash [FlashMessages::INVALID_LOGIN_OR_PASSWORD], :new
 
     post_create @email_address1.email, nil
     assert !logged_in?
-    assert_rendered_with_flash [FlashMessages::INVALID_EMAIL_OR_PASSWORD], :new
+    assert_rendered_with_flash [FlashMessages::INVALID_LOGIN_OR_PASSWORD], :new
 
     post_create @email_address1.email, "    "
     assert !logged_in?
-    assert_rendered_with_flash [FlashMessages::INVALID_EMAIL_OR_PASSWORD], :new
+    assert_rendered_with_flash [FlashMessages::INVALID_LOGIN_OR_PASSWORD], :new
   end
   
   test "create with valid params should log in" do
@@ -73,6 +67,28 @@ class SessionsControllerTest < ActionController::TestCase
     assert !logged_in?
 
     post_create @email_address2.email, @user.password, '1'
+    assert_flash []
+    @user.reload
+    assert_equal current_user, @user
+    assert_equal @user.id, cookies.signed[:user_id]
+    assert @user.remember_authenticated?(cookies[:remember_token])
+    assert_redirected_to root_url
+
+    log_out
+    assert !logged_in?
+
+    post_create @user.name.upcase, @user.password, '1'
+    assert_flash []
+    @user.reload
+    assert_equal current_user, @user
+    assert_equal @user.id, cookies.signed[:user_id]
+    assert @user.remember_authenticated?(cookies[:remember_token])
+    assert_redirected_to root_url
+
+    log_out
+    assert !logged_in?
+
+    post_create @user.name.downcase, @user.password, '1'
     assert_flash []
     @user.reload
     assert_equal current_user, @user
@@ -104,8 +120,8 @@ class SessionsControllerTest < ActionController::TestCase
     get :new
   end
 
-  def post_create(email, password, remember_me = '1')
-    post :create, session: { email: email, password: password, remember_me: remember_me }
+  def post_create(login, password, remember_me = '1')
+    post :create, session: { login: login, password: password, remember_me: remember_me }
   end
 
   def delete_destroy
