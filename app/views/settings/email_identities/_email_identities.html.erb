@@ -23,7 +23,7 @@
           <% if is_primary %>
             <div class="primary">Primary</div>
           <% elsif email_address.activated? %>
-            <%= link_to "Make Primary", edit_settings_email_identity_path(id: email_address.id), disabled: true %>
+            <%= link_to "Make Primary", edit_settings_email_identity_path(id: email_address.id), method: :patch %>
           <% end %>
         </td>
         <td>

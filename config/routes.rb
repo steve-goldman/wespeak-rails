@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   get    'users/settings/email',                  to: 'settings/email_identities#index',   as: :settings_email_identities
   post   'users/settings/email',                  to: 'settings/email_identities#create',  as: :create_settings_email_identity
-  get    'users/settings/email/:id/make_primary', to: 'settings/email_identities#edit',    as: :edit_settings_email_identity
+  patch  'users/settings/email/:id/make_primary', to: 'settings/email_identities#edit',    as: :edit_settings_email_identity
   delete 'users/settings/email/:id',              to: 'settings/email_identities#destroy', as: :destroy_settings_email_identity
 
   get    'users/settings/notifications',          to: 'settings/notifications#edit',       as: :edit_settings_notifications
