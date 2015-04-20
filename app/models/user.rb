@@ -111,6 +111,10 @@ class User < ActiveRecord::Base
     email_addresses.find(primary_email_address_id).email
   end
 
+  def set_primary_email(email_address)
+    update_attribute(:primary_email_address_id, email_address.id)
+  end
+
   def any_activated_email_addresses?
     email_addresses.where(activated: true).any?
   end

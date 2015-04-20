@@ -50,6 +50,7 @@ class EmailAddress < ActiveRecord::Base
                                                   group_id:   pending_invitation.group_id)
     end
     pending_invitations.destroy_all
+    user.set_primary_email(self) if !user.primary_email_address_id
   end
 
   def send_activation_email

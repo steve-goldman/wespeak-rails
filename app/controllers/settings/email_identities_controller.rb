@@ -26,7 +26,7 @@ module Settings
     end
 
     def edit
-      @user.update_attribute(:primary_email_address_id, @email_address.id)
+      @user.set_primary_email(@email_address)
       redirect_to settings_email_identities_path
     end
 
