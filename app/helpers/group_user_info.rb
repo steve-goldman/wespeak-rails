@@ -145,7 +145,7 @@ class GroupUserInfo
   end
 
   def get_email_activated
-    @user.email_addresses.where(activated: true).any?
+    @user.any_activated_email_addresses?
   end
 
   def get_email_eligible

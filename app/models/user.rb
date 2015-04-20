@@ -111,6 +111,10 @@ class User < ActiveRecord::Base
     email_addresses.find(primary_email_address_id).email
   end
 
+  def any_activated_email_addresses?
+    email_addresses.where(activated: true).any?
+  end
+
   def follow(group)
     followers.find_or_create_by(group_id: group.id)
   end
