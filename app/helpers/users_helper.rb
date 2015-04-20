@@ -4,7 +4,7 @@ module UsersHelper
 
   class FlashMessages
     USER_CREATED = FlashMessage.new(:success, "Welcome!")
-    LOGGED_IN  = FlashMessage.new(:info, "You must be logged out to reset your password")
+    LOGGED_IN  = FlashMessage.new(:info, "You must be logged out to view this page")
     NAME_UNKNOWN = ValidationMessage.new("Something went wrong: unknown user")
   end
 

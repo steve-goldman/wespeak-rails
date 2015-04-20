@@ -47,7 +47,7 @@ module SessionsHelper
   end
 
   class FlashMessages
-    LOGGED_IN                 = FlashMessage.new(:info,     "You must be logged out to reset your password")
+    LOGGED_IN                 = FlashMessage.new(:info,     "You must be logged out to view this page")
 
     EMAIL_NOT_ACTIVATED       = FlashMessage.new(:warning,  "Email address not activated (check email for the activation link)")
 
