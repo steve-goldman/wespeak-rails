@@ -17,11 +17,6 @@ class EmailAddress < ActiveRecord::Base
   before_save :set_domain
 
 
-  # before create stuff
-
-  before_create :create_activation_digest
-
-
   # attr accessors
 
   attr_accessor :activation_token
@@ -56,6 +51,11 @@ class EmailAddress < ActiveRecord::Base
     end
     pending_invitations.destroy_all
   end
+
+  def send_activation_email
+    create_activation_digest
+    UserMailer.email_address_activation(user, self).deliver_now
+  end
   
   private
 
@@ -69,7 +69,7 @@ class EmailAddress < ActiveRecord::Base
 
   def create_activation_digest
     self.activation_token = new_token
-    self.activation_digest = digest(activation_token)
+    update_attributes(activation_digest: digest(activation_token))
   end
   
 end

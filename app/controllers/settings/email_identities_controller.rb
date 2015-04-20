@@ -5,17 +5,18 @@ module Settings
     
     include ActionView::Helpers::DateHelper
     
-    before_action :logged_in,         only: [:index, :create, :destroy, :edit]
+    before_action :logged_in,         only: [:index, :create, :destroy, :edit, :send_link]
     before_action :email_creates,     only: [:create]
-    before_action :email_present,     only: [:destroy, :edit]
+    before_action :email_present,     only: [:destroy, :edit, :send_link]
     before_action :email_not_primary, only: [:destroy, :edit]
     before_action :email_activated,   only: [:edit]
+    before_action :email_not_activated, only: [:send_link]
     
     def index
     end
 
     def create
-      UserMailer.email_address_activation(@user, @email_address).deliver_now
+      @email_address.send_activation_email
       redirect_with_flash(FlashMessages::EMAIL_SENT, settings_email_identities_path)
     end
 
@@ -27,6 +28,11 @@ module Settings
     def edit
       @user.update_attribute(:primary_email_address_id, @email_address.id)
       redirect_to settings_email_identities_path
+    end
+
+    def send_link
+      @email_address.send_activation_email
+      redirect_with_flash(FlashMessages::EMAIL_SENT, settings_email_identities_path)
     end
 
     private
@@ -55,6 +61,11 @@ module Settings
     def email_activated
       redirect_with_flash(FlashMessages::EMAIL_NOT_ACTIVATED, settings_email_identities_path) if
         !@email_address.activated?
+    end
+
+    def email_not_activated
+      redirect_with_flash(FlashMessages::EMAIL_ALREADY_ACTIVE, settings_email_identities_path) if
+        @email_address.activated?
     end
   end
 end
