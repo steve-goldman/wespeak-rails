@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
 
   def location_valid_until
     user_locations.any? ?
-      [Constants::Timespans::USER_LOCATION_VALID - (Time.zone.now - user_locations.last.created_at), 0].max :
+      [Constants::Timespans::USER_LOCATION_VALID - (Time.zone.now - user_locations.last.updated_at), 0].max :
       0
   end
 
