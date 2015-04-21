@@ -1,7 +1,13 @@
-<p>Dear future WeSpeak user,</p>
+<%= stylesheet_link_tag("application.css") %>
 
-<p>You have been invited to join <%= @group.name %>.</p>
+<div class="email-body">
 
-<p><%= link_to "Click here to sign up", root_url %>.  The invitation will be there waiting</p>
+  <p>Dear future WeSpeak user,</p>
+  
+  <p>You have been invited to join <%= @group.name %>.</p>
+  
+  <p><%= link_to "Click here to sign up", root_url %>.  The invitation will be there waiting</p>
+  
+  <%= render 'mailer_footer' %>
 
-<%= render 'mailer_footer' %>
+</div>

@@ -1,9 +1,18 @@
-<p>Dear WeSpeak user,</p>
+<%= stylesheet_link_tag("application.css") %>
 
-<p>You have been invited to join <%= @group.name %>.</p>
+<div class="email-body">
 
-<p><%= link_to "Click here to visit the group page", group_profile_url(@group.name) %>.</p>
+  <p>Dear WeSpeak user,</p>
 
-<p>You received this email because you are a WeSpeak member interested in knowing when you receive invitations.</p>
+  <p>
+    You have been invited to join
+    <span class="group-name">@<%= @group.name %></span>.
+  </p>
+  
+  <p><%= link_to "Click here to visit the group page", group_profile_url(@group.name) %>.</p>
+  
+  <p>You received this email because you are a WeSpeak member interested in knowing when you receive invitations.</p>
+  
+  <%= render 'mailer_footer' %>
 
-<%= render 'mailer_footer' %>
+</div>
