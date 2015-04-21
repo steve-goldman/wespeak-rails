@@ -1,8 +1,5 @@
 class SentInvitation < ActiveRecord::Base
 
-  # TODO: figure out a better way to keep these validation
-  # messages organized such that they can be reused across
-  # models
   include UsersHelper
 
   # foreign key
