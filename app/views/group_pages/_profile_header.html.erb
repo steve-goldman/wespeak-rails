@@ -36,4 +36,18 @@
       <% end %>
     </div>
   </div>
+  <div class="participation-summary">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <% if @info.change_eligible? %>
+        <span class="glyphicon glyphicon-ok"></span>
+        You may participate!
+        <% else %>
+        <span class="glyphicon glyphicon-remove"></span>
+        You may not participate.
+        <%= link_to "Why not?", group_participation_path(@info.group.name) %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
 </div>
