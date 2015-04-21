@@ -18,9 +18,6 @@ class GroupsController < ApplicationController
 
   def index
     @groups_pending = Group.where(user_id: @user.id, active: false)
-    # TODO: also include following groups here
-    group_ids = "SELECT group_id FROM active_members WHERE user_id = :user_id"
-    @my_groups = Group.where("id IN (#{group_ids})", user_id: @user.id)
   end
 
   def edit
