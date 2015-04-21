@@ -152,10 +152,6 @@ class Group < ActiveRecord::Base
         group_email_domains.destroy_all
       end
     end
-
-    # TODO:
-    #   facebook
-    #   locations
   end
 
   def email_domain_input_options
