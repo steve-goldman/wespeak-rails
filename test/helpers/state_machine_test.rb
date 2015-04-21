@@ -107,7 +107,7 @@ class StateMachineTest < ActiveSupport::TestCase
     StateMachine.alive_to_voting(Time.zone.now)
     statement.reload
     # voting now
-    (Statement.num_needed(@group.active_members.count, @group.votes_needed_rule) - 1).times do |i|
+    (@group.yeses_needed_rule * Statement.num_needed(@group.active_members.count, @group.votes_needed_rule) / 100 - 1).times do |i|
       statement.cast_vote(users[i], Votes::YES)
     end
     StateMachine.end_votes(statement.vote_ends_at + 1)

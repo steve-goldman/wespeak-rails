@@ -12,8 +12,8 @@ class RuleTypes
     lifespan:           "Statement Lifespan",
     support_needed:     "Support Needed",
     votespan:           "Vote Lifespan",
-    votes_needed:       "Votes Needed",
-    yeses_needed:       "Yeses Needed",
+    votes_needed:       "Minimum Votes",
+    yeses_needed:       "YES Votes Needed",
     inactivity_timeout: "Inactivity Timeout",
   }
 
@@ -34,16 +34,18 @@ class RuleTypes
        vote begins.",
 
     votes_needed:
-      "At least this percentage of active members must vote -- YES or
-       NO -- in order for a statement to pass.  This is one of two
-       requirements for a statement to pass.  See
-       \"#{@display_names[:yeses_needed]}\" for the other.",
+      "If fewer than this many members vote, the difference is made up
+      by \"auto-NO\" votes.  For example, if a vote begins in a group
+      with 100 active members and #{@display_names[:votes_needed]} is
+      30%, then if only 10 votes are cast, WeSpeak automatically adds
+      20 NO votes.  If 20 votes are cast, WeSpeak adds 10 NO votes.
+      If 30 or more votes are cast, WeSpeak does not add any NO
+      votes.",
 
     yeses_needed:
       "At least this percentage of votes cast must be YES in order for
-       a statement to pass.  This is one of two requirements for a
-       statement to pass.  See \"#{@display_names[:votes_needed]}\"
-       for the other.",
+      a statement to pass.  This includes any \"auto-NO\" votes (see
+      \"#{@display_names[:votes_needed]}\").",
 
     inactivity_timeout:
 

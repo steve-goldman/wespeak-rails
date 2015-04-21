@@ -96,12 +96,13 @@ class Statement < ActiveRecord::Base
   end
 
   def yeses_percent
-    votes.count == 0 ? 0 : 100 * yeses_count / votes.count
+    total = [votes.count, votes_needed].max
+    total == 0 ? 0 : 100 * yeses_count / total
   end
 
   def to_vote_over(now)
-    total = votes.count
-    if total < votes_needed || yeses_count < Statement.num_needed(total, yeses_needed)
+    total = [votes.count, votes_needed].max
+    if yeses_count < Statement.num_needed(total, yeses_needed)
       update_attributes(state:         StatementStates[:rejected],
                         vote_ended_at: now)
     else

@@ -12,7 +12,7 @@
       <div class="col-xs-9">
         <%= render "#{statement.statement.statement_tab}/show", statement: statement, group: group %>
         
-        <div class="statement-stats">
+        <div id="statement-stats-<%= statement.id %>" class="statement-stats">
           <%= render('group_pages/statement_stats', section: :footer, statement: statement, group: group) %>
         </div>
       </div>

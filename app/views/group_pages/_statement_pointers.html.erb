@@ -14,7 +14,7 @@
         <%= render 'group_pages/statement_pointer', statement_pointer: statement_pointer, group: group %>
         
         <% if statement.statement_type != StatementTypes[:initial_statement] %>
-        <div class="statement-stats">
+        <div id="statement-stats-<%= statement.id %>" class="statement-stats">
           <%= render('group_pages/statement_stats', section: :footer, statement: statement, group: group) %>
         </div>
         <% end %>

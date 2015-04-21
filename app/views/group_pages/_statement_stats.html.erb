@@ -1,9 +1,9 @@
 <ul>
   <% if statement.state == StatementStates[:alive] %>
-    <% active_member = group ? @info.active_member : current_user.active_members.find_by(group_id: statement.group.id) %>
+    <% active_member = logged_in? ? current_user.active_members.find_by(group_id: statement.group.id) : nil %>
     <% if GroupUserInfo.support_eligible?(current_user, active_member, statement) %>
       <% if !statement.user_supports?(current_user) %>
-  <li id="support-button-<%= statement.id %>" class="support-button">
+  <li class="support-button">
     <%= render 'group_pages/support_button', statement: statement %>
   </li>
       <% end %>
@@ -20,10 +20,10 @@
   </li>
     <% end %>
   <% elsif statement.state == StatementStates[:voting] %>
-    <% active_member = group ? @info.active_member : current_user.active_members.find_by(group_id: statement.group.id) %>
+    <% active_member = logged_in? ? current_user.active_members.find_by(group_id: statement.group.id) : nil %>
     <% if GroupUserInfo.vote_eligible?(current_user, active_member, statement) %>
       <% if !statement.user_vote(current_user) %>
-  <li id="vote-buttons-<%= statement.id %>">
+  <li>
     <%= render 'group_pages/vote_buttons', statement: statement %>
   </li>
       <% end %>
@@ -42,11 +42,11 @@
   <% end %>
 
   <% if logged_in? %>
-  <li id="your-support-<%= statement.id %>" class="your-support">
+  <li class="your-support">
     <%= render 'group_pages/you_supported' if statement.user_supports? current_user%>
   </li>
   <% vote = statement.user_vote(current_user) %>
-  <li class="your-vote" id="your-vote-<%= statement.id %>">
+  <li class="your-vote">
     <%= render('group_pages/your_vote', vote: vote) if vote %>
   </li>
   <% end %>
@@ -55,18 +55,16 @@
   <li class="eligible-voters">
     <%= number_with_delimiter(statement.eligible_voters, delimiter: ",") %>
     eligible <%= 'voter'.pluralize(statement.eligible_voters) %>
-    (<%= number_with_delimiter(statement.votes_needed, delimiter: ",") %> needed)
   </li>
   <li class="votes-cast">
-    <span id="vote-count-<%= statement.id %>">
-      <%= number_with_delimiter(statement.votes.count, delimiter: ",") %>
-    </span>
+    <%= number_with_delimiter(statement.votes.count, delimiter: ",") %>
     <%= 'vote'.pluralize(statement.votes.count) %> cast
+    <% if statement.votes.count < statement.votes_needed %>
+      (<%= number_with_delimiter(statement.votes_needed - statement.votes.count, delimiter: ",") %> auto-NO)
+    <% end %>
   </li>
   <li class="yeses-cast">
-    <span id="yeses-percent-<%= statement.id %>">
-      <%= statement.yeses_percent %>%
-    </span>
+    <%= statement.yeses_percent %>%
     are YES
     (needs <%= statement.yeses_needed %>%)
   </li>
@@ -77,12 +75,10 @@
     (<%= number_with_delimiter(statement.support_needed, delimiter: ",") %> needed)
   </li>
   <li class="support-given">
-    <span id="support-count-<%= statement.id %>">
-      <%= number_with_delimiter(statement.supports.count, delimiter: ",") %>
-    </span>
+    <%= number_with_delimiter(statement.supports.count, delimiter: ",") %>
     <%= 'supporter'.pluralize(statement.supports.count) %>
   </li>
-  <li id="voting-will-begin-<%= statement.id %>" class="voting-will-begin">
+  <li class="voting-will-begin">
     <%= render 'group_pages/voting_will_begin', statement: statement %>
   </li>
   <% end %>

@@ -1,4 +1,1 @@
-$("#support-button-<%= @statement.id %>").html("<%= j render 'group_pages/support_button', statement: @statement %>")
-$("#support-count-<%= @statement.id %>").html("<%= number_with_delimiter(@statement.supports.count, delimiter: ",") %>")
-$("#your-support-<%= @statement.id %>").html("<%= j render 'group_pages/you_supported' %>")
-$("#voting-will-begin-<%= @statement.id %>").html("<%= j render 'group_pages/voting_will_begin', statement: @statement %>")
+$("#statement-stats-<%= @statement.id %>").html("<%= j render 'group_pages/statement_stats', statement: @statement %>")
