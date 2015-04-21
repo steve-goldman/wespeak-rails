@@ -36,18 +36,66 @@
       <% end %>
     </div>
   </div>
+  <% if logged_in? %>
   <div class="participation-summary">
     <ul class="list-group">
       <li class="list-group-item">
         <% if @info.change_eligible? %>
-        <span class="glyphicon glyphicon-ok"></span>
-        You may participate!
+        <p>
+          <span class="glyphicon glyphicon-ok"></span>
+          You may participate!
+        </p>
         <% else %>
-        <span class="glyphicon glyphicon-remove"></span>
-        You may not participate.
-        <%= link_to "Why not?", group_participation_path(@info.group.name) %>
+          <span class="glyphicon glyphicon-remove"></span>
+          You may not participate.
+          <%= link_to "Why not?", group_participation_path(@info.group.name) %>
         <% end %>
+        <p>
+          <% if @info.member_history %>
+          <table>
+            <tr>
+              <% if @info.active_member %>
+                <td>
+                  <span class="glyphicon glyphicon-ok"></span>
+                  Your membership is active and will expire
+                  <%= Constants::Timespans::time_ago(@info.active_member.expires_at, present: true) %>.
+                </td>
+                <% if @info.change_eligible? %>
+                  <td>
+                    <%= button_to "Extend Membership", activate_membership_path(@info.group.name), class: "btn btn-success" %>
+                  </td>
+                <% end %>
+              <% else %>
+                <td>
+                  <span class="glyphicon glyphicon-remove"></span>
+                  Your membership is not active.
+                </td>
+                <% if @info.change_eligible? %>
+                  <td>
+                    <%= button_to "Re-activate!", activate_membership_path(@info.group.name), class: "btn btn-success" %>
+                  </td>
+                <% end %>
+              <% end %>
+            </tr>
+          </table>
+          <% else %>
+          <table>
+            <tr>
+              <td>
+                <span class="glyphicon glyphicon-remove"></span>
+                You are not a member.
+              </td>
+              <% if @info.change_eligible? %>
+                <td>
+                  <%= button_to "Join!", activate_membership_path(@info.group.name), class: "btn btn-success" %>
+                </td>
+              <% end %>
+            </tr>
+          </table>
+          <% end %>
+        </p>
       </li>
     </ul>
   </div>
+  <% end %>
 </div>
