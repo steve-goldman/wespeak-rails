@@ -88,7 +88,11 @@ class Statement < ActiveRecord::Base
     end
 
     # email the following users
-    # TODO
+    group.followers.each do |follower|
+      if !group.active_members.exists?(user_id: follower.user.id)
+        UserMailer.vote_begins(follower.user, self).deliver_later if follower.user.user_notification.vote_begins_active
+      end
+    end
   end
 
   def yeses_count
@@ -117,7 +121,11 @@ class Statement < ActiveRecord::Base
     end
 
     # email the following users
-    # TODO
+    group.followers.each do |follower|
+      if !group.active_members.exists?(user_id: follower.user.id)
+        UserMailer.vote_ends(follower.user, self).deliver_later if follower.user.user_notification.vote_begins_active
+      end
+    end
   end
 
   def statement_tab
