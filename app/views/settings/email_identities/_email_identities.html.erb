@@ -24,10 +24,10 @@
             <% if is_primary %>
               <div class="primary">Primary</div>
             <% else %>
-              <%= link_to "Make Primary", edit_settings_email_identity_path(id: email_address.id), method: :patch %>
+              <%= link_to "Make Primary", edit_settings_email_identity_path(id: email_address.id), method: :patch, class: "btn btn-primary" %>
             <% end %>
           <% else %>
-            <%= link_to "Send Activation Link", send_link_settings_email_identity_path(id: email_address.id), method: :patch %>
+            <%= link_to "Send Activation Link", send_link_settings_email_identity_path(id: email_address.id), method: :patch, class: "btn btn-primary" %>
           <% end %>
         </td>
         <td>
