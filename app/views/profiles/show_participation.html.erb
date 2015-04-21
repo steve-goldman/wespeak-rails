@@ -8,6 +8,50 @@
       <% if logged_in? %>
         <li class="list-group-item">
           <p>
+            <span class="header">May I participate?</span>
+          </p>
+          <p>
+            You may participate if you satisfy the email address,
+            invitation, and location requirements below.
+          </p>
+          <% if @info.change_eligible? %>
+            <span class="glyphicon glyphicon-ok"></span>
+            You may participate!
+          <% else %>
+            <% if !@info.email_activated? %>
+              <p>
+                <span class="glyphicon glyphicon-remove"></span>
+                <%= link_to "Add and activate an email address", settings_email_identities_path %>
+                for your account.
+              </p>
+            <% end %>
+            <% if !@info.email_eligible? %>
+              <p>
+                <span class="glyphicon glyphicon-remove"></span>
+                <%= link_to "Add and activate an email address", settings_email_identities_path %>
+                for your account that matches a requirement below.
+              </p>
+            <% end %>
+            <% if !@info.invitation_eligible? %>
+              <p>
+                <span class="glyphicon glyphicon-remove"></span>
+                Invitations are required.
+              </p>
+            <% end %>
+            <% if !@info.location_eligible? %>
+              <p>
+                <span class="glyphicon glyphicon-remove"></span>
+                <% if @info.user.get_location %>
+                  You are not in group's geographical region.
+                <% else %>
+                  We don't have your location.
+                <% end %>
+              </p>
+            <% end %>
+          <% end %>
+        </li>
+        <li class="list-group-item">
+          <p>
             <span class="header">Membership</span>
           </p>
           <p>
@@ -60,50 +104,6 @@
             <% end %>
           </li>
         <% end %>
-        <li class="list-group-item">
-          <p>
-            <span class="header">May I participate?</span>
-          </p>
-          <p>
-            You may participate if you satisfy the email address,
-            invitation, and location requirements below.
-          </p>
-          <% if @info.change_eligible? %>
-            <span class="glyphicon glyphicon-ok"></span>
-            You may participate!
-          <% else %>
-            <% if !@info.email_activated? %>
-              <p>
-                <span class="glyphicon glyphicon-remove"></span>
-                <%= link_to "Add and activate an email address", settings_email_identities_path %>
-                for your account.
-              </p>
-            <% end %>
-            <% if !@info.email_eligible? %>
-              <p>
-                <span class="glyphicon glyphicon-remove"></span>
-                <%= link_to "Add and activate an email address", settings_email_identities_path %>
-                for your account that matches a requirement below.
-              </p>
-            <% end %>
-            <% if !@info.invitation_eligible? %>
-              <p>
-                <span class="glyphicon glyphicon-remove"></span>
-                Invitations are required.
-              </p>
-            <% end %>
-            <% if !@info.location_eligible? %>
-              <p>
-                <span class="glyphicon glyphicon-remove"></span>
-                <% if @info.user.get_location %>
-                  You are not in group's geographical region.
-                <% else %>
-                  We don't have your location.
-                <% end %>
-              </p>
-            <% end %>
-          <% end %>
-        </li>
       <% end %>
       <li class="list-group-item">
         <p>
