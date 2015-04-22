@@ -1,17 +1,29 @@
 <%= stylesheet_link_tag("application.css") %>
 
-<div class="email-body">
+<div class="row">
+  <div class="col-md-6 col-xs-12">
+    <div class="email-body">
 
-  <p>Dear WeSpeak user,</p>
-  
-  <p>Your membership in <%= @group.name %> will expire on <%= Constants::Timespans::full_time(@expires_at) %>. You won't be eligible to support or vote on new statements if it expires.</p>
-  
-  <p><%= link_to "Click here to visit the group page", group_profile_url(@group.name) %>, where you can renew your membership by clicking the link on the left hand side.</p>
-  
-  <p>You received this email because you are a WeSpeak member interested in knowing when your memberships expire.
-    
-    <%= link_to "Click here to manage your email preferences", edit_settings_notifications_url %>.</p>
-  
-  <%= render 'mailer_footer' %>
-
+      <p>Dear WeSpeak user,</p>
+      
+      <p>
+        Your membership in
+        <span class="group-name">@<%= @group.name %></span>
+        will expire on <%= Constants::Timespans::full_time(@expires_at) %>.
+        You won't be eligible to support or vote on new statements if it expires.
+      </p>
+      
+      <p>
+        <%= link_to "Click here to visit the group page", group_profile_url(@group.name) %>,
+        where you can renew your membership.
+      </p>
+      
+      <p>
+        You received this email because you are a WeSpeak member interested in knowing when your memberships expire.
+      </p>
+      
+      <%= render 'mailer_footer' %>
+      
+    </div>
+  </div>
 </div>
