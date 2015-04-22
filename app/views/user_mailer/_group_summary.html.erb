@@ -1,0 +1,26 @@
+<table>
+  <tr>
+    <td style="font-weight: bold">
+      Members
+    </td>
+    <td>
+      <%= number_with_delimiter(group.membership_count, delimiter: ",") %>
+    </td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold">
+      Active
+    </td>
+    <td>
+      <%= number_with_delimiter(group.active_members.count, delimiter: ",") %>
+    </td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold">
+      Followers
+    </td>
+    <td>
+      <%= number_with_delimiter(group.followers.count, delimiter: ",") %>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,3 @@
+Members          <%= number_with_delimiter(group.membership_count, delimiter: ",") %>
+Active           <%= number_with_delimiter(group.active_members.count, delimiter: ",") %>
+Followers        <%= number_with_delimiter(group.followers.count, delimiter: ",") %>
