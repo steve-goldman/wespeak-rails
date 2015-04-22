@@ -1,0 +1,52 @@
+<table>
+  <tr>
+    <td style="font-weight: bold">
+      Type
+    </td>
+    <td>
+      <%= StatementTypes.name(statement.statement_type) %>
+    </td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold">
+      State
+    </td>
+    <td>
+      <%= StatementStates.name_from_value(statement.state) %>
+    </td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold">
+      <% if statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>
+        Ended
+      <% elsif statement.state == StatementStates[:dead] %>
+        Expired
+      <% elsif statement.state == StatementStates[:voting] %>
+        Ends
+      <% elsif statement.state == StatementStates[:alive] %>
+        Expires
+      <% end %>
+    </td>
+    <td>
+      <% if statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>
+        <%= Constants::Timespans::time_ago(statement.vote_ended_at) %>
+      <% elsif statement.state == StatementStates[:dead] %>
+        <%= Constants::Timespans::time_ago(statement.expired_at) %>
+      <% elsif statement.state == StatementStates[:voting] %>
+        <%= Constants::Timespans::time_ago(statement.vote_ends_at) %>
+      <% elsif statement.state == StatementStates[:alive] %>
+        <%= Constants::Timespans::time_ago(statement.expires_at) %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<p style="font-weight: bold">--- BEGIN STATEMENT ---</p>
+<p>
+  <%= render 'group_pages/statement_pointer', statement: statement %>
+</p>
+<p style="font-weight: bold">--- END STATEMENT ---</p>
+
+<p style="font-weight: bold">
+  <%= link_to "Direct link", statement_url(statement.group.name, statement.id) %>
+</p>

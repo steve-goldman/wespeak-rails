@@ -1,0 +1,5 @@
+<% if group.display_name %>
+  <%= group.display_name %> (<%= link_to "@#{group.name}", group_profile_url(group.name) %>)<%= "." if period %>
+<% else %>
+  <%= link_to "@#{group.name}", group_profile_url(group.name) %><%= "." if period %>
+<% end %>

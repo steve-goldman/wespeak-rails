@@ -1,0 +1,18 @@
+Type           <%= StatementTypes.name(statement.statement_type) %>
+State          <%= StatementStates.name_from_value(statement.state) %>
+<% if statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>
+Ended          <%= Constants::Timespans::time_ago(statement.vote_ended_at) %>
+<% elsif statement.state == StatementStates[:dead] %>
+Expired        <%= Constants::Timespans::time_ago(statement.expired_at) %>
+<% elsif statement.state == StatementStates[:voting] %>
+Ends           <%= Constants::Timespans::time_ago(statement.vote_ends_at) %>
+<% elsif statement.state == StatementStates[:alive] %>
+Expires        <%= Constants::Timespans::time_ago(statement.expires_at) %>
+<% end %>
+
+--- BEGIN STATEMENT ---
+<%= render 'group_pages/statement_pointer', statement: statement %>
+--- END STATEMENT ---
+
+Direct link
+<%= statement_url(statement.group.name, statement.id) %>
