@@ -151,4 +151,8 @@ Rails.application.routes.draw do
   # main feed page
   get    ':state',         to: 'static_pages#home',      as: :feed
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/devel/emails"
+  end
+
 end
