@@ -1,20 +1,12 @@
 <%= stylesheet_link_tag("application.css") %>
 
-<div class="row">
-  <div class="col-md-6 col-xs-12">
-    <div class="email-body">
-      
-      <p>Hi WeSpeak user,</p>
-      
-      <p>
-        Please click the following link to activate this email address.  If
-        you did not request this activation, please ignore this message.
-      </p>
-      
-      <%= link_to "Activate", edit_email_address_activation_url(@email_address.activation_token, email: @email_address.email), class: "btn btn-success" %>
-      
-      <%= render 'mailer_footer' %>
-      
-    </div>
-  </div>
-</div>
+<p>Hi WeSpeak user,</p>
+
+<p>
+  Please click the following link to activate this email address.  If
+  you did not request this activation, please ignore this message.
+</p>
+
+<%= link_to "Activate", edit_email_address_activation_url(@email_address.activation_token, email: @email_address.email), class: "btn btn-success" %>
+
+<%= render 'mailer_footer' %>

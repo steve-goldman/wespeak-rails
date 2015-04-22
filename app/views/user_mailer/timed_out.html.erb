@@ -1,25 +1,17 @@
 <%= stylesheet_link_tag("application.css") %>
 
-<div class="row">
-  <div class="col-md-6 col-xs-12">
-    <div class="email-body">
+<p>Dear WeSpeak user,</p>
 
-      <p>Dear WeSpeak user,</p>
-      
-      <p>
-        Your membership in
-        <span class="group-name">@<%= @group.name %></span>
-        has expired. You won't be eligible to support or vote again until you renew your membership.
-      </p>
-      
-      <p><%= link_to "Click here to visit the group page", group_profile_url(@group.name) %>.</p>
-      
-      <p>
-        You received this email because you are a WeSpeak member interested in knowing when your memberships expire.
-      </p>
-      
-      <%= render 'mailer_footer' %>
-      
-    </div>
-  </div>
-</div>
+<p>
+  Your membership in
+  <span class="group-name">@<%= @group.name %></span>
+  has expired. You won't be eligible to support or vote again until you renew your membership.
+</p>
+
+<p><%= link_to "Click here to visit the group page", group_profile_url(@group.name) %>.</p>
+
+<p>
+  You received this email because you are a WeSpeak member interested in knowing when your memberships expire.
+</p>
+
+<%= render 'mailer_footer' %>
