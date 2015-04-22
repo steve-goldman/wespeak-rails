@@ -1,16 +1,20 @@
 <%= stylesheet_link_tag("application.css") %>
 
-<div class="email-body">
-
-  <p>Dear future WeSpeak user,</p>
-  
-  <p>
-    You have been invited to join
-    <span class="group-name">@<%= @group.name %></span>.
-  </p>
-  
-  <p><%= link_to "Click here to sign up", new_user_url %>.  The invitation will be there waiting</p>
-  
-  <%= render 'mailer_footer' %>
-
+<div class="row">
+  <div class="col-md-6 col-xs-12">
+    <div class="email-body">
+      
+      <p>Dear future WeSpeak user,</p>
+      
+      <p>
+        You have been invited to join
+        <span class="group-name">@<%= @group.name %></span>.
+      </p>
+      
+      <p><%= link_to "Click here to sign up", new_user_url %>.  The invitation will be there waiting</p>
+      
+      <%= render 'mailer_footer' %>
+      
+    </div>
+  </div>
 </div>
