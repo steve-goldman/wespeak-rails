@@ -1,6 +1,6 @@
-$('#statements-list').append('<%= j render 'group_pages/statement_pointers', group: nil %>');
-<% if @all_statements.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate @all_statements %>');
+$('#statements-list').append('<%= j render 'group_pages/statement_bodies', group: nil %>');
+<% if @statements.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @statements %>');
 <% else %>
   $(window).off('scroll');
   $('.pagination').remove();

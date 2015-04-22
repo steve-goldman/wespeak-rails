@@ -3,8 +3,6 @@ class ProposalsController < GroupPagesControllerBase
   include GroupsHelper
 
   before_action :statement_valid,      only: [:show]
-  before_action :statement_type_valid, only: [:show]
-  before_action :content_valid,        only: [:show]
 
   before_action :logged_in,            only: [:confirm, :confirmed, :discarded, :create_comment, :destroy_comment]
 
@@ -22,9 +20,8 @@ class ProposalsController < GroupPagesControllerBase
   before_action :comment_destroys,           only: [:destroy_comment]
 
   def show
-    @statement_pointer = { statement_type: @key, content: @content }
     @feed = params[:feed] == "true"
-    @comments = @content.statement.comments.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
+    @comments = @statement.comments.paginate(page: params[:page], per_page: params[:per_page] || DEFAULT_RECORDS_PER_PAGE)
                 .order(:id)
 
     respond_to do |format|
@@ -58,17 +55,6 @@ class ProposalsController < GroupPagesControllerBase
   def statement_valid
     @statement = Statement.where(id: params[:id]).where.not(state: StatementStates[:new]).first
     redirect_with_flash(FlashMessages::STATEMENT_UNKNOWN, request.referer || root_url) if !@statement
-  end
-
-  def statement_type_valid
-    @key = StatementTypes.sym(@statement.statement_type)
-    redirect_with_flash(FlashMessages::STATEMENT_TYPE_UNKNOWN, request.referer || root_url) if
-      !StatementTypes.key?(@key)
-  end
-
-  def content_valid
-    @content = StatementTypes.table(@key).find_by(statement_id: @statement.id)
-    redirect_with_flash(FlashMessages::STATEMENT_UNKNOWN, request.referer || root_url) if !@content
   end
 
   def user_matches

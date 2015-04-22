@@ -3,41 +3,16 @@
   <div class="col-md-offset-3 col-md-6 col-xs-12">
     <% if @feed %>
     <p>
-      <%= link_to "Back to your feed",           root_path %>
+      <%= link_to "Back to your feed", root_path %>
     </p>
     <% end %>
     <p>
       <%= link_to "Back to #{@info.group.name}", group_profile_path(@info.group.name) %>
     </p>
-    <% statement = @statement_pointer[:content].statement %>
-    <ul class="list-group">
-      <li class="statement-item list-group-item">
-        <div class="statement-header">
-          <%= render('group_pages/statement_header', statement: statement, group: @info.group) %>
-        </div>
-        <div class="statement">
-          <div class="row">
-            <div class="col-xs-3">
-              <%= render 'group_pages/group_thumb', statement: statement %>
-            </div>
-            
-            <div class="col-xs-9">
-              <%= render 'group_pages/statement_pointer', statement_pointer: @statement_pointer, group: @info.group %>
-
-              <div id="statement-stats-<%= statement.id %>" class="statement-stats">
-                <%= render('group_pages/statement_stats', section: :footer, statement: statement, group: @info.group) %>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="statement-footer">
-          <%= render('group_pages/statement_footer', statement: statement, group: @info.group) %>
-        </div>
-      </li>
-    </ul>
+    <%= render 'group_pages/statement_body', statement: @statement, group: @info.group %>
     <ul id="comments-list" class="list-group">
       <li class="list-group-item new-comment">
-        <%= render 'new_comment', statement: statement %>
+        <%= render 'new_comment', statement: @statement %>
       </li>
       <%= render 'show_comments' %>
     </ul>

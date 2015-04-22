@@ -76,10 +76,6 @@ class Group < ActiveRecord::Base
     Group.get_all_statements [id], statement_state, page, per_page, support_order: support_order
   end
 
-  def get_statement_pointers
-    Group.get_statement_pointers [id]
-  end
-
   def get_of_type(statement_type, state, page, per_page, order = "created_at DESC")
     statement_ids =  "SELECT id FROM statements WHERE group_id = :group_id AND statement_type = :statement_type"
     statement_ids += state.nil? ? " AND state != :new" : " AND state = :state"
@@ -184,7 +180,6 @@ class Group < ActiveRecord::Base
   def Group.get_all_statements(group_ids, statement_state, page, per_page, support_order: false)
     if statement_state.nil?
       @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: group_ids).where.not(state: StatementStates[:new])
-
     else
       @all_statements = Statement.paginate(page: page, per_page: per_page).where(group_id: group_ids, state: StatementStates[statement_state])
     end
@@ -198,31 +193,6 @@ class Group < ActiveRecord::Base
     end
 
     @all_statements
-  end
-
-  def Group.get_statement_pointers(group_ids)
-    return [] if @all_statements.empty?
-
-    statement_ids_map = {}
-    i = 0
-    statement_ids = ""
-    @all_statements.each do |statement|
-      statement_ids_map[statement.id] = i
-      statement_ids += ", " if i != 0
-      statement_ids += statement.id.to_s
-      i += 1
-    end
-
-    statement_pointers = []
-
-    StatementTypes.full_tables.each do |statement_type, table|
-      # this shoves the content records in the appropriate location of the statement pointers array
-      table.where("statement_id IN (#{statement_ids})", group_id: group_ids).each { |record|
-        statement_pointers[statement_ids_map[record.statement_id]] = { statement_type: statement_type, content: record }
-      } if table
-    end
-
-    statement_pointers
   end
 
   def create_initial_group_config(statement)

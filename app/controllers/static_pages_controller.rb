@@ -24,10 +24,9 @@ class StaticPagesController < ApplicationController
 
     if @group_ids.any?
       @support_order = params[:support_order] ? true : false
-      @all_statements = Group.get_all_statements(@group_ids, @state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE, support_order: @support_order)
-      @statement_pointers = Group.get_statement_pointers(@group_ids)
+      @statements    = Group.get_all_statements(@group_ids, @state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE, support_order: @support_order)
     else
-      @all_statements = nil
+      @statements = nil
     end
   end
 end

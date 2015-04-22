@@ -10,9 +10,9 @@
 <% end %>
 
 <ul id="statements-list" class="list-group">
-  <%= render 'group_pages/statement_pointers', group: group %>
+  <%= render 'group_pages/statement_bodies', group: group %>
 </ul>
 
 <div id="infinite-scrolling">
-  <%= will_paginate @all_statements %>
+  <%= will_paginate @statements %>
 </div>

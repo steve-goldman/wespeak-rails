@@ -132,6 +132,10 @@ class Statement < ActiveRecord::Base
     StatementTypes.sym(statement_type).to_s.pluralize
   end
 
+  def type
+    StatementTypes.sym(statement_type)
+  end
+
   def confirm
     update_attributes(state: StatementStates[:alive])
   end
