@@ -5,7 +5,10 @@
       <% if GroupUserInfo.support_eligible?(current_user, active_member, statement) %>
         <% if !statement.user_supports?(current_user) %>
   <li class="support-button">
-    <%= render 'group_pages/support_button', statement: statement %>
+    <%= button_to("Support!", support_path(statement.group.name),
+        params: { statement_id: statement.id },
+        class: "btn btn-primary",
+        remote: true) if !statement.user_supports?(current_user)  %>
   </li>
         <% end %>
       <% else %>
