@@ -72,6 +72,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "enough support should be voting" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    Tagline.create!(statement_id: statement.id, tagline: "All of western thought")
     statement.confirm
     Statement.num_needed(@group.active_members.count, @group.support_needed_rule).times do |i|
       statement.add_support(users[i])
@@ -84,6 +85,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "more than enough support should be voting" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    Tagline.create!(statement_id: statement.id, tagline: "All of western thought")
     statement.confirm
     (Statement.num_needed(@group.active_members.count, @group.support_needed_rule) + 1).times do |i|
       statement.add_support(users[i])
@@ -100,6 +102,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "not enough votes should be rejected" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    Tagline.create!(statement_id: statement.id, tagline: "All of western thought")
     statement.confirm
     Statement.num_needed(@group.active_members.count, @group.support_needed_rule).times do |i|
       statement.add_support(users[i])
@@ -118,6 +121,7 @@ class StateMachineTest < ActiveSupport::TestCase
   test "not enough yeses should be rejected" do
     users = make_active_users(100)
     statement = @group.create_statement(users[0], :tagline)
+    Tagline.create!(statement_id: statement.id, tagline: "All of western thought")
     statement.confirm
     Statement.num_needed(@group.active_members.count, @group.support_needed_rule).times do |i|
       statement.add_support(users[i])
