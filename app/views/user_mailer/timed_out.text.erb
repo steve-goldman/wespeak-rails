@@ -1,15 +1,11 @@
 Dear WeSpeak user,
 
-Your membership in <%= @group.name %> has expired. You won't be eligible to support or vote again until you renew your membership.
+Your membership in @<%= @group.name %> has expired. You won't be eligible to support or vote again until you renew your membership.
 
 Click the following link to visit the group page.
 
 <%= group_profile_url(@group.name) %>.
 
 You received this email because you are a WeSpeak member interested in knowing when your memberships expire.
-
-Click the following link to to manage your email preferences.
-
-<%= edit_settings_notifications_url %>
 
 <%= render 'mailer_footer' %>
