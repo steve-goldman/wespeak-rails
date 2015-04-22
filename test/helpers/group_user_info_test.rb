@@ -149,6 +149,7 @@ class GroupUserInfoTest < ActiveSupport::TestCase
 
   def make_voting_statement
     voting_statement = @group.create_statement(@other_user, :tagline)
+    Tagline.create(statement_id: voting_statement.id, tagline: "All of western thought")
     voting_statement.confirm
     voting_statement.add_support(@other_user)
     StateMachine.alive_to_voting(Time.zone.now)
