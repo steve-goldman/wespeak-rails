@@ -1,17 +1,23 @@
 <%= stylesheet_link_tag("application.css") %>
 
-<div class="email-body">
+<div class="row">
+  <div class="col-md-6 col-xs-12">
+    <div class="email-body">
 
-  <p>Dear WeSpeak user,</p>
+      <p>Dear WeSpeak user,</p>
   
-  <p>Voting has ended for a statement of type <%= StatementTypes.name(@statement.statement_type) %> in the group <%= @statement.group.name %>.</p>
-  
-  <p><%= link_to "Click here to view it", statement_url(@statement.group.name, @statement.id) %>.</p>
-  
-  <p>You received this email because you are a WeSpeak member interested in this group.
-    
-    <%= link_to "Click here to manage your email preferences", edit_settings_notifications_url %>.</p>
-  
-  <%= render 'mailer_footer' %>
+      <p>Voting has ended for a statement in @<%= @statement.group.name %>.</p>
+      
+      <p>
+        <%= render 'group_pages/statement_body', statement: @statement, group: nil, logged_in: false %>
+      </p>
 
+      <p>
+        You received this email because you are a WeSpeak member interested in this group.
+      </p>
+      
+      <%= render 'mailer_footer' %>
+      
+    </div>
+  </div>
 </div>

@@ -1,3 +1,3 @@
 <% @statements.each do |statement| %>
-  <%= render 'group_pages/statement_body', statement: statement, group: group %>
+  <%= render 'group_pages/statement_body', statement: statement, group: group, logged_in: logged_in? %>
 <% end %>
