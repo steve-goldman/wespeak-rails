@@ -1,17 +1,13 @@
-<%= stylesheet_link_tag("application.css") %>
-
 <p>Dear WeSpeak user,</p>
 
 <p>
-  Your membership in
-  <span class="group-name">@<%= @group.name %></span>
+  Your membership in <%= render 'group_name', group: @group, period: false %>
   will expire on <%= Constants::Timespans::full_time(@expires_at) %>.
   You won't be eligible to support or vote on new statements if it expires.
 </p>
 
 <p>
-  <%= link_to "Click here to visit the group page", group_profile_url(@group.name) %>,
-  where you can renew your membership.
+  Visit the group profile page to renew your membership.
 </p>
 
 <p>

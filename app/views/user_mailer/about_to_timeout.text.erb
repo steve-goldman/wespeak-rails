@@ -1,6 +1,7 @@
 Dear WeSpeak user,
 
-Your membership in @<%= @group.name %> will expire on <%= Constants::Timespans::full_time(@expires_at) %>. You won't be eligible to support or vote on new statements if it expires.
+Your membership will expire on <%= Constants::Timespans::full_time(@expires_at) %> in <%= render 'group_name', group: @group, period: true %>
+You won't be eligible to support or vote on new statements if it expires.
 
 Click the following link to visit the group page, where you can renew your membership.
 

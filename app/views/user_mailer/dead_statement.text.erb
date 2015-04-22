@@ -1,10 +1,8 @@
 Dear WeSpeak user,
 
-A statement that you created in @<%= @statement.group.name %> has died because it did not have enough support.
+A statement that you created has died because it did not have enough support in <%= render 'group_name', group: @statement.group, period: true %>
 
-Click the following link to view it.
-
-<%= statement_url(@statement.group.name, @statement.id) %>
+<%= render 'statement', statement: @statement %>
 
 You received this email because you are a WeSpeak member interested in your statements.
 

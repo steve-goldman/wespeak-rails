@@ -1,10 +1,8 @@
 Dear WeSpeak user,
 
-Voting has ended for a statement in @<%= @statement.group.name %>.
+Voting has ended for a statement in <%= render 'group_name', group: @statement.group, period: true %>
 
-Click the following link to view it.
-
-<%= statement_url(@statement.group.name, @statement.id) %>
+<%= render 'statement', statement: @statement %>
 
 You received this email because you are a WeSpeak member interested in this group.
 

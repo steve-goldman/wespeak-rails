@@ -21,13 +21,13 @@ class UserMailerPreview < ActionMailer::Preview
 
   def vote_begins
     user = User.first
-    statement = Statement.first
+    statement = Statement.find(32)
     UserMailer.vote_begins(user, statement)
   end
 
   def vote_ends
     user = User.first
-    statement = Statement.first
+    statement = Statement.find(32)
     UserMailer.vote_ends(user, statement)
   end
 

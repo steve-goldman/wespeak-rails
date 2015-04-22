@@ -1,18 +1,20 @@
-<%= stylesheet_link_tag("application.css") %>
-
 <p>Dear WeSpeak user,</p>
-  
+
 <p>
   Voting has ended for a statement in
-  <span class="group-name">@<%= @statement.group.name %></span>.
+  <%= render 'group_name', group: @statement.group, period: true %>
 </p>
-      
+
 <p>
-  <%= render 'group_pages/statement_body', statement: @statement, group: nil, logged_in: false %>
+  <%= render 'group_thumb', group: @statement.group %>
+</p>
+
+<p>
+  <%= render 'statement', statement: @statement %>
 </p>
 
 <p>
   You received this email because you are a WeSpeak member interested in this group.
 </p>
-      
+
 <%= render 'mailer_footer' %>

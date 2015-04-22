@@ -1,14 +1,10 @@
-<%= stylesheet_link_tag("application.css") %>
-
 <p>Dear WeSpeak user,</p>
 
 <p>
-  Your membership in
-  <span class="group-name">@<%= @group.name %></span>
-  has expired. You won't be eligible to support or vote again until you renew your membership.
+  Your membership has expired in
+  <%= render 'group_name', group: @group, period: true %>
+  You won't be eligible to support or vote again until you renew your membership.
 </p>
-
-<p><%= link_to "Click here to visit the group page", group_profile_url(@group.name) %>.</p>
 
 <p>
   You received this email because you are a WeSpeak member interested in knowing when your memberships expire.
