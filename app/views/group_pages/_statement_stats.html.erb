@@ -1,42 +1,42 @@
 <ul>
   <% if statement.state == StatementStates[:alive] %>
-    <% active_member = logged_in ? current_user.active_members.find_by(group_id: statement.group.id) : nil %>
-    <% if GroupUserInfo.support_eligible?(current_user, active_member, statement) %>
-      <% if !statement.user_supports?(current_user) %>
+    <% if logged_in %>
+      <% active_member = current_user.active_members.find_by(group_id: statement.group.id) %>
+      <% if GroupUserInfo.support_eligible?(current_user, active_member, statement) %>
+        <% if !statement.user_supports?(current_user) %>
   <li class="support-button">
     <%= render 'group_pages/support_button', statement: statement %>
   </li>
-      <% end %>
-    <% else %>
+        <% end %>
+      <% else %>
   <li class="your-support">
-      <% if logged_in %>
         Not eligible to support
       <span class="why-not">
         <%= link_to "Why not?", why_not_support_eligible_path(statement.group.name, statement.id) %>
       </span>
-      <% else %>
-        Log in to support this statement
       <% end %>
+    <% else %>
+      Log in to support this statement
   </li>
     <% end %>
   <% elsif statement.state == StatementStates[:voting] %>
-    <% active_member = logged_in ? current_user.active_members.find_by(group_id: statement.group.id) : nil %>
-    <% if GroupUserInfo.vote_eligible?(current_user, active_member, statement) %>
-      <% if !statement.user_vote(current_user) %>
+    <% if logged_in %>
+      <% active_member = current_user.active_members.find_by(group_id: statement.group.id) %>
+      <% if GroupUserInfo.vote_eligible?(current_user, active_member, statement) %>
+        <% if !statement.user_vote(current_user) %>
   <li>
     <%= render 'group_pages/vote_buttons', statement: statement %>
   </li>
-      <% end %>
-    <% else %>
+        <% end %>
+      <% else %>
   <li class="your-vote">
-      <% if logged_in %>
         Not eligible to vote
       <span class="why-not">
         <%= link_to "Why not?", why_not_vote_eligible_path(statement.group.name, statement.id) %>
       </span>
-      <% else %>
-        Log in to vote for this statement
       <% end %>
+    <% else %>
+      Log in to vote for this statement
   </li>
     <% end %>
   <% end %>
