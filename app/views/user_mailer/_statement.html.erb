@@ -38,6 +38,27 @@
         <%= Constants::Timespans::time_ago(statement.expires_at) %>
       <% end %>
     </td>
+    <% if statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>
+  <tr>
+    <td style="font-weight: bold">
+      Total Votes
+    </td>
+    <td>
+      <%= number_with_delimiter(statement.votes.count, delimiter: ",") %>
+      <% if statement.votes.count < statement.votes_needed %>
+        (<%= number_with_delimiter(statement.votes_needed - statement.votes.count, delimiter: ",") %> auto-NO)
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold">
+      Yes Votes
+    </td>
+    <td>
+      <%= statement.yeses_percent %>% (needed <%= statement.yeses_needed %>%)
+    </td>
+  </tr>
+    <% end %>
   </tr>
 </table>
 

@@ -9,6 +9,10 @@ Ends           <%= Constants::Timespans::time_ago(statement.vote_ends_at) %>
 <% elsif statement.state == StatementStates[:alive] %>
 Expires        <%= Constants::Timespans::time_ago(statement.expires_at) %>
 <% end %>
+<% if statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>
+Total Votes    <%= number_with_delimiter(statement.votes.count, delimiter: ",") %> <%= "(#{number_with_delimiter(statement.votes_needed - statement.votes.count, delimiter: ",")} auto-NO)" if statement.votes.count < statement.votes_needed %>
+Yes Votes      <%= statement.yeses_percent %>% (needed <%= statement.yeses_needed %>%)
+<% end %>
 
 --- BEGIN STATEMENT ---
 <%= render 'group_pages/statement_pointer', statement: statement %>
