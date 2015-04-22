@@ -17,7 +17,13 @@
         </ul>
       </p>
       
-      <p><%= link_to "Click here to sign up", new_user_url %>.  The invitation will be there waiting</p>
+      <p>
+        Click here to sign up.  The invitation will be there waiting.
+      </p>
+
+      <p>
+        <%= link_to "Sign up!", new_user_url, class: "btn btn-success" %>
+      </p>
       
       <%= render 'mailer_footer' %>
       
