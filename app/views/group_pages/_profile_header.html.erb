@@ -29,11 +29,6 @@
       <div class="following" id="following">
         <%= render 'group_pages/following' %>
       </div>
-      <% if @info.change_eligible? %>
-      <p>
-        <%= link_to "Propose an update", new_update_path(@info.group.name) %>
-      </p>
-      <% end %>
     </div>
   </div>
   <% if logged_in? %>
@@ -44,6 +39,7 @@
           <% if @info.change_eligible? %>
             <span class="glyphicon glyphicon-ok"></span>
             You may participate!
+            <%= link_to "Propose a status update", new_update_path(@info.group.name) %>.
           <% else %>
             <span class="glyphicon glyphicon-remove"></span>
             You may not participate.
