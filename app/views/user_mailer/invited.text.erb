@@ -1,6 +1,7 @@
 Dear WeSpeak user,
 
-You have been invted to join @<%= @group.name %>.
+You have been invted to join <%= render 'group_name', group: @group, period: true %>
+<%= render 'group_summary', group: @group %>
 
 Click the following link to visit the group page.
 

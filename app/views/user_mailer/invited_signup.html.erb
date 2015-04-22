@@ -1,24 +1,23 @@
-<%= stylesheet_link_tag("application.css") %>
-
 <p>Dear future WeSpeak user,</p>
 
 <p>
-  You have been invited to join
-  <span class="group-name">@<%= @group.name %></span>.
+  You have been invited to join <%= render 'group_name', group: @group, period: true %>
 </p>
 
 <p>
-  <ul id="groups-list" class="list-group groups-list">
-    <%= render 'group_pages/group_rows', groups: [@group] %>
-  </ul>
+  <%= render 'group_thumb', group: @group %>
 </p>
 
 <p>
-  Click here to sign up.  The invitation will be there waiting.
+  <%= render 'group_summary', group: @group %>
 </p>
 
 <p>
-  <%= link_to "Sign up!", new_user_url, class: "btn btn-success" %>
+  <%= link_to "Click here", new_user_url %> to sign up for WeSpeak if you do not have an account.  The invitation will be there waiting.
+</p>
+
+<p>
+  <%= link_to "Click here", settings_email_identities_url %> to add this email address to an existing WeSpeak account.
 </p>
 
 <%= render 'mailer_footer' %>

@@ -1,9 +1,12 @@
 Dear future WeSpeak user,
 
-You have been invited to join @<%= @group.name %>.
+You have been invited to join <%= render 'group_name', group: @group, period: true %>
+<%= render 'group_summary', group: @group %>
 
-Click the following link to sign up for WeSpeak.  The invitation will be there waiting.
+Click the following link to sign up for WeSpeak if you do not have an account.  The invitation will be there waiting.
+<%= new_user_url %>
 
-<%= new_user_url %>.
+Click the following link to add this email address to an existing WeSpeak account.
+<%= settings_email_identities_url %>
 
 <%= render 'mailer_footer' %>
