@@ -28,7 +28,27 @@
       <% if GroupUserInfo.vote_eligible?(current_user, active_member, statement) %>
         <% if !statement.user_vote(current_user) %>
   <li>
-    <%= render 'group_pages/vote_buttons', statement: statement %>
+<% if !statement.user_vote(current_user) %>
+<table class="vote-buttons">
+  <tr>
+    <td>
+      <%= button_to "No.", vote_no_path(statement.group.name),
+          params: { statement_id: statement.id },
+          class: "btn btn-danger",
+          data: { confirm: "Are you sure? You cannot change your vote later." },
+          remote: true %>
+    </td>
+    
+    <td>
+      <%= button_to "Yes!", vote_yes_path(statement.group.name),
+          params: { statement_id: statement.id },
+          class: "btn btn-success",
+          data: { confirm: "Are you sure?  You cannot change your vote later." },
+          remote: true %>
+    </td>
+  </tr>
+</table>
+<% end %>
   </li>
         <% end %>
       <% else %>
@@ -45,13 +65,22 @@
   <% end %>
 
   <% if logged_in %>
+  <% if statement.user_supports? current_user %>
   <li class="your-support">
-    <%= render 'group_pages/you_supported' if statement.user_supports? current_user%>
+    You supported
   </li>
+  <% end %>
   <% vote = statement.user_vote(current_user) %>
+  <% if vote %>
   <li class="your-vote">
-    <%= render('group_pages/your_vote', vote: vote) if vote %>
+    You voted
+    <% if vote.vote == Constants::Votes::NO %>
+    <span class="no">NO</span>
+    <% else %>
+    <span class="yes">YES</span>
+    <% end %>
   </li>
+  <% end %>
   <% end %>
   
   <% if statement.state == StatementStates[:voting] || statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>
@@ -82,7 +111,9 @@
     <%= 'supporter'.pluralize(statement.supports.count) %>
   </li>
   <li class="voting-will-begin">
-    <%= render 'group_pages/voting_will_begin', statement: statement %>
+    <% if statement.supports.count >= statement.support_needed %>
+    Voting will begin shortly!
+    <% end %>
   </li>
   <% end %>
 </ul>
