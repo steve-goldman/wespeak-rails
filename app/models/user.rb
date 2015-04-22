@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
   end
 
   def primary_email
-    email_addresses.find(primary_email_address_id).email
+    primary_email_address_id ? email_addresses.find(primary_email_address_id).email : nil
   end
 
   def set_primary_email(email_address)
