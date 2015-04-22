@@ -6,7 +6,10 @@
 
       <p>Dear WeSpeak user,</p>
   
-      <p>Voting has ended for a statement in @<%= @statement.group.name %>.</p>
+      <p>
+        Voting has ended for a statement in
+        <span class="group-name">@<%= @statement.group.name %></span>.
+      </p>
       
       <p>
         <%= render 'group_pages/statement_body', statement: @statement, group: nil, logged_in: false %>
