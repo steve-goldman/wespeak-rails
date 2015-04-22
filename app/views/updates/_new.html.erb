@@ -5,7 +5,7 @@
     <li class="list-group-item">
       <%= form_for :update, url: create_update_path(@info.group.name), method: :post do |f| %>
 
-      <h4>Update</h4>
+      <h4>Status Update</h4>
 
       <div class="rich-text">
         <%= f.text_area :update, class: "tinymce" %>
