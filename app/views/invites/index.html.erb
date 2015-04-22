@@ -2,26 +2,18 @@
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
     <% if current_user.new_invitations.any? || current_user.old_invitations.any? %>
-    <table class="table">
-      <tbody>
-        <% if current_user.new_invitations.any? %>
-        <tr>
-          <td colspan="2">
-            <h4>New Invitations (<%= number_with_delimiter(current_user.new_invitations.count, delimiter: ",") %>)</h4>
-          </td>
-        </tr>
-        <%= render 'invites', invitations: current_user.new_invitations %>
-        <% end %>
-        <% if current_user.old_invitations.any? %>
-        <tr>
-          <td colspan="2">
-            <h4>Invitations (<%= number_with_delimiter(current_user.old_invitations.count, delimiter: ",") %>)</h4>
-          </td>
-        </tr>
-        <%= render 'invites', invitations: current_user.old_invitations %>
-        <% end %>
-      </tbody>
-    </table>
+      <% if current_user.new_invitations.any? %>
+        <h4>New Invitations (<%= number_with_delimiter(current_user.new_invitations.count, delimiter: ",") %>)</h4>
+        <ul id="new-invitations-list" class="list-group groups-list">
+          <%= render 'group_pages/group_rows', groups: current_user.new_invitations.map { |invitation| invitation.group } %>
+        </ul>
+      <% end %>
+      <% if current_user.old_invitations.any? %>
+        <h4>Invitations (<%= number_with_delimiter(current_user.old_invitations.count, delimiter: ",") %>)</h4>      
+        <ul id="old-invitations-list" class="list-group groups-list">
+          <%= render 'group_pages/group_rows', groups: current_user.old_invitations.map { |invitation| invitation.group } %>
+        </ul>
+      <% end %>
     <% end %>
   </div>
 </div>
