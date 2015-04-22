@@ -1,15 +1,11 @@
 Dear WeSpeak user,
 
-Voting has ended for a statement of type <%= StatementTypes.name(@statement.statement_type) %> in the group <%= @statement.group.name %>.
+Voting has ended for a statement in @<%= @statement.group.name %>.
 
 Click the following link to view it.
 
 <%= statement_url(@statement.group.name, @statement.id) %>
 
 You received this email because you are a WeSpeak member interested in this group.
-
-Click the following link to manage your email preferences.
-
-<%= edit_settings_notifications_url %>
 
 <%= render 'mailer_footer' %>
