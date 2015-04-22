@@ -11,6 +11,12 @@
         <span class="group-name">@<%= @group.name %></span>.
       </p>
       
+      <p>
+        <ul id="groups-list" class="list-group groups-list">
+          <%= render 'group_pages/group_rows', groups: [@group] %>
+        </ul>
+      </p>
+
       <p><%= link_to "Click here to visit the group page", group_profile_url(@group.name) %>.</p>
       
       <p>You received this email because you are a WeSpeak member interested in knowing when you receive invitations.</p>
