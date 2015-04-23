@@ -9,6 +9,8 @@ class GroupsControllerTest < ActionController::TestCase
                          password:              "test123",
                          password_confirmation: "test123",
                          can_create_groups:     true)
+    @user.email_addresses.create!(email: "email@addr.com")
+    @user.email_addresses.first.activate
     log_in @user
     @group = @user.groups_i_created.create!(name: "added_group")
   end
