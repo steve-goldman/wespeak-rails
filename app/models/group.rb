@@ -188,6 +188,8 @@ class Group < ActiveRecord::Base
       @all_statements = @all_statements
                         .joins("LEFT OUTER JOIN (SELECT statement_id, COUNT(*) AS c FROM supports GROUP BY statement_id) AS counts ON statements.id = counts.statement_id")
                         .order("counts.c DESC, updated_at DESC")
+    elsif statement_state == :voting
+      @all_statements = @all_statements.order(vote_began_at: :desc)
     else
       @all_statements = @all_statements.order(created_at: :desc)
     end
