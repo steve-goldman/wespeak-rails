@@ -5,7 +5,7 @@ class GroupPagesControllerBase < ApplicationController
   before_action :group_user_info
   
   def new
-    @needs_location = @info.group.radius && !@info.user.get_location
+    @needs_location = @info.user && @info.group.radius && !@info.user.get_location
     render 'group_pages/new'
   end
 

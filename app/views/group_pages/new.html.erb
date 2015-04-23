@@ -1,6 +1,6 @@
 <% provide(:title, @info.group.name) %>
 
-<% if @info.group.radius %>
+<% if logged_in? && @info.group.radius %>
   <%= render 'group_pages/location_required' %>
 <% end %>
 
