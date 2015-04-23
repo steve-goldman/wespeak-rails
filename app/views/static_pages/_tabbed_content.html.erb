@@ -1,3 +1,7 @@
+<% if @state == :alive || @state == :voting %>
+  <%= render 'group_pages/location_required' %>
+<% end %>
+
 <%= render 'group_pages/statement_tabs',
     group:         nil,
     state:         @state,

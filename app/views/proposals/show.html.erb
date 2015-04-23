@@ -1,4 +1,9 @@
 <% provide(:title, @info.group.name) %>
+
+<% if @statement.state == StatementStates[:alive] || @statement.state == StatementStates[:voting] %>
+  <%= render 'group_pages/location_required' %>
+<% end %>
+
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
     <% if @feed %>
