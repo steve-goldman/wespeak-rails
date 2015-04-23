@@ -6,6 +6,12 @@
   
   <%= f.label :password %>
   <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+
+  <% if !Rails.env.test? %>
+  <div class="captcha">
+    <%= recaptcha_tags %>
+  </div>
+  <% end %>
   
   <%= f.submit "Sign up", class: "btn btn-primary" %>
   <% end %>

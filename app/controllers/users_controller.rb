@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   include UsersHelper
 
   before_action :not_logged_in, only: [:new, :create]
+  before_action :captcha_valid, only: [:create]
   before_action :user_valid,    only: [:create]
   before_action :valid_user,    only: [:show]
   
@@ -32,6 +33,13 @@ class UsersController < ApplicationController
 
   def not_logged_in
     redirect_with_flash(FlashMessages::LOGGED_IN, root_url) if logged_in?
+  end
+
+  def captcha_valid
+    if !Rails.env.test? && !verify_recaptcha
+      flash.delete(:recaptcha_error)
+      redirect_with_flash(FlashMessages::NO_CAPTCHA, request.referer || root_url)
+    end
   end
 
   def user_valid

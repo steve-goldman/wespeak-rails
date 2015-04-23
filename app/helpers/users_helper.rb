@@ -6,6 +6,7 @@ module UsersHelper
     USER_CREATED = FlashMessage.new(:success, "Welcome!")
     LOGGED_IN  = FlashMessage.new(:info, "You must be logged out to view this page")
     NAME_UNKNOWN = ValidationMessage.new("Something went wrong: unknown user")
+    NO_CAPTCHA   = FlashMessage.new(:warning, "Please complete the captcha so we know you are a human")
   end
 
   class ValidationMessages
