@@ -34,6 +34,8 @@ module GroupsHelper
     COULD_NOT_DISCARD    = FlashMessage.new(:danger,  "Something went wrong: could not discard")
     COMMENT_UNKNOWN      = FlashMessage.new(:danger,  "Something went wrong: comment unknown")
     ALREADY_DELETED      = FlashMessage.new(:danger,  "Something went wrong: comment already deleted")
+
+    NO_CAPTCHA           = FlashMessage.new(:warning, "Please complete the captcha so we know you are a human")
   end
 
   class ValidationMessages

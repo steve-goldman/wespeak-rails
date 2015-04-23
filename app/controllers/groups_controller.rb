@@ -4,6 +4,7 @@ class GroupsController < ApplicationController
 
   before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :update_locations, :update_display_name, :update_tagline, :update_profile_image, :destroy, :create, :ready_to_activate, :activate]
   before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :update_locations, :update_display_name, :update_tagline, :update_profile_image, :destroy, :create, :ready_to_activate, :activate]
+  before_action :captcha_valid,      only: [:create]
   before_action :group_creates,      only: [:create]
   before_action :group_known,        only: [:edit, :update, :update_invitations, :update_locations, :update_display_name, :update_tagline, :update_profile_image, :destroy, :ready_to_activate, :activate]
   before_action :user_matches,       only: [:edit, :update, :update_invitations, :update_locations, :update_display_name, :update_tagline, :update_profile_image, :destroy, :ready_to_activate, :activate]
@@ -143,6 +144,13 @@ class GroupsController < ApplicationController
     redirect_with_validation_flash(initial_stuff[:initial_group], request.referer || root_url) and return if !initial_stuff[:initial_group].valid?
     initial_stuff[:initial_group_email_domains].each do |group_email_domain|
       redirect_with_validation_flash(group_email_domain, request.referer || root_url) and return if !group_email_domain.valid?
+    end
+  end
+
+  def captcha_valid
+    if !Rails.env.test? && !verify_recaptcha
+      flash.delete(:recaptcha_error)
+      redirect_with_flash(FlashMessages::NO_CAPTCHA, request.referer || root_url)
     end
   end
 
