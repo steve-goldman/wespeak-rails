@@ -3,7 +3,6 @@
     <% if !logged_in? %>
       <h1>Welcome to WeSpeak</h1>
       <h2>A Social Network for Groups</h2>
-      <%= render 'sessions/login' %>
       <%= render 'users/signup' %>
     <% else %>
       <div id="tabbed-content">
