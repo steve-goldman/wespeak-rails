@@ -2,7 +2,10 @@
   <ul class="nav nav-pills">
     <%= content_tag(
         :li,
-        link_to(StatementStates.name(:accepted), accepted_path),
+        link_to(StatementStates.name(:accepted), accepted_path,
+                "data-toggle": "tooltip",
+                "data-placement": "top",
+                title: StatementStates.desc(:accepted)),
         class: state == :accepted ? "active" : "inactive") %>
 
     <% if group %>
@@ -14,12 +17,18 @@
     <% voting_name = "Voting" + (new_vote_count == 0 ? "" : " (#{new_vote_count})") %>
     <%= content_tag(
         :li,
-        link_to(voting_name, voting_path),
+        link_to(voting_name, voting_path,
+                "data-toggle": "tooltip",
+                "data-placement": "top",
+                title: StatementStates.desc(:voting)),
         class: state == :voting ? "active" : "inactive") %>
 
     <%= content_tag(
         :li,
-        link_to("Alive", alive_path),
+        link_to("Alive", alive_path,
+                "data-toggle": "tooltip",
+                "data-placement": "top",
+                title: StatementStates.desc(:alive)),
         class: state == :alive ? "active" : "inactive") %>
 
     <% dropdown_active = state == :rejected || state == :dead %>
@@ -29,21 +38,15 @@
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu">
-        <%= content_tag(:li, link_to("Rejected", rejected_path)) if state != :rejected %>
-        <%= content_tag(:li, link_to("Dead",     dead_path))     if state != :dead     %>
+        <%= content_tag(:li, link_to("Rejected", rejected_path,
+                                     "data-toggle": "tooltip",
+                                     "data-placement": "top",
+                                     title: StatementStates.desc(:rejected))) if state != :rejected %>
+        <%= content_tag(:li, link_to("Dead", dead_path,
+                                     "data-toggle": "tooltip",
+                                     "data-placement": "bottom",
+                                     title: StatementStates.desc(:dead))) if state != :dead %>
       </ul>
     </li>
   </ul>
 </div>
-
-<p>
-  <div class="page-desc">
-    <%= StatementStates.desc(state) %>
-  </div>
-  <% if group %>
-    <div class="statement-counts">
-      <% count = group.get_count(state) %>
-      <%= "#{count} #{'statement'.pluralize(count)}" %>
-    </div>
-  <% end %>
-</p>
