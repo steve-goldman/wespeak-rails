@@ -1,6 +1,9 @@
 handleLocation = (position) ->
   location_path = $('#create-user-location-path').html()
   $.post location_path, position
+  # reload this page if the server was waiting on the position
+  if $('#user-location-valid-until').html() == '0'
+    location.reload()
   # re-set the timer
   #console.log 'setting next timer'
   setTimeout getLocation, 1000 * (parseInt $('#user-location-valid-for').html()) / 2
