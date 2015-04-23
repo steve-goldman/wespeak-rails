@@ -1,7 +1,7 @@
 <% provide(:title, @info.group.name) %>
 
 <% if @statement.state == StatementStates[:alive] || @statement.state == StatementStates[:voting] %>
-  <%= render 'group_pages/location_required' %>
+  <%= render 'group_pages/location_required' if logged_in? %>
 <% end %>
 
 <div class="row">
