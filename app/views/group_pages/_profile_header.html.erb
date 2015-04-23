@@ -32,6 +32,7 @@
     </div>
   </div>
   <% if logged_in? %>
+  <%= render 'group_pages/location_required' if @info.group.radius %>
   <div class="participation-summary">
     <ul class="list-group">
       <li class="list-group-item">
@@ -43,7 +44,11 @@
           <% else %>
             <span class="glyphicon glyphicon-remove"></span>
             You may not participate.
-            <%= link_to "Why not?", group_participation_path(@info.group.name) %>
+            <% if @info.group.radius && !current_user.get_location %>
+              We are computing your location...
+            <% else %>
+              <%= link_to "Why not?", group_participation_path(@info.group.name) %>
+            <% end %>
           <% end %>
         </p>
           <% if @info.member_history %>
