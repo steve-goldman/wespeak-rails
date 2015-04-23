@@ -14,7 +14,7 @@
           
           <% if statement.type != :initial_statement %>
           <div id="statement-stats-<%= statement.id %>" class="statement-stats">
-            <%= render('group_pages/statement_stats', statement: statement, logged_in: logged_in) %>
+            <%= render('group_pages/statement_stats', statement: statement, group: group, info: info) %>
           </div>
           <% end %>
         </div>

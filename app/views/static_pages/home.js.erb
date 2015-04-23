@@ -1,4 +1,4 @@
-$('#statements-list').append('<%= j render 'group_pages/statement_bodies', group: nil %>');
+$('#statements-list').append('<%= j render 'group_pages/statement_bodies', group: nil, info: @infos %>');
 <% if @statements.next_page %>
   $('.pagination').replaceWith('<%= j will_paginate @statements %>');
 <% else %>

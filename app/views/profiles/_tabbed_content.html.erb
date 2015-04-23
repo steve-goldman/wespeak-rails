@@ -7,4 +7,4 @@
     rejected_path: profile_path(@info.group.name, :rejected),
     dead_path:     profile_path(@info.group.name, :dead) %>
 
-<%= render 'group_pages/proposals_list', group: @info.group, state: @info.state %>
+<%= render 'group_pages/proposals_list', group: @info.group, info: @info, state: @info.state %>

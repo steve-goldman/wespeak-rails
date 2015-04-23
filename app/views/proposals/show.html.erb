@@ -14,7 +14,7 @@
     <p>
       <%= link_to "Back to #{@info.group.name}", group_profile_path(@info.group.name) %>
     </p>
-    <%= render 'group_pages/statement_body', statement: @statement, group: @info.group, logged_in: logged_in? %>
+    <%= render 'group_pages/statement_body', statement: @statement, group: @info.group, info: @info %>
     <ul id="comments-list" class="list-group">
       <li class="list-group-item new-comment">
         <%= render 'new_comment', statement: @statement %>

@@ -1,34 +1,42 @@
 <ul>
+  <% if info %>
+    <% my_info = group ? info : info[statement.group.id] %>
+  <% else %>
+    <% my_info = nil %>
+  <% end %>
+    
   <% if statement.state == StatementStates[:alive] %>
-    <% if logged_in %>
-      <% active_member = current_user.active_members.find_by(group_id: statement.group.id) %>
-      <% if GroupUserInfo.support_eligible?(current_user, active_member, statement) %>
-        <% if !statement.user_supports?(current_user) %>
+    <% if my_info %>
+      <% if my_info.change_eligible? && my_info.support_eligible?(statement) %>
+        <% if !statement.user_supports?(my_info.user) %>
   <li class="support-button">
     <%= button_to("Support!", support_path(statement.group.name),
         params: { statement_id: statement.id },
         class: "btn btn-primary",
-        remote: true) if !statement.user_supports?(current_user)  %>
+        remote: true) if !statement.user_supports?(my_info.user)  %>
   </li>
         <% end %>
       <% else %>
   <li class="your-support">
-        Not eligible to support
+        <% if my_info.group.radius && !my_info.user.get_location %>
+          We are computing your location...
+        <% else %>
+          Not eligible to support
       <span class="why-not">
         <%= link_to "Why not?", why_not_support_eligible_path(statement.group.name, statement.id) %>
       </span>
+        <% end %>
       <% end %>
     <% else %>
       Log in to support this statement
   </li>
     <% end %>
   <% elsif statement.state == StatementStates[:voting] %>
-    <% if logged_in %>
-      <% active_member = current_user.active_members.find_by(group_id: statement.group.id) %>
-      <% if GroupUserInfo.vote_eligible?(current_user, active_member, statement) %>
-        <% if !statement.user_vote(current_user) %>
+    <% if my_info %>
+      <% if my_info.change_eligible? && my_info.vote_eligible?(statement) %>
+        <% if !statement.user_vote(my_info.user) %>
   <li>
-<% if !statement.user_vote(current_user) %>
+<% if !statement.user_vote(my_info.user) %>
 <table class="vote-buttons">
   <tr>
     <td>
@@ -53,10 +61,14 @@
         <% end %>
       <% else %>
   <li class="your-vote">
-        Not eligible to vote
+        <% if my_info.group.radius && !my_info.user.get_location %>
+          We are computing your location...
+        <% else %>
+          Not eligible to vote
       <span class="why-not">
         <%= link_to "Why not?", why_not_vote_eligible_path(statement.group.name, statement.id) %>
       </span>
+        <% end %>
       <% end %>
     <% else %>
       Log in to vote for this statement
@@ -64,13 +76,13 @@
     <% end %>
   <% end %>
 
-  <% if logged_in %>
-  <% if statement.user_supports? current_user %>
+  <% if my_info %>
+  <% if statement.user_supports? my_info.user %>
   <li class="your-support">
     You supported
   </li>
   <% end %>
-  <% vote = statement.user_vote(current_user) %>
+  <% vote = statement.user_vote(my_info.user) %>
   <% if vote %>
   <li class="your-vote">
     You voted
