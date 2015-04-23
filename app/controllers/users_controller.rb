@@ -45,7 +45,8 @@ class UsersController < ApplicationController
   def user_valid
     @user = User.new(name:                  params[:user][:name],
                      password:              params[:user][:password],
-                     password_confirmation: params[:user][:password])
+                     password_confirmation: params[:user][:password],
+                     can_create_groups:     true)
     redirect_with_validation_flash(@user, root_url) if !@user.save
   end
 
