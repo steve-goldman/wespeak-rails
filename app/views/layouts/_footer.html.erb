@@ -1,5 +1,14 @@
 <footer class="footer">
-  <div class="copyright">
+  <p class="footer-links">
+    <%= link_to "FAQ", faq_path %>
+    |
+    <%= link_to "Privacy Policy", privacy_policy_path %>
+    |
+    <%= link_to "Terms of Service", terms_of_service_path %>
+    |
+    <%= link_to "Contact Us", contact_us_path %>
+  </p>
+  <p class="copyright">
     &copy; <%= Date.today.year %> WeSpeak, Inc.
-  </div>
+  </p>
 </footer>
