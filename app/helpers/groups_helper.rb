@@ -36,6 +36,7 @@ module GroupsHelper
     ALREADY_DELETED      = FlashMessage.new(:danger,  "Something went wrong: comment already deleted")
 
     NO_CAPTCHA           = FlashMessage.new(:warning, "Please complete the captcha so we know you are a human")
+    NO_ACTIVE_EMAIL      = FlashMessage.new(:warning, "You must have an activated email address on your account to create a group")
   end
 
   class ValidationMessages

@@ -3,6 +3,7 @@ class GroupsController < ApplicationController
   include GroupsHelper
 
   before_action :logged_in,          only: [:index, :edit, :update, :update_invitations, :update_locations, :update_display_name, :update_tagline, :update_profile_image, :destroy, :create, :ready_to_activate, :activate]
+  before_action :has_active_email,   only: [:index, :create]
   before_action :can_create_groups,  only: [:index, :edit, :update, :update_invitations, :update_locations, :update_display_name, :update_tagline, :update_profile_image, :destroy, :create, :ready_to_activate, :activate]
   before_action :captcha_valid,      only: [:create]
   before_action :group_creates,      only: [:create]
@@ -71,6 +72,10 @@ class GroupsController < ApplicationController
   def logged_in
     @user = current_user
     redirect_with_flash(FlashMessages::NOT_LOGGED_IN, root_url) if !logged_in?
+  end
+
+  def has_active_email
+    redirect_with_flash(FlashMessages::NO_ACTIVE_EMAIL, request.referer || root_url) if !@user.primary_email
   end
 
   def can_create_groups
