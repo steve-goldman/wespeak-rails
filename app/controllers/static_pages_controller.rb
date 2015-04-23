@@ -25,8 +25,13 @@ class StaticPagesController < ApplicationController
     if @group_ids.any?
       @support_order = params[:support_order] ? true : false
       @statements    = Group.get_all_statements(@group_ids, @state, params[:page], params[:per_page] || DEFAULT_RECORDS_PER_PAGE, support_order: @support_order)
+      @infos         = {}
+      @statements.each do |statement|
+        @infos[statement.group.id] = GroupUserInfo.new(statement.group.name, StatementStates.sym(statement.state), current_user) if !@infos[statement.group.id]
+      end
     else
       @statements = nil
+      @infos = nil
     end
   end
 end

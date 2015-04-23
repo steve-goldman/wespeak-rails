@@ -55,5 +55,9 @@ class StatementStates
   def StatementStates.name_from_value(value)
     @names[@state_syms[value]]
   end
+
+  def StatementStates.sym(value)
+    @state_syms[value]
+  end
   
 end
