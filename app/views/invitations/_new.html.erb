@@ -1,4 +1,5 @@
 <div class="new-invitation">
+  <% if !@needs_location %>
   <ul class="list-group">
     <li class="list-group-item">
       <%= form_for :invitation, url: create_invitation_path(@info.group.name), method: :post do |f| %>
@@ -8,4 +9,7 @@
       <% end %>
     </li>
   </ul>
+  <% else %>
+    <p>We are computing your location...</p>
+  <% end %>
 </div>

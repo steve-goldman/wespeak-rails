@@ -7,10 +7,15 @@
 
       <h4>Status Update</h4>
 
-      <div class="rich-text">
-        <%= f.text_area :update, class: "tinymce" %>
-      </div>
-      <%= f.submit "Propose", class:"btn btn-primary" %>
+      <% if !@needs_location %>
+        <div class="rich-text">
+          <%= f.text_area :update, class: "tinymce" %>
+        </div>
+        <%= f.submit "Propose", class:"btn btn-primary" %>
+      <% else %>
+        <p>We are computing your location...</p>
+      <% end %>
+
       <% end %>
     </li>
   </ul>
