@@ -37,7 +37,13 @@ class ProfilesController < GroupPagesControllerBase
     
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }
-      format.js { render 'could_not_support' if !ok }
+      format.js do
+        if ok
+          render 'supported_or_voted'
+        else
+          render 'could_not_support'
+        end
+      end
     end
   end
 
@@ -53,7 +59,13 @@ class ProfilesController < GroupPagesControllerBase
     
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }
-      format.js { render 'could_not_unsupport' if !ok }
+      format.js do
+        if ok
+          render 'supported_or_voted'
+        else
+          render 'could_not_support'
+        end
+      end
     end
   end
 
@@ -69,7 +81,13 @@ class ProfilesController < GroupPagesControllerBase
          
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }
-      format.js { render 'could_not_vote.js.erb' if !ok }
+      format.js do
+        if ok
+          render 'supported_or_voted'
+        else
+          render 'could_not_support'
+        end
+      end
     end
   end
 
@@ -85,7 +103,13 @@ class ProfilesController < GroupPagesControllerBase
          
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }
-      format.js { render 'could_not_vote.js.erb' if !ok }
+      format.js do
+        if ok
+          render 'supported_or_voted'
+        else
+          render 'could_not_support'
+        end
+      end
     end
   end
 
