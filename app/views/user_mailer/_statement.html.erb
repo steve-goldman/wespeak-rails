@@ -33,9 +33,9 @@
       <% elsif statement.state == StatementStates[:dead] %>
         <%= Constants::Timespans::time_ago(statement.expired_at) %>
       <% elsif statement.state == StatementStates[:voting] %>
-        <%= Constants::Timespans::time_ago(statement.vote_ends_at) %>
+        <%= Constants::Timespans::time_ago(statement.vote_ends_at, present: true) %>
       <% elsif statement.state == StatementStates[:alive] %>
-        <%= Constants::Timespans::time_ago(statement.expires_at) %>
+        <%= Constants::Timespans::time_ago(statement.expires_at, present: true) %>
       <% end %>
     </td>
     <% if statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>

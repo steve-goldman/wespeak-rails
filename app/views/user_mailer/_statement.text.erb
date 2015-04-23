@@ -5,9 +5,9 @@ Ended          <%= Constants::Timespans::time_ago(statement.vote_ended_at) %>
 <% elsif statement.state == StatementStates[:dead] %>
 Expired        <%= Constants::Timespans::time_ago(statement.expired_at) %>
 <% elsif statement.state == StatementStates[:voting] %>
-Ends           <%= Constants::Timespans::time_ago(statement.vote_ends_at) %>
+Ends           <%= Constants::Timespans::time_ago(statement.vote_ends_at, present: true) %>
 <% elsif statement.state == StatementStates[:alive] %>
-Expires        <%= Constants::Timespans::time_ago(statement.expires_at) %>
+Expires        <%= Constants::Timespans::time_ago(statement.expires_at, present: true) %>
 <% end %>
 <% if statement.state == StatementStates[:accepted] || statement.state == StatementStates[:rejected] %>
 Total Votes    <%= number_with_delimiter(statement.votes.count, delimiter: ",") %> <%= "(#{number_with_delimiter(statement.votes_needed - statement.votes.count, delimiter: ",")} auto-NO)" if statement.votes.count < statement.votes_needed %>
