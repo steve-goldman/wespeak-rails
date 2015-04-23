@@ -2,10 +2,7 @@
   <ul class="nav nav-pills">
     <%= content_tag(
         :li,
-        link_to(StatementStates.name(:accepted), accepted_path,
-                "data-toggle": "tooltip",
-                "data-placement": "top",
-                title: StatementStates.desc(:accepted)),
+        link_to(StatementStates.name(:accepted), accepted_path, data: { toggle: :tooltip, placement: :top }, title: StatementStates.desc(:accepted)),
         class: state == :accepted ? "active" : "inactive") %>
 
     <% if group %>
