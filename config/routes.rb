@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root   'static_pages#home'
 
-  get    'FAQ',                             to: 'static_pages#faq',                 as: :faq
+  get    'faq',                             to: 'static_pages#faq',                 as: :faq
   get    'privacy',                         to: 'static_pages#privacy_policy',      as: :privacy_policy
   get    'terms',                           to: 'static_pages#terms_of_service',    as: :terms_of_service
   get    'contact',                         to: 'static_pages#contact_us',          as: :contact_us
