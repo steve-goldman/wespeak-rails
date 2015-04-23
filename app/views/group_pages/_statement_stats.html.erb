@@ -1,6 +1,6 @@
 <ul>
   <% if info %>
-    <% my_info = group ? info : info[statement.group.id] %>
+    <% my_info = !group ? info[statement.group.id] : info.user ? info : nil %>
   <% else %>
     <% my_info = nil %>
   <% end %>
