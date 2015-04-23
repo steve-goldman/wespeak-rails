@@ -70,7 +70,7 @@ class StatementTypes
     3002 => "Profile Image",
     3003 => "Tagline",
     3004 => "Photo",
-    3005 => "Update",
+    3005 => "Status Update",
     3006 => "Name", 
   }
 

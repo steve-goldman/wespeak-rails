@@ -1,5 +1,23 @@
 <div class="row">
   <div class="col-md-offset-3 col-md-6 col-xs-12">
     <h4>FAQ</h4>
+    <div class="accordion" id="accordion">
+      <% i = 0 %>
+      <% Faq::DATA.each do |tuple| %>
+      <div class="accordion-group">
+        <div class="accordion-heading" id="heading-<%= i %>">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%= i %>">
+            <%= tuple[0].html_safe %>
+          </a>
+        </div>
+        <div id="collapse-<%= i %>" class="collapse in">
+          <div class="accordion-inner">
+            <%= tuple[1].html_safe %>
+          </div>
+        </div>
+      </div>
+      <% i += 1 %>
+      <% end %>
+    </div>
   </div>
 </div>
