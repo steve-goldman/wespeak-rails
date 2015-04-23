@@ -1,0 +1,15 @@
+<%= content_tag :div, current_user.location_valid_until,
+    id: "user-location-valid-until",
+    hidden: true %>
+
+<%= content_tag :div, Constants::Timespans::USER_LOCATION_VALID,
+    id: "user-location-valid-for",
+    hidden: true %>
+
+<%= content_tag :div, "false",
+    id: "user-location-timer-set",
+    hidden: true %>
+
+<%= content_tag :div, create_user_location_path,
+    id: "create-user-location-path",
+    hidden: true %>
