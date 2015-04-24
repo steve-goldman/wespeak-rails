@@ -51,5 +51,7 @@
     <h4>Invitations</h4>
     <%= render 'groups/invitations_show', group: statement, change_link: false %>
   </li>
-  <%= render 'groups/rules_show', group: statement, change_links: false, outer_list: false %>
+  <li class="list-group-item">
+    <%= render 'groups/rules_show', group: statement, change_links: false %>
+  </li>
 </ul>
