@@ -6,11 +6,11 @@ class Statement < ActiveRecord::Base
 
   belongs_to :group
 
-  has_many :supports
+  has_many :supports, dependent: :destroy
 
-  has_many :votes
+  has_many :votes, dependent: :destroy
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   def validation_keys
     [:valid_statement_type,
