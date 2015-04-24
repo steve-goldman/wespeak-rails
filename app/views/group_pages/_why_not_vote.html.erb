@@ -1,0 +1,7 @@
+<% if info.active_member.nil? %>
+  You are not active in the group.  Only active members may vote on statements.
+<% else %>
+  The vote began on <%= Constants::Timespans::full_time(statement.vote_began_at) %>
+  but you last became active in the group on <%= Constants::Timespans::full_time(info.active_member.created_at) %>.
+  Only members active when a vote begins may vote.
+<% end %>

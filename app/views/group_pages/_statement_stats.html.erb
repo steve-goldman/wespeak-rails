@@ -23,7 +23,10 @@
         <% else %>
           Not eligible to support
       <span class="why-not">
-        <%= link_to "Why not?", why_not_support_eligible_path(statement.group.name, statement.id) %>
+        <%= link_to "Why not?", "#", data: {
+            toggle: :popover,
+            placement: :top,
+            content: "#{render 'group_pages/why_not_support', info: my_info, statement: statement}" } %>
       </span>
         <% end %>
       <% end %>
@@ -66,7 +69,10 @@
         <% else %>
           Not eligible to vote
       <span class="why-not">
-        <%= link_to "Why not?", why_not_vote_eligible_path(statement.group.name, statement.id) %>
+        <%= link_to "Why not?", "#", data: {
+            toggle: :popover,
+            placement: :top,
+            content: "#{render 'group_pages/why_not_vote', info: my_info, statement: statement}" } %>
       </span>
         <% end %>
       <% end %>

@@ -1,0 +1,7 @@
+<% if info.active_member.nil? %>
+  You are not active in the group.  Only active members may support statements.
+<% else %>
+  The statement was created on <%= Constants::Timespans::full_time(statement.created_at) %>
+  but you last became active in the group on <%= Constants::Timespans::full_time(info.active_member.created_at) %>.
+  Only members active when a statement is created may support it.
+<% end %>

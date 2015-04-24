@@ -3,9 +3,7 @@ class ProfilesController < GroupPagesControllerBase
   before_action :enforce_change_eligible, only: [:activate_member]
 
   before_action :logged_in,        only: [:support, :unsupport, :vote_no, :vote_yes, :activate_member, :deactivate_member, :follow, :unfollow]
-  before_action :statement_valid,  only: [:support, :unsupport, :vote_no, :vote_yes, :why_not_support_eligible, :why_not_vote_eligible]
-  before_action :statement_alive,  only: [:why_not_support_eligible]
-  before_action :statement_voting, only: [:why_not_vote_eligibe]
+  before_action :statement_valid,  only: [:support, :unsupport, :vote_no, :vote_yes]
   before_action :support_eligible, only: [:support, :unsupport]
   before_action :vote_eligible,    only: [:vote_no, :vote_yes]
 
@@ -156,14 +154,6 @@ class ProfilesController < GroupPagesControllerBase
   def statement_valid
     @statement = Statement.where(id: params[:statement_id]).where.not(state: StatementStates[:new]).first
     redirect_with_flash(FlashMessages::STATEMENT_UNKNOWN, request.referer || root_url) if @statement.nil?
-  end
-
-  def statement_alive
-    redirect_to request.referer || root_url if @statement.state != StatementStates[:alive]
-  end
-
-  def statement_voting
-    redirect_to request.referer || root_url if @statement.state != StatementStates[:voting]
   end
 
   def support_eligible

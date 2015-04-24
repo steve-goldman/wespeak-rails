@@ -147,9 +147,6 @@ Rails.application.routes.draw do
   post   'groups/:name/statements/confirmed',      to: 'proposals#confirmed', as: :confirmed_statement
   post   'groups/:name/statements/discarded',      to: 'proposals#discarded', as: :discarded_statement
 
-  get    'groups/:name/why_not_support_eligible/:statement_id', to: 'profiles#why_not_support_eligible', as: :why_not_support_eligible
-  get    'groups/:name/why_not_vote_eligible/:statement_id',    to: 'profiles#why_not_vote_eligible',    as: :why_not_vote_eligible
-
   post   'groups/:name/comment/:statement_id/:user_id', to: 'proposals#create_comment',  as: :create_comment
   delete 'groups/:name/comment/:id',                    to: 'proposals#destroy_comment', as: :destroy_comment
 
