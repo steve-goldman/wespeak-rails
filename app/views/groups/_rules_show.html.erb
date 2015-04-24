@@ -3,60 +3,78 @@
 <% end %>
   <li class="list-group-item">
     <h4><%= RuleTypes.display_name(:lifespan) %></h4>
-    <p>
-      <%= RuleTypes.description(:lifespan) %>
-    </p>
     <%= Constants::Timespans::in_words(group.lifespan_rule) %>
+    <span class="what-is-this">
+      <%= link_to "What is this?", "#", data: {
+          toggle: :popover,
+          placement: :right,
+          content: RuleTypes.description(:lifespan) } %>
+    </span>
     <% if change_links %>
       <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
     <% end %>
   </li>
   <li class="list-group-item">
     <h4><%= RuleTypes.display_name(:support_needed) %></h4>
-    <p>
-      <%= RuleTypes.description(:support_needed) %>
-    </p>
     <%= group.support_needed_rule %>%
+    <span class="what-is-this">
+      <%= link_to "What is this?", "#", data: {
+          toggle: :popover,
+          placement: :right,
+          content: RuleTypes.description(:support_needed) } %>
+    </span>
     <% if change_links %>
       <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
     <% end %>
   </li>
   <li class="list-group-item">
     <h4><%= RuleTypes.display_name(:votespan) %></h4>
-    <p>
-      <%= RuleTypes.description(:votespan) %>
-    </p>
     <%= Constants::Timespans::in_words(group.votespan_rule) %>
+    <span class="what-is-this">
+      <%= link_to "What is this?", "#", data: {
+          toggle: :popover,
+          placement: :right,
+          content: RuleTypes.description(:votespan) } %>
+    </span>
     <% if change_links %>
       <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
     <% end %>
   </li>
   <li class="list-group-item">
     <h4><%= RuleTypes.display_name(:votes_needed) %></h4>
-    <p>
-      <%= RuleTypes.description(:votes_needed) %>
-    </p>
     <%= group.votes_needed_rule %>%
+    <span class="what-is-this">
+      <%= link_to "What is this?", "#", data: {
+          toggle: :popover,
+          placement: :right,
+          content: RuleTypes.description(:votes_needed) } %>
+    </span>
     <% if change_links %>
       <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
     <% end %>
   </li>
   <li class="list-group-item">
     <h4><%= RuleTypes.display_name(:yeses_needed) %></h4>
-    <p>
-      <%= RuleTypes.description(:yeses_needed) %>
-    </p>
     <%= group.yeses_needed_rule %>%
+    <span class="what-is-this">
+      <%= link_to "What is this?", "#", data: {
+          toggle: :popover,
+          placement: :right,
+          content: RuleTypes.description(:yeses_needed) } %>
+    </span>
     <% if change_links %>
       <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
     <% end %>
   </li>
   <li class="list-group-item">
     <h4><%= RuleTypes.display_name(:inactivity_timeout) %></h4>
-    <p>
-      <%= RuleTypes.description(:inactivity_timeout) %>
-    </p>
     <%= Constants::Timespans::in_words(group.inactivity_timeout_rule) %>
+    <span class="what-is-this">
+      <%= link_to "What is this?", "#", data: {
+          toggle: :popover,
+          placement: :right,
+          content: RuleTypes.description(:inactivity_timeout) } %>
+    </span>
     <% if change_links %>
       <div class="change-link"><%= link_to "Propose change", new_rule_path(@info.group.name) %></div>
     <% end %>
