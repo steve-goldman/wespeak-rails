@@ -119,9 +119,9 @@ module Faq
     [ "I joined a group, but I cannot support a statement or participate in a vote.  Why not?",
 
       "You may only support statements created <em>after</em> you
-      joined the group or reactivated your membership.  You may only
+      joined the group or re-activated your membership.  You may only
       vote on statements for which voting began <em>after</em> you
-      joined the group or reactivated your membership."
+      joined the group or re-activated your membership."
 
     ],
     [ "What should I do about an offensive statement in a group?",
