@@ -1,9 +1,9 @@
 class RuleDefaults
   @rule_defaults = {
     lifespan:           3.days.to_i,
-    support_needed:     5,                # 5%
+    support_needed:     10,               # 10%
     votespan:           1.day.to_i,
-    votes_needed:       10,               # 10%
+    votes_needed:       40,               # 40%
     yeses_needed:       50,               # 50%
     inactivity_timeout: 5.days.to_i,
   }
