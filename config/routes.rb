@@ -157,4 +157,7 @@ Rails.application.routes.draw do
     mount LetterOpenerWeb::Engine, at: "/devel/emails"
   end
 
+  # uploading images to be associated with statements
+  post 'upload_user_image/:id', to: 'user_images#create', as: :upload_user_image
+
 end

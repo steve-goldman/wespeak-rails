@@ -21,4 +21,5 @@
   </ul>
 </div>
 
-<%= tinymce content_css: asset_path("application.css") %>
+<%= tinymce :status_update,
+    uploadimage_form_url: upload_user_image_path(@info.user.id) %>

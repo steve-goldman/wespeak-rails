@@ -1,6 +1,17 @@
-toolbar:
-  - bold italic underline | alignleft aligncenter alignright | link | fontsizeselect | fontselect
-plugins:
-  - link
-menubar: false
-statusbar: false
+default:
+  toolbar:
+    - bold italic underline | alignleft aligncenter alignright | link | fontsizeselect | fontselect
+  plugins:
+    - link
+  menubar: false
+  statusbar: false
+
+status_update:
+  toolbar:
+    - bold italic underline | alignleft aligncenter alignright | link | uploadimage | fontsizeselect | fontselect
+  plugins:
+    - link
+    - uploadimage
+  menubar: false
+  statusbar: false
+  relative_urls: false
