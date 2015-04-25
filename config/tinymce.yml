@@ -15,3 +15,4 @@ status_update:
   menubar: false
   statusbar: false
   relative_urls: false
+  height: 400px
