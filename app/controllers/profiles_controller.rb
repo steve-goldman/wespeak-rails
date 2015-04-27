@@ -32,6 +32,9 @@ class ProfilesController < GroupPagesControllerBase
       @info.make_member_active
       support = @statement.add_support(@info.user)
     end
+
+    # TODO: as a delayed job
+    @statement.to_voting(Time.zone.now) if @statement.supports.count >= @statement.support_needed
     
     respond_to do |format|
       format.html { redirect_to request.referer || root_url }

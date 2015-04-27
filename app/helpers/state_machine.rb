@@ -7,14 +7,14 @@ class StateMachine
     count
   end
 
-  def StateMachine.alive_to_voting(now)
-    statements = Statement
-                 .joins("INNER JOIN (SELECT statement_id, COUNT(*) AS c FROM supports GROUP BY statement_id) AS counts ON statements.id = counts.statement_id")
-                 .where("state = #{StatementStates[:alive]} AND c >= support_needed")
-    count = statements.count
-    statements.each { |statement| statement.to_voting(now) }
-    count
-  end
+  #def StateMachine.alive_to_voting(now)
+  #  statements = Statement
+  #               .joins("INNER JOIN (SELECT statement_id, COUNT(*) AS c FROM supports GROUP BY statement_id) AS counts ON statements.id = counts.statement_id")
+  #               .where("state = #{StatementStates[:alive]} AND c >= support_needed")
+  #  count = statements.count
+  #  statements.each { |statement| statement.to_voting(now) }
+  #  count
+  #end
 
   def StateMachine.new_to_discarded(now)
     statements = Statement.where("state = #{StatementStates[:new]} AND expires_at < :now", now: now)
