@@ -1,4 +1,4 @@
-<ul class="list-group">
+<ul id="statement-<%= statement.id %>" class="list-group">
   <li class="statement-item list-group-item">
     <div class="statement-header">
       <%= render('group_pages/statement_header', statement: statement) %>
@@ -13,7 +13,7 @@
           <%= render 'group_pages/statement_pointer', statement: statement %>
           
           <% if statement.type != :initial_statement %>
-          <div id="statement-stats-<%= statement.id %>" class="statement-stats">
+          <div class="statement-stats">
             <%= render('group_pages/statement_stats', statement: statement, group: group, info: info) %>
           </div>
           <% end %>
