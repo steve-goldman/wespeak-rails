@@ -26,3 +26,9 @@ task :state_transitions => :environment do
   now = Time.zone.now
   puts "#{now}: done"
 end
+
+task :new_stuff_reports => :environment do
+  now = Time.zone.now
+  Reports.new_users(now)
+  Reports.new_groups(now)
+end

@@ -1,0 +1,16 @@
+<p>
+  New users: <%= @new_users.count %>
+</p>
+
+<table>
+  <% @new_users.each do |user| %>
+  <tr>
+    <td>
+      <%= link_to user.name, show_user_url(user.name) %>
+    </td>
+    <td>
+      <%= user.created_at.strftime "%b %e %Y at %l:%M:%S %p" %>
+    </td>
+  </tr>
+  <% end %>
+</table>

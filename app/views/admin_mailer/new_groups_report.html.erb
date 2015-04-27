@@ -1,0 +1,26 @@
+<p>
+  New groups: <%= @new_groups.count %>
+</p>
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Created At</th>
+    <th>Activated</th>
+  </thead>
+  <tbody>
+    <% @new_groups.each do |group| %>
+    <tr>
+      <td>
+        <%= link_to group.name, group_profile_url(group.name) %>
+      </td>
+      <td>
+        <%= group.created_at.strftime "%b %e %Y at %l:%M:%S %p" %>
+      </td>
+      <td>
+        <%= group.active %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,9 @@
+New groups: <%= @new_groups.count %>
+
+<% @new_groups.each do |group| %>
+<%= group.name %>
+<%= group_profile_url(group.name) %>
+<%= group.created_at.strftime "%b %e %Y at %l:%M:%S %p" %>
+<%= group.active %>
+
+<% end %>
