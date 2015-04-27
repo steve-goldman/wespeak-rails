@@ -114,7 +114,9 @@ module Constants
     INACTIVITY_WARN_THRESHOLD = 25  # in percent
 
     def Timespans.time_ago(t, present: false)
-      if (Time.zone.now - t).abs < 7.days
+      if present && Time.zone.now > t
+        "momentarily"
+      elsif (Time.zone.now - t).abs < 7.days
         (present ? "in " : "") + ActionController::Base.helpers.time_ago_in_words(t) + (present ? "" : " ago")
       elsif t.year != Time.zone.now.year
         (present ? "on " : "") + t.strftime("%b %e, %Y")
