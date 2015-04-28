@@ -3,10 +3,10 @@ task :state_transitions => :environment do
   puts "#{now}: alive => dead..."
   count = StateMachine.alive_to_dead(now)
   puts "        #{count} to dead"
-  now = Time.zone.now
-  puts "#{now}: alive => voting..."
-  count = StateMachine.alive_to_voting(now)
-  puts "        #{count} to voting"
+  #now = Time.zone.now
+  #puts "#{now}: alive => voting..."
+  #count = StateMachine.alive_to_voting(now)
+  #puts "        #{count} to voting"
   now = Time.zone.now
   puts "#{now}: new => discarded..."
   count = StateMachine.new_to_discarded(now)
